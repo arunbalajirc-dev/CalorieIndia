@@ -26,34 +26,11 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
 
-    /* ── HEADER ── */
-    header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      height: 60px;
-      display: flex; align-items: center;
-    }
-    .header-inner {
-      max-width: 1200px; margin: 0 auto; padding: 0 24px;
-      width: 100%; display: flex; align-items: center; justify-content: space-between;
-    }
-    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-    .logo-dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; }
-    .logo span { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 16px; color: var(--text); }
-    nav { display: flex; gap: 28px; align-items: center; }
-    nav a { text-decoration: none; color: var(--text); font-size: 14px; font-weight: 400; transition: color .2s; }
-    nav a:hover { color: var(--green); }
-    .btn-cta {
-      background: var(--green); color: #fff; border: none; border-radius: 6px;
-      padding: 9px 18px; font-size: 14px; font-weight: 500; cursor: pointer;
-      text-decoration: none; transition: background .2s; white-space: nowrap;
-    }
-    .btn-cta:hover { background: var(--green-dark); }
+    /* ── HEADER handled by nav.html ── */
 
     /* ── HERO ── */
     .hero {
-      margin-top: 60px;
+      margin-top: 0;
       background: var(--bg);
       padding: 72px 24px 64px;
     }
@@ -211,29 +188,13 @@
       .blog-grid { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
       .meal-cta-inner { grid-template-columns: 1fr; }
-      nav { display: none; }
     }
   </style>
 </head>
 <body>
 
 <!-- ═══════════════════════════════════════ HEADER -->
-<header>
-  <div class="header-inner">
-    <a href="index.html" class="logo">
-      <div class="logo-dot"></div>
-      <span>CalorieIndia</span>
-    </a>
-    <nav>
-      <a href="calculator.html">Calculators</a>
-      <a href="weight-loss.html">Weight Loss</a>
-      <a href="indian-diet.html">Indian Diet</a>
-      <a href="pcos.html">PCOS</a>
-      <a href="blog.html">Blog</a>
-    </nav>
-    <a href="meal-plan.html" class="btn-cta">Get Free Meal Plan →</a>
-  </div>
-</header>
+<div id="site-nav"></div>
 
 <!-- ═══════════════════════════════════════ HERO -->
 <section class="hero">
@@ -490,6 +451,12 @@ function calcTDEE() {
   document.getElementById('res-goal').textContent = weeks + ' weeks';
 }
 calcTDEE();
+</script>
+
+<script>
+  fetch('nav.html')
+    .then(r => r.text())
+    .then(h => document.getElementById('site-nav').innerHTML = h);
 </script>
 
 </body>

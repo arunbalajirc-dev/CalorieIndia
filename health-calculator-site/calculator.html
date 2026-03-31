@@ -53,7 +53,8 @@
 <body>
 <div class="page-wrap">
 
-<!-- Header injected by shared.js -->
+<!-- Header -->
+<div id="site-nav"></div>
 
 <div class="page-hero">
   <div class="page-hero-inner">
@@ -230,6 +231,11 @@
 <!-- Footer injected by shared.js -->
 </div>
 <script src="shared.js"></script>
+<script>
+  fetch('nav.html')
+    .then(r => r.text())
+    .then(h => document.getElementById('site-nav').innerHTML = h);
+</script>
 <script>
 function show(id){ document.getElementById(id).classList.add('show'); }
 
