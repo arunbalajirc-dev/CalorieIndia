@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDEE Calculator India – Total Daily Energy Expenditure for Indians</title>
+  <meta name="description" content="Calculate your TDEE (Total Daily Energy Expenditure) accurately. Free TDEE calculator built for Indian body types. Know how many calories you burn daily and plan weight loss or weight gain.">
+  <meta name="keywords" content="TDEE calculator India, total daily energy expenditure, calorie calculator India, how many calories should I eat, BMR calculator India, weight loss calories India">
+  <link rel="canonical" href="https://arunbalajirc-dev.github.io/CalorieIndia/health-calculator-site/tdee-calculator.html">
+  <meta property="og:title" content="TDEE Calculator India – Know Your Daily Calorie Needs">
+  <meta property="og:description" content="Free TDEE calculator for Indians. Find out exactly how many calories your body burns every day based on your activity level.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --fire: #ff5722;
+      --fire-light: #ff8a65;
+      --fire-dim: #fff3e0;
+      --dark: #1a1a1a;
+      --mid: #444;
+      --soft: #777;
+      --border: #e8e8e8;
+      --bg: #fafaf8;
+      --white: #ffffff;
+      --green: #2e7d32;
+      --green-light: #e8f5e9;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.7; }
+    a { color: var(--fire); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav { background: var(--white); border-bottom: 2px solid var(--fire); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--fire); }
+    .nav-links { display: flex; gap: 24px; font-size: 0.85rem; font-weight: 500; }
+    .nav-links a { color: var(--mid); }
+    .nav-links a:hover { color: var(--fire); text-decoration: none; }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #1a1a1a 0%, #3d1a10 100%); color: white; padding: 64px 5% 48px; text-align: center; }
+    .hero-emoji { font-size: 3rem; margin-bottom: 16px; display: block; }
+    .hero h1 { font-family: 'Sora', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 16px; }
+    .hero h1 span { color: var(--fire-light); }
+    .hero p { font-size: 1.1rem; opacity: 0.85; max-width: 600px; margin: 0 auto 32px; }
+    .breadcrumb { font-size: 0.8rem; opacity: 0.6; margin-bottom: 24px; }
+    .breadcrumb a { color: rgba(255,255,255,0.7); }
+
+    /* CALCULATOR CARD */
+    .calc-section { padding: 48px 5%; max-width: 860px; margin: 0 auto; }
+    .calc-card { background: var(--white); border-radius: 16px; box-shadow: 0 4px 40px rgba(0,0,0,0.10); padding: 40px; border-top: 4px solid var(--fire); }
+    .calc-card h2 { font-family: 'Sora', sans-serif; font-size: 1.4rem; margin-bottom: 28px; color: var(--dark); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media(max-width:600px){ .form-grid { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 0.85rem; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.05em; }
+    input, select { padding: 12px 16px; border: 2px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--dark); background: var(--bg); transition: border-color 0.2s; }
+    input:focus, select:focus { outline: none; border-color: var(--fire); }
+    .calc-btn { margin-top: 28px; width: 100%; padding: 16px; background: var(--fire); color: white; border: none; border-radius: 10px; font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .calc-btn:hover { background: #e64a19; transform: translateY(-1px); }
+    .results { margin-top: 32px; display: none; }
+    .results.show { display: block; }
+    .result-main { background: var(--fire-dim); border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 20px; }
+    .result-main .label { font-size: 0.85rem; color: var(--soft); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .result-main .value { font-family: 'Sora', sans-serif; font-size: 3rem; font-weight: 800; color: var(--fire); line-height: 1.1; }
+    .result-main .sub { font-size: 0.9rem; color: var(--mid); margin-top: 4px; }
+    .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media(max-width:500px){ .result-grid { grid-template-columns: 1fr; } }
+    .result-box { background: var(--white); border: 2px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+    .result-box .r-label { font-size: 0.75rem; color: var(--soft); font-weight: 600; text-transform: uppercase; }
+    .result-box .r-val { font-family: 'Sora', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--dark); }
+    .result-box .r-sub { font-size: 0.78rem; color: var(--soft); }
+    .result-box.green { border-color: #a5d6a7; background: var(--green-light); }
+    .result-box.green .r-val { color: var(--green); }
+
+    /* CONTENT */
+    .content-wrap { max-width: 860px; margin: 0 auto; padding: 0 5% 64px; }
+    .section { margin-top: 56px; }
+    .section h2 { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 16px; color: var(--dark); padding-bottom: 10px; border-bottom: 2px solid var(--fire-dim); }
+    .section h3 { font-family: 'Sora', sans-serif; font-size: 1.15rem; font-weight: 700; margin: 28px 0 10px; color: var(--dark); }
+    .section p { margin-bottom: 16px; color: var(--mid); font-size: 1rem; }
+    .highlight-box { background: var(--fire-dim); border-left: 4px solid var(--fire); border-radius: 0 10px 10px 0; padding: 20px 24px; margin: 24px 0; }
+    .highlight-box strong { color: var(--fire); }
+    .formula-box { background: var(--dark); color: #f0e6d3; border-radius: 12px; padding: 24px; margin: 20px 0; font-family: monospace; font-size: 0.95rem; line-height: 1.8; }
+    .formula-box .formula-title { font-family: 'Sora', sans-serif; color: var(--fire-light); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
+    th { background: var(--dark); color: white; padding: 12px 16px; text-align: left; font-family: 'Sora', sans-serif; font-size: 0.85rem; }
+    td { padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--mid); }
+    tr:nth-child(even) td { background: var(--bg); }
+    .faq-item { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+    .faq-q { padding: 18px 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: var(--white); font-size: 0.95rem; }
+    .faq-q:hover { background: var(--fire-dim); }
+    .faq-a { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s; color: var(--mid); font-size: 0.95rem; }
+    .faq-a.open { max-height: 300px; padding: 0 20px 18px; }
+    .faq-icon { font-size: 1.2rem; transition: transform 0.3s; color: var(--fire); }
+    .faq-icon.open { transform: rotate(45deg); }
+    .steps { counter-reset: step; }
+    .step { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
+    .step-num { background: var(--fire); color: white; font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-body h4 { font-family: 'Sora', sans-serif; font-size: 1rem; margin-bottom: 4px; }
+    .step-body p { margin: 0; font-size: 0.95rem; }
+    .cta-bar { background: linear-gradient(135deg, var(--fire), #c62828); border-radius: 16px; padding: 40px; text-align: center; margin: 48px 0; color: white; }
+    .cta-bar h3 { font-family: 'Sora', sans-serif; font-size: 1.5rem; margin-bottom: 10px; }
+    .cta-bar p { opacity: 0.9; margin-bottom: 24px; }
+    .cta-bar a { background: white; color: var(--fire); padding: 12px 28px; border-radius: 8px; font-weight: 700; font-family: 'Sora', sans-serif; display: inline-block; }
+    footer { background: var(--dark); color: rgba(255,255,255,0.6); text-align: center; padding: 32px 5%; font-size: 0.85rem; }
+    footer a { color: var(--fire-light); }
+
+    /* Schema markup helper */
+    .schema-hidden { display: none; }
+  </style>
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "TDEE Calculator India",
+    "description": "Free Total Daily Energy Expenditure calculator for Indians. Calculate your daily calorie needs for weight loss, maintenance, or muscle gain.",
+    "url": "https://arunbalajirc-dev.github.io/CalorieIndia/health-calculator-site/tdee-calculator.html",
+    "mainEntity": {
+      "@type": "SoftwareApplication",
+      "name": "TDEE Calculator",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Web"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is TDEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TDEE stands for Total Daily Energy Expenditure. It is the total number of calories your body burns in a day, including your Basal Metabolic Rate (BMR) plus all calories burned through physical activity and digestion."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use TDEE for weight loss?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To lose weight, eat 300–500 calories below your TDEE. This creates a calorie deficit that causes your body to use stored fat for energy, resulting in gradual, sustainable weight loss."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is TDEE different for Indians?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The TDEE formula is universal, but Indians on average have a slightly lower muscle mass and higher body fat percentage at the same BMI compared to Western populations. This can make the actual calorie requirement slightly lower than standard Western estimates."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🔥 CalorieIndia</div>
+  <div class="nav-links">
+    <a href="calculator.html">All Calculators</a>
+    <a href="bmi-calculator.html">BMI</a>
+    <a href="macro-calculator.html">Macros</a>
+    <a href="calorie-deficit-calculator.html">Deficit</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="breadcrumb"><a href="calculator.html">Home</a> › TDEE Calculator</div>
+  <span class="hero-emoji">🔥</span>
+  <h1>TDEE Calculator <span>for Indians</span></h1>
+  <p>Find out exactly how many calories your body burns every day — and use that number to lose weight, gain muscle, or simply eat right.</p>
+</div>
+
+<section class="calc-section">
+  <div class="calc-card">
+    <h2>Calculate Your Total Daily Energy Expenditure</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Age (years)</label>
+        <input type="number" id="age" placeholder="e.g. 28" min="10" max="100">
+      </div>
+      <div class="form-group">
+        <label>Gender</label>
+        <select id="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Weight (kg)</label>
+        <input type="number" id="weight" placeholder="e.g. 70" min="30" max="200">
+      </div>
+      <div class="form-group">
+        <label>Height (cm)</label>
+        <input type="number" id="height" placeholder="e.g. 170" min="100" max="230">
+      </div>
+      <div class="form-group full">
+        <label>Activity Level</label>
+        <select id="activity">
+          <option value="1.2">Sedentary – desk job, little or no exercise</option>
+          <option value="1.375">Lightly active – exercise 1–3 days/week</option>
+          <option value="1.55" selected>Moderately active – exercise 3–5 days/week</option>
+          <option value="1.725">Very active – exercise 6–7 days/week</option>
+          <option value="1.9">Super active – physical job + daily exercise</option>
+        </select>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcTDEE()">Calculate My TDEE →</button>
+    <div class="results" id="results">
+      <div class="result-main">
+        <div class="label">Your Daily TDEE (Maintenance Calories)</div>
+        <div class="value" id="tdee-val">—</div>
+        <div class="sub">calories per day to maintain your current weight</div>
+      </div>
+      <div class="result-grid">
+        <div class="result-box">
+          <div class="r-label">BMR</div>
+          <div class="r-val" id="bmr-val">—</div>
+          <div class="r-sub">calories at rest</div>
+        </div>
+        <div class="result-box green">
+          <div class="r-label">Lose 0.5 kg/week</div>
+          <div class="r-val" id="lose-val">—</div>
+          <div class="r-sub">−500 cal/day deficit</div>
+        </div>
+        <div class="result-box">
+          <div class="r-label">Gain 0.5 kg/week</div>
+          <div class="r-val" id="gain-val">—</div>
+          <div class="r-sub">+500 cal/day surplus</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="content-wrap">
+
+  <div class="section">
+    <h2>What is TDEE? A Complete Guide</h2>
+    <p><strong>TDEE (Total Daily Energy Expenditure)</strong> is the total number of calories your body burns in a 24-hour period. It's the single most important number for anyone who wants to manage their weight — whether you want to lose fat, build muscle, or simply maintain your current body weight.</p>
+    <p>Think of your TDEE as your body's daily energy budget. Every calorie you eat either goes toward fuelling your body (matching your TDEE) or becomes a surplus (stored as fat) or a deficit (burned from stored fat). Getting this number right is the foundation of any successful diet plan.</p>
+    <div class="highlight-box">
+      <strong>The Simple Rule:</strong> Eat at TDEE → Maintain weight. Eat below TDEE → Lose weight. Eat above TDEE → Gain weight. That's literally all nutrition science boils down to.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>How is TDEE Calculated? The Science Behind It</h2>
+    <p>Your TDEE is calculated in two steps: first your BMR, then multiplied by an activity factor.</p>
+
+    <h3>Step 1: Calculate BMR (Basal Metabolic Rate)</h3>
+    <p>BMR is the number of calories your body needs just to stay alive — breathing, pumping blood, maintaining body temperature — if you were to rest in bed all day. We use the <strong>Mifflin-St Jeor equation</strong>, which is the most accurate formula for most people:</p>
+    <div class="formula-box">
+      <div class="formula-title">Mifflin-St Jeor Equation</div>
+      For Men:<br>
+      BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age) + 5<br><br>
+      For Women:<br>
+      BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age) − 161
+    </div>
+
+    <h3>Step 2: Multiply by Activity Multiplier</h3>
+    <p>Your BMR is then multiplied by an activity factor to account for how much energy you spend moving, exercising, and working:</p>
+    <table>
+      <thead><tr><th>Activity Level</th><th>Multiplier</th><th>Who This Fits</th></tr></thead>
+      <tbody>
+        <tr><td>Sedentary</td><td>1.2×</td><td>Office jobs, minimal walking, no exercise</td></tr>
+        <tr><td>Lightly Active</td><td>1.375×</td><td>Light exercise 1–3 days/week, some daily walking</td></tr>
+        <tr><td>Moderately Active</td><td>1.55×</td><td>Gym 3–5 days/week, active lifestyle</td></tr>
+        <tr><td>Very Active</td><td>1.725×</td><td>Hard exercise 6–7 days/week, physically demanding job</td></tr>
+        <tr><td>Super Active</td><td>1.9×</td><td>Athlete-level training, physically intense occupation</td></tr>
+      </tbody>
+    </table>
+    <p>Most working Indians fall in the <strong>Sedentary to Lightly Active</strong> range — especially those in IT, education, or office-based roles. Don't overestimate your activity level; this is the most common mistake people make.</p>
+  </div>
+
+  <div class="section">
+    <h2>What Are Calories and Why Do They Matter?</h2>
+    <p>A <strong>calorie</strong> is a unit of energy. In nutrition, when we say "1 calorie," we technically mean 1 kilocalorie (kcal) — the energy needed to raise 1 litre of water by 1°C. Every food you eat contains calories (energy), and your body uses those calories to power everything you do.</p>
+
+    <h3>Where Do Calories in Food Come From?</h3>
+    <table>
+      <thead><tr><th>Macronutrient</th><th>Calories per gram</th><th>Common Indian Sources</th></tr></thead>
+      <tbody>
+        <tr><td>Carbohydrates</td><td>4 kcal/g</td><td>Rice, roti, dosa, poha, bread</td></tr>
+        <tr><td>Protein</td><td>4 kcal/g</td><td>Dal, paneer, chicken, eggs, curd</td></tr>
+        <tr><td>Fat</td><td>9 kcal/g</td><td>Ghee, oil, nuts, coconut</td></tr>
+        <tr><td>Alcohol</td><td>7 kcal/g</td><td>Beer, whisky, wine</td></tr>
+        <tr><td>Fibre / Water</td><td>~0 kcal/g</td><td>Vegetables, salads</td></tr>
+      </tbody>
+    </table>
+    <p>This is why fat is the most calorie-dense nutrient — 1 tablespoon of ghee has more calories than 2 cups of cooked dal. It also explains why Indian diets, rich in rice, ghee, and fried snacks, can be calorie-dense without seeming like "a lot of food."</p>
+  </div>
+
+  <div class="section">
+    <h2>TDEE and Weight Loss: How to Use This Number</h2>
+    <p>Once you know your TDEE, you have a precise target for your calorie intake. Here's how to use it:</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Calculate your TDEE</h4><p>Use the calculator above. This is your maintenance number — eating this many calories keeps your weight stable.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Choose your goal and set a deficit or surplus</h4><p>For weight loss: subtract 300–500 calories from TDEE. For muscle gain: add 200–300 calories. For maintenance: eat at TDEE.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Track your food for 2–3 weeks</h4><p>Use an app like HealthifyMe or Cronometer to log meals. Indian food databases are now very comprehensive.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Adjust based on real results</h4><p>If you're not losing weight after 2 weeks, reduce by another 100–150 calories. TDEE is an estimate — your body may vary.</p></div></div>
+    </div>
+
+    <h3>How Much Weight Can You Lose?</h3>
+    <table>
+      <thead><tr><th>Daily Deficit</th><th>Weekly Loss</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>250 kcal/day</td><td>~0.25 kg</td><td>Very sustainable, ideal for beginners</td></tr>
+        <tr><td>500 kcal/day</td><td>~0.5 kg</td><td>Recommended sweet spot</td></tr>
+        <tr><td>750 kcal/day</td><td>~0.75 kg</td><td>Aggressive but doable for overweight individuals</td></tr>
+        <tr><td>1000 kcal/day</td><td>~1 kg</td><td>Only for supervised weight loss; risk of muscle loss</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box">
+      <strong>Tip for Indians:</strong> 0.5 kg/week is the gold standard. Faster loss often leads to muscle loss, metabolic adaptation, and the dreaded weight regain. Slow and steady wins here.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>TDEE and Weight Gain / Muscle Building</h2>
+    <p>If you want to build muscle, you need to eat <em>above</em> your TDEE — this is called a <strong>calorie surplus</strong>. However, a large surplus doesn't mean faster muscle gain; it just means more fat gain. Aim for a modest surplus of 200–350 kcal/day if you're a natural lifter.</p>
+    <p>For Indians following a vegetarian diet, muscle building requires deliberate attention to protein. Most Indians eating a standard diet consume only 30–50g of protein per day — far below the 1.6–2.2g/kg recommended for muscle growth. Your TDEE determines your total calories, but protein intake determines how much of your weight gain is actually muscle.</p>
+  </div>
+
+  <div class="section">
+    <h2>Why TDEE Varies Between Individuals</h2>
+    <p>Two people of the same height, weight, and age can have meaningfully different TDEEs. The key factors:</p>
+    <h3>Muscle Mass</h3>
+    <p>Muscle burns 3× more calories at rest than fat tissue. A person with more muscle has a higher BMR and therefore a higher TDEE. This is why resistance training is the best long-term strategy — it raises your TDEE permanently.</p>
+    <h3>Thyroid Function</h3>
+    <p>Hypothyroidism (underactive thyroid) is very common in India, especially among women, and can reduce BMR by 15–20%. If you're eating well below your calculated TDEE and still not losing weight, a thyroid test is a good idea.</p>
+    <h3>Age</h3>
+    <p>BMR drops roughly 1–2% per decade after age 20, largely due to gradual muscle loss (sarcopenia). This is why staying active and eating enough protein becomes increasingly important as you age.</p>
+    <h3>NEAT (Non-Exercise Activity Thermogenesis)</h3>
+    <p>NEAT is the energy burned from all non-exercise movement — walking to the kitchen, fidgeting, cleaning, commuting. It can vary by 600–800 kcal/day between individuals and is a huge hidden factor in TDEE. People who are naturally fidgety or who walk a lot burn significantly more calories without "working out."</p>
+  </div>
+
+  <div class="section">
+    <h2>TDEE for Common Indian Lifestyles</h2>
+    <table>
+      <thead><tr><th>Profile</th><th>Approx. TDEE</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>25-yr male, 70 kg, IT job, no gym</td><td>~1900–2000 kcal</td><td>Sedentary multiplier</td></tr>
+        <tr><td>25-yr female, 58 kg, IT job, no gym</td><td>~1550–1650 kcal</td><td>Sedentary multiplier</td></tr>
+        <tr><td>30-yr male, 75 kg, IT job + gym 4x/week</td><td>~2500–2650 kcal</td><td>Moderately active</td></tr>
+        <tr><td>30-yr female, 62 kg, teacher + walks daily</td><td>~1900–2050 kcal</td><td>Lightly to moderately active</td></tr>
+        <tr><td>35-yr male, 80 kg, field sales job</td><td>~2600–2800 kcal</td><td>Very active</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cta-bar">
+    <h3>Ready to Take Action?</h3>
+    <p>Use our Calorie Deficit Calculator to get your exact weight loss target based on your TDEE.</p>
+    <a href="calorie-deficit-calculator.html">Try Deficit Calculator →</a>
+  </div>
+
+  <div class="section">
+    <h2>Frequently Asked Questions About TDEE</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">What is the difference between BMR and TDEE? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>BMR (Basal Metabolic Rate) is the calories your body burns at complete rest — just keeping your organs running. TDEE is BMR multiplied by your activity level. TDEE is always higher than BMR and is the more practical number for planning your diet.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">How accurate is the TDEE calculator? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>The Mifflin-St Jeor formula used here has about ±10% accuracy for most people. It's an estimate, not an exact measure. Track your weight for 2–3 weeks while eating at your calculated TDEE, then adjust based on what actually happens. This empirical approach is more reliable than any formula alone.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Should I eat my TDEE calories on rest days? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Your TDEE already accounts for your weekly average activity. You don't need to eat less on rest days unless you calculated using a very high activity multiplier. Overly cutting calories on rest days can actually impair muscle recovery. Many people eat roughly the same calories every day for simplicity.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Why is my actual weight loss slower than my calorie deficit predicts? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Several reasons: water retention (especially early on), the body's metabolic adaptation to lower calorie intake, slight inaccuracies in food tracking, and the fact that 0.5 kg of body weight is not exactly 3,500 kcal of pure fat. Be patient — consistent 4-week trends matter more than weekly fluctuations.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Can I use TDEE for a vegetarian Indian diet? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Absolutely. TDEE is calorie-based, not diet-specific. Whether you're vegetarian or non-vegetarian, the total calorie target stays the same. The key difference is that vegetarians need to be more intentional about protein — combining dal, paneer, curd, tofu, and legumes to hit protein goals.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">How often should I recalculate my TDEE? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Recalculate every 4–6 weeks during a weight loss phase, or whenever your weight changes by more than 3–4 kg. As you lose weight, your BMR decreases (you're a smaller body burning less), so your calorie target must adjust downward.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Is TDEE different for Indians compared to Western populations? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>The formula is the same, but on average Indians tend to have a higher body fat percentage at the same BMI compared to Caucasians. This means the activity multiplier may slightly overestimate actual TDEE for some Indians. Starting conservatively (e.g., one step lower on the activity scale) and adjusting empirically is a good approach.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 CalorieIndia — Free health calculators for Indians. | <a href="calculator.html">All Calculators</a></p>
+  <p style="margin-top:8px; font-size:0.8rem;">This tool is for informational purposes only. Consult a registered dietitian for personalised advice.</p>
+</footer>
+
+<script>
+function calcTDEE() {
+  const age = parseFloat(document.getElementById('age').value);
+  const gender = document.getElementById('gender').value;
+  const weight = parseFloat(document.getElementById('weight').value);
+  const height = parseFloat(document.getElementById('height').value);
+  const activity = parseFloat(document.getElementById('activity').value);
+  if (!age || !weight || !height) { alert('Please fill all fields.'); return; }
+  let bmr = gender === 'male'
+    ? (10 * weight) + (6.25 * height) - (5 * age) + 5
+    : (10 * weight) + (6.25 * height) - (5 * age) - 161;
+  const tdee = Math.round(bmr * activity);
+  bmr = Math.round(bmr);
+  document.getElementById('bmr-val').textContent = bmr;
+  document.getElementById('tdee-val').textContent = tdee;
+  document.getElementById('lose-val').textContent = tdee - 500;
+  document.getElementById('gain-val').textContent = tdee + 500;
+  const r = document.getElementById('results');
+  r.classList.add('show');
+  r.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function toggleFAQ(el) {
+  const answer = el.nextElementSibling;
+  const icon = el.querySelector('.faq-icon');
+  answer.classList.toggle('open');
+  icon.classList.toggle('open');
+}
+</script>
+</body>
+</html>

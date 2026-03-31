@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calorie Deficit Calculator India – How Many Calories to Eat for Weight Loss</title>
+  <meta name="description" content="Calculate your exact calorie deficit for weight loss. Find how many calories you should eat per day to lose 0.5kg or 1kg per week safely. Free calorie deficit calculator for Indians.">
+  <meta name="keywords" content="calorie deficit calculator India, how many calories to lose weight India, weight loss calorie calculator, calorie deficit for weight loss, how to lose weight calories India">
+  <link rel="canonical" href="https://arunbalajirc-dev.github.io/CalorieIndia/health-calculator-site/calorie-deficit-calculator.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --purple:#6200ea; --purple-light:#b388ff; --purple-dim:#ede7f6; --dark:#1a1a1a; --mid:#444; --soft:#777; --border:#e8e8e8; --bg:#fafafa; --white:#fff; --green:#2e7d32; --green-bg:#e8f5e9; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--dark);line-height:1.7;}
+    a{color:var(--purple);text-decoration:none;}
+    nav{background:var(--white);border-bottom:2px solid var(--purple);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;}
+    .nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.2rem;color:#ff5722;}
+    .nav-links{display:flex;gap:24px;font-size:.85rem;font-weight:500;}
+    .nav-links a{color:var(--mid);}
+    .hero{background:linear-gradient(135deg,#1a0038 0%,#4a0080 100%);color:white;padding:64px 5% 48px;text-align:center;}
+    .hero-emoji{font-size:3rem;margin-bottom:16px;display:block;}
+    .hero h1{font-family:'Sora',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:16px;}
+    .hero h1 span{color:var(--purple-light);}
+    .hero p{font-size:1.1rem;opacity:.85;max-width:600px;margin:0 auto;}
+    .breadcrumb{font-size:.8rem;opacity:.6;margin-bottom:24px;}
+    .breadcrumb a{color:rgba(255,255,255,.7);}
+    .calc-section{padding:48px 5%;max-width:860px;margin:0 auto;}
+    .calc-card{background:var(--white);border-radius:16px;box-shadow:0 4px 40px rgba(0,0,0,.1);padding:40px;border-top:4px solid var(--purple);}
+    .calc-card h2{font-family:'Sora',sans-serif;font-size:1.4rem;margin-bottom:28px;}
+    .form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;}
+    label{font-size:.85rem;font-weight:600;color:var(--mid);text-transform:uppercase;letter-spacing:.05em;}
+    input,select{padding:12px 16px;border:2px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:1rem;background:var(--bg);transition:border-color .2s;}
+    input:focus,select:focus{outline:none;border-color:var(--purple);}
+    .calc-btn{margin-top:12px;width:100%;padding:16px;background:var(--purple);color:white;border:none;border-radius:10px;font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;cursor:pointer;transition:background .2s;}
+    .calc-btn:hover{background:#5000c9;}
+    .results{margin-top:32px;display:none;}
+    .results.show{display:block;}
+    .result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px;}
+    @media(max-width:500px){.result-grid{grid-template-columns:1fr;}}
+    .r-box{border-radius:12px;padding:20px;text-align:center;}
+    .r-box .r-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:8px;}
+    .r-box .r-val{font-family:'Sora',sans-serif;font-size:2.2rem;font-weight:800;}
+    .r-box .r-sub{font-size:.8rem;margin-top:4px;}
+    .r-box.main{background:var(--purple-dim);grid-column:1/-1;}
+    .r-box.main .r-val{color:var(--purple);font-size:3rem;}
+    .r-box.green{background:var(--green-bg);}
+    .r-box.green .r-val{color:var(--green);}
+    .timeline{background:#f8f4ff;border-radius:12px;padding:20px 24px;margin-top:16px;}
+    .timeline h4{font-family:'Sora',sans-serif;font-size:.95rem;margin-bottom:12px;color:var(--purple);}
+    .tl-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e1d5f5;font-size:.9rem;}
+    .tl-row:last-child{border-bottom:none;}
+    .tl-row strong{color:var(--dark);}
+    .content-wrap{max-width:860px;margin:0 auto;padding:0 5% 64px;}
+    .section{margin-top:56px;}
+    .section h2{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--purple-dim);}
+    .section h3{font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:700;margin:28px 0 10px;}
+    .section p{margin-bottom:16px;color:var(--mid);}
+    .highlight-box{background:var(--purple-dim);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:20px 24px;margin:24px 0;}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.95rem;}
+    th{background:var(--dark);color:white;padding:12px 16px;text-align:left;font-family:'Sora',sans-serif;font-size:.85rem;}
+    td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--mid);}
+    tr:nth-child(even) td{background:var(--bg);}
+    .warning-box{background:#fff3e0;border-left:4px solid #f57c00;border-radius:0 10px 10px 0;padding:20px 24px;margin:24px 0;}
+    .faq-item{border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;}
+    .faq-q{padding:18px 20px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--white);font-size:.95rem;}
+    .faq-q:hover{background:var(--purple-dim);}
+    .faq-a{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s;color:var(--mid);font-size:.95rem;}
+    .faq-a.open{max-height:300px;padding:0 20px 18px;}
+    .faq-icon{font-size:1.2rem;transition:transform .3s;color:var(--purple);}
+    .faq-icon.open{transform:rotate(45deg);}
+    .cta-bar{background:linear-gradient(135deg,var(--purple),#1a0038);border-radius:16px;padding:40px;text-align:center;margin:48px 0;color:white;}
+    .cta-bar h3{font-family:'Sora',sans-serif;font-size:1.5rem;margin-bottom:10px;}
+    .cta-bar a{background:white;color:var(--purple);padding:12px 28px;border-radius:8px;font-weight:700;font-family:'Sora',sans-serif;display:inline-block;margin-top:16px;}
+    footer{background:var(--dark);color:rgba(255,255,255,.6);text-align:center;padding:32px 5%;font-size:.85rem;}
+    footer a{color:var(--purple-light);}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">🔥 CalorieIndia</div>
+  <div class="nav-links">
+    <a href="calculator.html">All Calculators</a>
+    <a href="tdee-calculator.html">TDEE</a>
+    <a href="macro-calculator.html">Macros</a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="breadcrumb"><a href="calculator.html">Home</a> › Calorie Deficit Calculator</div>
+  <span class="hero-emoji">🧮</span>
+  <h1>Calorie Deficit <span>Calculator</span></h1>
+  <p>Enter your TDEE and weight loss goal to find your exact daily calorie target — with a realistic timeline for reaching your goal weight.</p>
+</div>
+<section class="calc-section">
+  <div class="calc-card">
+    <h2>Find Your Daily Calorie Target</h2>
+    <div class="form-group">
+      <label>Your TDEE (calories/day)</label>
+      <input type="number" id="tdee" placeholder="e.g. 2100 — use TDEE calculator above" min="1000" max="5000">
+    </div>
+    <div class="form-group">
+      <label>Weight Loss Goal</label>
+      <select id="goal">
+        <option value="250">Slow — 0.25 kg/week (most sustainable)</option>
+        <option value="500" selected>Moderate — 0.5 kg/week (recommended)</option>
+        <option value="750">Fast — 0.75 kg/week</option>
+        <option value="1000">Aggressive — 1 kg/week (use caution)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Kg to Lose (optional — for timeline)</label>
+      <input type="number" id="kg-to-lose" placeholder="e.g. 10" min="0.5" max="100">
+    </div>
+    <button class="calc-btn" onclick="calcDeficit()">Calculate My Target →</button>
+    <div class="results" id="results">
+      <div class="result-grid">
+        <div class="r-box main">
+          <div class="r-label">Daily Calorie Target</div>
+          <div class="r-val" id="target-val">—</div>
+          <div class="r-sub" id="target-sub">—</div>
+        </div>
+        <div class="r-box" style="background:#f3e5f5;">
+          <div class="r-label" style="color:#6a1b9a;">Daily Deficit</div>
+          <div class="r-val" id="deficit-val" style="color:#6a1b9a;">—</div>
+          <div class="r-sub" style="color:#888;">calories below TDEE</div>
+        </div>
+        <div class="r-box green">
+          <div class="r-label">Weekly Loss</div>
+          <div class="r-val" id="weekly-val">—</div>
+          <div class="r-sub">kg per week</div>
+        </div>
+      </div>
+      <div class="timeline" id="timeline" style="display:none;">
+        <h4>📅 Your Weight Loss Timeline</h4>
+        <div id="timeline-rows"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="content-wrap">
+  <div class="section">
+    <h2>What is a Calorie Deficit?</h2>
+    <p>A <strong>calorie deficit</strong> means you are consuming fewer calories than your body burns each day. Your body needs energy to function, and when it doesn't get enough from food, it turns to stored body fat to make up the difference — this is how weight loss happens.</p>
+    <p>The math is straightforward: approximately 7,700 calories of deficit equals roughly 1 kg of fat loss. So a consistent deficit of 500 calories per day produces about 0.5 kg of weight loss per week. This is known as the "energy balance" model of weight management, and while it has some nuances, it holds up extremely well in clinical practice.</p>
+    <div style="background:var(--dark);color:#ede7f6;border-radius:12px;padding:24px;margin:20px 0;font-family:monospace;font-size:1rem;text-align:center;line-height:2;">
+      Daily Calorie Target = TDEE − Deficit<br>
+      Weight Loss Rate = Deficit ÷ 7,700 kg per week
+    </div>
+  </div>
+  <div class="section">
+    <h2>How Much Deficit Should You Create?</h2>
+    <table>
+      <thead><tr><th>Deficit Level</th><th>Daily Deficit</th><th>Expected Loss</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td>Conservative</td><td>250 kcal/day</td><td>~0.25 kg/week</td><td>Beginners, people close to goal weight</td></tr>
+        <tr><td>Moderate ✓</td><td>500 kcal/day</td><td>~0.5 kg/week</td><td>Most people — best balance of results + sustainability</td></tr>
+        <tr><td>Aggressive</td><td>750 kcal/day</td><td>~0.75 kg/week</td><td>Significantly overweight, short-term use</td></tr>
+        <tr><td>Very Aggressive</td><td>1000 kcal/day</td><td>~1 kg/week</td><td>Medically supervised only; high muscle loss risk</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box">
+      <strong>The sweet spot for most Indians:</strong> A 400–500 kcal/day deficit. This is aggressive enough to produce visible results within a month, yet sustainable enough that you don't lose significant muscle or feel miserable.
+    </div>
+    <div class="warning-box">
+      <strong>⚠️ Warning:</strong> Do not go below 1200 kcal/day (women) or 1400 kcal/day (men). Very low calorie diets cause significant muscle loss, nutrient deficiencies, extreme fatigue, and often lead to "rebound" weight gain when normal eating resumes.
+    </div>
+  </div>
+  <div class="section">
+    <h2>How to Create a Calorie Deficit Through Indian Food</h2>
+    <p>You don't need to eat bland food or give up rice to create a calorie deficit. The key is understanding where calories are hiding in typical Indian meals and making smart swaps:</p>
+    <h3>High-Calorie Culprits in Indian Cooking</h3>
+    <table>
+      <thead><tr><th>Food / Habit</th><th>Calories</th><th>Smart Swap</th><th>Saved</th></tr></thead>
+      <tbody>
+        <tr><td>2 tbsp ghee in dal</td><td>240 kcal</td><td>1 tsp ghee for flavour</td><td>180 kcal</td></tr>
+        <tr><td>Deep-fried samosa (2 pcs)</td><td>300 kcal</td><td>Baked or air-fried version</td><td>150 kcal</td></tr>
+        <tr><td>Full-fat paneer (100g)</td><td>265 kcal</td><td>Low-fat paneer (100g)</td><td>80 kcal</td></tr>
+        <tr><td>Coconut milk curry (1 bowl)</td><td>250 kcal</td><td>Tomato-based gravy</td><td>120 kcal</td></tr>
+        <tr><td>White rice (2 cups cooked)</td><td>420 kcal</td><td>1 cup rice + 1 cup dal</td><td>100 kcal</td></tr>
+        <tr><td>Masala chai with 2 tsp sugar (3x/day)</td><td>120 kcal</td><td>1 tsp sugar, less milk</td><td>60 kcal</td></tr>
+      </tbody>
+    </table>
+    <h3>Volume Eating: Indian Foods That Fill You Up for Few Calories</h3>
+    <p>The secret weapon of sustainable calorie deficits is <strong>volume eating</strong> — eating large quantities of low-calorie, high-fibre, high-water foods. In Indian cuisine, excellent choices include:</p>
+    <p>Buttermilk (chaas) — only 35 kcal per glass. Moong dal — 100 kcal per 100g cooked and very filling. All sabzis (vegetable dishes made with less oil) — typically 60–100 kcal per serving. Cucumber raita — 50–70 kcal per bowl. Sprouts chaat — 120 kcal and packed with protein and fibre.</p>
+  </div>
+  <div class="section">
+    <h2>Calorie Deficit and Exercise</h2>
+    <p>You can create a calorie deficit through diet alone, exercise alone, or a combination. Research consistently shows that <strong>diet is more powerful than exercise for creating a calorie deficit</strong> — it's much easier to not eat 500 calories than to burn 500 calories through exercise. However, exercise has crucial benefits that go beyond calorie burning:</p>
+    <h3>Why Exercise Still Matters Even If You Diet</h3>
+    <p><strong>Preserves muscle during weight loss.</strong> Without resistance training, 25–35% of weight lost in a deficit comes from muscle. With strength training, this drops to under 10%. Protecting muscle keeps your metabolism higher.</p>
+    <p><strong>Improves insulin sensitivity.</strong> Both cardio and resistance training make cells more responsive to insulin — critical for Indians who have high genetic risk for Type 2 diabetes.</p>
+    <p><strong>Increases NEAT.</strong> Regular exercisers tend to move more throughout the day — they're more likely to take stairs, walk more, and fidget — raising their total calorie burn beyond just the workout itself.</p>
+    <p><strong>Mental health and consistency.</strong> Exercise significantly reduces stress, anxiety, and cravings, making it much easier to stick to your calorie target long-term.</p>
+  </div>
+  <div class="section">
+    <h2>Why Calorie Deficits Slow Down Over Time</h2>
+    <p>This is one of the most frustrating phenomena in weight loss — you're eating the same amount and the weight stops moving. Here's what's happening:</p>
+    <h3>Metabolic Adaptation</h3>
+    <p>As you lose weight, your body becomes more efficient. A lighter body burns fewer calories doing the same activities. Your BMR decreases (you're smaller now), and your TDEE drops. This is why you need to <strong>recalculate your TDEE every 4–6 weeks</strong> during a weight loss phase and adjust your calorie target downward.</p>
+    <h3>Adaptive Thermogenesis</h3>
+    <p>Beyond what the math predicts, the body also actively reduces energy expenditure when it senses prolonged calorie restriction — this is sometimes called "metabolic damage," though "metabolic adaptation" is more accurate. Strategies to combat this include diet breaks (eating at maintenance for 1–2 weeks), refeeds (a day or two at maintenance calories), and prioritising resistance training.</p>
+    <div class="highlight-box">
+      <strong>Practical tip:</strong> When weight loss stalls for more than 3 weeks despite being consistent, don't cut calories drastically. First check that your tracking is accurate (people typically underestimate by 20–30%), then consider reducing by 100–150 kcal or adding 10–15 min of daily walking.
+    </div>
+  </div>
+  <div class="cta-bar">
+    <h3>Want to Know Your Protein, Carbs & Fat Split?</h3>
+    <p>Use our Macro Calculator to break your calorie target into optimal macronutrient ratios for weight loss.</p>
+    <a href="macro-calculator.html">Try Macro Calculator →</a>
+  </div>
+  <div class="section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">How do I know my TDEE to enter in this calculator? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Use our TDEE Calculator on this site. It takes your age, gender, height, weight, and activity level to calculate your Total Daily Energy Expenditure. That number is the input for this deficit calculator.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Is 500 calorie deficit safe every day? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Yes, a 500 kcal/day deficit is generally safe for most healthy adults and is the most widely recommended deficit in clinical practice. It produces roughly 0.5 kg of weight loss per week without causing significant muscle loss or metabolic adaptation, provided you eat adequate protein (1.6g+ per kg body weight) and exercise regularly.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Should I eat back calories burned during exercise? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>If you calculated your TDEE using the correct activity multiplier (which already accounts for your workouts), you should not eat back exercise calories. If you used a sedentary multiplier and exercise on top, then adding back some (not all — trackers overestimate burn by 30–50%) exercise calories is reasonable.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">I'm not losing weight despite eating at a deficit. Why? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>The most common reasons: (1) Inaccurate food tracking — cooking oils, condiments, and snacks are easy to miss; (2) TDEE overestimated — you may be less active than you think; (3) Water retention masking fat loss — especially common around menstruation; (4) Medical factors like hypothyroidism. Track honestly for 2 weeks, then consider recalculating TDEE more conservatively.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Can I do intermittent fasting instead of counting calories? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Intermittent fasting works by reducing the eating window, which naturally lowers calorie intake for most people. The weight loss from IF is still caused by a calorie deficit — fasting doesn't have magical fat-burning properties beyond this. Some people find IF easier to maintain than calorie counting; others find the opposite. Both approaches work if followed consistently.</p></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>© 2025 CalorieIndia | <a href="calculator.html">All Calculators</a> | For informational purposes only.</p>
+</footer>
+<script>
+function calcDeficit() {
+  const tdee = parseFloat(document.getElementById('tdee').value);
+  const deficit = parseFloat(document.getElementById('goal').value);
+  const kgToLose = parseFloat(document.getElementById('kg-to-lose').value);
+  if (!tdee) { alert('Please enter your TDEE.'); return; }
+  const target = Math.round(tdee - deficit);
+  const weeklyLoss = (deficit * 7 / 7700).toFixed(2);
+  document.getElementById('target-val').textContent = target;
+  document.getElementById('target-sub').textContent = `calories per day (${deficit} kcal below your TDEE of ${tdee})`;
+  document.getElementById('deficit-val').textContent = deficit;
+  document.getElementById('weekly-val').textContent = weeklyLoss + ' kg';
+  if (kgToLose && kgToLose > 0) {
+    const weeksTotal = kgToLose / parseFloat(weeklyLoss);
+    const rows = document.getElementById('timeline-rows');
+    rows.innerHTML = '';
+    [0.25, 0.5, 1].forEach(frac => {
+      const kg = (kgToLose * frac).toFixed(1);
+      const weeks = Math.round(weeksTotal * frac);
+      const d = new Date(); d.setDate(d.getDate() + weeks * 7);
+      const date = d.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+      rows.innerHTML += `<div class="tl-row"><span>Lose ${kg} kg (${Math.round(frac*100)}%)</span><strong>~${weeks} weeks — ${date}</strong></div>`;
+    });
+    const totalWeeks = Math.round(weeksTotal);
+    const d2 = new Date(); d2.setDate(d2.getDate() + totalWeeks * 7);
+    const date2 = d2.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+    rows.innerHTML += `<div class="tl-row" style="font-weight:700;color:var(--green)"><span>🎯 Full goal (${kgToLose} kg)</span><strong>~${totalWeeks} weeks — ${date2}</strong></div>`;
+    document.getElementById('timeline').style.display = 'block';
+  }
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+function toggleFAQ(el) {
+  const a = el.nextElementSibling; const i = el.querySelector('.faq-icon');
+  a.classList.toggle('open'); i.classList.toggle('open');
+}
+</script>
+</body>
+</html>

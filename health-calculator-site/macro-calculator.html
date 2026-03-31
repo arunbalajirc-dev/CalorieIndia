@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Macro Calculator India – Protein, Carbs & Fat for Indian Diet</title>
+  <meta name="description" content="Calculate your macros (protein, carbs, fat) for weight loss, muscle gain, or maintenance. Tailored for Indian vegetarian and non-vegetarian diets. Free macro calculator.">
+  <meta name="keywords" content="macro calculator India, protein carbs fat calculator India, macros for weight loss India, how much protein should I eat India, vegetarian macro calculator India">
+  <link rel="canonical" href="https://arunbalajirc-dev.github.io/CalorieIndia/health-calculator-site/macro-calculator.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--amber:#f57f17;--amber-light:#ffcc02;--amber-dim:#fffde7;--dark:#1a1a1a;--mid:#444;--soft:#777;--border:#e8e8e8;--bg:#fafaf8;--white:#fff;--pro:#e53935;--carb:#1976d2;--fat:#388e3c;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--dark);line-height:1.7;}
+    a{color:var(--amber);text-decoration:none;}
+    nav{background:var(--white);border-bottom:2px solid var(--amber);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;}
+    .nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.2rem;color:#ff5722;}
+    .nav-links{display:flex;gap:24px;font-size:.85rem;font-weight:500;}
+    .nav-links a{color:var(--mid);}
+    .hero{background:linear-gradient(135deg,#1a1200 0%,#3e2600 100%);color:white;padding:64px 5% 48px;text-align:center;}
+    .hero-emoji{font-size:3rem;margin-bottom:16px;display:block;}
+    .hero h1{font-family:'Sora',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:16px;}
+    .hero h1 span{color:var(--amber-light);}
+    .hero p{font-size:1.1rem;opacity:.85;max-width:600px;margin:0 auto;}
+    .breadcrumb{font-size:.8rem;opacity:.6;margin-bottom:24px;}
+    .breadcrumb a{color:rgba(255,255,255,.7);}
+    .calc-section{padding:48px 5%;max-width:860px;margin:0 auto;}
+    .calc-card{background:var(--white);border-radius:16px;box-shadow:0 4px 40px rgba(0,0,0,.1);padding:40px;border-top:4px solid var(--amber);}
+    .calc-card h2{font-family:'Sora',sans-serif;font-size:1.4rem;margin-bottom:28px;}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+    .form-group{display:flex;flex-direction:column;gap:6px;}
+    .form-group.full{grid-column:1/-1;}
+    label{font-size:.85rem;font-weight:600;color:var(--mid);text-transform:uppercase;letter-spacing:.05em;}
+    input,select{padding:12px 16px;border:2px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:1rem;background:var(--bg);transition:border-color .2s;}
+    input:focus,select:focus{outline:none;border-color:var(--amber);}
+    .calc-btn{margin-top:28px;width:100%;padding:16px;background:var(--amber);color:white;border:none;border-radius:10px;font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;cursor:pointer;transition:background .2s;}
+    .calc-btn:hover{background:#e65100;}
+    .results{margin-top:32px;display:none;}
+    .results.show{display:block;}
+    .macro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}
+    @media(max-width:500px){.macro-grid{grid-template-columns:1fr;}}
+    .macro-box{border-radius:12px;padding:20px;text-align:center;}
+    .macro-box .m-label{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:8px;}
+    .macro-box .m-val{font-family:'Sora',sans-serif;font-size:2.5rem;font-weight:800;}
+    .macro-box .m-kcal{font-size:.85rem;margin-top:4px;opacity:.7;}
+    .macro-box.pro{background:#ffebee;}.macro-box.pro .m-val{color:var(--pro);}
+    .macro-box.carb{background:#e3f2fd;}.macro-box.carb .m-val{color:var(--carb);}
+    .macro-box.fat{background:#e8f5e9;}.macro-box.fat .m-val{color:var(--fat);}
+    .pie-wrap{text-align:center;margin:20px 0;}
+    .content-wrap{max-width:860px;margin:0 auto;padding:0 5% 64px;}
+    .section{margin-top:56px;}
+    .section h2{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--amber-dim);}
+    .section h3{font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:700;margin:28px 0 10px;}
+    .section p{margin-bottom:16px;color:var(--mid);}
+    .highlight-box{background:var(--amber-dim);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:20px 24px;margin:24px 0;}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.95rem;}
+    th{background:var(--dark);color:white;padding:12px 16px;text-align:left;font-family:'Sora',sans-serif;font-size:.85rem;}
+    td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--mid);}
+    tr:nth-child(even) td{background:var(--bg);}
+    .food-card{background:var(--white);border:2px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;}
+    .food-card h4{font-family:'Sora',sans-serif;font-size:1rem;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+    .food-card table{margin:0;}
+    .faq-item{border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;}
+    .faq-q{padding:18px 20px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--white);font-size:.95rem;}
+    .faq-q:hover{background:var(--amber-dim);}
+    .faq-a{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s;color:var(--mid);font-size:.95rem;}
+    .faq-a.open{max-height:300px;padding:0 20px 18px;}
+    .faq-icon{font-size:1.2rem;transition:transform .3s;color:var(--amber);}
+    .faq-icon.open{transform:rotate(45deg);}
+    .cta-bar{background:linear-gradient(135deg,var(--amber),#1a1200);border-radius:16px;padding:40px;text-align:center;margin:48px 0;color:white;}
+    .cta-bar h3{font-family:'Sora',sans-serif;font-size:1.5rem;margin-bottom:10px;}
+    .cta-bar a{background:white;color:var(--amber);padding:12px 28px;border-radius:8px;font-weight:700;font-family:'Sora',sans-serif;display:inline-block;margin-top:16px;}
+    footer{background:var(--dark);color:rgba(255,255,255,.6);text-align:center;padding:32px 5%;font-size:.85rem;}
+    footer a{color:var(--amber-light);}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">🔥 CalorieIndia</div>
+  <div class="nav-links">
+    <a href="calculator.html">All Calculators</a>
+    <a href="tdee-calculator.html">TDEE</a>
+    <a href="calorie-deficit-calculator.html">Deficit</a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="breadcrumb"><a href="calculator.html">Home</a> › Macro Calculator</div>
+  <span class="hero-emoji">🥗</span>
+  <h1>Macro Calculator <span>for Indians</span></h1>
+  <p>Get your personalised protein, carbohydrates, and fat targets — with an Indian food guide for hitting each macro daily.</p>
+</div>
+<section class="calc-section">
+  <div class="calc-card">
+    <h2>Calculate Your Daily Macros</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Daily Calorie Target</label>
+        <input type="number" id="calories" placeholder="e.g. 1800 (use TDEE - deficit)" min="800" max="5000">
+      </div>
+      <div class="form-group">
+        <label>Your Goal</label>
+        <select id="goal">
+          <option value="loss">Weight Loss (High Protein)</option>
+          <option value="maintain">Maintain Weight (Balanced)</option>
+          <option value="gain">Muscle Gain (High Protein + Carbs)</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>Diet Type</label>
+        <select id="diet">
+          <option value="any">Omnivore (veg + non-veg)</option>
+          <option value="veg">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+        </select>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcMacros()">Calculate My Macros →</button>
+    <div class="results" id="results">
+      <div class="macro-grid">
+        <div class="macro-box pro">
+          <div class="m-label">🥩 Protein</div>
+          <div class="m-val" id="pro-val">—</div>
+          <div class="m-kcal" id="pro-kcal">— g · — kcal</div>
+        </div>
+        <div class="macro-box carb">
+          <div class="m-label">🌾 Carbs</div>
+          <div class="m-val" id="carb-val">—</div>
+          <div class="m-kcal" id="carb-kcal">— g · — kcal</div>
+        </div>
+        <div class="macro-box fat">
+          <div class="m-label">🥑 Fat</div>
+          <div class="m-val" id="fat-val">—</div>
+          <div class="m-kcal" id="fat-kcal">— g · — kcal</div>
+        </div>
+      </div>
+      <div id="split-note" style="background:var(--amber-dim);border-radius:10px;padding:16px;font-size:.9rem;color:var(--mid);text-align:center;"></div>
+    </div>
+  </div>
+</section>
+<div class="content-wrap">
+  <div class="section">
+    <h2>What Are Macronutrients?</h2>
+    <p><strong>Macronutrients</strong> (or "macros") are the three main categories of nutrients that provide energy (calories): protein, carbohydrates, and fat. They're called "macro" because we need them in large quantities, as opposed to micronutrients (vitamins and minerals) which are needed in tiny amounts.</p>
+    <p>Once you know your daily calorie target, the next question is: how should those calories be distributed across protein, carbs, and fat? This is what macro tracking answers — and it makes a significant difference in body composition, energy levels, and how sustainable your diet feels.</p>
+    <table>
+      <thead><tr><th>Macronutrient</th><th>Calories/gram</th><th>Primary Role</th></tr></thead>
+      <tbody>
+        <tr><td>Protein</td><td>4 kcal/g</td><td>Builds and repairs muscle; satiety; immune function</td></tr>
+        <tr><td>Carbohydrates</td><td>4 kcal/g</td><td>Primary energy source; brain fuel; fibre for gut health</td></tr>
+        <tr><td>Fat</td><td>9 kcal/g</td><td>Hormone production; fat-soluble vitamin absorption; satiety</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section">
+    <h2>How Macros Are Split by Goal</h2>
+    <h3>Weight Loss (High Protein)</h3>
+    <p>For fat loss while preserving muscle: approximately 35% protein, 35% carbohydrates, 30% fat. High protein is crucial during a calorie deficit — it keeps you full longer (highest satiety of all macros), preserves lean muscle mass, and has the highest "thermic effect" (your body burns 25–30% of protein calories just digesting it, vs. 5–10% for carbs and 0–3% for fat).</p>
+    <h3>Maintenance (Balanced)</h3>
+    <p>For body recomposition or weight maintenance: approximately 25% protein, 45% carbohydrates, 30% fat. A more moderate protein intake that's still above average, with room for carbohydrates to fuel activity and fat for hormonal health.</p>
+    <h3>Muscle Gain (High Protein + Carbs)</h3>
+    <p>For building muscle in a calorie surplus: approximately 30% protein, 45% carbohydrates, 25% fat. Carbohydrates are critical for fuelling intense training and post-workout glycogen replenishment. Protein remains high to maximise muscle protein synthesis.</p>
+    <div class="highlight-box">
+      <strong>The one non-negotiable macro:</strong> Protein. Whether your goal is weight loss, muscle gain, or maintenance — virtually every nutrition expert agrees that most Indians eat too little protein. The average Indian diet provides 30–50g/day; optimal is closer to 100–150g depending on your body weight.
+    </div>
+  </div>
+  <div class="section">
+    <h2>Protein: The Most Important Macro for Indians</h2>
+    <p>India faces what researchers call a "protein paradox" — a vegetarian-leaning culture with widespread protein deficiency. A 2017 survey by the Indian Market Research Bureau found that <strong>84% of Indians are protein deficient</strong>, consuming less than the recommended amount. This has widespread consequences: poor muscle mass, slower metabolism, impaired immunity, and difficulty with weight management.</p>
+    <h3>How Much Protein Do You Need?</h3>
+    <table>
+      <thead><tr><th>Goal</th><th>Protein Target</th><th>For a 65 kg person</th></tr></thead>
+      <tbody>
+        <tr><td>Sedentary (general health)</td><td>0.8 g per kg body weight</td><td>52 g/day</td></tr>
+        <tr><td>Active adult (light exercise)</td><td>1.2–1.4 g/kg</td><td>78–91 g/day</td></tr>
+        <tr><td>Weight loss (preserving muscle)</td><td>1.6–2.0 g/kg</td><td>104–130 g/day</td></tr>
+        <tr><td>Muscle building</td><td>1.8–2.2 g/kg</td><td>117–143 g/day</td></tr>
+        <tr><td>Older adults (45+)</td><td>1.4–1.8 g/kg</td><td>91–117 g/day</td></tr>
+      </tbody>
+    </table>
+    <h3>Vegetarian Protein Sources for Indians</h3>
+    <div class="food-card">
+      <h4>🌿 High-Protein Vegetarian Foods (Indian)</h4>
+      <table>
+        <thead><tr><th>Food</th><th>Serving</th><th>Protein</th></tr></thead>
+        <tbody>
+          <tr><td>Paneer (low-fat)</td><td>100g</td><td>18–22g</td></tr>
+          <tr><td>Curd / Greek yogurt</td><td>200g</td><td>12–20g</td></tr>
+          <tr><td>Soya chunks (cooked)</td><td>100g</td><td>17g</td></tr>
+          <tr><td>Moong dal (cooked)</td><td>1 cup</td><td>14g</td></tr>
+          <tr><td>Rajma / Chickpeas</td><td>1 cup cooked</td><td>12–15g</td></tr>
+          <tr><td>Tofu (firm)</td><td>100g</td><td>8–17g</td></tr>
+          <tr><td>Whole eggs</td><td>2 eggs</td><td>12g</td></tr>
+          <tr><td>Milk (full-fat)</td><td>250ml</td><td>8g</td></tr>
+          <tr><td>Peanut butter</td><td>2 tbsp</td><td>8g</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Complete vs. Incomplete Proteins</h3>
+    <p>Plant proteins are often "incomplete" — they lack one or more of the 9 essential amino acids. The solution is combining complementary proteins throughout the day: rice + dal (a classic Indian combination) provides a complete amino acid profile. You don't need to eat them at the same meal — just throughout the same day. Soya, quinoa, and dairy are complete proteins even individually.</p>
+  </div>
+  <div class="section">
+    <h2>Carbohydrates in an Indian Context</h2>
+    <p>Carbohydrates are demonised in many popular diets, but they're the body's preferred fuel — especially for the brain and high-intensity exercise. The problem in Indian diets isn't carbohydrates per se, but <strong>refined carbohydrates and portion sizes</strong>.</p>
+    <h3>Refined vs. Complex Carbs</h3>
+    <p>White rice, maida (refined flour), white bread, and sugary sweets cause rapid blood sugar spikes followed by crashes — increasing hunger, fat storage (via insulin), and long-term diabetes risk. Complex carbohydrates from millets (jowar, bajra, ragi), brown rice, oats, and whole wheat digest slowly, providing steady energy and better blood sugar control.</p>
+    <p>Fibre — a type of indigestible carbohydrate — is particularly important and most Indians are severely deficient. Aim for 25–35g of fibre daily from sabzis, legumes, whole grains, and fruits.</p>
+    <h3>Low-GI Carb Swaps for Indian Cooking</h3>
+    <table>
+      <thead><tr><th>High-GI Option</th><th>Lower-GI Swap</th><th>Benefit</th></tr></thead>
+      <tbody>
+        <tr><td>White rice (2 cups)</td><td>1 cup rice + millet or reduce portion</td><td>Lower spike, more fibre</td></tr>
+        <tr><td>Maida roti / naan</td><td>Whole wheat roti</td><td>More fibre, slower digestion</td></tr>
+        <tr><td>White bread</td><td>Multigrain / millet bread</td><td>Higher protein and fibre</td></tr>
+        <tr><td>Sugary chai (3/day)</td><td>Unsweetened or 1 tsp sugar max</td><td>Saves 80–120 kcal/day</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section">
+    <h2>Dietary Fats: The Good and the Bad</h2>
+    <p>Fat is not the enemy — but the <em>type</em> of fat matters enormously. Indian cooking uses a variety of fats, from traditional ghee and coconut oil to refined vegetable oils and vanaspati (partially hydrogenated oil).</p>
+    <h3>Fat Types and Their Health Impact</h3>
+    <table>
+      <thead><tr><th>Fat Type</th><th>Examples in Indian Cooking</th><th>Health Impact</th></tr></thead>
+      <tbody>
+        <tr><td>Saturated fat (in moderation)</td><td>Ghee, coconut oil, full-fat dairy</td><td>Neutral to slightly positive in moderation</td></tr>
+        <tr><td>Monounsaturated (MUFA)</td><td>Groundnut oil, olive oil, avocado</td><td>Heart-protective; good for blood lipids</td></tr>
+        <tr><td>Polyunsaturated (PUFA)</td><td>Mustard oil, fish, walnuts, flaxseed</td><td>Anti-inflammatory; essential omega-3s</td></tr>
+        <tr><td>Trans fat (avoid)</td><td>Vanaspati, commercial fried snacks, margarine</td><td>Strongly linked to heart disease</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box">
+      <strong>Best cooking fats for Indians:</strong> Cold-pressed mustard oil or groundnut oil for everyday cooking (high smoke point, good fat profile). Small amounts of ghee for flavour — it's traditional and not the villain it's made out to be in moderation. Avoid refined oils (refined sunflower, refined palm) as primary cooking fat.
+    </div>
+  </div>
+  <div class="cta-bar">
+    <h3>Know How Many Calories You're Burning?</h3>
+    <p>Use our Calorie Burn Calculator to see how many calories your workouts actually burn.</p>
+    <a href="calorie-burn-calculator.html">Try Calorie Burn Calculator →</a>
+  </div>
+  <div class="section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">How do I hit 100g+ protein on a vegetarian Indian diet? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Build each meal around a protein source: breakfast with eggs or paneer or curd; lunch with dal + a second protein source (soya chunks, rajma, chana); evening snack with peanut butter or roasted chana; dinner with paneer or tofu or moong dal chilla. A whey protein supplement (if you're not vegan) can fill gaps — 1 scoop provides 20–25g of high-quality protein efficiently.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Should I go low-carb to lose weight? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Low-carb diets can work for weight loss, but they work primarily because they tend to reduce overall calorie intake, not because of anything magical about avoiding carbs. For most Indians who exercise regularly, drastically cutting carbs will impair performance and make the diet hard to sustain culturally. Reducing refined carbs (maida, excess rice, sweets) while keeping complex carbs is a more practical and sustainable approach.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Is ghee bad for weight loss? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Ghee itself isn't bad — it's calorie-dense (120 kcal per tablespoon) but contains butyrate and saturated fat that may actually support gut health and satiety. The problem is that Indian cooking often uses 3–5 tablespoons of ghee or oil per meal without accounting for these calories. In moderation (1 tsp for flavour), ghee can fit into any diet including a calorie deficit.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)">Do I need to track macros every day? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Tracking macros precisely every day is effective but can be tedious. A practical approach: track consistently for 2–3 weeks to understand your eating patterns and typical macro intake, then use that knowledge to eat intuitively with occasional check-ins. Most people find they don't need to track forever once they develop an accurate intuition for portions and macro content of common foods.</p></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>© 2025 CalorieIndia | <a href="calculator.html">All Calculators</a> | For informational purposes only.</p>
+</footer>
+<script>
+function calcMacros() {
+  const calories = parseFloat(document.getElementById('calories').value);
+  const goal = document.getElementById('goal').value;
+  if (!calories) { alert('Please enter your daily calorie target.'); return; }
+  let proP, carbP, fatP, label;
+  if (goal === 'loss') { proP=.35; carbP=.35; fatP=.30; label='Weight Loss (35% protein / 35% carbs / 30% fat)'; }
+  else if (goal === 'maintain') { proP=.25; carbP=.45; fatP=.30; label='Maintenance (25% protein / 45% carbs / 30% fat)'; }
+  else { proP=.30; carbP=.45; fatP=.25; label='Muscle Gain (30% protein / 45% carbs / 25% fat)'; }
+  const proG = Math.round((calories * proP) / 4);
+  const carbG = Math.round((calories * carbP) / 4);
+  const fatG = Math.round((calories * fatP) / 9);
+  document.getElementById('pro-val').textContent = proG + 'g';
+  document.getElementById('carb-val').textContent = carbG + 'g';
+  document.getElementById('fat-val').textContent = fatG + 'g';
+  document.getElementById('pro-kcal').textContent = `${Math.round(proG*4)} kcal · ${Math.round(proP*100)}% of calories`;
+  document.getElementById('carb-kcal').textContent = `${Math.round(carbG*4)} kcal · ${Math.round(carbP*100)}% of calories`;
+  document.getElementById('fat-kcal').textContent = `${Math.round(fatG*9)} kcal · ${Math.round(fatP*100)}% of calories`;
+  document.getElementById('split-note').textContent = `Macro split: ${label}`;
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+function toggleFAQ(el) {
+  const a = el.nextElementSibling; const i = el.querySelector('.faq-icon');
+  a.classList.toggle('open'); i.classList.toggle('open');
+}
+</script>
+</body>
+</html>
