@@ -2,82 +2,495 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HealthCalc – Your Personal Health Calculator</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CalorieIndia – India's Calorie Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #2d7a4f;
+      --green-light: #e8f5ee;
+      --green-dark: #1e5c3a;
+      --accent: #2d7a4f;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --bg: #fafaf8;
+      --white: #ffffff;
+      --border: #e5e7eb;
+      --peach: #fdf3ee;
+      --dark: #111813;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex; align-items: center;
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo-dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; }
+    .logo span { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 16px; color: var(--text); }
+    nav { display: flex; gap: 28px; align-items: center; }
+    nav a { text-decoration: none; color: var(--text); font-size: 14px; font-weight: 400; transition: color .2s; }
+    nav a:hover { color: var(--green); }
+    .btn-cta {
+      background: var(--green); color: #fff; border: none; border-radius: 6px;
+      padding: 9px 18px; font-size: 14px; font-weight: 500; cursor: pointer;
+      text-decoration: none; transition: background .2s; white-space: nowrap;
+    }
+    .btn-cta:hover { background: var(--green-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      margin-top: 60px;
+      background: var(--bg);
+      padding: 72px 24px 64px;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-block; background: var(--peach);
+      color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px; line-height: 1.1; font-weight: 700; margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: italic; color: var(--green); }
+    .hero p { color: var(--muted); font-size: 15px; margin-bottom: 28px; max-width: 420px; line-height: 1.7; }
+    .hero-trust { font-size: 12px; color: var(--muted); margin-top: 12px; }
+    .hero-trust span { margin-right: 14px; }
+    .hero-trust span::before { content: "✓ "; color: var(--green); }
+    .hero-btns { display: flex; gap: 12px; margin-bottom: 8px; }
+    .btn-primary {
+      background: var(--green); color: #fff; padding: 11px 20px; border-radius: 6px;
+      font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: background .2s;
+    }
+    .btn-primary:hover { background: var(--green-dark); }
+    .btn-secondary {
+      background: var(--text); color: #fff; padding: 11px 20px; border-radius: 6px;
+      font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: background .2s;
+    }
+    .btn-secondary:hover { background: #333; }
+
+    /* ── CALCULATOR CARD ── */
+    .calc-card {
+      background: var(--white); border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.08); padding: 28px;
+    }
+    .calc-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .calc-icon { background: var(--green-light); border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .calc-card-header h3 { font-size: 15px; font-weight: 600; }
+    .calc-card-header p { font-size: 12px; color: var(--muted); }
+    .form-group { margin-bottom: 14px; }
+    .form-label { font-size: 12px; color: var(--muted); margin-bottom: 5px; display: block; }
+    .form-input {
+      width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 14px; font-family: inherit; background: var(--bg); color: var(--text); outline: none;
+      transition: border-color .2s;
+    }
+    .form-input:focus { border-color: var(--green); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn-calc {
+      width: 100%; background: var(--green); color: #fff; border: none; border-radius: 8px;
+      padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+      transition: background .2s; margin-top: 4px;
+    }
+    .btn-calc:hover { background: var(--green-dark); }
+    .calc-results { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 14px; }
+    .calc-result-box { background: var(--bg); border-radius: 8px; padding: 10px 12px; }
+    .calc-result-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+    .calc-result-value { font-size: 18px; font-weight: 700; color: var(--text); }
+    .calc-result-value.green { color: var(--green); }
+
+    /* ── TOOLS SECTION ── */
+    .tools-section { background: #f4f6f3; padding: 72px 24px; }
+    .section-badge { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
+    .section-title { font-size: 32px; font-weight: 600; margin-bottom: 40px; color: var(--text); }
+    .tools-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; max-width: 1200px; margin: 0 auto; }
+    .tool-card {
+      background: var(--white); border-radius: 12px; padding: 20px;
+      transition: box-shadow .2s, transform .2s; cursor: pointer; text-decoration: none; color: var(--text);
+      display: block;
+    }
+    .tool-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.1); transform: translateY(-2px); }
+    .tool-emoji { font-size: 24px; margin-bottom: 10px; display: block; }
+    .tool-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .tool-desc { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
+    .tool-link { font-size: 12px; color: var(--green); font-weight: 500; }
+
+    /* ── STATS BAR ── */
+    .stats-bar { background: var(--green); padding: 48px 24px; }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+    .stat-value { font-size: 36px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,.75); }
+
+    /* ── BLOG SECTION ── */
+    .blog-section { padding: 72px 24px; background: var(--bg); }
+    .blog-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; }
+    .section-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 36px; }
+    .view-all { font-size: 13px; color: var(--green); text-decoration: none; font-weight: 500; }
+    .view-all:hover { text-decoration: underline; }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .blog-card { background: var(--white); border-radius: 12px; overflow: hidden; transition: box-shadow .2s; }
+    .blog-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .blog-thumb {
+      height: 180px; display: flex; align-items: center; justify-content: center; font-size: 48px;
+    }
+    .blog-thumb.peach { background: #fde8d8; }
+    .blog-thumb.mint  { background: #d4f0e4; }
+    .blog-thumb.lavender { background: #e8e0f5; }
+    .blog-body { padding: 20px; }
+    .blog-tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    .blog-tag.weight-loss { color: #e07c3a; }
+    .blog-tag.indian-diet { color: var(--green); }
+    .blog-tag.pcos { color: #9b59b6; }
+    .blog-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; color: var(--text); }
+    .blog-excerpt { font-size: 13px; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
+    .blog-meta { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; }
+
+    /* ── MEAL PLAN CTA ── */
+    .meal-cta { background: var(--dark); padding: 72px 24px; }
+    .meal-cta-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center;
+    }
+    .meal-cta-badge { font-size: 11px; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 12px; }
+    .meal-cta h2 { font-size: 36px; font-weight: 600; color: #fff; margin-bottom: 12px; }
+    .meal-cta p { font-size: 14px; color: rgba(255,255,255,.6); margin-bottom: 24px; }
+    .meal-cta-note { font-size: 12px; color: rgba(255,255,255,.35); margin-top: 8px; }
+    .meal-plan-card {
+      background: var(--green); border-radius: 12px; padding: 20px 24px;
+      min-width: 180px; text-align: center;
+    }
+    .meal-plan-card .title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .meal-plan-card .sub { font-size: 11px; color: rgba(255,255,255,.7); margin-bottom: 12px; }
+    .meal-plan-emojis { font-size: 24px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); border-top: 1px solid rgba(255,255,255,.08);
+      padding: 48px 24px 24px; color: rgba(255,255,255,.6);
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .logo { margin-bottom: 10px; }
+    .footer-brand .logo span { color: #fff; }
+    .footer-brand p { font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
+    .footer-flags { font-size: 20px; display: flex; gap: 8px; }
+    .footer-col h4 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,.55); text-decoration: none; transition: color .2s; }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08); padding-top: 20px;
+      display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,.3);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .blog-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .meal-cta-inner { grid-template-columns: 1fr; }
+      nav { display: none; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="container nav-inner">
-      <a href="index.html" class="logo">💚 HealthCalc</a>
-      <nav>
-        <a href="index.html" class="active">Home</a>
-        <a href="calculator.html">Calculator</a>
-        <a href="about.html">About</a>
-      </nav>
-    </div>
-  </header>
+<!-- ═══════════════════════════════════════ HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-dot"></div>
+      <span>CalorieIndia</span>
+    </a>
+    <nav>
+      <a href="calculators.html">Calculators</a>
+      <a href="weight-loss.html">Weight Loss</a>
+      <a href="indian-diet.html">Indian Diet</a>
+      <a href="pcos.html">PCOS</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+    <a href="meal-plan.html" class="btn-cta">Get Free Meal Plan →</a>
+  </div>
+</header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero-content">
-      <h1>Know Your Numbers.<br/>Own Your Health.</h1>
-      <p>Free, fast, and science-backed health calculators for BMI, BMR, Body Fat, and Ideal Weight — all in one place.</p>
-      <a href="calculator.html" class="btn-primary">Get Started →</a>
+<!-- ═══════════════════════════════════════ HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">Free · India's Calorie Calculator</div>
+      <h1>Eat right for your body.<br>Lose weight that <em>stays lost.</em></h1>
+      <p>Science-backed calorie calculators, Indian diet guides, and practical weight loss advice — built for Indian bodies.</p>
+      <div class="hero-btns">
+        <a href="calculators.html" class="btn-primary">Calculate My Calories →</a>
+        <a href="blog.html" class="btn-secondary">Browse free guides →</a>
+      </div>
+      <div class="hero-trust">
+        <span>100% free tools</span>
+        <span>No login needed</span>
+        <span>India-specific data</span>
+      </div>
     </div>
-  </section>
 
-  <!-- FEATURES -->
-  <section class="features">
-    <div class="container">
-      <h2 class="section-title">What You Can Calculate</h2>
-      <div class="cards">
-        <div class="card">
-          <div class="card-icon">⚖️</div>
-          <h3>BMI</h3>
-          <p>Find out if your weight is in a healthy range relative to your height.</p>
+    <!-- Live TDEE Calculator Card -->
+    <div class="calc-card">
+      <div class="calc-card-header">
+        <div class="calc-icon">🔥</div>
+        <div>
+          <h3>TDEE Calculator</h3>
+          <p>Find your total daily calorie burn</p>
         </div>
-        <div class="card">
-          <div class="card-icon">🔥</div>
-          <h3>BMR & Calories</h3>
-          <p>Discover how many calories your body burns at rest and daily.</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Age</label>
+        <input class="form-input" id="age" type="number" placeholder="28 years" value="28" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Weight</label>
+          <input class="form-input" id="weight" type="number" placeholder="72 kg" value="72" />
         </div>
-        <div class="card">
-          <div class="card-icon">📏</div>
-          <h3>Body Fat %</h3>
-          <p>Estimate your body fat percentage using the Navy method.</p>
+        <div class="form-group">
+          <label class="form-label">Height</label>
+          <input class="form-input" id="height" type="number" placeholder="168 cm" value="168" />
         </div>
-        <div class="card">
-          <div class="card-icon">🎯</div>
-          <h3>Ideal Weight</h3>
-          <p>Calculate your ideal body weight based on height and gender.</p>
+      </div>
+      <button class="btn-calc" onclick="calcTDEE()">Calculate →</button>
+      <div class="calc-results">
+        <div class="calc-result-box">
+          <div class="calc-result-label">BMI</div>
+          <div class="calc-result-value" id="res-bmi">25.5</div>
+        </div>
+        <div class="calc-result-box">
+          <div class="calc-result-label">Deficit</div>
+          <div class="calc-result-value green" id="res-deficit">–500 cal</div>
+        </div>
+        <div class="calc-result-box">
+          <div class="calc-result-label">Goal</div>
+          <div class="calc-result-value" id="res-goal">8 weeks</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="container">
-      <h2>Ready to take control of your health?</h2>
-      <p>No sign-up required. Just enter your details and get instant results.</p>
-      <a href="calculator.html" class="btn-primary">Try the Calculator</a>
+<!-- ═══════════════════════════════════════ TOOLS -->
+<section class="tools-section">
+  <div style="max-width:1200px;margin:0 auto;padding:0 0 0 0;">
+    <div class="section-badge">Start here — Free tools</div>
+    <div class="section-title">Everything you need to manage your weight</div>
+    <div class="tools-grid">
+      <a href="calculators.html#tdee" class="tool-card">
+        <span class="tool-emoji">🔥</span>
+        <div class="tool-name">TDEE Calculator</div>
+        <div class="tool-desc">Find your total daily calorie burn</div>
+        <div class="tool-link">Try it →</div>
+      </a>
+      <a href="calculators.html#deficit" class="tool-card">
+        <span class="tool-emoji">🧮</span>
+        <div class="tool-name">Calorie Deficit</div>
+        <div class="tool-desc">Calculate your weight loss target</div>
+        <div class="tool-link">Try it →</div>
+      </a>
+      <a href="calculators.html#bmi" class="tool-card">
+        <span class="tool-emoji">⚖️</span>
+        <div class="tool-name">BMI Calculator</div>
+        <div class="tool-desc">Asian BMI ranges included</div>
+        <div class="tool-link">Try it →</div>
+      </a>
+      <a href="calculators.html#macro" class="tool-card">
+        <span class="tool-emoji">🥗</span>
+        <div class="tool-name">Macro Calculator</div>
+        <div class="tool-desc">Protein, carbs &amp; fat split</div>
+        <div class="tool-link">Try it →</div>
+      </a>
+      <a href="calculators.html#ideal" class="tool-card">
+        <span class="tool-emoji">💛</span>
+        <div class="tool-name">Ideal Weight</div>
+        <div class="tool-desc">Your healthy weight range</div>
+        <div class="tool-link">Try it →</div>
+      </a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 HealthCalc. For informational purposes only — not medical advice.</p>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="calculator.html">Calculator</a>
-        <a href="about.html">About</a>
-      </nav>
+<!-- ═══════════════════════════════════════ STATS -->
+<section class="stats-bar">
+  <div class="stats-inner">
+    <div>
+      <div class="stat-value">12,400+</div>
+      <div class="stat-label">Calories calculated this month</div>
     </div>
-  </footer>
+    <div>
+      <div class="stat-value">8 Tools</div>
+      <div class="stat-label">Free — no login required</div>
+    </div>
+    <div>
+      <div class="stat-value">100%</div>
+      <div class="stat-label">Indian food database</div>
+    </div>
+    <div>
+      <div class="stat-value">4.9 ★</div>
+      <div class="stat-label">Average user satisfaction</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ BLOG -->
+<section class="blog-section">
+  <div class="blog-inner">
+    <div class="section-badge">From the blog</div>
+    <div class="section-header">
+      <div class="section-title" style="margin-bottom:0">Weight loss guides for Indian bodies</div>
+      <a href="blog.html" class="view-all">View all articles →</a>
+    </div>
+    <div class="section-subtitle">Evidence-based articles for the Indian context.</div>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-thumb mint">🥗</div>
+        <div class="blog-body">
+          <div class="blog-tag weight-loss">Weight Loss</div>
+          <div class="blog-title">How Many Calories Should You Eat to Lose Weight?</div>
+          <div class="blog-excerpt">Understanding your caloric needs is the first step to sustainable weight loss. Learn how to calculate your personal calorie target.</div>
+          <div class="blog-meta"><span>March 15, 2026</span><span>📖 8 min read</span></div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb peach">🍌</div>
+        <div class="blog-body">
+          <div class="blog-tag indian-diet">Indian Diet</div>
+          <div class="blog-title">Calories in Common Indian Foods: The Complete List</div>
+          <div class="blog-excerpt">From dal makhani to dosa, a comprehensive calorie database of over 500 Indian foods to help you track intake.</div>
+          <div class="blog-meta"><span>March 10, 2026</span><span>📖 12 min read</span></div>
+        </div>
+      </div>
+      <div class="blog-card">
+        <div class="blog-thumb lavender">🌸</div>
+        <div class="blog-body">
+          <div class="blog-tag pcos">PCOS</div>
+          <div class="blog-title">PCOS Weight Loss: A Complete Guide for Indian Women</div>
+          <div class="blog-excerpt">PCOS makes weight loss harder, but not impossible. Discover diet strategies and lifestyle changes that actually work.</div>
+          <div class="blog-meta"><span>March 5, 2026</span><span>📖 14 min read</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ MEAL PLAN CTA -->
+<section class="meal-cta">
+  <div class="meal-cta-inner">
+    <div>
+      <div class="meal-cta-badge">Free Download</div>
+      <h2>Your free 7-day Indian meal plan</h2>
+      <p>Calorie-counted Indian meals for 7 days. No crash dieting. Real food your family will love.</p>
+      <a href="meal-plan.html" class="btn-primary">Send me the free plan →</a>
+      <div class="meal-cta-note">No spam. Unsubscribe anytime.</div>
+    </div>
+    <div class="meal-plan-card">
+      <div class="title">7-Day Indian Weight<br>Loss Meal Plan</div>
+      <div class="sub">CalorieIndia.com · Free Download</div>
+      <div class="meal-plan-emojis">🍱 🥗 🍛</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-dot"></div>
+          <span>CalorieIndia</span>
+        </a>
+        <p style="margin-top:10px">India's most practical weight loss resource.</p>
+        <div class="footer-flags">🇮🇳 ❤️ 🥗</div>
+      </div>
+      <div class="footer-col">
+        <h4>Calculators</h4>
+        <ul>
+          <li><a href="calculators.html#tdee">TDEE Calculator</a></li>
+          <li><a href="calculators.html#deficit">Calorie Deficit Calculator</a></li>
+          <li><a href="calculators.html#bmi">BMI Calculator</a></li>
+          <li><a href="calculators.html#macro">Macro Calculator</a></li>
+          <li><a href="calculators.html#ideal">Ideal Weight Calculator</a></li>
+          <li><a href="calculators.html#burn">Calorie Burn Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Articles</h4>
+        <ul>
+          <li><a href="weight-loss.html">Weight Loss Basics</a></li>
+          <li><a href="indian-diet.html">Indian Diet Guide</a></li>
+          <li><a href="pcos.html">PCOS &amp; Weight Loss</a></li>
+          <li><a href="blog.html">Calorie Counting Tips</a></li>
+          <li><a href="blog.html">Healthy Indian Recipes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CalorieIndia. All rights reserved.</span>
+      <span>This website is for informational purposes only and does not constitute medical advice.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function calcTDEE() {
+  const age = parseFloat(document.getElementById('age').value) || 28;
+  const weight = parseFloat(document.getElementById('weight').value) || 72;
+  const height = parseFloat(document.getElementById('height').value) || 168;
+
+  // BMI
+  const bmi = (weight / ((height / 100) ** 2)).toFixed(1);
+
+  // Rough TDEE (Mifflin-St Jeor, sedentary male assumption for demo)
+  const bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+  const tdee = Math.round(bmr * 1.4);
+  const deficit = tdee - 500;
+
+  // Weeks to lose 5kg at 500 cal/day deficit
+  const weeks = Math.round((5 * 7700) / (500 * 7));
+
+  document.getElementById('res-bmi').textContent = bmi;
+  document.getElementById('res-deficit').textContent = '–500 cal';
+  document.getElementById('res-goal').textContent = weeks + ' weeks';
+}
+calcTDEE();
+</script>
 
 </body>
 </html>

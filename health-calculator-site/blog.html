@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog – CalorieIndia</title>
+  <link rel="stylesheet" href="shared.css"/>
+  <style>
+    .page-hero { background: var(--bg); padding: 56px 24px 40px; border-bottom: 1px solid var(--border); }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; margin-bottom: 10px; }
+    .page-hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+
+    .blog-section { padding: 56px 24px; max-width: 1200px; margin: 0 auto; }
+
+    .filter-tabs { display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+    .filter-tab {
+      padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;
+      border: 1px solid var(--border); background: var(--white); color: var(--muted);
+      cursor: pointer; transition: all .2s;
+    }
+    .filter-tab.active, .filter-tab:hover { background: var(--green); color: #fff; border-color: var(--green); }
+
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .blog-card { background: var(--white); border-radius: 12px; overflow: hidden; transition: box-shadow .2s; text-decoration: none; color: var(--text); display: block; }
+    .blog-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .blog-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+    .blog-thumb.peach { background: #fde8d8; }
+    .blog-thumb.mint  { background: #d4f0e4; }
+    .blog-thumb.lavender { background: #e8e0f5; }
+    .blog-thumb.yellow { background: #fef3c7; }
+    .blog-thumb.blue { background: #dbeafe; }
+    .blog-body { padding: 20px; }
+    .blog-tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    .blog-tag.weight-loss { color: #e07c3a; }
+    .blog-tag.indian-diet { color: var(--green); }
+    .blog-tag.pcos { color: #9b59b6; }
+    .blog-tag.tips { color: #2563eb; }
+    .blog-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+    .blog-excerpt { font-size: 13px; color: var(--muted); margin-bottom: 12px; line-height: 1.6; }
+    .blog-meta { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; }
+
+    @media(max-width:900px){ .blog-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="section-badge">From the blog</div>
+    <h1>Weight loss guides for Indian bodies</h1>
+    <p>Evidence-based articles for the Indian context. No fads, no crash diets — just practical advice that works.</p>
+  </div>
+</div>
+
+<div class="blog-section">
+  <div class="filter-tabs">
+    <div class="filter-tab active">All</div>
+    <div class="filter-tab">Weight Loss</div>
+    <div class="filter-tab">Indian Diet</div>
+    <div class="filter-tab">PCOS</div>
+    <div class="filter-tab">Calorie Tips</div>
+  </div>
+
+  <div class="blog-grid">
+    <a href="#" class="blog-card">
+      <div class="blog-thumb mint">🥗</div>
+      <div class="blog-body">
+        <div class="blog-tag weight-loss">Weight Loss</div>
+        <div class="blog-title">How Many Calories Should You Eat to Lose Weight?</div>
+        <div class="blog-excerpt">Understanding your caloric needs is the first step to sustainable weight loss. Learn how to calculate your personal calorie target.</div>
+        <div class="blog-meta"><span>March 15, 2026</span><span>📖 8 min read</span></div>
+      </div>
+    </a>
+    <a href="#" class="blog-card">
+      <div class="blog-thumb peach">🍌</div>
+      <div class="blog-body">
+        <div class="blog-tag indian-diet">Indian Diet</div>
+        <div class="blog-title">Calories in Common Indian Foods: The Complete List</div>
+        <div class="blog-excerpt">From dal makhani to dosa, a comprehensive calorie database of over 500 Indian foods to help you track intake.</div>
+        <div class="blog-meta"><span>March 10, 2026</span><span>📖 12 min read</span></div>
+      </div>
+    </a>
+    <a href="#" class="blog-card">
+      <div class="blog-thumb lavender">🌸</div>
+      <div class="blog-body">
+        <div class="blog-tag pcos">PCOS</div>
+        <div class="blog-title">PCOS Weight Loss: A Complete Guide for Indian Women</div>
+        <div class="blog-excerpt">PCOS makes weight loss harder, but not impossible. Discover diet strategies and lifestyle changes that actually work.</div>
+        <div class="blog-meta"><span>March 5, 2026</span><span>📖 14 min read</span></div>
+      </div>
+    </a>
+    <a href="#" class="blog-card">
+      <div class="blog-thumb yellow">🍚</div>
+      <div class="blog-body">
+        <div class="blog-tag indian-diet">Indian Diet</div>
+        <div class="blog-title">Is Rice Bad for Weight Loss? The Indian Truth</div>
+        <div class="blog-excerpt">Rice is a staple in Indian homes. But does it make you fat? The science might surprise you.</div>
+        <div class="blog-meta"><span>Feb 28, 2026</span><span>📖 7 min read</span></div>
+      </div>
+    </a>
+    <a href="#" class="blog-card">
+      <div class="blog-thumb blue">💧</div>
+      <div class="blog-body">
+        <div class="blog-tag tips">Calorie Tips</div>
+        <div class="blog-title">How to Count Calories in Indian Meals</div>
+        <div class="blog-excerpt">Tracking calories in Indian food is tricky — here's a practical, no-stress system that actually works for home cooking.</div>
+        <div class="blog-meta"><span>Feb 20, 2026</span><span>📖 9 min read</span></div>
+      </div>
+    </a>
+    <a href="#" class="blog-card">
+      <div class="blog-thumb mint">🏃‍♀️</div>
+      <div class="blog-body">
+        <div class="blog-tag weight-loss">Weight Loss</div>
+        <div class="blog-title">Best Indian Diet Plan for Weight Loss (Free PDF)</div>
+        <div class="blog-excerpt">A complete 7-day Indian meal plan with calorie counts, grocery list, and prep tips. Free to download.</div>
+        <div class="blog-meta"><span>Feb 15, 2026</span><span>📖 6 min read</span></div>
+      </div>
+    </a>
+  </div>
+</div>
+
+</div>
+<script src="shared.js"></script>
+</body>
+</html>

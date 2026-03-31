@@ -1,219 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculator – HealthCalc</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Free Calculators – CalorieIndia</title>
+  <link rel="stylesheet" href="shared.css"/>
+  <style>
+    .page-hero { background: var(--bg); padding: 56px 24px 40px; border-bottom: 1px solid var(--border); }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; margin-bottom: 10px; }
+    .page-hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+
+    .calcs-section { padding: 56px 24px; max-width: 1200px; margin: 0 auto; }
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+    .calc-block {
+      background: var(--white); border-radius: 16px; padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06); scroll-margin-top: 80px;
+    }
+    .calc-block-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .calc-block-icon { background: var(--green-light); border-radius: 10px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .calc-block-header h2 { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+    .calc-block-header p { font-size: 13px; color: var(--muted); }
+
+    .form-group { margin-bottom: 14px; }
+    .form-label { font-size: 12px; color: var(--muted); margin-bottom: 5px; display: block; font-weight: 500; }
+    .form-input, .form-select {
+      width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 14px; font-family: inherit; background: var(--bg); color: var(--text); outline: none; transition: border-color .2s;
+    }
+    .form-input:focus, .form-select:focus { border-color: var(--green); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn-calc {
+      width: 100%; background: var(--green); color: #fff; border: none; border-radius: 8px;
+      padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+      transition: background .2s; margin-top: 4px;
+    }
+    .btn-calc:hover { background: var(--green-dark); }
+
+    .result-box { background: var(--green-light); border-radius: 10px; padding: 16px 20px; margin-top: 16px; display: none; }
+    .result-box.show { display: block; }
+    .result-box .result-main { font-size: 28px; font-weight: 700; color: var(--green); }
+    .result-box .result-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .result-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 12px; }
+    .result-mini { background: var(--white); border-radius: 8px; padding: 10px; text-align: center; }
+    .result-mini .val { font-size: 18px; font-weight: 700; color: var(--text); }
+    .result-mini .lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    @media(max-width:900px){ .calc-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
+<div class="page-wrap">
 
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="container nav-inner">
-      <a href="index.html" class="logo">💚 HealthCalc</a>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="calculator.html" class="active">Calculator</a>
-        <a href="about.html">About</a>
-      </nav>
+<!-- Header injected by shared.js -->
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="section-badge">Free tools</div>
+    <h1>Calorie & Health Calculators</h1>
+    <p>All tools are free, require no login, and are built with Indian body types and food culture in mind.</p>
+  </div>
+</div>
+
+<div class="calcs-section">
+  <div class="calc-grid">
+
+    <!-- TDEE -->
+    <div class="calc-block" id="tdee">
+      <div class="calc-block-header">
+        <div class="calc-block-icon">🔥</div>
+        <div><h2>TDEE Calculator</h2><p>Total Daily Energy Expenditure</p></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Age (years)</label><input class="form-input" id="tdee-age" type="number" value="28"/></div>
+        <div class="form-group">
+          <label class="form-label">Gender</label>
+          <select class="form-select" id="tdee-gender"><option value="m">Male</option><option value="f">Female</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Weight (kg)</label><input class="form-input" id="tdee-weight" type="number" value="72"/></div>
+        <div class="form-group"><label class="form-label">Height (cm)</label><input class="form-input" id="tdee-height" type="number" value="168"/></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Activity Level</label>
+        <select class="form-select" id="tdee-activity">
+          <option value="1.2">Sedentary (desk job, little exercise)</option>
+          <option value="1.375" selected>Lightly active (1–3 days/week)</option>
+          <option value="1.55">Moderately active (3–5 days/week)</option>
+          <option value="1.725">Very active (6–7 days/week)</option>
+          <option value="1.9">Super active (physical job + exercise)</option>
+        </select>
+      </div>
+      <button class="btn-calc" onclick="calcTDEEPage()">Calculate TDEE →</button>
+      <div class="result-box" id="tdee-result">
+        <div class="result-main" id="tdee-val"></div>
+        <div class="result-label">calories/day to maintain your current weight</div>
+        <div class="result-row">
+          <div class="result-mini"><div class="val" id="tdee-lose">–</div><div class="lbl">Lose 0.5kg/wk</div></div>
+          <div class="result-mini"><div class="val" id="tdee-bmr">–</div><div class="lbl">BMR</div></div>
+          <div class="result-mini"><div class="val" id="tdee-gain">–</div><div class="lbl">Gain 0.5kg/wk</div></div>
+        </div>
+      </div>
     </div>
-  </header>
 
-  <!-- PAGE HEADER -->
-  <section class="page-header">
-    <div class="container">
-      <h1>Health Calculators</h1>
-      <p>Select a calculator below and enter your details for instant results.</p>
+    <!-- BMI -->
+    <div class="calc-block" id="bmi">
+      <div class="calc-block-header">
+        <div class="calc-block-icon">⚖️</div>
+        <div><h2>BMI Calculator</h2><p>Asian BMI ranges included</p></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Weight (kg)</label><input class="form-input" id="bmi-weight" type="number" value="72"/></div>
+        <div class="form-group"><label class="form-label">Height (cm)</label><input class="form-input" id="bmi-height" type="number" value="168"/></div>
+      </div>
+      <button class="btn-calc" onclick="calcBMIPage()">Calculate BMI →</button>
+      <div class="result-box" id="bmi-result">
+        <div class="result-main" id="bmi-val"></div>
+        <div class="result-label" id="bmi-cat"></div>
+        <div style="margin-top:12px;font-size:13px;color:var(--muted);">
+          Asian BMI ranges: Underweight &lt;18.5 · Normal 18.5–22.9 · Overweight 23–24.9 · Obese ≥25
+        </div>
+      </div>
     </div>
-  </section>
 
-  <!-- CALCULATOR TABS -->
-  <section class="calc-section">
-    <div class="container">
-
-      <!-- Tab Buttons -->
-      <div class="tabs" role="tablist">
-        <button class="tab active" onclick="showTab('bmi')" role="tab">⚖️ BMI</button>
-        <button class="tab" onclick="showTab('bmr')" role="tab">🔥 BMR</button>
-        <button class="tab" onclick="showTab('bodyfat')" role="tab">📏 Body Fat</button>
-        <button class="tab" onclick="showTab('idealweight')" role="tab">🎯 Ideal Weight</button>
+    <!-- Calorie Deficit -->
+    <div class="calc-block" id="deficit">
+      <div class="calc-block-header">
+        <div class="calc-block-icon">🧮</div>
+        <div><h2>Calorie Deficit Calculator</h2><p>Find your weight loss target</p></div>
       </div>
-
-      <!-- ── BMI CALCULATOR ── -->
-      <div id="bmi" class="calc-panel active">
-        <h2>BMI Calculator</h2>
-        <p class="calc-desc">Body Mass Index (BMI) is a measure of body fat based on height and weight.</p>
-        <form onsubmit="return false;">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Unit System</label>
-              <select id="bmi-unit" onchange="toggleBmiUnits()">
-                <option value="metric">Metric (cm / kg)</option>
-                <option value="imperial">Imperial (ft, in / lbs)</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Metric -->
-          <div id="bmi-metric" class="unit-fields">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="bmi-height-cm">Height (cm)</label>
-                <input type="number" id="bmi-height-cm" placeholder="e.g. 170" min="50" max="300" />
-              </div>
-              <div class="form-group">
-                <label for="bmi-weight-kg">Weight (kg)</label>
-                <input type="number" id="bmi-weight-kg" placeholder="e.g. 70" min="10" max="500" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Imperial -->
-          <div id="bmi-imperial" class="unit-fields" style="display:none;">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="bmi-height-ft">Height (ft)</label>
-                <input type="number" id="bmi-height-ft" placeholder="e.g. 5" min="1" max="9" />
-              </div>
-              <div class="form-group">
-                <label for="bmi-height-in">Height (in)</label>
-                <input type="number" id="bmi-height-in" placeholder="e.g. 7" min="0" max="11" />
-              </div>
-              <div class="form-group">
-                <label for="bmi-weight-lbs">Weight (lbs)</label>
-                <input type="number" id="bmi-weight-lbs" placeholder="e.g. 154" min="20" max="1000" />
-              </div>
-            </div>
-          </div>
-
-          <button class="btn-primary" onclick="calculateBMI()">Calculate BMI</button>
-        </form>
-        <div id="bmi-result" class="result-box hidden"></div>
+      <div class="form-group"><label class="form-label">Your TDEE (calories/day)</label><input class="form-input" id="def-tdee" type="number" value="2200" placeholder="Use TDEE calculator above"/></div>
+      <div class="form-group">
+        <label class="form-label">Weight loss goal</label>
+        <select class="form-select" id="def-goal">
+          <option value="250">Slow (0.25 kg/week) — most sustainable</option>
+          <option value="500" selected>Moderate (0.5 kg/week) — recommended</option>
+          <option value="750">Fast (0.75 kg/week)</option>
+          <option value="1000">Aggressive (1 kg/week) — not recommended long-term</option>
+        </select>
       </div>
-
-      <!-- ── BMR CALCULATOR ── -->
-      <div id="bmr" class="calc-panel">
-        <h2>BMR & Daily Calorie Calculator</h2>
-        <p class="calc-desc">Basal Metabolic Rate (BMR) is the number of calories you burn at complete rest. Multiply by your activity level to get your daily needs.</p>
-        <form onsubmit="return false;">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="bmr-gender">Gender</label>
-              <select id="bmr-gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="bmr-age">Age (years)</label>
-              <input type="number" id="bmr-age" placeholder="e.g. 30" min="10" max="120" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="bmr-height">Height (cm)</label>
-              <input type="number" id="bmr-height" placeholder="e.g. 170" min="50" max="300" />
-            </div>
-            <div class="form-group">
-              <label for="bmr-weight">Weight (kg)</label>
-              <input type="number" id="bmr-weight" placeholder="e.g. 70" min="10" max="500" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group full-width">
-              <label for="bmr-activity">Activity Level</label>
-              <select id="bmr-activity">
-                <option value="1.2">Sedentary (little or no exercise)</option>
-                <option value="1.375">Lightly active (1–3 days/week)</option>
-                <option value="1.55">Moderately active (3–5 days/week)</option>
-                <option value="1.725">Very active (6–7 days/week)</option>
-                <option value="1.9">Extra active (physical job + exercise)</option>
-              </select>
-            </div>
-          </div>
-          <button class="btn-primary" onclick="calculateBMR()">Calculate BMR</button>
-        </form>
-        <div id="bmr-result" class="result-box hidden"></div>
+      <button class="btn-calc" onclick="calcDeficit()">Calculate →</button>
+      <div class="result-box" id="def-result">
+        <div class="result-main" id="def-val"></div>
+        <div class="result-label">calories/day to reach your goal</div>
+        <div style="margin-top:10px;font-size:13px;color:var(--muted);" id="def-weeks"></div>
       </div>
-
-      <!-- ── BODY FAT CALCULATOR ── -->
-      <div id="bodyfat" class="calc-panel">
-        <h2>Body Fat % Calculator</h2>
-        <p class="calc-desc">Uses the U.S. Navy body fat formula. Measurements should be taken at the widest point.</p>
-        <form onsubmit="return false;">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="bf-gender">Gender</label>
-              <select id="bf-gender" onchange="toggleBFFields()">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="bf-height">Height (cm)</label>
-              <input type="number" id="bf-height" placeholder="e.g. 175" min="50" max="300" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="bf-neck">Neck circumference (cm)</label>
-              <input type="number" id="bf-neck" placeholder="e.g. 38" min="10" max="80" />
-            </div>
-            <div class="form-group">
-              <label for="bf-waist">Waist circumference (cm)</label>
-              <input type="number" id="bf-waist" placeholder="e.g. 85" min="30" max="200" />
-            </div>
-          </div>
-          <div id="bf-hip-group" class="form-row" style="display:none;">
-            <div class="form-group">
-              <label for="bf-hip">Hip circumference (cm) <span class="note">— females only</span></label>
-              <input type="number" id="bf-hip" placeholder="e.g. 95" min="30" max="200" />
-            </div>
-          </div>
-          <button class="btn-primary" onclick="calculateBodyFat()">Calculate Body Fat</button>
-        </form>
-        <div id="bf-result" class="result-box hidden"></div>
-      </div>
-
-      <!-- ── IDEAL WEIGHT CALCULATOR ── -->
-      <div id="idealweight" class="calc-panel">
-        <h2>Ideal Weight Calculator</h2>
-        <p class="calc-desc">Uses multiple formulas (Devine, Robinson, Miller) to give you a healthy weight range for your height.</p>
-        <form onsubmit="return false;">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="iw-gender">Gender</label>
-              <select id="iw-gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="iw-height">Height (cm)</label>
-              <input type="number" id="iw-height" placeholder="e.g. 170" min="100" max="250" />
-            </div>
-          </div>
-          <button class="btn-primary" onclick="calculateIdealWeight()">Calculate Ideal Weight</button>
-        </form>
-        <div id="iw-result" class="result-box hidden"></div>
-      </div>
-
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 HealthCalc. For informational purposes only — not medical advice.</p>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="calculator.html">Calculator</a>
-        <a href="about.html">About</a>
-      </nav>
+    <!-- Macro Calculator -->
+    <div class="calc-block" id="macro">
+      <div class="calc-block-header">
+        <div class="calc-block-icon">🥗</div>
+        <div><h2>Macro Calculator</h2><p>Protein, carbs &amp; fat split</p></div>
+      </div>
+      <div class="form-group"><label class="form-label">Daily calorie target</label><input class="form-input" id="mac-cal" type="number" value="1700" placeholder="e.g. 1700"/></div>
+      <div class="form-group">
+        <label class="form-label">Goal</label>
+        <select class="form-select" id="mac-goal">
+          <option value="loss">Weight Loss (high protein)</option>
+          <option value="maintain">Maintain Weight (balanced)</option>
+          <option value="gain">Muscle Gain (high protein + carbs)</option>
+        </select>
+      </div>
+      <button class="btn-calc" onclick="calcMacro()">Calculate Macros →</button>
+      <div class="result-box" id="mac-result">
+        <div class="result-row">
+          <div class="result-mini"><div class="val" id="mac-p">–</div><div class="lbl">Protein (g)</div></div>
+          <div class="result-mini"><div class="val" id="mac-c">–</div><div class="lbl">Carbs (g)</div></div>
+          <div class="result-mini"><div class="val" id="mac-f">–</div><div class="lbl">Fat (g)</div></div>
+        </div>
+      </div>
     </div>
-  </footer>
 
-  <script src="js/calculator.js"></script>
+    <!-- Ideal Weight -->
+    <div class="calc-block" id="ideal">
+      <div class="calc-block-header">
+        <div class="calc-block-icon">💛</div>
+        <div><h2>Ideal Weight Calculator</h2><p>Your healthy weight range</p></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Height (cm)</label><input class="form-input" id="iw-height" type="number" value="168"/></div>
+        <div class="form-group">
+          <label class="form-label">Gender</label>
+          <select class="form-select" id="iw-gender"><option value="m">Male</option><option value="f">Female</option></select>
+        </div>
+      </div>
+      <button class="btn-calc" onclick="calcIdealWeight()">Calculate →</button>
+      <div class="result-box" id="iw-result">
+        <div class="result-main" id="iw-val"></div>
+        <div class="result-label">healthy weight range for your height (Asian standard)</div>
+      </div>
+    </div>
+
+    <!-- Calorie Burn -->
+    <div class="calc-block" id="burn">
+      <div class="calc-block-header">
+        <div class="calc-block-icon">🏃</div>
+        <div><h2>Calorie Burn Calculator</h2><p>How much does exercise burn?</p></div>
+      </div>
+      <div class="form-group"><label class="form-label">Your weight (kg)</label><input class="form-input" id="cb-weight" type="number" value="72"/></div>
+      <div class="form-group">
+        <label class="form-label">Activity</label>
+        <select class="form-select" id="cb-activity">
+          <option value="3.5">Walking (moderate pace)</option>
+          <option value="7">Running (6 min/km)</option>
+          <option value="8">Cycling (moderate)</option>
+          <option value="5">Swimming</option>
+          <option value="4">Yoga</option>
+          <option value="6">Zumba / Dance</option>
+          <option value="5">Weight Training</option>
+          <option value="9">HIIT / Circuit Training</option>
+          <option value="4">Cricket</option>
+          <option value="7">Badminton</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Duration (minutes)</label><input class="form-input" id="cb-mins" type="number" value="45"/></div>
+      <button class="btn-calc" onclick="calcBurn()">Calculate →</button>
+      <div class="result-box" id="cb-result">
+        <div class="result-main" id="cb-val"></div>
+        <div class="result-label">calories burned</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer injected by shared.js -->
+</div>
+<script src="shared.js"></script>
+<script>
+function show(id){ document.getElementById(id).classList.add('show'); }
+
+function calcTDEEPage(){
+  const age=+document.getElementById('tdee-age').value;
+  const g=document.getElementById('tdee-gender').value;
+  const w=+document.getElementById('tdee-weight').value;
+  const h=+document.getElementById('tdee-height').value;
+  const act=+document.getElementById('tdee-activity').value;
+  const bmr = g==='m' ? 10*w+6.25*h-5*age+5 : 10*w+6.25*h-5*age-161;
+  const tdee=Math.round(bmr*act);
+  document.getElementById('tdee-val').textContent=tdee+' cal/day';
+  document.getElementById('tdee-bmr').textContent=Math.round(bmr);
+  document.getElementById('tdee-lose').textContent=tdee-500;
+  document.getElementById('tdee-gain').textContent=tdee+500;
+  show('tdee-result');
+}
+
+function calcBMIPage(){
+  const w=+document.getElementById('bmi-weight').value;
+  const h=+document.getElementById('bmi-height').value/100;
+  const bmi=(w/(h*h)).toFixed(1);
+  let cat='';
+  if(bmi<18.5) cat='Underweight';
+  else if(bmi<23) cat='Normal weight (Asian range)';
+  else if(bmi<25) cat='Overweight';
+  else cat='Obese';
+  document.getElementById('bmi-val').textContent='BMI '+bmi;
+  document.getElementById('bmi-cat').textContent=cat;
+  show('bmi-result');
+}
+
+function calcDeficit(){
+  const tdee=+document.getElementById('def-tdee').value;
+  const def=+document.getElementById('def-goal').value;
+  const target=tdee-def;
+  const weeks=Math.round((5*7700)/(def*7));
+  document.getElementById('def-val').textContent=target+' cal/day';
+  document.getElementById('def-weeks').textContent=`At this deficit, you'll lose ~5 kg in ${weeks} weeks.`;
+  show('def-result');
+}
+
+function calcMacro(){
+  const cal=+document.getElementById('mac-cal').value;
+  const goal=document.getElementById('mac-goal').value;
+  let pPct,cPct,fPct;
+  if(goal==='loss'){pPct=.35;cPct=.4;fPct=.25;}
+  else if(goal==='maintain'){pPct=.25;cPct=.5;fPct=.25;}
+  else{pPct=.3;cPct=.5;fPct=.2;}
+  document.getElementById('mac-p').textContent=Math.round(cal*pPct/4)+'g';
+  document.getElementById('mac-c').textContent=Math.round(cal*cPct/4)+'g';
+  document.getElementById('mac-f').textContent=Math.round(cal*fPct/9)+'g';
+  show('mac-result');
+}
+
+function calcIdealWeight(){
+  const h=+document.getElementById('iw-height').value;
+  const g=document.getElementById('iw-gender').value;
+  // Asian BMI 18.5–22.9
+  const hm=h/100;
+  const low=Math.round(18.5*hm*hm);
+  const high=Math.round(22.9*hm*hm);
+  document.getElementById('iw-val').textContent=`${low} – ${high} kg`;
+  show('iw-result');
+}
+
+function calcBurn(){
+  const w=+document.getElementById('cb-weight').value;
+  const met=+document.getElementById('cb-activity').value;
+  const mins=+document.getElementById('cb-mins').value;
+  const cal=Math.round(met*w*mins/60);
+  document.getElementById('cb-val').textContent=cal+' calories';
+  show('cb-result');
+}
+</script>
 </body>
 </html>
