@@ -230,11 +230,17 @@
 
 <!-- Footer injected by shared.js -->
 </div>
+<script>window.SKIP_SHARED_HEADER = true;</script>
 <script src="shared.js"></script>
 <script>
+  // Load our nav
   fetch('nav.html')
     .then(r => r.text())
-    .then(h => document.getElementById('site-nav').innerHTML = h);
+    .then(h => {
+      document.getElementById('site-nav').innerHTML = h;
+      // Remove any duplicate <header> that shared.js may have injected
+      document.querySelectorAll('header').forEach(el => el.remove());
+    });
 </script>
 <script>
 function show(id){ document.getElementById(id).classList.add('show'); }

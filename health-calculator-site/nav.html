@@ -70,7 +70,7 @@
   .ci-dropdown-panel {
     display: none;
     position: absolute;
-    top: calc(100% + 12px);
+    top: calc(100% + 2px);
     left: 50%;
     transform: translateX(-50%);
     background: #fff;
@@ -81,6 +81,16 @@
     min-width: 300px;
     z-index: 1000;
     padding: 6px 0 10px;
+  }
+  /* Invisible bridge fills the gap so mouse travel doesn't close the menu */
+  .ci-dropdown::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: -20px;
+    right: -20px;
+    height: 12px;
+    background: transparent;
   }
   .ci-dropdown:hover .ci-dropdown-panel,
   .ci-dropdown.open .ci-dropdown-panel { display: block; }
