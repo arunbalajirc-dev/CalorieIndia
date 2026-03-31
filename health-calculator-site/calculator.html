@@ -238,14 +238,15 @@ function calcTDEEPage(){
   const g=document.getElementById('tdee-gender').value;
   const w=+document.getElementById('tdee-weight').value;
   const h=+document.getElementById('tdee-height').value;
-  const act=+document.getElementById('tdee-activity').value;
+  const act=document.getElementById('tdee-activity').value;
   const bmr = g==='m' ? 10*w+6.25*h-5*age+5 : 10*w+6.25*h-5*age-161;
-  const tdee=Math.round(bmr*act);
+  const tdee=Math.round(bmr*+act);
   document.getElementById('tdee-val').textContent=tdee+' cal/day';
   document.getElementById('tdee-bmr').textContent=Math.round(bmr);
   document.getElementById('tdee-lose').textContent=tdee-500;
   document.getElementById('tdee-gain').textContent=tdee+500;
   show('tdee-result');
+  trackCalc('tdee', {age,gender:g,weight:w,height:h,activity:act}, tdee+' cal/day', {bmr:Math.round(bmr),lose:tdee-500,gain:tdee+500});
 }
 
 function calcBMIPage(){
@@ -260,6 +261,7 @@ function calcBMIPage(){
   document.getElementById('bmi-val').textContent='BMI '+bmi;
   document.getElementById('bmi-cat').textContent=cat;
   show('bmi-result');
+  trackCalc('bmi', {weight:w,height:h*100}, 'BMI '+bmi, {category:cat});
 }
 
 function calcDeficit(){
@@ -270,6 +272,7 @@ function calcDeficit(){
   document.getElementById('def-val').textContent=target+' cal/day';
   document.getElementById('def-weeks').textContent=`At this deficit, you'll lose ~5 kg in ${weeks} weeks.`;
   show('def-result');
+  trackCalc('deficit', {}, target+' cal/day', {tdee,deficit:def,weeks});
 }
 
 function calcMacro(){
@@ -279,21 +282,23 @@ function calcMacro(){
   if(goal==='loss'){pPct=.35;cPct=.4;fPct=.25;}
   else if(goal==='maintain'){pPct=.25;cPct=.5;fPct=.25;}
   else{pPct=.3;cPct=.5;fPct=.2;}
-  document.getElementById('mac-p').textContent=Math.round(cal*pPct/4)+'g';
-  document.getElementById('mac-c').textContent=Math.round(cal*cPct/4)+'g';
-  document.getElementById('mac-f').textContent=Math.round(cal*fPct/9)+'g';
+  const p=Math.round(cal*pPct/4), c=Math.round(cal*cPct/4), f=Math.round(cal*fPct/9);
+  document.getElementById('mac-p').textContent=p+'g';
+  document.getElementById('mac-c').textContent=c+'g';
+  document.getElementById('mac-f').textContent=f+'g';
   show('mac-result');
+  trackCalc('macro', {}, `P:${p}g C:${c}g F:${f}g`, {calories:cal,goal,protein:p,carbs:c,fat:f});
 }
 
 function calcIdealWeight(){
   const h=+document.getElementById('iw-height').value;
   const g=document.getElementById('iw-gender').value;
-  // Asian BMI 18.5–22.9
   const hm=h/100;
   const low=Math.round(18.5*hm*hm);
   const high=Math.round(22.9*hm*hm);
   document.getElementById('iw-val').textContent=`${low} – ${high} kg`;
   show('iw-result');
+  trackCalc('ideal_weight', {height:h,gender:g}, `${low}–${high} kg`, {low,high});
 }
 
 function calcBurn(){
@@ -301,8 +306,10 @@ function calcBurn(){
   const met=+document.getElementById('cb-activity').value;
   const mins=+document.getElementById('cb-mins').value;
   const cal=Math.round(met*w*mins/60);
+  const activity=document.getElementById('cb-activity').options[document.getElementById('cb-activity').selectedIndex].text;
   document.getElementById('cb-val').textContent=cal+' calories';
   show('cb-result');
+  trackCalc('calorie_burn', {weight:w}, cal+' calories', {activity,duration_mins:mins,calories_burned:cal});
 }
 </script>
 </body>
