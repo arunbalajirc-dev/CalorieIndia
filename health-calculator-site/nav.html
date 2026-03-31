@@ -1,0 +1,326 @@
+<!-- CalorieIndia Shared Nav — edit this file only to update nav across all pages -->
+<style>
+  #ci-nav {
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 0 5%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+  }
+  .ci-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    text-decoration: none;
+  }
+  .ci-logo-dot {
+    width: 10px;
+    height: 10px;
+    background: #2d6a4f;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .ci-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .ci-nav-links > li > a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .ci-nav-links > li > a:hover { color: #2d6a4f; }
+
+  /* Dropdown item */
+  .ci-dropdown { position: relative; }
+  .ci-dropdown > a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #2d6a4f !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+  }
+  .ci-chevron {
+    display: inline-block;
+    transition: transform 0.2s;
+    font-style: normal;
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+  .ci-dropdown:hover .ci-chevron,
+  .ci-dropdown.open .ci-chevron { transform: rotate(180deg); }
+
+  /* Dropdown panel */
+  .ci-dropdown-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-top: 3px solid #2d6a4f;
+    border-radius: 0 0 14px 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+    min-width: 300px;
+    z-index: 1000;
+    padding: 6px 0 10px;
+  }
+  .ci-dropdown:hover .ci-dropdown-panel,
+  .ci-dropdown.open .ci-dropdown-panel { display: block; }
+
+  .ci-dropdown-panel a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 18px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.12s;
+    white-space: nowrap;
+  }
+  .ci-dropdown-panel a:hover {
+    background: #f0faf5;
+    color: #2d6a4f;
+  }
+  .ci-drop-icon {
+    font-size: 1.1rem;
+    width: 26px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .ci-drop-text { display: flex; flex-direction: column; }
+  .ci-drop-name { font-size: 0.88rem; font-weight: 600; color: inherit; }
+  .ci-drop-desc { font-size: 0.75rem; color: #888; font-weight: 400; margin-top: 1px; }
+  .ci-dropdown-panel a:hover .ci-drop-desc { color: #5a9e7a; }
+  .ci-drop-divider { border: none; border-top: 1px solid #f0f0f0; margin: 5px 0; }
+
+  /* CTA button */
+  .ci-cta {
+    background: #2d6a4f;
+    color: #fff !important;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .ci-cta:hover { background: #245c43 !important; color: #fff !important; }
+
+  /* Mobile hamburger */
+  .ci-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .ci-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #333;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .ci-mobile-menu {
+    display: none;
+    background: #fff;
+    border-top: 1px solid #e8e8e8;
+    padding: 12px 5% 20px;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    z-index: 998;
+  }
+  .ci-mobile-menu.open { display: block; }
+  .ci-mobile-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 4px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .ci-mobile-menu a:last-child { border-bottom: none; }
+  .ci-mobile-section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #2d6a4f;
+    padding: 14px 4px 4px;
+  }
+  @media (max-width: 768px) {
+    .ci-nav-links { display: none; }
+    .ci-cta-desktop { display: none; }
+    .ci-hamburger { display: flex; }
+    #ci-nav { position: relative; }
+  }
+</style>
+
+<nav id="ci-nav">
+  <!-- Logo -->
+  <a href="calculator.html" class="ci-logo">
+    <span class="ci-logo-dot"></span>
+    CalorieIndia
+  </a>
+
+  <!-- Desktop links -->
+  <ul class="ci-nav-links">
+
+    <!-- ✅ Calculators dropdown — ADD NEW PAGES HERE -->
+    <li class="ci-dropdown">
+      <a href="calculator.html">
+        Calculators
+        <i class="ci-chevron">▾</i>
+      </a>
+      <div class="ci-dropdown-panel">
+
+        <a href="tdee-calculator.html">
+          <span class="ci-drop-icon">🔥</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">TDEE Calculator</span>
+            <span class="ci-drop-desc">Total Daily Energy Expenditure</span>
+          </span>
+        </a>
+
+        <a href="bmi-calculator.html">
+          <span class="ci-drop-icon">⚖️</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">BMI Calculator</span>
+            <span class="ci-drop-desc">Asian BMI ranges for Indians</span>
+          </span>
+        </a>
+
+        <a href="calorie-deficit-calculator.html">
+          <span class="ci-drop-icon">🧮</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">Calorie Deficit Calculator</span>
+            <span class="ci-drop-desc">Find your weight loss target</span>
+          </span>
+        </a>
+
+        <a href="macro-calculator.html">
+          <span class="ci-drop-icon">🥗</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">Macro Calculator</span>
+            <span class="ci-drop-desc">Protein, carbs &amp; fat split</span>
+          </span>
+        </a>
+
+        <a href="ideal-weight-calculator.html">
+          <span class="ci-drop-icon">💛</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">Ideal Weight Calculator</span>
+            <span class="ci-drop-desc">Healthy weight for your height</span>
+          </span>
+        </a>
+
+        <hr class="ci-drop-divider">
+
+        <a href="calorie-burn-calculator.html">
+          <span class="ci-drop-icon">🏃</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">Calorie Burn Calculator</span>
+            <span class="ci-drop-desc">Calories burned by exercise</span>
+          </span>
+        </a>
+
+        <!-- ➕ ADD NEW CALCULATOR HERE:
+        <hr class="ci-drop-divider">
+        <a href="new-calculator.html">
+          <span class="ci-drop-icon">📊</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">New Calculator</span>
+            <span class="ci-drop-desc">Short description here</span>
+          </span>
+        </a>
+        -->
+
+      </div>
+    </li>
+
+    <li><a href="#">Weight Loss</a></li>
+    <li><a href="#">Indian Diet</a></li>
+    <li><a href="#">PCOS</a></li>
+    <li><a href="#">Blog</a></li>
+  </ul>
+
+  <!-- Desktop CTA -->
+  <a href="#" class="ci-cta ci-cta-desktop">Get Free Meal Plan →</a>
+
+  <!-- Mobile hamburger -->
+  <button class="ci-hamburger" id="ci-hamburger-btn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- Mobile menu -->
+  <div class="ci-mobile-menu" id="ci-mobile-menu">
+    <div class="ci-mobile-section-label">Calculators</div>
+    <a href="tdee-calculator.html"><span>🔥</span> TDEE Calculator</a>
+    <a href="bmi-calculator.html"><span>⚖️</span> BMI Calculator</a>
+    <a href="calorie-deficit-calculator.html"><span>🧮</span> Calorie Deficit Calculator</a>
+    <a href="macro-calculator.html"><span>🥗</span> Macro Calculator</a>
+    <a href="ideal-weight-calculator.html"><span>💛</span> Ideal Weight Calculator</a>
+    <a href="calorie-burn-calculator.html"><span>🏃</span> Calorie Burn Calculator</a>
+    <div class="ci-mobile-section-label">More</div>
+    <a href="#">Weight Loss</a>
+    <a href="#">Indian Diet</a>
+    <a href="#">PCOS</a>
+    <a href="#">Blog</a>
+    <a href="#" style="margin-top:12px;background:#2d6a4f;color:#fff;border-radius:8px;justify-content:center;font-weight:600;">Get Free Meal Plan →</a>
+  </div>
+</nav>
+
+<script>
+  (function () {
+    var btn = document.getElementById('ci-hamburger-btn');
+    var menu = document.getElementById('ci-mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', function () {
+        menu.classList.toggle('open');
+      });
+    }
+    // Close mobile menu on outside click
+    document.addEventListener('click', function (e) {
+      if (menu && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+    // Highlight active page link
+    var current = window.location.pathname.split('/').pop();
+    document.querySelectorAll('#ci-nav a, .ci-mobile-menu a').forEach(function (a) {
+      if (a.getAttribute('href') === current) {
+        a.style.color = '#2d6a4f';
+        a.style.fontWeight = '700';
+      }
+    });
+  })();
+</script>
