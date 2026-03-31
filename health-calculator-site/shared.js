@@ -95,7 +95,7 @@ const HEADER_HTML = `
       <span>CalorieIndia</span>
     </a>
     <nav>
-      <a href="calculators.html">Calculators</a>
+      <a href="calculator.html">Calculators</a>
       <a href="weight-loss.html">Weight Loss</a>
       <a href="indian-diet.html">Indian Diet</a>
       <a href="pcos.html">PCOS</a>
@@ -120,12 +120,12 @@ const FOOTER_HTML = `
       <div class="footer-col">
         <h4>Calculators</h4>
         <ul>
-          <li><a href="calculators.html#tdee">TDEE Calculator</a></li>
-          <li><a href="calculators.html#deficit">Calorie Deficit Calculator</a></li>
-          <li><a href="calculators.html#bmi">BMI Calculator</a></li>
-          <li><a href="calculators.html#macro">Macro Calculator</a></li>
-          <li><a href="calculators.html#ideal">Ideal Weight Calculator</a></li>
-          <li><a href="calculators.html#burn">Calorie Burn Calculator</a></li>
+          <li><a href="calculator.html#tdee">TDEE Calculator</a></li>
+          <li><a href="calculator.html#deficit">Calorie Deficit Calculator</a></li>
+          <li><a href="calculator.html#bmi">BMI Calculator</a></li>
+          <li><a href="calculator.html#macro">Macro Calculator</a></li>
+          <li><a href="calculator.html#ideal">Ideal Weight Calculator</a></li>
+          <li><a href="calculator.html#burn">Calorie Burn Calculator</a></li>
         </ul>
       </div>
       <div class="footer-col">
