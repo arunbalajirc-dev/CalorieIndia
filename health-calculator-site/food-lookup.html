@@ -195,18 +195,10 @@
     .card-img {
       width: 100%;
       height: 140px;
-      object-fit: cover;
-      background: var(--green-light);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 52px;
-      color: var(--green);
-    }
-    .card-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
     }
     .card-body { padding: 16px; }
     .card-top {
@@ -327,18 +319,12 @@
     .panel-header-img {
       width: 100%;
       height: 220px;
-      object-fit: cover;
-      background: var(--green-light);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 80px;
       flex-shrink: 0;
-    }
-    .panel-header-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      position: relative;
     }
 
     .panel-body { padding: 24px; flex: 1; }
@@ -347,7 +333,7 @@
       position: absolute;
       top: 16px;
       right: 16px;
-      background: rgba(0,0,0,.4);
+      background: rgba(0,0,0,.3);
       border: none;
       color: #fff;
       width: 32px; height: 32px;
@@ -458,7 +444,7 @@
       font-size: 11px;
     }
 
-    /* ── FOOTER (matches site) ── */
+    /* ── FOOTER ── */
     footer {
       background: var(--dark);
       border-top: 1px solid rgba(255,255,255,.08);
@@ -510,10 +496,10 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════ NAV (shared) -->
+<!-- NAV -->
 <div id="site-nav"></div>
 
-<!-- ═══════════════════════════════════════ HERO -->
+<!-- HERO -->
 <div class="page-hero">
   <h1>Indian <em>Food Database</em></h1>
   <p>Search 900+ Indian foods with calories, macros, and nutritional data. All values are per 100g edible portion.</p>
@@ -525,17 +511,15 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════ MAIN -->
+<!-- MAIN -->
 <div class="main-wrap">
 
-  <!-- Search -->
   <div class="search-bar-wrap">
     <span class="search-icon">🔍</span>
     <input type="text" id="search-input" placeholder="Search foods… e.g. rice, dal, banana, chicken" autocomplete="off" />
     <button class="search-clear" id="search-clear" title="Clear search">✕</button>
   </div>
 
-  <!-- Category Chips -->
   <div class="filter-row" id="filter-row">
     <button class="chip active" data-grup="">All</button>
     <button class="chip" data-grup="Cereals and Millets">Cereals & Millets</button>
@@ -549,43 +533,25 @@
     <button class="chip" data-grup="Spices and Condiments">Spices</button>
   </div>
 
-  <!-- Result count -->
   <div class="status-bar">
     <div class="result-count" id="result-count">Loading foods…</div>
   </div>
 
-  <!-- Food Grid -->
-  <div id="food-grid">
-    <!-- skeleton placeholders -->
-    ${[...Array(8)].map(() => `
-    <div class="skeleton-card">
-      <div class="skeleton skeleton-img"></div>
-      <div class="skeleton-body">
-        <div class="skeleton skeleton-line med"></div>
-        <div class="skeleton skeleton-line short"></div>
-        <div class="skeleton skeleton-line med" style="margin-top:14px"></div>
-        <div class="skeleton skeleton-line med"></div>
-        <div class="skeleton skeleton-line short"></div>
-      </div>
-    </div>`).join('')}
-  </div>
+  <div id="food-grid"></div>
 
 </div>
 
-<!-- ═══════════════════════════════════════ DETAIL PANEL -->
+<!-- DETAIL PANEL -->
 <div class="panel-overlay" id="panel-overlay">
   <div class="detail-panel" id="detail-panel">
-    <div id="panel-img-wrap" class="panel-header-img" style="position:relative;">
-      <!-- image or emoji injected here -->
-      <button class="panel-close" id="panel-close" title="Close">✕</button>
+    <div id="panel-img-wrap" class="panel-header-img">
+      <button class="panel-close" onclick="closePanel()" title="Close">✕</button>
     </div>
-    <div class="panel-body" id="panel-body">
-      <!-- content injected here -->
-    </div>
+    <div class="panel-body" id="panel-body"></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════ FOOTER -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -638,7 +604,7 @@
 </footer>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────────────────────
+// ── CONFIG ───────────────────────────────────────────────────────────────────
 const SUPABASE_URL      = "https://clutyaynlukgsumnopkf.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdXR5YXlubHVrZ3N1bW5vcGtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTAwMzcsImV4cCI6MjA5MDUyNjAzN30.rhWn8jZI0KegFiOrCG8aVDpNVnDhLxrSz-0R62jxja0";
 const HEADERS = {
@@ -646,9 +612,8 @@ const HEADERS = {
   "Authorization": "Bearer " + SUPABASE_ANON_KEY,
   "Content-Type":  "application/json"
 };
-const CDN_BASE = "https://cdn.jsdelivr.net/npm/@ifct2017/pictures/assets/";
 
-// Emoji fallback map by group
+// ── EMOJI & GRADIENT MAP ─────────────────────────────────────────────────────
 const GROUP_EMOJI = {
   "Cereals and Millets":       "🌾",
   "Grain Legumes":             "🫘",
@@ -662,9 +627,26 @@ const GROUP_EMOJI = {
   "Sugars":                    "🍬",
   "Fats and Oils":             "🫙",
   "Beverages":                 "🍵",
-  "Eggs":                      "🥚",
+  "Egg and Egg Products":      "🥚",
 };
 const DEFAULT_EMOJI = "🍽️";
+
+const GROUP_GRADIENT = {
+  "Cereals and Millets":       "linear-gradient(135deg, #e8f5ee, #c8e6d4)",
+  "Grain Legumes":             "linear-gradient(135deg, #fff3e0, #ffe0b2)",
+  "Vegetables":                "linear-gradient(135deg, #e8f5e9, #c8e6c9)",
+  "Fruits":                    "linear-gradient(135deg, #fce4ec, #f8bbd0)",
+  "Milk and Milk Products":    "linear-gradient(135deg, #e3f2fd, #bbdefb)",
+  "Meat and Meat Products":    "linear-gradient(135deg, #fbe9e7, #ffccbc)",
+  "Fish and Sea Food":         "linear-gradient(135deg, #e0f7fa, #b2ebf2)",
+  "Nuts and Oil Seeds":        "linear-gradient(135deg, #fff8e1, #ffecb3)",
+  "Spices and Condiments":     "linear-gradient(135deg, #fce4ec, #ffcdd2)",
+  "Egg and Egg Products":      "linear-gradient(135deg, #fffde7, #fff9c4)",
+  "Sugars":                    "linear-gradient(135deg, #f3e5f5, #e1bee7)",
+  "Fats and Oils":             "linear-gradient(135deg, #f9fbe7, #f0f4c3)",
+  "Beverages":                 "linear-gradient(135deg, #e8eaf6, #c5cae9)",
+};
+const DEFAULT_GRADIENT = "linear-gradient(135deg, #f5f5f5, #eeeeee)";
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 let allFoods   = [];
@@ -673,6 +655,9 @@ let searchTerm = "";
 let searchTimer;
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
+function foodEmoji(grup)    { return GROUP_EMOJI[grup]    || DEFAULT_EMOJI;    }
+function grupGradient(grup) { return GROUP_GRADIENT[grup] || DEFAULT_GRADIENT; }
+
 function macroBar(val, max, cls) {
   const pct = max > 0 ? Math.min(100, (val / max) * 100) : 0;
   return `<div class="macro-row">
@@ -684,23 +669,15 @@ function macroBar(val, max, cls) {
   </div>`;
 }
 
-function foodEmoji(grup) {
-  return GROUP_EMOJI[grup] || DEFAULT_EMOJI;
-}
-
+// ── CARD RENDERING ───────────────────────────────────────────────────────────
 function makeCardImg(food) {
-  const code = (food.code || '').toLowerCase();
-  return `<div class="card-img" id="img-${food.id}">
-    <img src="${CDN_BASE}${code}.jpeg"
-         alt="${food.name}"
-         onload="this.parentElement.style.background=''"
-         onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\\"font-size:52px\\">${foodEmoji(food.grup)}</span>'" />
+  return `<div class="card-img" style="background:${grupGradient(food.grup)};">
+    ${foodEmoji(food.grup)}
   </div>`;
 }
 
 function renderCard(food) {
   const ener = food.ener != null ? Math.round(food.ener) : '—';
-  const maxMacro = 80; // reference value for bar scaling
   return `
   <div class="food-card" onclick="openPanel(${food.id})">
     ${makeCardImg(food)}
@@ -711,10 +688,10 @@ function renderCard(food) {
       </div>
       <div class="group-pill">${food.grup || 'Uncategorised'}</div>
       <div class="macro-bars">
-        ${macroBar(food.prot ?? 0, maxMacro, 'prot')}
-        ${macroBar(food.carb ?? 0, maxMacro, 'carb')}
-        ${macroBar(food.fat  ?? 0, maxMacro, 'fat')}
-        ${macroBar(food.fibr ?? 0, 20,       'fibr')}
+        ${macroBar(food.prot ?? 0, 80, 'prot')}
+        ${macroBar(food.carb ?? 0, 80, 'carb')}
+        ${macroBar(food.fat  ?? 0, 80, 'fat')}
+        ${macroBar(food.fibr ?? 0, 20, 'fibr')}
       </div>
     </div>
   </div>`;
@@ -736,8 +713,7 @@ function renderGrid(foods) {
 }
 
 function renderSkeletons() {
-  const grid = document.getElementById('food-grid');
-  grid.innerHTML = Array(8).fill('').map(() => `
+  document.getElementById('food-grid').innerHTML = Array(8).fill('').map(() => `
     <div class="skeleton-card">
       <div class="skeleton skeleton-img"></div>
       <div class="skeleton-body">
@@ -756,7 +732,6 @@ async function fetchFoods({ search = '', grup = '' } = {}) {
   renderSkeletons();
 
   let url = `${SUPABASE_URL}/rest/v1/foods?select=*&limit=100`;
-
   if (search.trim().length >= 2) {
     url = `${SUPABASE_URL}/rest/v1/foods?name=ilike.*${encodeURIComponent(search.trim())}*&select=*&limit=50`;
     if (grup) url += `&grup=eq.${encodeURIComponent(grup)}`;
@@ -767,9 +742,8 @@ async function fetchFoods({ search = '', grup = '' } = {}) {
   try {
     const res = await fetch(url, { headers: HEADERS });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    allFoods = data;
-    renderGrid(data);
+    allFoods = await res.json();
+    renderGrid(allFoods);
   } catch (err) {
     console.error('Supabase fetch error:', err);
     document.getElementById('food-grid').innerHTML = `<div class="empty-state">
@@ -789,16 +763,12 @@ function openPanel(id) {
   const overlay = document.getElementById('panel-overlay');
   const imgWrap = document.getElementById('panel-img-wrap');
   const body    = document.getElementById('panel-body');
-  const code    = (food.code || '').toLowerCase();
 
-  // Image/emoji
-  imgWrap.style.position = 'relative';
+  // Gradient + emoji header (no broken images)
+  imgWrap.style.background = grupGradient(food.grup);
   imgWrap.innerHTML = `
-    <img src="${CDN_BASE}${code}.jpeg"
-         alt="${food.name}"
-         style="width:100%;height:100%;object-fit:cover;"
-         onerror="this.style.display='none';this.parentElement.innerHTML+='<span style=\\"font-size:80px\\">${foodEmoji(food.grup)}</span>'" />
-    <button class="panel-close" id="panel-close" onclick="closePanel()" title="Close">✕</button>`;
+    <span style="font-size:80px;">${foodEmoji(food.grup)}</span>
+    <button class="panel-close" onclick="closePanel()" title="Close">✕</button>`;
 
   const n = (v, d=1) => v != null ? (+v).toFixed(d) : '—';
 
@@ -849,7 +819,7 @@ function openPanel(id) {
       </div>` : ''}
       ${food.sodium != null ? `<div style="flex:1;background:#fafaf8;border-radius:8px;padding:12px;text-align:center;">
         <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Sodium</div>
-        <div style="font-size:20px;font-weight:700;">${n(food.sodium)}mg</div>
+        <div style="font-size:20px;font-weight:700;">${n(food.sodium, 0)}mg</div>
       </div>` : ''}
     </div>` : ''}
 
@@ -862,7 +832,6 @@ function openPanel(id) {
       <span class="source-badge">IFCT 2017</span>
       <span class="source-badge">NIN</span>
       <span class="source-badge">ICMR</span>
-      ${food.source && food.source !== 'IFCT 2017' ? `<span class="source-badge">${food.source}</span>` : ''}
     </div>`;
 
   overlay.classList.add('open');
@@ -877,14 +846,9 @@ function closePanel() {
 // ── EVENTS ───────────────────────────────────────────────────────────────────
 document.getElementById('search-input').addEventListener('input', function () {
   searchTerm = this.value;
-  const clearBtn = document.getElementById('search-clear');
-  clearBtn.classList.toggle('visible', searchTerm.length > 0);
-
+  document.getElementById('search-clear').classList.toggle('visible', searchTerm.length > 0);
   clearTimeout(searchTimer);
-  if (searchTerm.length === 0) {
-    fetchFoods({ grup: activeGrup });
-    return;
-  }
+  if (searchTerm.length === 0) { fetchFoods({ grup: activeGrup }); return; }
   if (searchTerm.length < 2) return;
   searchTimer = setTimeout(() => fetchFoods({ search: searchTerm, grup: activeGrup }), 350);
 });
@@ -909,14 +873,11 @@ document.getElementById('panel-overlay').addEventListener('click', function (e) 
   if (e.target === this) closePanel();
 });
 
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') closePanel();
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
 fetchFoods();
 
-// Load shared nav
 fetch('nav.html')
   .then(r => r.text())
   .then(h => document.getElementById('site-nav').innerHTML = h)
