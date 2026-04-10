@@ -14,10 +14,6 @@
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--dark);line-height:1.7;}
     a{color:var(--gold);text-decoration:none;}
-    nav{background:var(--white);border-bottom:2px solid var(--gold);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;}
-    .nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.2rem;color:#ff5722;}
-    .nav-links{display:flex;gap:24px;font-size:.85rem;font-weight:500;}
-    .nav-links a{color:var(--mid);}
     .hero{background:linear-gradient(135deg,#1a0f00 0%,#4a2800 100%);color:white;padding:64px 5% 48px;text-align:center;}
     .hero-emoji{font-size:3rem;margin-bottom:16px;display:block;}
     .hero h1{font-family:'Sora',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:16px;}
@@ -73,14 +69,7 @@
   </style>
 </head>
 <body>
-<nav>
-  <div class="nav-logo">🔥 CalorieIndia</div>
-  <div class="nav-links">
-    <a href="calculator.html">All Calculators</a>
-    <a href="bmi-calculator.html">BMI</a>
-    <a href="tdee-calculator.html">TDEE</a>
-  </div>
-</nav>
+<div id="site-nav"></div>
 <div class="hero">
   <div class="breadcrumb"><a href="calculator.html">Home</a> › Ideal Weight Calculator</div>
   <span class="hero-emoji">💛</span>
@@ -255,5 +244,6 @@ function toggleFAQ(el) {
   a.classList.toggle('open'); i.classList.toggle('open');
 }
 </script>
+<script>fetch('nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;});</script>
 </body>
 </html>

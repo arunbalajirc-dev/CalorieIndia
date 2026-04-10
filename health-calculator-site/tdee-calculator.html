@@ -32,12 +32,6 @@
     a { color: var(--fire); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* NAV */
-    nav { background: var(--white); border-bottom: 2px solid var(--fire); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; }
-    .nav-logo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--fire); }
-    .nav-links { display: flex; gap: 24px; font-size: 0.85rem; font-weight: 500; }
-    .nav-links a { color: var(--mid); }
-    .nav-links a:hover { color: var(--fire); text-decoration: none; }
 
     /* HERO */
     .hero { background: linear-gradient(135deg, #1a1a1a 0%, #3d1a10 100%); color: white; padding: 64px 5% 48px; text-align: center; }
@@ -164,15 +158,7 @@
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo">🔥 CalorieIndia</div>
-  <div class="nav-links">
-    <a href="calculator.html">All Calculators</a>
-    <a href="bmi-calculator.html">BMI</a>
-    <a href="macro-calculator.html">Macros</a>
-    <a href="calorie-deficit-calculator.html">Deficit</a>
-  </div>
-</nav>
+<div id="site-nav"></div>
 
 <div class="hero">
   <div class="breadcrumb"><a href="calculator.html">Home</a> › TDEE Calculator</div>
@@ -432,5 +418,6 @@ function toggleFAQ(el) {
   icon.classList.toggle('open');
 }
 </script>
+<script>fetch('nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;});</script>
 </body>
 </html>
