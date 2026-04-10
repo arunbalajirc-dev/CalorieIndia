@@ -31,7 +31,7 @@
     /* ── HERO ── */
     .hero {
       margin-top: 0;
-      background: var(--bg);
+      background: linear-gradient(155deg, #edf7f2 0%, var(--bg) 55%);
       padding: 72px 24px 64px;
     }
     .hero-inner {
@@ -39,8 +39,10 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
     }
     .hero-badge {
-      display: inline-block; background: var(--peach);
-      color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: .08em;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-light); color: var(--green);
+      border: 1px solid rgba(45,122,79,.2);
+      font-size: 11px; font-weight: 600; letter-spacing: .08em;
       text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 20px;
     }
     .hero h1 {
@@ -55,19 +57,24 @@
     .hero-btns { display: flex; gap: 12px; margin-bottom: 8px; }
     .btn-primary {
       background: var(--green); color: #fff; padding: 11px 20px; border-radius: 6px;
-      font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: background .2s;
+      font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      transition: background .2s, transform .1s, box-shadow .2s;
     }
-    .btn-primary:hover { background: var(--green-dark); }
+    .btn-primary:hover { background: var(--green-dark); box-shadow: 0 4px 12px rgba(45,122,79,.35); }
+    .btn-primary:active { transform: scale(.97); }
     .btn-secondary {
       background: var(--text); color: #fff; padding: 11px 20px; border-radius: 6px;
-      font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: background .2s;
+      font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      transition: background .2s, transform .1s;
     }
     .btn-secondary:hover { background: #333; }
+    .btn-secondary:active { transform: scale(.97); }
 
     /* ── CALCULATOR CARD ── */
     .calc-card {
       background: var(--white); border-radius: 16px;
-      box-shadow: 0 4px 24px rgba(0,0,0,.08); padding: 28px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.12); padding: 28px;
+      border: 1px solid var(--border);
     }
     .calc-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
     .calc-icon { background: var(--green-light); border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
@@ -101,20 +108,21 @@
     .tools-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; max-width: 1200px; margin: 0 auto; }
     .tool-card {
       background: var(--white); border-radius: 12px; padding: 20px;
-      transition: box-shadow .2s, transform .2s; cursor: pointer; text-decoration: none; color: var(--text);
+      border: 1px solid var(--border);
+      transition: box-shadow .2s, transform .2s, border-color .2s; cursor: pointer; text-decoration: none; color: var(--text);
       display: block;
     }
-    .tool-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.1); transform: translateY(-2px); }
+    .tool-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.1); transform: translateY(-3px); border-color: var(--green); }
     .tool-emoji { font-size: 24px; margin-bottom: 10px; display: block; }
     .tool-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
     .tool-desc { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
     .tool-link { font-size: 12px; color: var(--green); font-weight: 500; }
 
     /* ── STATS BAR ── */
-    .stats-bar { background: var(--green); padding: 48px 24px; }
+    .stats-bar { background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%); padding: 48px 24px; }
     .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-    .stat-value { font-size: 36px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 6px; }
-    .stat-label { font-size: 13px; color: rgba(255,255,255,.75); }
+    .stat-value { font-size: 36px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 6px; letter-spacing: -.5px; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,.8); }
 
     /* ── BLOG SECTION ── */
     .blog-section { padding: 72px 24px; background: var(--bg); }
@@ -124,8 +132,8 @@
     .view-all { font-size: 13px; color: var(--green); text-decoration: none; font-weight: 500; }
     .view-all:hover { text-decoration: underline; }
     .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .blog-card { background: var(--white); border-radius: 12px; overflow: hidden; transition: box-shadow .2s; }
-    .blog-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .blog-card { background: var(--white); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); transition: box-shadow .2s, transform .2s, border-color .2s; }
+    .blog-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.1); transform: translateY(-3px); border-color: var(--border); }
     .blog-thumb {
       height: 180px; display: flex; align-items: center; justify-content: center; font-size: 48px;
     }
@@ -200,7 +208,7 @@
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-badge">Free · India's Calorie Calculator</div>
+      <div class="hero-badge">🇮🇳 Free · India's Calorie Calculator</div>
       <h1>Eat right for your body.<br>Lose weight that <em>stays lost.</em></h1>
       <p>Science-backed calorie calculators, Indian diet guides, and practical weight loss advice — built for Indian bodies.</p>
       <div class="hero-btns">

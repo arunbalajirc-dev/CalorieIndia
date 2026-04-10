@@ -156,8 +156,13 @@
     height: 2px;
     background: #333;
     border-radius: 2px;
-    transition: all 0.2s;
+    transition: all 0.25s;
+    transform-origin: center;
   }
+  /* X state when open */
+  .ci-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .ci-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .ci-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .ci-mobile-menu {
     display: none;
     background: #fff;
@@ -306,17 +311,36 @@
 (function () {
   var btn  = document.getElementById('ci-hamburger-btn');
   var menu = document.getElementById('ci-mobile-menu');
+  var nav  = document.getElementById('ci-nav');
+
+  // Hamburger toggle with X animation
   if (btn && menu) {
     btn.addEventListener('click', function () {
-      menu.classList.toggle('open');
+      var isOpen = menu.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.setAttribute('aria-expanded', isOpen);
     });
   }
+
   // Close mobile menu on outside click
   document.addEventListener('click', function (e) {
     if (menu && !menu.contains(e.target) && btn && !btn.contains(e.target)) {
       menu.classList.remove('open');
+      btn.classList.remove('open');
     }
   });
+
+  // Scroll shadow on nav
+  if (nav) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 8) {
+        nav.style.boxShadow = '0 4px 20px rgba(0,0,0,.10)';
+      } else {
+        nav.style.boxShadow = 'none';
+      }
+    }, { passive: true });
+  }
+
   // Highlight active page link
   var current = window.location.pathname.split('/').pop();
   document.querySelectorAll('#ci-nav a, .ci-mobile-menu a').forEach(function (a) {
