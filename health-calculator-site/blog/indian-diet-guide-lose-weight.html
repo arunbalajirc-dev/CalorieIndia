@@ -339,19 +339,7 @@
 <!-- READING PROGRESS -->
 <div class="progress-bar" id="progressBar"></div>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="../index.html">Calorie<span>India</span></a>
-    <ul class="nav-links">
-      <li><a href="../index.html">Calculators</a></li>
-      <li><a href="../diet-plan.html">Diet Plans</a></li>
-      <li><a href="../blog.html">Blog</a></li>
-      <li><a href="../bmi-calculator.html">BMI</a></li>
-      <li><a href="../index.html#calorie" class="nav-cta">Calculate Now</a></li>
-    </ul>
-  </div>
-</nav>
+<div id="site-nav"></div>
 
 <!-- BREADCRUMB -->
 <div class="breadcrumb">
@@ -909,5 +897,6 @@
     }
   });
 </script>
+<script>fetch('../nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;});</script>
 </body>
 </html>

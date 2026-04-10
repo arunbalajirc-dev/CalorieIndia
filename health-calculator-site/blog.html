@@ -15,13 +15,6 @@
       --white: #FFFFFF; --radius: 14px; --shadow: 0 2px 12px rgba(0,0,0,0.07);
     }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; }
-    nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; padding: 0 1.5rem; }
-    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--green); text-decoration: none; font-weight: 700; }
-    .logo span { color: var(--saffron); }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-    .nav-links a { text-decoration: none; font-size: 0.875rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--green); }
     .blog-hero { background: linear-gradient(135deg, var(--green) 0%, #1B4332 100%); color: var(--white); padding: 4rem 1.5rem 3rem; text-align: center; }
     .blog-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; margin-bottom: 0.75rem; }
     .blog-hero p { font-size: 1rem; opacity: 0.85; max-width: 520px; margin: 0 auto 1.5rem; }
@@ -112,17 +105,7 @@
   </style>
 </head>
 <body>
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="index.html">Calorie<span>India</span></a>
-    <ul class="nav-links">
-      <li><a href="index.html">Calculators</a></li>
-      <li><a href="diet-plan.html">Diet Plans</a></li>
-      <li><a href="blog.html" class="active">Blog</a></li>
-      <li><a href="bmi-calculator.html">BMI</a></li>
-    </ul>
-  </div>
-</nav>
+<div id="site-nav"></div>
 <section class="blog-hero">
   <span class="hero-badge">Health Insights for India</span>
   <h1>Eat Smart. Move Well. Live Better.</h1>
@@ -297,5 +280,6 @@ function goPage(n){currentPage=n;renderGrid();renderPagination();window.scrollTo
 function fmtDate(s){return new Date(s).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
 loadBlogs();
 </script>
+<script>fetch('nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;});</script>
 </body>
 </html>
