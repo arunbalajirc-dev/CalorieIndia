@@ -41,7 +41,7 @@ serve(async (req) => {
     const mealPlan = await buildMealPlan(plan.intake_data, plan.goal)
 
     // 3. Render HTML template
-    const html = renderTemplate(mealPlan)
+    const html = renderTemplate(mealPlan, plan.intake_data)
     console.log(`HTML rendered, length: ${html.length} chars`)
 
     // 4. Call Browserless to generate PDF
