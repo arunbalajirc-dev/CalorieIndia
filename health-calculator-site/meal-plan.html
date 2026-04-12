@@ -392,23 +392,33 @@
         <div class="field-error" id="err-goal">Please select a goal.</div>
       </div>
 
+      <!-- Target weight — only shown when goal = lose -->
+      <div class="form-group" id="target-weight-group" style="display:none;">
+        <label class="form-label" for="f-target-weight">Target Weight (kg) <span class="req">*</span></label>
+        <input class="form-input" type="number" id="f-target-weight" placeholder="e.g. 65" min="20" max="300" step="0.1" disabled />
+        <div class="field-error" id="err-target-weight"></div>
+        <div id="target-weight-caution" style="display:none;margin-top:6px;padding:10px 14px;background:#fef9c3;border:1px solid #fde047;border-radius:8px;font-size:13px;color:#854d0e;">
+          ⚠️ A difference of 1–3 kg is very small. Consider choosing <strong>Maintain Weight</strong> as your goal instead.
+        </div>
+      </div>
+
       <!-- ── Food Preferences ── -->
       <div class="form-section-label">Food Preferences</div>
 
       <div class="form-group">
-        <label class="form-label">Cuisine <span class="req">*</span> <span style="color:var(--muted);font-weight:400;">(select all that apply)</span></label>
+        <label class="form-label">Cuisine <span class="req">*</span></label>
         <div class="cuisine-cards">
           <label class="cuisine-card-label" id="cc-indian">
-            <input type="checkbox" name="cuisine" value="indian" /> 🇮🇳 Indian
+            <input type="radio" name="cuisine" value="indian" /> 🇮🇳 Indian
           </label>
           <label class="cuisine-card-label" id="cc-continental">
-            <input type="checkbox" name="cuisine" value="continental" /> 🌍 Continental
+            <input type="radio" name="cuisine" value="continental" /> 🌍 Continental
           </label>
           <label class="cuisine-card-label" id="cc-japanese">
-            <input type="checkbox" name="cuisine" value="japanese" /> 🇯🇵 Japanese
+            <input type="radio" name="cuisine" value="japanese" /> 🇯🇵 Japanese
           </label>
         </div>
-        <div class="field-error" id="err-cuisine">Please select at least one cuisine.</div>
+        <div class="field-error" id="err-cuisine">Please select a cuisine.</div>
       </div>
 
       <div class="form-group">
@@ -459,6 +469,7 @@
           <div class="summary-row"><span class="summary-key">BMI</span><span class="summary-val" id="s-bmi"></span></div>
           <div class="summary-row"><span class="summary-key">Activity</span><span class="summary-val" id="s-activity"></span></div>
           <div class="summary-row"><span class="summary-key">Goal</span><span class="summary-val" id="s-goal"></span></div>
+          <div class="summary-row" id="s-target-weight-row" style="display:none;"><span class="summary-key">Target Weight</span><span class="summary-val" id="s-target-weight"></span></div>
           <div class="summary-row"><span class="summary-key">Cuisines</span><span class="summary-val" id="s-cuisine"></span></div>
           <div class="summary-row"><span class="summary-key">Diet</span><span class="summary-val" id="s-diet"></span></div>
           <div class="summary-row"><span class="summary-key">Allergens</span><span class="summary-val" id="s-allergens"></span></div>
@@ -581,18 +592,66 @@ function showStep(n) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Goal card visual toggle ──
+// ── Goal card visual toggle + target weight show/hide ──
 document.querySelectorAll('.goal-card-label').forEach(function(lbl) {
   lbl.querySelector('input').addEventListener('change', function() {
     document.querySelectorAll('.goal-card-label').forEach(function(l){ l.classList.remove('selected'); });
     lbl.classList.add('selected');
+    var goal = lbl.querySelector('input').value;
+    var twGroup = document.getElementById('target-weight-group');
+    var twInput = document.getElementById('f-target-weight');
+    if (goal === 'lose') {
+      twGroup.style.display = 'block';
+      // only enable if weight already filled
+      var weightVal = parseFloat(document.getElementById('f-weight').value);
+      if (!isNaN(weightVal) && weightVal >= 20) {
+        twInput.disabled = false;
+      }
+    } else {
+      twGroup.style.display = 'none';
+      twInput.disabled = true;
+      twInput.value = '';
+      document.getElementById('err-target-weight').classList.remove('visible');
+      document.getElementById('target-weight-caution').style.display = 'none';
+    }
   });
 });
 
-// ── Cuisine card visual toggle ──
+// ── Enable target weight once weight is filled ──
+document.getElementById('f-weight').addEventListener('input', function() {
+  var goal = document.querySelector('input[name="goal"]:checked');
+  if (goal && goal.value === 'lose') {
+    var weightVal = parseFloat(this.value);
+    var twInput = document.getElementById('f-target-weight');
+    twInput.disabled = isNaN(weightVal) || weightVal < 20;
+    if (twInput.disabled) {
+      twInput.value = '';
+      document.getElementById('target-weight-caution').style.display = 'none';
+    } else {
+      checkTargetWeightCaution();
+    }
+  }
+});
+
+// ── Target weight caution check ──
+function checkTargetWeightCaution() {
+  var weightVal = parseFloat(document.getElementById('f-weight').value);
+  var targetVal = parseFloat(document.getElementById('f-target-weight').value);
+  var caution = document.getElementById('target-weight-caution');
+  if (!isNaN(weightVal) && !isNaN(targetVal)) {
+    var diff = weightVal - targetVal;
+    caution.style.display = (diff >= 1 && diff <= 3) ? 'block' : 'none';
+  } else {
+    caution.style.display = 'none';
+  }
+}
+document.getElementById('f-target-weight').addEventListener('input', checkTargetWeightCaution);
+
+// ── Cuisine card visual toggle (single-select radio) ──
 document.querySelectorAll('.cuisine-card-label').forEach(function(lbl) {
   lbl.querySelector('input').addEventListener('change', function() {
-    lbl.classList.toggle('selected', lbl.querySelector('input').checked);
+    document.querySelectorAll('.cuisine-card-label').forEach(function(l){ l.classList.remove('selected'); });
+    lbl.classList.add('selected');
   });
 });
 
@@ -675,11 +734,25 @@ function validateGoal(showError) {
   return ok;
 }
 function validateCuisine(showError) {
-  var ok = document.querySelectorAll('input[name="cuisine"]:checked').length > 0;
+  var ok = !!document.querySelector('input[name="cuisine"]:checked');
   var err = document.getElementById('err-cuisine');
   if (!ok && showError) err.classList.add('visible');
   else err.classList.remove('visible');
   return ok;
+}
+function validateTargetWeight(showError) {
+  var goal = document.querySelector('input[name="goal"]:checked');
+  if (!goal || goal.value !== 'lose') return true; // not required for other goals
+  var weightVal = parseFloat(document.getElementById('f-weight').value);
+  var el = document.getElementById('f-target-weight');
+  var v  = parseFloat(el.value);
+  var err = document.getElementById('err-target-weight');
+  if (isNaN(v) || v < 20 || v >= weightVal) {
+    if (showError) { err.textContent = 'Target weight must be less than your current weight.'; err.classList.add('visible'); el.classList.add('error'); }
+    return false;
+  }
+  err.classList.remove('visible'); el.classList.remove('error');
+  return true;
 }
 function validateDiet(showError) {
   var ok = !!document.querySelector('input[name="diet"]:checked');
@@ -743,9 +816,10 @@ function submitStep1() {
   valid = validateWeight(true)   && valid;
   valid = validateHeight(true)   && valid;
   valid = validateActivity(true) && valid;
-  valid = validateGoal(true)     && valid;
-  valid = validateCuisine(true)  && valid;
-  valid = validateDiet(true)     && valid;
+  valid = validateGoal(true)         && valid;
+  valid = validateTargetWeight(true) && valid;
+  valid = validateCuisine(true)      && valid;
+  valid = validateDiet(true)         && valid;
 
   if (!valid) {
     var firstErr = document.querySelector('.field-error.visible');
@@ -761,7 +835,10 @@ function submitStep1() {
   var activity = document.getElementById('f-activity').value;
   var goal     = document.querySelector('input[name="goal"]:checked').value;
   var dietVal  = document.querySelector('input[name="diet"]:checked').value;
-  var cuisine  = Array.from(document.querySelectorAll('input[name="cuisine"]:checked')).map(function(c){ return c.value; });
+  var cuisineVal = document.querySelector('input[name="cuisine"]:checked').value;
+  var cuisine  = [cuisineVal];
+  var targetWeightRaw = parseFloat(document.getElementById('f-target-weight').value);
+  var targetWeight = (goal === 'lose' && !isNaN(targetWeightRaw)) ? targetWeightRaw : null;
   var allergens= Array.from(document.querySelectorAll('input[name="allergen"]:checked')).map(function(c){ return c.value; });
 
   var tdee = calcTDEE(weight, height, age, gender, activity);
@@ -787,6 +864,7 @@ function submitStep1() {
     is_vegan:       dietVal === 'vegan',
     diet_type:      dietVal,
     allergens:      allergens,
+    target_weight_kg: targetWeight,
     tdee:           tdee,
     target_calories: target,
     bmi:            parseFloat(bmi),
@@ -816,6 +894,13 @@ function populateStep2() {
   setText('s-height',   planData.height_cm + ' cm');
   setText('s-activity', ACTIVITY_LABELS[planData.activity_level]);
   setText('s-goal',     goalLabel);
+  var twRow = document.getElementById('s-target-weight-row');
+  if (planData.target_weight_kg) {
+    twRow.style.display = '';
+    setText('s-target-weight', planData.target_weight_kg + ' kg');
+  } else {
+    twRow.style.display = 'none';
+  }
   setText('s-cuisine',  cuisineStr);
   setText('s-diet',     dietLabel);
   setText('s-allergens',allergenStr);
@@ -866,9 +951,10 @@ async function submitStep2() {
         is_vegetarian:   planData.is_vegetarian,
         is_vegan:        planData.is_vegan,
         allergens:       planData.allergens,
-        tdee:            planData.tdee,
-        target_calories: planData.target_calories,
-        bmi:             planData.bmi
+        tdee:             planData.tdee,
+        target_calories:  planData.target_calories,
+        bmi:              planData.bmi,
+        target_weight_kg: planData.target_weight_kg
       },
       status: 'draft'
     };
