@@ -56,13 +56,13 @@ function foodRow(food: MealFood): string {
   return `
     <tr style="border-bottom:1px solid rgba(255,255,255,.032);">
       <td style="padding:5px 7px;font-size:9.5px;color:#F1F5F2;">${food.name}</td>
-      <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#7A8C82;">${food.scaled_grams}${food.serving_unit}</td>
+      <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'Courier New',monospace;color:#7A8C82;">${food.scaled_grams}${food.serving_unit}</td>
       <td style="padding:5px 7px;text-align:center;">
-        <span style="display:inline-block;padding:2px 8px;border-radius:99px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;background:#F9731622;color:#F97316;border:1px solid #F9731644;">${food.calories}</span>
+        <span style="display:inline-block;padding:2px 8px;border-radius:99px;font-family:'Courier New',monospace;font-size:9px;font-weight:700;background:#F9731622;color:#F97316;border:1px solid #F9731644;">${food.calories}</span>
       </td>
-      <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#22C55E;">${food.protein_g}g</td>
-      <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#F97316;">${food.carbs_g}g</td>
-      <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#A855F7;">${food.fat_g}g</td>
+      <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'Courier New',monospace;color:#22C55E;">${food.protein_g}g</td>
+      <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'Courier New',monospace;color:#F97316;">${food.carbs_g}g</td>
+      <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'Courier New',monospace;color:#A855F7;">${food.fat_g}g</td>
       <td style="padding:5px 7px;text-align:center;">
         <div style="display:flex;flex-direction:column;gap:2px;width:52px;">
           <div style="display:flex;align-items:center;gap:3px;">
@@ -89,7 +89,7 @@ function mealTable(label: string, emoji: string, foods: MealFood[], color: strin
     <div style="margin-bottom:14px;">
       <div style="font-size:11px;font-weight:700;color:${color};margin-bottom:6px;padding:5px 10px;background:${color}18;border-radius:6px;display:flex;justify-content:space-between;align-items:center;">
         <span>${emoji} ${label}</span>
-        <span style="font-family:'DM Mono',monospace;font-size:10px;">${totalCals} kcal</span>
+        <span style="font-family:'Courier New',monospace;font-size:10px;">${totalCals} kcal</span>
       </div>
       <table style="width:100%;border-collapse:collapse;">
         <thead>
@@ -120,11 +120,11 @@ function header(tag: string, date: string, dotColor = 'linear-gradient(135deg,#F
   <div style="position:relative;z-index:1;flex-shrink:0;padding:14px 28px 12px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;">
     <div style="display:flex;align-items:center;gap:8px;">
       <div style="width:9px;height:9px;border-radius:50%;background:${dotColor};"></div>
-      <span style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;">CalorieIndia</span>
+      <span style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#fff;">CalorieIndia</span>
     </div>
     <div style="display:flex;align-items:center;gap:11px;">
       <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#7A8C82;padding:3px 10px;border:1px solid rgba(255,255,255,.08);border-radius:99px;">${tag}</span>
-      <span style="font-family:'DM Mono',monospace;font-size:10px;color:#7A8C82;">${date}</span>
+      <span style="font-family:'Courier New',monospace;font-size:10px;color:#7A8C82;">${date}</span>
     </div>
   </div>`
 }
@@ -133,12 +133,11 @@ function footer(note: string, pageNum: string): string {
   return `
   <div style="position:relative;z-index:1;flex-shrink:0;padding:9px 28px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;">
     <span style="font-size:8.5px;color:#7A8C82;opacity:.7;">${note}</span>
-    <span style="font-family:'DM Mono',monospace;font-size:9px;color:#7A8C82;">${pageNum}</span>
+    <span style="font-family:'Courier New',monospace;font-size:9px;color:#7A8C82;">${pageNum}</span>
   </div>`
 }
 
 const BASE_STYLES = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
   :root{
     --orange:#F97316;--orange2:#FB923C;
     --green:#22C55E;--green2:#4ADE80;
@@ -149,7 +148,7 @@ const BASE_STYLES = `
     --text:#F1F5F2;--muted:#7A8C82;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'DM Sans',sans-serif;background:#0a0b0a;color:#F1F5F2;}
+  body{font-family:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;background:#0a0b0a;color:#F1F5F2;}
   .page{
     width:210mm;min-height:297mm;background:#0D0F0E;
     position:relative;overflow:hidden;
@@ -245,13 +244,13 @@ function page1(plan: MealPlan, intakeData: any): string {
 
     <div style="position:relative;z-index:1;flex-shrink:0;padding:20px 28px 0;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start;">
       <div>
-        <h1 style="font-family:'Playfair Display',serif;font-size:26px;font-weight:900;line-height:1.1;margin-bottom:6px;">
+        <h1 style="font-family:Georgia,serif;font-size:26px;font-weight:900;line-height:1.1;margin-bottom:6px;">
           Your Current <em style="font-style:italic;background:linear-gradient(90deg,#F97316,#FB923C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Health Snapshot</em>
         </h1>
         <p style="font-size:11px;color:#7A8C82;">Personalised for Indian metabolic standards · IFCT 2017 data</p>
       </div>
       <div style="background:#131614;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px 18px;text-align:center;min-width:120px;">
-        <span style="font-family:'Playfair Display',serif;font-size:36px;font-weight:900;line-height:1;display:block;color:${B.color};">${bmi}</span>
+        <span style="font-family:Georgia,serif;font-size:36px;font-weight:900;line-height:1;display:block;color:${B.color};">${bmi}</span>
         <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#7A8C82;margin-top:3px;display:block;">BMI Score</span>
         <span style="margin-top:8px;padding:4px 12px;border-radius:99px;font-size:10px;font-weight:600;display:inline-block;background:${B.color}22;color:${B.color};border:1px solid ${B.color}55;">${B.cat}</span>
       </div>
@@ -264,23 +263,23 @@ function page1(plan: MealPlan, intakeData: any): string {
         <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#7A8C82;margin-bottom:11px;font-weight:600;">Your Profile</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <div style="background:#1C1F1D;border-radius:10px;padding:10px 12px;">
-            <span style="font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:#fff;line-height:1;display:block;">${weight_kg} kg</span>
+            <span style="font-family:'Courier New',monospace;font-size:20px;font-weight:500;color:#fff;line-height:1;display:block;">${weight_kg} kg</span>
             <span style="font-size:10px;color:#7A8C82;margin-top:3px;display:block;">Current Weight</span>
           </div>
           <div style="background:#1C1F1D;border-radius:10px;padding:10px 12px;">
-            <span style="font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:#fff;line-height:1;display:block;">${height_cm} cm</span>
+            <span style="font-family:'Courier New',monospace;font-size:20px;font-weight:500;color:#fff;line-height:1;display:block;">${height_cm} cm</span>
             <span style="font-size:10px;color:#7A8C82;margin-top:3px;display:block;">Height</span>
           </div>
           <div style="background:#1C1F1D;border-radius:10px;padding:10px 12px;">
-            <span style="font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:#fff;line-height:1;display:block;">${age} yrs</span>
+            <span style="font-family:'Courier New',monospace;font-size:20px;font-weight:500;color:#fff;line-height:1;display:block;">${age} yrs</span>
             <span style="font-size:10px;color:#7A8C82;margin-top:3px;display:block;">Age</span>
           </div>
           <div style="background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.22);border-radius:10px;padding:10px 12px;">
-            <span style="font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:#FB923C;line-height:1;display:block;">${targetWeight} kg</span>
+            <span style="font-family:'Courier New',monospace;font-size:20px;font-weight:500;color:#FB923C;line-height:1;display:block;">${targetWeight} kg</span>
             <span style="font-size:10px;color:#7A8C82;margin-top:3px;display:block;">Target Weight</span>
           </div>
           <div style="background:#1C1F1D;border-radius:10px;padding:10px 12px;grid-column:1/-1;">
-            <span style="font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:#fff;line-height:1;display:block;">${losing ? '−' : '+'} ${Math.abs(toChange)} kg to ${losing ? 'lose' : 'gain'}</span>
+            <span style="font-family:'Courier New',monospace;font-size:15px;font-weight:500;color:#fff;line-height:1;display:block;">${losing ? '−' : '+'} ${Math.abs(toChange)} kg to ${losing ? 'lose' : 'gain'}</span>
             <span style="font-size:10px;color:#7A8C82;margin-top:3px;display:block;">Weight Change Goal · ~${months || '?'} months</span>
           </div>
         </div>
@@ -309,7 +308,7 @@ function page1(plan: MealPlan, intakeData: any): string {
             <div style="flex:1;height:8px;background:#1C1F1D;border-radius:99px;overflow:hidden;">
               <div style="width:${row.pct}%;height:100%;background:${row.color};border-radius:99px;"></div>
             </div>
-            <span style="font-family:'DM Mono',monospace;font-size:10px;color:#F1F5F2;width:60px;text-align:right;">${row.val}</span>
+            <span style="font-family:'Courier New',monospace;font-size:10px;color:#F1F5F2;width:60px;text-align:right;">${row.val}</span>
           </div>`).join('')}
       </div>
 
@@ -412,7 +411,7 @@ function page2(plan: MealPlan, intakeData: any): string {
     ${header('Your Fitness Journey', plan.generated_date)}
 
     <div style="position:relative;z-index:1;flex-shrink:0;padding:14px 28px 0;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:21px;font-weight:900;line-height:1.15;margin-bottom:4px;">
+      <h2 style="font-family:Georgia,serif;font-size:21px;font-weight:900;line-height:1.15;margin-bottom:4px;">
         Our <em style="font-style:italic;background:linear-gradient(90deg,#A855F7,#C084FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Approach</em> to Your Transformation
       </h2>
       <p style="font-size:11px;color:#7A8C82;">Macro targets, energy model &amp; 3-phase roadmap — powered by IFCT 2017 &amp; CalorieIndia database</p>
@@ -427,7 +426,7 @@ function page2(plan: MealPlan, intakeData: any): string {
           <div style="position:relative;width:90px;height:90px;">
             <svg width="90" height="90" viewBox="0 0 90 90">${dpaths}</svg>
             <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-              <span style="font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:#fff;line-height:1;">${tCal}</span>
+              <span style="font-family:'Courier New',monospace;font-size:17px;font-weight:500;color:#fff;line-height:1;">${tCal}</span>
               <span style="font-size:7.5px;color:#7A8C82;text-transform:uppercase;letter-spacing:.06em;margin-top:2px;">kcal/day</span>
             </div>
           </div>
@@ -438,7 +437,7 @@ function page2(plan: MealPlan, intakeData: any): string {
               <div style="flex:1;">
                 <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
                   <span style="font-size:11px;color:#F1F5F2;font-weight:500;">${m.name}</span>
-                  <span style="font-family:'DM Mono',monospace;font-size:10px;color:#7A8C82;">${m.g}g · ${m.pct}%</span>
+                  <span style="font-family:'Courier New',monospace;font-size:10px;color:#7A8C82;">${m.g}g · ${m.pct}%</span>
                 </div>
                 <div style="height:5px;background:#1C1F1D;border-radius:99px;overflow:hidden;">
                   <div style="width:${m.pct}%;height:100%;background:${m.color};border-radius:99px;"></div>
@@ -454,11 +453,11 @@ function page2(plan: MealPlan, intakeData: any): string {
         <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#7A8C82;margin-bottom:10px;font-weight:600;">Energy Foundation</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;">
           <div style="background:#1C1F1D;border-radius:10px;padding:11px 12px;">
-            <span style="font-family:'DM Mono',monospace;font-size:21px;font-weight:500;display:block;line-height:1;margin-bottom:3px;color:#FB923C;">${tdee}</span>
+            <span style="font-family:'Courier New',monospace;font-size:21px;font-weight:500;display:block;line-height:1;margin-bottom:3px;color:#FB923C;">${tdee}</span>
             <span style="font-size:10px;color:#7A8C82;display:block;">TDEE kcal/day</span>
           </div>
           <div style="background:#1C1F1D;border-radius:10px;padding:11px 12px;">
-            <span style="font-family:'DM Mono',monospace;font-size:21px;font-weight:500;display:block;line-height:1;margin-bottom:3px;color:#3B82F6;">${Math.round(bmr)}</span>
+            <span style="font-family:'Courier New',monospace;font-size:21px;font-weight:500;display:block;line-height:1;margin-bottom:3px;color:#3B82F6;">${Math.round(bmr)}</span>
             <span style="font-size:10px;color:#7A8C82;display:block;">BMR kcal/day</span>
           </div>
         </div>
@@ -476,7 +475,7 @@ function page2(plan: MealPlan, intakeData: any): string {
           ${phases.map(p => `
           <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;">
             <div style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;background:${p.color}22;border:2px solid ${p.color}55;margin-bottom:6px;">${p.icon}</div>
-            <span style="font-family:'DM Mono',monospace;font-size:8px;color:#7A8C82;margin-bottom:2px;">${p.num}</span>
+            <span style="font-family:'Courier New',monospace;font-size:8px;color:#7A8C82;margin-bottom:2px;">${p.num}</span>
             <span style="font-size:10.5px;font-weight:600;margin-bottom:2px;color:${p.color};">${p.name}</span>
             <span style="font-size:8px;color:#7A8C82;">${p.weeks}</span>
             <span style="font-size:8.5px;color:#7A8C82;margin-top:4px;line-height:1.35;padding:0 4px;">${p.desc}</span>
@@ -495,7 +494,7 @@ function page2(plan: MealPlan, intakeData: any): string {
               <div style="flex:1;height:8px;background:#1C1F1D;border-radius:99px;overflow:hidden;">
                 <div style="width:${nu.score}%;height:100%;background:${nu.color};border-radius:99px;"></div>
               </div>
-              <span style="font-family:'DM Mono',monospace;font-size:10px;color:${nu.color};width:32px;text-align:right;">${nu.score}%</span>
+              <span style="font-family:'Courier New',monospace;font-size:10px;color:${nu.color};width:32px;text-align:right;">${nu.score}%</span>
             </div>`).join('')}
           </div>
           <svg width="190" height="155" viewBox="0 0 190 155">${rh}</svg>
@@ -585,7 +584,7 @@ function page3(plan: MealPlan, intakeData: any): string {
     ${header('Energy &amp; Burn Model', plan.generated_date)}
 
     <div style="position:relative;z-index:1;flex-shrink:0;padding:13px 28px 0;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:21px;font-weight:900;line-height:1.15;margin-bottom:3px;">
+      <h2 style="font-family:Georgia,serif;font-size:21px;font-weight:900;line-height:1.15;margin-bottom:3px;">
         Your <em style="font-style:italic;background:linear-gradient(90deg,#F97316,#EAB308);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Calorie Burn</em> Engine
       </h2>
       <p style="font-size:11px;color:#7A8C82;">Energy expenditure at current body weight · Walk · Run · Swim · Badminton · Cricket · Weight Training</p>
@@ -594,7 +593,7 @@ function page3(plan: MealPlan, intakeData: any): string {
     <div style="position:relative;z-index:1;flex-shrink:0;padding:9px 28px;display:flex;gap:8px;">
       ${strip.map(st => `
       <div style="flex:1;background:#131614;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:8px 10px;text-align:center;">
-        <span style="font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:#fff;display:block;line-height:1;">${st.v}</span>
+        <span style="font-family:'Courier New',monospace;font-size:18px;font-weight:500;color:#fff;display:block;line-height:1;">${st.v}</span>
         <span style="font-size:8px;color:#7A8C82;margin-top:3px;display:block;text-transform:uppercase;letter-spacing:.05em;">${st.l}</span>
       </div>`).join('')}
     </div>
@@ -618,7 +617,7 @@ function page3(plan: MealPlan, intakeData: any): string {
             <div style="flex:1;height:7px;background:#1C1F1D;border-radius:99px;overflow:hidden;">
               <div style="width:${pct}%;height:100%;background:${ex.color};border-radius:99px;"></div>
             </div>
-            <span style="font-family:'DM Mono',monospace;font-size:9px;font-weight:500;width:42px;text-align:right;color:${ex.color};">${cal} kcal</span>
+            <span style="font-family:'Courier New',monospace;font-size:9px;font-weight:500;width:42px;text-align:right;color:${ex.color};">${cal} kcal</span>
           </div>`
         }).join('')
         return `
@@ -670,7 +669,7 @@ function page4(plan: MealPlan, intakeData: any): string {
     ${header('The 80 / 20 Method', plan.generated_date)}
 
     <div style="position:relative;z-index:1;flex-shrink:0;padding:13px 28px 0;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:21px;font-weight:900;line-height:1.15;margin-bottom:3px;">
+      <h2 style="font-family:Georgia,serif;font-size:21px;font-weight:900;line-height:1.15;margin-bottom:3px;">
         The <em style="font-style:italic;background:linear-gradient(90deg,#22C55E,#4ADE80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">80 / 20</em> Calorie Approach
       </h2>
       <p style="font-size:11px;color:#7A8C82;">80% through food choices · 20% through movement — sustainable, no crash diets, no extreme workouts</p>
@@ -683,11 +682,11 @@ function page4(plan: MealPlan, intakeData: any): string {
         <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#7A8C82;margin-bottom:10px;font-weight:600;">The Core Philosophy</div>
         <div style="display:flex;gap:0;height:42px;border-radius:10px;overflow:hidden;margin-bottom:11px;">
           <div style="flex:8;background:linear-gradient(135deg,#166534,#22C55E);display:flex;align-items:center;justify-content:center;gap:8px;">
-            <span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:#fff;">80%</span>
+            <span style="font-family:Georgia,serif;font-size:20px;font-weight:900;color:#fff;">80%</span>
             <span style="font-size:10px;color:rgba(255,255,255,.75);font-weight:500;">Diet &amp; Food Choices</span>
           </div>
           <div style="flex:2;background:linear-gradient(135deg,#7C2D12,#F97316);display:flex;align-items:center;justify-content:center;">
-            <span style="font-family:'Playfair Display',serif;font-size:15px;font-weight:900;color:#fff;">20%</span>
+            <span style="font-family:Georgia,serif;font-size:15px;font-weight:900;color:#fff;">20%</span>
           </div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
@@ -710,7 +709,7 @@ function page4(plan: MealPlan, intakeData: any): string {
         <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#7A8C82;margin-bottom:10px;font-weight:600;">Your Calorie Deficit Breakdown</div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
           <div>
-            <div style="font-family:'Playfair Display',serif;font-size:30px;font-weight:900;line-height:1;">${tdee} kcal</div>
+            <div style="font-family:Georgia,serif;font-size:30px;font-weight:900;line-height:1;">${tdee} kcal</div>
             <div style="font-size:10px;color:#7A8C82;margin-top:2px;">TDEE — your daily maintenance</div>
           </div>
           <div style="text-align:right;">
@@ -729,7 +728,7 @@ function page4(plan: MealPlan, intakeData: any): string {
             ? `<div style="text-align:center;font-size:20px;color:#7A8C82;">${i === 1 ? '+' : '='}</div>`
             : `<div style="background:#1C1F1D;border-radius:12px;padding:11px;text-align:center;position:relative;">
                 <span style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);padding:2px 8px;border-radius:99px;font-size:8px;font-weight:700;background:${item.bg};color:${item.color};border:1px solid ${item.bd};">${item.pct}</span>
-                <span style="font-family:'DM Mono',monospace;font-size:18px;font-weight:500;line-height:1;display:block;margin-bottom:3px;color:${item.color};">${item.val}</span>
+                <span style="font-family:'Courier New',monospace;font-size:18px;font-weight:500;line-height:1;display:block;margin-bottom:3px;color:${item.color};">${item.val}</span>
                 <span style="font-size:9px;color:#7A8C82;text-transform:uppercase;letter-spacing:.05em;">${item.lbl}</span>
               </div>`
           ).join('')}
@@ -745,7 +744,7 @@ function page4(plan: MealPlan, intakeData: any): string {
           <div style="display:flex;align-items:center;gap:5px;font-size:9.5px;color:#7A8C82;">
             <div style="width:8px;height:8px;border-radius:2px;background:#F97316;"></div>Exercise contribution
           </div>
-          <div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;color:#F1F5F2;">${target_calories} <span style="color:#7A8C82;font-size:9.5px;">target calories/day</span></div>
+          <div style="margin-left:auto;font-family:'Courier New',monospace;font-size:10px;color:#F1F5F2;">${target_calories} <span style="color:#7A8C82;font-size:9.5px;">target calories/day</span></div>
         </div>
       </div>
 
@@ -758,7 +757,7 @@ function page4(plan: MealPlan, intakeData: any): string {
             <div style="position:absolute;top:0;left:0;right:0;height:2px;border-radius:10px 10px 0 0;background:${m.color};"></div>
             <span style="font-size:20px;margin-bottom:5px;display:block;">${m.icon}</span>
             <div style="font-size:10.5px;font-weight:700;color:#F1F5F2;margin-bottom:2px;">${m.meal}</div>
-            <span style="font-family:'DM Mono',monospace;font-size:13px;margin-bottom:3px;display:block;color:${m.color};">${Math.round(target_calories * m.pct)} kcal</span>
+            <span style="font-family:'Courier New',monospace;font-size:13px;margin-bottom:3px;display:block;color:${m.color};">${Math.round(target_calories * m.pct)} kcal</span>
             <span style="font-size:8.5px;background:${m.bg};color:${m.color};border:1px solid ${m.bd};padding:3px 8px;border-radius:99px;display:inline-block;">Page ${m.page}</span>
           </div>`).join('')}
         </div>
@@ -810,16 +809,16 @@ function mealLibraryPage(
     <div style="position:relative;z-index:1;flex-shrink:0;padding:12px 26px 10px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;">
       <div style="display:flex;align-items:center;gap:7px;">
         <div style="width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,${accent},${accentLight});"></div>
-        <span style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;">CalorieIndia</span>
+        <span style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#fff;">CalorieIndia</span>
       </div>
       <div style="display:flex;align-items:center;gap:9px;">
         <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#7A8C82;padding:3px 10px;border:1px solid rgba(255,255,255,.08);border-radius:99px;">${emoji} ${pageTag}</span>
-        <span style="font-family:'DM Mono',monospace;font-size:10px;color:#7A8C82;">${plan.generated_date}</span>
+        <span style="font-family:'Courier New',monospace;font-size:10px;color:#7A8C82;">${plan.generated_date}</span>
       </div>
     </div>
 
     <div style="position:relative;z-index:1;flex-shrink:0;padding:10px 26px 0;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;line-height:1.1;margin-bottom:3px;">
+      <h2 style="font-family:Georgia,serif;font-size:20px;font-weight:900;line-height:1.1;margin-bottom:3px;">
         Your <em style="font-style:italic;background:linear-gradient(90deg,${accent},${accentLight});-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${label}</em> Food Library
       </h2>
       <p style="font-size:10px;color:#7A8C82;">Calorie-controlled options · Each food scaled to your daily target · Pick one item per day</p>
@@ -828,11 +827,11 @@ function mealLibraryPage(
     <div style="position:relative;z-index:1;flex-shrink:0;padding:6px 26px;display:flex;gap:8px;align-items:center;">
       <div style="background:#131614;border:1px solid rgba(255,255,255,.08);border-radius:99px;padding:5px 13px;display:flex;align-items:center;gap:7px;">
         <span style="font-size:8.5px;color:#7A8C82;text-transform:uppercase;letter-spacing:.06em;">Slot Budget</span>
-        <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:${accent};">${slotCals} kcal</span>
+        <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:500;color:${accent};">${slotCals} kcal</span>
       </div>
       <div style="background:#131614;border:1px solid rgba(255,255,255,.08);border-radius:99px;padding:5px 13px;display:flex;align-items:center;gap:7px;">
         <span style="font-size:8.5px;color:#7A8C82;text-transform:uppercase;letter-spacing:.06em;">Plan Goal</span>
-        <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#22C55E;">${plan.goal_label}</span>
+        <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:500;color:#22C55E;">${plan.goal_label}</span>
       </div>
       <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:5px 10px;font-size:9px;color:#7A8C82;line-height:1.35;">
         <strong style="color:#F1F5F2;">How to use:</strong> Pick any 1 food from your ${label.toLowerCase()} plan below. The serving size is already calculated for your calorie target.
@@ -866,17 +865,17 @@ function mealLibraryPage(
                 <span style="font-weight:600;">${food.name}</span>
               </td>
               <td style="padding:5px 7px;text-align:center;vertical-align:middle;">
-                <span style="display:inline-block;padding:2px 8px;border-radius:99px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;background:${accent}22;color:${accent};border:1px solid ${accent}44;">${food.calories}</span>
+                <span style="display:inline-block;padding:2px 8px;border-radius:99px;font-family:'Courier New',monospace;font-size:9px;font-weight:700;background:${accent}22;color:${accent};border:1px solid ${accent}44;">${food.calories}</span>
               </td>
               <td style="padding:5px 7px;text-align:center;vertical-align:middle;">
-                <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;font-family:'DM Mono',monospace;font-size:10px;font-weight:600;background:${accent}15;color:${accentLight};border:1px solid ${accent}44;">
+                <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;font-family:'Courier New',monospace;font-size:10px;font-weight:600;background:${accent}15;color:${accentLight};border:1px solid ${accent}44;">
                   <span style="font-size:8px;opacity:.7;">→</span>${food.scaled_grams}${food.serving_unit}
                 </span>
               </td>
-              <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#F1F5F2;vertical-align:middle;">${food.protein_g}g</td>
-              <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#F1F5F2;vertical-align:middle;">${food.carbs_g}g</td>
-              <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#F1F5F2;vertical-align:middle;">${food.fat_g}g</td>
-              <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#F1F5F2;vertical-align:middle;">${food.fibre_g}g</td>
+              <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'Courier New',monospace;color:#F1F5F2;vertical-align:middle;">${food.protein_g}g</td>
+              <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'Courier New',monospace;color:#F1F5F2;vertical-align:middle;">${food.carbs_g}g</td>
+              <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'Courier New',monospace;color:#F1F5F2;vertical-align:middle;">${food.fat_g}g</td>
+              <td style="padding:5px 7px;font-size:9px;text-align:center;font-family:'Courier New',monospace;color:#F1F5F2;vertical-align:middle;">${food.fibre_g}g</td>
               <td style="padding:5px 7px;text-align:center;vertical-align:middle;">
                 <div style="display:flex;flex-direction:column;gap:2px;width:52px;">
                   <div style="display:flex;align-items:center;gap:3px;"><span style="font-size:7px;color:#7A8C82;width:10px;text-align:right;">P</span><div style="flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden;"><div style="width:${pPct}%;height:100%;background:#22C55E;border-radius:99px;"></div></div></div>
@@ -901,7 +900,7 @@ function mealLibraryPage(
 
     <div style="position:relative;z-index:1;flex-shrink:0;padding:7px 26px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;">
       <span style="font-size:8.5px;color:#7A8C82;opacity:.65;">⚕ Calorie values from CalorieIndia IFCT 2017 database · Servings scaled to your personal target</span>
-      <span style="font-family:'DM Mono',monospace;font-size:9px;color:#7A8C82;">Page ${pageNum} of ${totalPages}</span>
+      <span style="font-family:'Courier New',monospace;font-size:9px;color:#7A8C82;">Page ${pageNum} of ${totalPages}</span>
     </div>
   </div>`
 }
@@ -916,7 +915,7 @@ function page9(plan: MealPlan): string {
     ${header('Your 7-Day Schedule', plan.generated_date)}
 
     <div style="position:relative;z-index:1;flex-shrink:0;padding:12px 26px 0;">
-      <h2 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;line-height:1.1;margin-bottom:3px;">
+      <h2 style="font-family:Georgia,serif;font-size:20px;font-weight:900;line-height:1.1;margin-bottom:3px;">
         Your <em style="font-style:italic;background:linear-gradient(90deg,#A855F7,#C084FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Complete</em> 7-Day Meal Schedule
       </h2>
       <p style="font-size:10px;color:#7A8C82;">${plan.goal_label} · ${plan.target_calories} kcal/day · ${plan.diet_label} · ${plan.cuisine_labels.join(', ')}</p>
@@ -938,23 +937,23 @@ function page9(plan: MealPlan): string {
           ${plan.days.map((day, i) => `
           <tr style="border-bottom:1px solid rgba(255,255,255,.04);">
             <td style="padding:6px 8px;vertical-align:top;">
-              <div style="font-family:'Playfair Display',serif;font-size:11px;font-weight:700;color:#F1F5F2;">${DAY_NAMES[i].slice(0, 3)}</div>
+              <div style="font-family:Georgia,serif;font-size:11px;font-weight:700;color:#F1F5F2;">${DAY_NAMES[i].slice(0, 3)}</div>
               <div style="font-size:8px;color:#7A8C82;">Day ${i + 1}</div>
             </td>
             <td style="padding:6px 8px;vertical-align:top;">
-              ${day.breakfast.map(f => `<div style="font-size:8.5px;color:#F1F5F2;line-height:1.4;">${f.name}</div><div style="font-size:7.5px;color:#F97316;font-family:'DM Mono',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
+              ${day.breakfast.map(f => `<div style="font-size:8.5px;color:#F1F5F2;line-height:1.4;">${f.name}</div><div style="font-size:7.5px;color:#F97316;font-family:'Courier New',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
             </td>
             <td style="padding:6px 8px;vertical-align:top;">
-              ${day.lunch.map(f => `<div style="font-size:8.5px;color:#F1F5F2;line-height:1.4;">${f.name}</div><div style="font-size:7.5px;color:#22C55E;font-family:'DM Mono',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
+              ${day.lunch.map(f => `<div style="font-size:8.5px;color:#F1F5F2;line-height:1.4;">${f.name}</div><div style="font-size:7.5px;color:#22C55E;font-family:'Courier New',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
             </td>
             <td style="padding:6px 8px;vertical-align:top;">
-              ${day.snacks.map(f => `<div style="font-size:8.5px;color:#F1F5F2;line-height:1.4;">${f.name}</div><div style="font-size:7.5px;color:#3B82F6;font-family:'DM Mono',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
+              ${day.snacks.map(f => `<div style="font-size:8.5px;color:#F1F5F2;line-height:1.4;">${f.name}</div><div style="font-size:7.5px;color:#3B82F6;font-family:'Courier New',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
             </td>
             <td style="padding:6px 8px;vertical-align:top;">
-              ${day.dinner.map(f => `<div style="font-size:8.5px;color:#F1F5F2;line-height:1.4;">${f.name}</div><div style="font-size:7.5px;color:#A855F7;font-family:'DM Mono',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
+              ${day.dinner.map(f => `<div style="font-size:8.5px;color:#F1F5F2;line-height:1.4;">${f.name}</div><div style="font-size:7.5px;color:#A855F7;font-family:'Courier New',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
             </td>
             <td style="padding:6px 8px;text-align:right;vertical-align:top;">
-              <div style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#F1F5F2;">${day.total_calories}</div>
+              <div style="font-family:'Courier New',monospace;font-size:11px;font-weight:700;color:#F1F5F2;">${day.total_calories}</div>
               <div style="font-size:7.5px;color:#7A8C82;">kcal</div>
               <div style="font-size:7.5px;color:#22C55E;margin-top:2px;">P: ${day.total_protein}g</div>
               <div style="font-size:7.5px;color:#F97316;">C: ${day.total_carbs}g</div>
@@ -969,13 +968,13 @@ function page9(plan: MealPlan): string {
       <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#F97316,#22C55E,#A855F7);"></div>
       <div style="display:flex;align-items:center;gap:14px;">
         <div style="flex:1;">
-          <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:900;line-height:1.2;margin-bottom:5px;">
+          <div style="font-family:Georgia,serif;font-size:15px;font-weight:900;line-height:1.2;margin-bottom:5px;">
             You already have <em style="font-style:italic;background:linear-gradient(90deg,#F97316,#22C55E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">everything</em> you need to begin.
           </div>
           <div style="font-size:9px;color:#7A8C82;line-height:1.6;">
             This plan was built specifically for you — ${plan.user_name}, ${plan.goal_label}, ${plan.target_calories} kcal/day, ${plan.diet_label} · ${plan.cuisine_labels.join(' + ')} cuisine. Every serving size is already calculated. Every day is planned. Just follow the schedule above, weigh your portions once, and let the results follow.
           </div>
-          <div style="font-family:'Playfair Display',serif;font-size:10px;font-style:italic;color:#7A8C82;margin-top:5px;">— CalorieIndia · Built for Indian bodies, Indian kitchens</div>
+          <div style="font-family:Georgia,serif;font-size:10px;font-style:italic;color:#7A8C82;margin-top:5px;">— CalorieIndia · Built for Indian bodies, Indian kitchens</div>
         </div>
         <div style="background:#1C1F1D;border-radius:12px;padding:11px 14px;text-align:center;border:1px solid rgba(255,255,255,.08);flex-shrink:0;">
           <span style="font-size:26px;display:block;margin-bottom:4px;">🎯</span>
