@@ -35,17 +35,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Handle preflight
   if (req.method === 'OPTIONS') {
-    return res.status(204).set(corsHeaders).end()
+    return res.status(204).end()
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).set(corsHeaders).json({ error: 'Method not allowed' })
+    return res.status(405).json({ error: 'Method not allowed' })
   }
 
   const { user_plan_id } = req.body ?? {}
 
   if (!user_plan_id) {
-    return res.status(400).set(corsHeaders).json({ error: 'user_plan_id is required' })
+    return res.status(400).json({ error: 'user_plan_id is required' })
   }
 
   const db = supabase()
@@ -58,7 +58,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     .single()
 
   if (planError || !plan) {
-    return res.status(404).set(corsHeaders).json({
+    return res.status(404).json({
       error: 'Plan not found',
       detail: planError?.message ?? 'No row returned',
     })
@@ -73,7 +73,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // ── 4. Generate PDF via Browserless ────────────────────────────────────
     const browserlessRes = await fetch(
-      `https://chrome.browserless.io/pdf?token=${process.env.BROWSERLESS_API_TOKEN}`,
+      `https://chrome.browserless.io/pdf?token=${process.env.BROWSERLESS_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -134,7 +134,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       throw new Error(`DB update failed: ${updateError.message}`)
     }
 
-    return res.status(200).set(corsHeaders).json({ success: true, pdf_url: pdfUrl })
+    return res.status(200).json({ success: true, pdf_url: pdfUrl })
   } catch (err: any) {
     console.error('[generate-pdf] error:', err)
 
@@ -145,7 +145,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       .eq('id', user_plan_id)
       .then()
 
-    return res.status(500).set(corsHeaders).json({
+    return res.status(500).json({
       error: 'PDF generation failed',
       detail: err?.message ?? String(err),
     })
