@@ -110,10 +110,7 @@ function mealTable(label: string, emoji: string, foods: MealFood[], color: strin
 
 // ─── shared layout pieces ────────────────────────────────────────────────────
 
-const NOISE = `<svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.022;pointer-events:none;z-index:0" xmlns="http://www.w3.org/2000/svg">
-  <filter id="nf"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter>
-  <rect width="100%" height="100%" filter="url(#nf)"/>
-</svg>`
+const NOISE = ''
 
 function header(tag: string, date: string, dotColor = 'linear-gradient(135deg,#F97316,#22C55E)'): string {
   return `
