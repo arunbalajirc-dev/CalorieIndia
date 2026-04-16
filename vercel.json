@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "outputDirectory": "health-calculator-site",
   "functions": {
     "api/generate-pdf.ts": {
       "memory": 1024,
@@ -7,4 +8,3 @@
     }
   }
 }
-
