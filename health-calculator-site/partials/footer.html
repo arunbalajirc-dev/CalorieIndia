@@ -1,0 +1,141 @@
+<!-- Nutrition Tracker Shared Footer — edit this file only to update footer across all pages -->
+<style>
+  #site-footer footer {
+    background: #111813;
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 48px 24px 24px;
+    color: rgba(255,255,255,.6);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+  }
+  #site-footer .sf-inner { max-width: 1200px; margin: 0 auto; }
+  #site-footer .sf-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  #site-footer .sf-brand-logo {
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none; margin-bottom: 10px;
+  }
+  #site-footer .sf-brand-logo img { height: 36px; object-fit: contain; }
+  #site-footer .sf-brand p {
+    font-size: 13px; line-height: 1.6;
+    margin-bottom: 16px; color: rgba(255,255,255,.6);
+  }
+  #site-footer .sf-brand-email {
+    font-size: 12px; color: rgba(255,255,255,.45);
+    margin-bottom: 4px;
+  }
+  #site-footer .sf-brand-email a {
+    color: rgba(255,255,255,.55); text-decoration: none;
+    transition: color .15s;
+  }
+  #site-footer .sf-brand-email a:hover { color: #fff; }
+  #site-footer .sf-flags { font-size: 20px; display: flex; gap: 8px; margin-top: 10px; }
+  #site-footer .sf-col h4 {
+    font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 14px;
+  }
+  #site-footer .sf-col ul { list-style: none; margin: 0; padding: 0; }
+  #site-footer .sf-col ul li { margin-bottom: 8px; }
+  #site-footer .sf-col ul li a {
+    font-size: 13px; color: rgba(255,255,255,.55);
+    text-decoration: none; transition: color .2s;
+  }
+  #site-footer .sf-col ul li a:hover { color: #fff; }
+  #site-footer .sf-bottom {
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(255,255,255,.3);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  @media (max-width: 900px) {
+    #site-footer .sf-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    #site-footer .sf-top { grid-template-columns: 1fr; }
+    #site-footer .sf-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+
+<footer>
+  <div class="sf-inner">
+    <div class="sf-top">
+
+      <!-- Brand -->
+      <div class="sf-brand">
+        <a href="index.html" class="sf-brand-logo">
+          <img id="nt-footer-logo" src="images/nutrition-tracker-logo.png" alt="Nutrition Tracker">
+        </a>
+        <p>India's most practical weight loss resource. Science-backed nutrition for Indian bodies.</p>
+        <div class="sf-brand-email">📧 <a href="mailto:support@nutritiontracker.in">support@nutritiontracker.in</a></div>
+        <div class="sf-brand-email">🌐 <a href="https://nutritiontracker.in">nutritiontracker.in</a></div>
+        <div class="sf-flags">🇮🇳 ❤️ 🥗</div>
+      </div>
+
+      <!-- Calculators -->
+      <div class="sf-col">
+        <h4>Calculators</h4>
+        <ul>
+          <li><a href="tdee-calculator.html">TDEE Calculator</a></li>
+          <li><a href="calorie-deficit-calculator.html">Calorie Deficit</a></li>
+          <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+          <li><a href="macro-calculator.html">Macro Calculator</a></li>
+          <li><a href="ideal-weight-calculator.html">Ideal Weight</a></li>
+          <li><a href="calorie-burn-calculator.html">Calorie Burn</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div class="sf-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="food-lookup.html">Food Database</a></li>
+          <li><a href="recipe-database.html">Recipe Database</a></li>
+          <li><a href="blog.html">Blog &amp; Guides</a></li>
+          <li><a href="meal-plan.html">Free Meal Plan</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal & Info -->
+      <div class="sf-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-of-use.html">Terms of Use</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="meal-plan.html">Get My Plan</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="sf-bottom">
+      <span>© 2026 Nutrition Tracker. All rights reserved.</span>
+      <span>For informational purposes only. Not medical advice.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Fix logo and link paths when footer is loaded on blog subdirectory pages
+  if (window.location.pathname.indexOf('/blog/') !== -1) {
+    var logo = document.getElementById('nt-footer-logo');
+    if (logo) logo.setAttribute('src', '../images/nutrition-tracker-logo.png');
+    document.querySelectorAll('#site-footer a[href]').forEach(function(a) {
+      var h = a.getAttribute('href');
+      if (h && !h.startsWith('http') && !h.startsWith('#') && !h.startsWith('/') && !h.startsWith('../') && !h.startsWith('mailto')) {
+        a.setAttribute('href', '../' + h);
+      }
+    });
+  }
+})();
+</script>
