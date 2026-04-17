@@ -92,7 +92,7 @@ const HEADER_HTML = `
   <div class="header-inner">
     <a href="index.html" class="logo">
       <div class="logo-dot"></div>
-      <span>CalorieIndia</span>
+      <span>Nutrition Tracker</span>
     </a>
     <nav>
       <a href="calculator.html">Calculators</a>
@@ -112,7 +112,7 @@ const FOOTER_HTML = `
       <div class="footer-brand">
         <a href="index.html" class="logo">
           <div class="logo-dot"></div>
-          <span>CalorieIndia</span>
+          <span>Nutrition Tracker</span>
         </a>
         <p style="margin-top:10px">India's most practical weight loss resource.</p>
         <div class="footer-flags">🇮🇳 ❤️ 🥗</div>
@@ -151,7 +151,7 @@ const FOOTER_HTML = `
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 CalorieIndia. All rights reserved.</span>
+      <span>© 2026 Nutrition Tracker. All rights reserved.</span>
       <span>This website is for informational purposes only and does not constitute medical advice.</span>
     </div>
   </div>

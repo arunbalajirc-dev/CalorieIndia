@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Get Your Personalised Meal Plan – CalorieIndia</title>
+  <title>Get Your Personalised Meal Plan – Nutrition Tracker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -979,9 +979,9 @@ async function submitStep2() {
     var planId = rows[0] && rows[0].id ? rows[0].id : null;
 
     if (planId) {
-      sessionStorage.setItem('calorieindia_plan_id', planId);
+      sessionStorage.setItem('nutritiontracker_plan_id', planId);
     }
-    sessionStorage.setItem('calorieindia_email', planData.email);
+    sessionStorage.setItem('nutritiontracker_email', planData.email);
 
     populateStep3(planId);
     showStep(3);

@@ -1,4 +1,4 @@
-<!-- CalorieIndia Shared Nav — edit this file only to update nav across all pages -->
+<!-- Nutrition Tracker Shared Nav — edit this file only to update nav across all pages -->
 <style>
   #ci-nav {
     background: #fff;
@@ -208,8 +208,7 @@
 <nav id="ci-nav">
   <!-- Logo -->
   <a href="index.html" class="ci-logo">
-    <span class="ci-logo-dot"></span>
-    CalorieIndia
+    <img id="nt-nav-logo" src="images/nutrition-tracker-logo.png" alt="Nutrition Tracker" style="height:44px;object-fit:contain;">
   </a>
 
   <!-- Desktop links -->
@@ -343,6 +342,12 @@
         nav.style.boxShadow = 'none';
       }
     }, { passive: true });
+  }
+
+  // Fix logo image path when nav is loaded from a subdirectory (e.g. /blog/)
+  var ntLogo = document.getElementById('nt-nav-logo');
+  if (ntLogo && window.location.pathname.indexOf('/blog/') !== -1) {
+    ntLogo.setAttribute('src', '../images/nutrition-tracker-logo.png');
   }
 
   // Highlight active page link

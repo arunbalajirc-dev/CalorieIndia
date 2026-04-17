@@ -117,7 +117,7 @@ function header(tag: string, date: string, dotColor = 'linear-gradient(135deg,#F
   <div style="position:relative;z-index:1;flex-shrink:0;padding:14px 28px 12px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;">
     <div style="display:flex;align-items:center;gap:8px;">
       <div style="width:9px;height:9px;border-radius:50%;background:${dotColor};"></div>
-      <span style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#fff;">CalorieIndia</span>
+      <span style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#fff;">Nutrition Tracker</span>
     </div>
     <div style="display:flex;align-items:center;gap:11px;">
       <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#7A8C82;padding:3px 10px;border:1px solid rgba(255,255,255,.08);border-radius:99px;">${tag}</span>
@@ -411,7 +411,7 @@ function page2(plan: MealPlan, intakeData: any): string {
       <h2 style="font-family:Georgia,serif;font-size:21px;font-weight:900;line-height:1.15;margin-bottom:4px;">
         Our <em style="font-style:italic;background:linear-gradient(90deg,#A855F7,#C084FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Approach</em> to Your Transformation
       </h2>
-      <p style="font-size:11px;color:#7A8C82;">Macro targets, energy model &amp; 3-phase roadmap — powered by IFCT 2017 &amp; CalorieIndia database</p>
+      <p style="font-size:11px;color:#7A8C82;">Macro targets, energy model &amp; 3-phase roadmap — powered by IFCT 2017 &amp; Nutrition Tracker database</p>
     </div>
 
     <div style="position:relative;z-index:1;flex:1;padding:12px 28px;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start;">
@@ -499,7 +499,7 @@ function page2(plan: MealPlan, intakeData: any): string {
       </div>
 
     </div>
-    ${footer('⚕ Data sourced from IFCT 2017 · INDB · CalorieIndia recipe database (16,430 items)', 'Page 2 of 9')}
+    ${footer('⚕ Data sourced from IFCT 2017 · INDB · Nutrition Tracker recipe database (16,430 items)', 'Page 2 of 9')}
   </div>`
 }
 
@@ -761,13 +761,13 @@ function page4(plan: MealPlan, intakeData: any): string {
         <div style="background:#1C1F1D;border-radius:10px;padding:9px 12px;display:flex;align-items:center;gap:10px;">
           <span style="font-size:20px;flex-shrink:0;">📖</span>
           <div style="font-size:9.5px;color:#7A8C82;line-height:1.5;">
-            <strong style="color:#F1F5F2;">Pages 6–9 give you curated food options for each meal slot</strong> — all calories verified against the CalorieIndia IFCT 2017 database. Pick any combination that hits your slot target. Mix and match daily to prevent boredom.
+            <strong style="color:#F1F5F2;">Pages 6–9 give you curated food options for each meal slot</strong> — all calories verified against the Nutrition Tracker IFCT 2017 database. Pick any combination that hits your slot target. Mix and match daily to prevent boredom.
           </div>
         </div>
       </div>
 
     </div>
-    ${footer('⚕ Calorie values sourced from IFCT 2017 · NIN India · CalorieIndia food database', 'Page 4 of 9')}
+    ${footer('⚕ Calorie values sourced from IFCT 2017 · NIN India · Nutrition Tracker food database', 'Page 4 of 9')}
   </div>`
 }
 
@@ -806,7 +806,7 @@ function mealLibraryPage(
     <div style="position:relative;z-index:1;flex-shrink:0;padding:12px 26px 10px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;">
       <div style="display:flex;align-items:center;gap:7px;">
         <div style="width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,${accent},${accentLight});"></div>
-        <span style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#fff;">CalorieIndia</span>
+        <span style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:#fff;">Nutrition Tracker</span>
       </div>
       <div style="display:flex;align-items:center;gap:9px;">
         <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#7A8C82;padding:3px 10px;border:1px solid rgba(255,255,255,.08);border-radius:99px;">${emoji} ${pageTag}</span>
@@ -896,7 +896,7 @@ function mealLibraryPage(
     </div>
 
     <div style="position:relative;z-index:1;flex-shrink:0;padding:7px 26px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;">
-      <span style="font-size:8.5px;color:#7A8C82;opacity:.65;">⚕ Calorie values from CalorieIndia IFCT 2017 database · Servings scaled to your personal target</span>
+      <span style="font-size:8.5px;color:#7A8C82;opacity:.65;">⚕ Calorie values from Nutrition Tracker IFCT 2017 database · Servings scaled to your personal target</span>
       <span style="font-family:'Courier New',monospace;font-size:9px;color:#7A8C82;">Page ${pageNum} of ${totalPages}</span>
     </div>
   </div>`
@@ -971,7 +971,7 @@ function page9(plan: MealPlan): string {
           <div style="font-size:9px;color:#7A8C82;line-height:1.6;">
             This plan was built specifically for you — ${plan.user_name}, ${plan.goal_label}, ${plan.target_calories} kcal/day, ${plan.diet_label} · ${plan.cuisine_labels.join(' + ')} cuisine. Every serving size is already calculated. Every day is planned. Just follow the schedule above, weigh your portions once, and let the results follow.
           </div>
-          <div style="font-family:Georgia,serif;font-size:10px;font-style:italic;color:#7A8C82;margin-top:5px;">— CalorieIndia · Built for Indian bodies, Indian kitchens</div>
+          <div style="font-family:Georgia,serif;font-size:10px;font-style:italic;color:#7A8C82;margin-top:5px;">— Nutrition Tracker · Built for Indian bodies, Indian kitchens</div>
         </div>
         <div style="background:#1C1F1D;border-radius:12px;padding:11px 14px;text-align:center;border:1px solid rgba(255,255,255,.08);flex-shrink:0;">
           <span style="font-size:26px;display:block;margin-bottom:4px;">🎯</span>
@@ -1004,7 +1004,7 @@ export function renderTemplate(plan: MealPlan, intakeData?: any): string {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CalorieIndia — Your Personalised Meal Plan</title>
+<title>Nutrition Tracker — Your Personalised Meal Plan</title>
 <style>${BASE_STYLES}</style>
 </head>
 <body>

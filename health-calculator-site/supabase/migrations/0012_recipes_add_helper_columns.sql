@@ -1,6 +1,6 @@
 -- Migration: 0012_recipes_add_helper_columns.sql
 -- Add helper columns needed by get_plan_foods() RPC and frontend filters.
--- Normalise cuisine and category values to CalorieIndia's canonical sets.
+-- Normalise cuisine and category values to Nutrition Tracker's canonical sets.
 -- Data-informed: cuisine values are 'Indian', 'Continental', 'Japanese' (Title Case).
 -- Category values are exact strings from the USDA/IFCT dataset (see mappings below).
 
