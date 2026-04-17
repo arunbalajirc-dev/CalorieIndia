@@ -1,5 +1,5 @@
 -- ============================================================
--- CalorieIndia · Indian Food Database Schema
+-- Nutrition Tracker · Indian Food Database Schema
 -- Source: IFCT 2017, NIN, ICMR
 -- ============================================================
 
