@@ -273,6 +273,28 @@
       color: var(--green); padding: 8px 18px; border-radius: 24px;
       font-size: 14px; font-weight: 600; margin-bottom: 24px;
     }
+
+    /* ── PAYMENT LOADING STATE ── */
+    .payment-loading-box {
+      background: var(--green-light); border: 1px solid rgba(45,122,79,.2);
+      border-radius: 12px; padding: 32px 24px; text-align: center; margin-bottom: 16px;
+    }
+    .payment-spinner {
+      width: 36px; height: 36px; margin: 0 auto 14px;
+      border: 3px solid rgba(45,122,79,.2); border-top-color: var(--green);
+      border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .payment-loading-title { font-size: 16px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+    .payment-loading-sub   { font-size: 13px; color: var(--muted); }
+
+    /* ── PAYMENT FALLBACK ── */
+    .payment-fallback-box {
+      background: #fef9c3; border: 1px solid #fde047; border-radius: 12px;
+      padding: 20px 24px; margin-bottom: 16px;
+    }
+    .payment-fallback-box .fb-title { font-size: 14px; font-weight: 700; color: #92400e; margin-bottom: 4px; }
+    .payment-fallback-box .fb-sub   { font-size: 13px; color: #78350f; }
   </style>
 </head>
 <body>
@@ -545,11 +567,17 @@
         </button>
       </div>
 
-      <div id="payment-success" style="display:none;background:var(--green-light);border:1px solid rgba(45,122,79,.25);border-radius:12px;padding:24px;text-align:center;margin-bottom:16px;">
-        <div style="font-size:32px;margin-bottom:8px;">🎉</div>
-        <div style="font-size:18px;font-weight:700;color:var(--green);margin-bottom:4px;">Payment Successful!</div>
-        <div style="font-size:14px;color:var(--muted);">Your personalised meal plan is being generated and will be emailed to you shortly.</div>
-        <div id="ps-payment-id" style="font-size:12px;color:var(--muted);margin-top:8px;font-family:monospace;"></div>
+      <!-- shown while polling / generating PDF -->
+      <div id="payment-loading" style="display:none;" class="payment-loading-box">
+        <div class="payment-spinner"></div>
+        <div class="payment-loading-title" id="payment-loading-title">Confirming payment…</div>
+        <div class="payment-loading-sub">Please wait — this usually takes a few seconds.</div>
+      </div>
+
+      <!-- shown if polling times out -->
+      <div id="payment-fallback" style="display:none;" class="payment-fallback-box">
+        <div class="fb-title">Your plan is being prepared.</div>
+        <div class="fb-sub">You'll receive a download link at <strong id="pf-email"></strong> shortly.</div>
       </div>
 
       <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">₹249 · Secure payment via Razorpay</div>
@@ -1061,14 +1089,17 @@ async function initiatePayment() {
               'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
             },
             body: JSON.stringify({
-              razorpay_order_id:  response.razorpay_order_id,
+              razorpay_order_id:   response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature:  response.razorpay_signature
             })
           });
           var result = await verifyRes.json();
           if (result.success) {
-            showPaymentSuccess(response.razorpay_payment_id);
+            document.getElementById('payment-action').style.display = 'none';
+            document.getElementById('payment-loading').style.display = 'block';
+            var planId = sessionStorage.getItem('nutritiontracker_plan_id');
+            pollPaymentStatus(response.razorpay_order_id, planId);
           } else {
             alert('Payment verification failed. Please contact support with Payment ID: ' + response.razorpay_payment_id);
           }
@@ -1096,11 +1127,80 @@ async function initiatePayment() {
   }
 }
 
-function showPaymentSuccess(paymentId) {
-  document.getElementById('payment-action').style.display = 'none';
-  var successEl = document.getElementById('payment-success');
-  successEl.style.display = 'block';
-  setText('ps-payment-id', 'Payment ID: ' + paymentId);
+// ════════════ PAYMENT STATUS POLLING ════════════
+function pollPaymentStatus(orderId, planId) {
+  var maxAttempts = 20;
+  var attempts = 0;
+  var settled = false;
+
+  var interval = setInterval(async function() {
+    if (settled) return;
+    attempts++;
+    try {
+      var res = await fetch(SUPABASE_URL + '/rest/v1/rpc/get_payment_status', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey':        SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+        },
+        body: JSON.stringify({ p_order_id: orderId })
+      });
+      var raw = await res.json();
+      // PostgREST returns scalar as bare string or single-element array
+      var status = Array.isArray(raw) ? raw[0] : raw;
+
+      if (status === 'paid') {
+        settled = true;
+        clearInterval(interval);
+        clearTimeout(timeout);
+        setText('payment-loading-title', 'Generating your PDF…');
+        triggerPdfDownload(planId);
+      }
+    } catch(e) { /* network blip — keep polling */ }
+
+    if (!settled && attempts >= maxAttempts) {
+      settled = true;
+      clearInterval(interval);
+      showFallbackMessage();
+    }
+  }, 3000);
+
+  var timeout = setTimeout(function() {
+    if (settled) return;
+    settled = true;
+    clearInterval(interval);
+    showFallbackMessage();
+  }, 60000);
+}
+
+// ════════════ TRIGGER PDF + REDIRECT ════════════
+async function triggerPdfDownload(planId) {
+  try {
+    var res = await fetch('/api/generate-pdf', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_plan_id: planId })
+    });
+    var data = await res.json();
+    if (res.ok && data.pdf_url) {
+      var email = planData.email || sessionStorage.getItem('nutritiontracker_email') || '';
+      window.location.href = 'thank-you.html?pdf=' + encodeURIComponent(data.pdf_url)
+                           + '&email=' + encodeURIComponent(email);
+    } else {
+      showFallbackMessage();
+    }
+  } catch(e) {
+    showFallbackMessage();
+  }
+}
+
+// ════════════ FALLBACK MESSAGE ════════════
+function showFallbackMessage() {
+  document.getElementById('payment-loading').style.display = 'none';
+  document.getElementById('payment-fallback').style.display = 'block';
+  var email = planData.email || sessionStorage.getItem('nutritiontracker_email') || 'your email';
+  setText('pf-email', email);
 }
 </script>
 
