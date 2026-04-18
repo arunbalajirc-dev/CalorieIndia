@@ -252,17 +252,6 @@
     .psrow-key { color: var(--muted); }
     .psrow-val { font-weight: 600; }
 
-    .payment-placeholder {
-      background: #f3f4f6; border: 2px dashed var(--border); border-radius: 12px;
-      padding: 28px 24px; text-align: center; margin-bottom: 16px;
-    }
-    .payment-placeholder .razorpay-btn-disabled {
-      background: #9ca3af; color: #fff; border: none; border-radius: 8px;
-      padding: 14px 32px; font-size: 15px; font-weight: 700; cursor: not-allowed;
-      font-family: inherit; width: 100%; margin-bottom: 10px; display: block;
-    }
-    .payment-placeholder .coming-soon { font-size: 13px; color: var(--muted); font-style: italic; }
-
     .payment-trust { margin-top: 20px; }
     .payment-trust p { font-size: 12px; color: var(--muted); padding: 4px 0; }
 
@@ -274,27 +263,7 @@
       font-size: 14px; font-weight: 600; margin-bottom: 24px;
     }
 
-    /* ── PAYMENT LOADING STATE ── */
-    .payment-loading-box {
-      background: var(--green-light); border: 1px solid rgba(45,122,79,.2);
-      border-radius: 12px; padding: 32px 24px; text-align: center; margin-bottom: 16px;
-    }
-    .payment-spinner {
-      width: 36px; height: 36px; margin: 0 auto 14px;
-      border: 3px solid rgba(45,122,79,.2); border-top-color: var(--green);
-      border-radius: 50%; animation: spin .7s linear infinite;
-    }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .payment-loading-title { font-size: 16px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
-    .payment-loading-sub   { font-size: 13px; color: var(--muted); }
-
-    /* ── PAYMENT FALLBACK ── */
-    .payment-fallback-box {
-      background: #fef9c3; border: 1px solid #fde047; border-radius: 12px;
-      padding: 20px 24px; margin-bottom: 16px;
-    }
-    .payment-fallback-box .fb-title { font-size: 14px; font-weight: 700; color: #92400e; margin-bottom: 4px; }
-    .payment-fallback-box .fb-sub   { font-size: 13px; color: #78350f; }
   </style>
 </head>
 <body>
@@ -562,23 +531,23 @@
       </div>
 
       <div id="payment-action" style="margin-bottom:16px;">
-        <button id="btn-pay" class="btn-primary btn-primary-full" onclick="initiatePayment()">
-          Pay ₹249 via Razorpay
+        <button id="rzp-pay-btn" class="btn-primary btn-primary-full" onclick="startPayment()">
+          Pay ₹249 · Get My Meal Plan
         </button>
       </div>
 
-      <!-- shown while polling / generating PDF -->
-      <div id="payment-loading" style="display:none;" class="payment-loading-box">
-        <div class="payment-spinner"></div>
-        <div class="payment-loading-title" id="payment-loading-title">Confirming payment…</div>
-        <div class="payment-loading-sub">Please wait — this usually takes a few seconds.</div>
+      <div id="payment-loading" style="display:none;background:var(--green-light);border:1px solid rgba(45,122,79,.2);border-radius:12px;padding:32px 24px;text-align:center;margin-bottom:16px;">
+        <div style="width:36px;height:36px;margin:0 auto 14px;border:3px solid rgba(45,122,79,.2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;"></div>
+        <div id="payment-loading-title" style="font-size:16px;font-weight:700;color:var(--green);margin-bottom:4px;">Confirming payment…</div>
+        <div style="font-size:13px;color:var(--muted);">Please wait — this usually takes a few seconds.</div>
       </div>
 
-      <!-- shown if polling times out -->
-      <div id="payment-fallback" style="display:none;" class="payment-fallback-box">
-        <div class="fb-title">Your plan is being prepared.</div>
-        <div class="fb-sub">You'll receive a download link at <strong id="pf-email"></strong> shortly.</div>
+      <div id="payment-fallback" style="display:none;background:#fef9c3;border:1px solid #fde047;border-radius:12px;padding:20px 24px;margin-bottom:16px;">
+        <div style="font-size:14px;font-weight:700;color:#92400e;margin-bottom:4px;">Your plan is being prepared.</div>
+        <div style="font-size:13px;color:#78350f;">You'll receive a download link at <strong id="pf-email"></strong> shortly.</div>
       </div>
+
+      <div id="payment-error" style="display:none;background:#fef2f2;border:1px solid #fca5a5;border-radius:12px;padding:16px 20px;margin-bottom:16px;font-size:13px;color:#dc2626;"></div>
 
       <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">₹249 · Secure payment via Razorpay</div>
 
@@ -594,7 +563,12 @@
 
 <script>
 const SUPABASE_URL      = 'https://clutyaynlukgsumnopkf.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdXR5YXlubHVrZ3N1bW5vcGtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTAwMzcsImV4cCI6MjA5MDUyNjAzN30.rhWn8jZI0KegFiOrCG8aVDpNVnDhLxrSz-0R62jxja0';
+const SUPABASE_ANON_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdXR5YXlubHVrZ3N1bW5vcGtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTAwMzcsImV4cCI6MjA5MDUyNjAzN30.rhWn8jZI0KegFiOrCG8aVDpNVnDhLxrSz-0R62jxja0';
+const RAZORPAY_KEY_ID      = 'rzp_live_grMIZeERtKOFlh';
+const CREATE_ORDER_URL     = 'https://clutyaynlukgsumnopkf.supabase.co/functions/v1/create-order';
+const HANDLE_PAYMENT_URL   = 'https://clutyaynlukgsumnopkf.supabase.co/functions/v1/handle-payment';
+const GENERATE_PDF_URL     = 'https://calorie-india.vercel.app/api/generate-pdf';
+const POLL_RPC_URL         = 'https://clutyaynlukgsumnopkf.supabase.co/rest/v1/rpc/get_payment_status';
 
 /* ═══════════════════════════════════════
    MEAL PLAN PAGE — Step Controller
@@ -1045,34 +1019,26 @@ function populateStep3(planId) {
 }
 
 // ════════════ RAZORPAY CHECKOUT ════════════
-async function initiatePayment() {
+async function startPayment() {
   var planId = sessionStorage.getItem('nutritiontracker_plan_id');
-  if (!planId) {
-    alert('Plan ID not found. Please go back and try again.');
-    return;
-  }
+  if (!planId) { showPaymentError('Plan ID not found. Please go back and try again.'); return; }
 
-  var btn = document.getElementById('btn-pay');
+  var btn = document.getElementById('rzp-pay-btn');
   btn.disabled = true;
   btn.textContent = 'Creating order…';
+  document.getElementById('payment-error').style.display = 'none';
 
   try {
-    var res = await fetch(SUPABASE_URL + '/functions/v1/create-order', {
+    var res = await fetch(CREATE_ORDER_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
-      },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
       body: JSON.stringify({ amount: 249, receipt: planId.substring(0, 40), user_plan_id: planId })
     });
-
     var order = await res.json();
-    if (!res.ok || order.error) {
-      throw new Error(order.error || 'Failed to create payment order.');
-    }
+    if (!res.ok || order.error) throw new Error(order.error || 'Failed to create payment order.');
 
-    var options = {
-      key: order.key_id,
+    var rzp = new Razorpay({
+      key: RAZORPAY_KEY_ID,
       amount: order.amount,
       currency: order.currency,
       order_id: order.id,
@@ -1081,13 +1047,11 @@ async function initiatePayment() {
       prefill: { name: planData.name, email: planData.email },
       theme: { color: '#2d7a4f' },
       handler: async function(response) {
+        showLoadingState('Confirming payment…');
         try {
-          var verifyRes = await fetch(SUPABASE_URL + '/functions/v1/handle-payment', {
+          var verifyRes = await fetch(HANDLE_PAYMENT_URL, {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
-            },
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
             body: JSON.stringify({
               razorpay_order_id:   response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
@@ -1096,34 +1060,30 @@ async function initiatePayment() {
           });
           var result = await verifyRes.json();
           if (result.success) {
-            document.getElementById('payment-action').style.display = 'none';
-            document.getElementById('payment-loading').style.display = 'block';
-            var planId = sessionStorage.getItem('nutritiontracker_plan_id');
             pollPaymentStatus(response.razorpay_order_id, planId);
           } else {
-            alert('Payment verification failed. Please contact support with Payment ID: ' + response.razorpay_payment_id);
+            hideLoadingState();
+            showPaymentError('Payment verification failed. Contact support with Payment ID: ' + response.razorpay_payment_id);
           }
         } catch(e) {
-          alert('Payment received but verification failed. Please contact support.');
+          hideLoadingState();
+          showPaymentError('Payment received but verification failed. Please contact support.');
         }
       },
       modal: {
         ondismiss: function() {
           btn.disabled = false;
-          btn.textContent = 'Pay ₹249 via Razorpay';
+          btn.textContent = 'Pay ₹249 · Get My Meal Plan';
         }
       }
-    };
-
-    var rzp = new Razorpay(options);
+    });
     rzp.open();
     btn.disabled = false;
-    btn.textContent = 'Pay ₹249 via Razorpay';
-
+    btn.textContent = 'Pay ₹249 · Get My Meal Plan';
   } catch(e) {
-    alert(e.message || 'Something went wrong. Please try again.');
     btn.disabled = false;
-    btn.textContent = 'Pay ₹249 via Razorpay';
+    btn.textContent = 'Pay ₹249 · Get My Meal Plan';
+    showPaymentError(e.message || 'Something went wrong. Please try again.');
   }
 }
 
@@ -1137,7 +1097,7 @@ function pollPaymentStatus(orderId, planId) {
     if (settled) return;
     attempts++;
     try {
-      var res = await fetch(SUPABASE_URL + '/rest/v1/rpc/get_payment_status', {
+      var res = await fetch(POLL_RPC_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1147,14 +1107,12 @@ function pollPaymentStatus(orderId, planId) {
         body: JSON.stringify({ p_order_id: orderId })
       });
       var raw = await res.json();
-      // PostgREST returns scalar as bare string or single-element array
       var status = Array.isArray(raw) ? raw[0] : raw;
-
       if (status === 'paid') {
         settled = true;
         clearInterval(interval);
         clearTimeout(timeout);
-        setText('payment-loading-title', 'Generating your PDF…');
+        updateLoadingText('Generating your PDF…');
         triggerPdfDownload(planId);
       }
     } catch(e) { /* network blip — keep polling */ }
@@ -1162,6 +1120,7 @@ function pollPaymentStatus(orderId, planId) {
     if (!settled && attempts >= maxAttempts) {
       settled = true;
       clearInterval(interval);
+      clearTimeout(timeout);
       showFallbackMessage();
     }
   }, 3000);
@@ -1177,7 +1136,7 @@ function pollPaymentStatus(orderId, planId) {
 // ════════════ TRIGGER PDF + REDIRECT ════════════
 async function triggerPdfDownload(planId) {
   try {
-    var res = await fetch('/api/generate-pdf', {
+    var res = await fetch(GENERATE_PDF_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_plan_id: planId })
@@ -1195,12 +1154,29 @@ async function triggerPdfDownload(planId) {
   }
 }
 
-// ════════════ FALLBACK MESSAGE ════════════
+// ════════════ UI HELPERS ════════════
+function showLoadingState(msg) {
+  document.getElementById('payment-action').style.display = 'none';
+  document.getElementById('payment-loading').style.display = 'block';
+  updateLoadingText(msg || 'Confirming payment…');
+}
+function updateLoadingText(msg) {
+  setText('payment-loading-title', msg);
+}
+function hideLoadingState() {
+  document.getElementById('payment-loading').style.display = 'none';
+  document.getElementById('payment-action').style.display = 'block';
+}
 function showFallbackMessage() {
   document.getElementById('payment-loading').style.display = 'none';
   document.getElementById('payment-fallback').style.display = 'block';
   var email = planData.email || sessionStorage.getItem('nutritiontracker_email') || 'your email';
   setText('pf-email', email);
+}
+function showPaymentError(msg) {
+  var el = document.getElementById('payment-error');
+  el.textContent = msg;
+  el.style.display = 'block';
 }
 </script>
 
