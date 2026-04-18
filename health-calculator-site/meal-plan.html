@@ -6,6 +6,7 @@
   <title>Get Your Personalised Meal Plan – Nutrition Tracker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -538,12 +539,20 @@
         <div class="psrow"><span class="psrow-key">Plan ID</span><span class="psrow-val" id="p-plan-id" style="font-family:monospace;font-size:13px;"></span></div>
       </div>
 
-      <div class="payment-placeholder">
-        <button class="razorpay-btn-disabled" disabled>Pay ₹250 via Razorpay</button>
-        <div class="coming-soon">── Razorpay integration coming soon ──</div>
+      <div id="payment-action" style="margin-bottom:16px;">
+        <button id="btn-pay" class="btn-primary btn-primary-full" onclick="initiatePayment()">
+          Pay ₹249 via Razorpay
+        </button>
       </div>
 
-      <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">₹250 · Secure payment via Razorpay</div>
+      <div id="payment-success" style="display:none;background:var(--green-light);border:1px solid rgba(45,122,79,.25);border-radius:12px;padding:24px;text-align:center;margin-bottom:16px;">
+        <div style="font-size:32px;margin-bottom:8px;">🎉</div>
+        <div style="font-size:18px;font-weight:700;color:var(--green);margin-bottom:4px;">Payment Successful!</div>
+        <div style="font-size:14px;color:var(--muted);">Your personalised meal plan is being generated and will be emailed to you shortly.</div>
+        <div id="ps-payment-id" style="font-size:12px;color:var(--muted);margin-top:8px;font-family:monospace;"></div>
+      </div>
+
+      <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">₹249 · Secure payment via Razorpay</div>
 
       <div class="payment-trust">
         <p>🔒 Your data is stored securely.</p>
@@ -1005,6 +1014,93 @@ function populateStep3(planId) {
   setText('p-calories', planData.target_calories.toLocaleString() + ' kcal/day');
   setText('p-plan-id',  shortId + '…');
   setText('p-email',    planData.email);
+}
+
+// ════════════ RAZORPAY CHECKOUT ════════════
+async function initiatePayment() {
+  var planId = sessionStorage.getItem('nutritiontracker_plan_id');
+  if (!planId) {
+    alert('Plan ID not found. Please go back and try again.');
+    return;
+  }
+
+  var btn = document.getElementById('btn-pay');
+  btn.disabled = true;
+  btn.textContent = 'Creating order…';
+
+  try {
+    var res = await fetch(SUPABASE_URL + '/functions/v1/create-order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({ amount: 249, receipt: planId.substring(0, 40), user_plan_id: planId })
+    });
+
+    var order = await res.json();
+    if (!res.ok || order.error) {
+      throw new Error(order.error || 'Failed to create payment order.');
+    }
+
+    var options = {
+      key: order.key_id,
+      amount: order.amount,
+      currency: order.currency,
+      order_id: order.id,
+      name: 'Nutrition Tracker',
+      description: '7-Day Personalised Indian Meal Plan',
+      prefill: { name: planData.name, email: planData.email },
+      theme: { color: '#2d7a4f' },
+      handler: async function(response) {
+        try {
+          var verifyRes = await fetch(SUPABASE_URL + '/functions/v1/handle-payment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+            },
+            body: JSON.stringify({
+              razorpay_order_id:  response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature:  response.razorpay_signature
+            })
+          });
+          var result = await verifyRes.json();
+          if (result.success) {
+            showPaymentSuccess(response.razorpay_payment_id);
+          } else {
+            alert('Payment verification failed. Please contact support with Payment ID: ' + response.razorpay_payment_id);
+          }
+        } catch(e) {
+          alert('Payment received but verification failed. Please contact support.');
+        }
+      },
+      modal: {
+        ondismiss: function() {
+          btn.disabled = false;
+          btn.textContent = 'Pay ₹249 via Razorpay';
+        }
+      }
+    };
+
+    var rzp = new Razorpay(options);
+    rzp.open();
+    btn.disabled = false;
+    btn.textContent = 'Pay ₹249 via Razorpay';
+
+  } catch(e) {
+    alert(e.message || 'Something went wrong. Please try again.');
+    btn.disabled = false;
+    btn.textContent = 'Pay ₹249 via Razorpay';
+  }
+}
+
+function showPaymentSuccess(paymentId) {
+  document.getElementById('payment-action').style.display = 'none';
+  var successEl = document.getElementById('payment-success');
+  successEl.style.display = 'block';
+  setText('ps-payment-id', 'Payment ID: ' + paymentId);
 }
 </script>
 
