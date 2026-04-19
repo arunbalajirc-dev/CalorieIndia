@@ -168,15 +168,20 @@ export async function buildMealPlan(intakeData: any, goal: string): Promise<Meal
     goal === 'gain'     ? 'Gain Muscle' : 'Maintain Weight'
 
   // Diet label
+  const { diet_type } = intakeData
   const dietLabel =
-    is_vegan        ? 'Vegan' :
-    is_vegetarian   ? 'Vegetarian' : 'Non-Vegetarian'
+    diet_type === 'non-veg' ? 'Non-Vegetarian' :
+    diet_type === 'both'    ? 'Veg & Non-Veg' :
+    diet_type === 'veg'     ? 'Vegetarian' :
+    is_vegan                ? 'Vegan' :
+    is_vegetarian           ? 'Vegetarian' : 'Non-Vegetarian'
 
   // Cuisine labels
   const cuisineMap: Record<string, string> = {
     indian: 'Indian', continental: 'Continental', japanese: 'Japanese'
   }
-  const cuisineLabels = (cuisine as string[]).map(c => cuisineMap[c] ?? c)
+  const rawCuisine = (cuisine as string[] | undefined) ?? ['indian']
+  const cuisineLabels = rawCuisine.map(c => cuisineMap[c] ?? c)
 
   // Format date
   const now = new Date()

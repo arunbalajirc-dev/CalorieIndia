@@ -21,61 +21,51 @@ export interface IndianMealCombo {
   fibre_g: number
   is_vegetarian: boolean
   is_vegan: boolean
+  diet_type: 'veg' | 'non-veg' | 'both'
+  allergens: string[]
   tags: string[]
+}
+
+function applyDietFilter(query: any, dietType: 'veg' | 'non-veg' | 'both'): any {
+  if (dietType === 'veg') return query.eq('diet_type', 'veg')
+  if (dietType === 'non-veg') return query.in('diet_type', ['veg', 'non-veg'])
+  return query // 'both' — no filter
+}
+
+function applyAllergenFilter(query: any, allergens: string[]): any {
+  if (!allergens.length) return query
+  return query.not('allergens', 'ov', `{${allergens.join(',')}}`)
 }
 
 export async function pickMealCombos(
   category: 'Breakfast' | 'Lunch' | 'Dinner' | 'Snack',
   targetKcal: number,
-  isVegetarian: boolean,
+  dietType: 'veg' | 'non-veg' | 'both',
+  allergens: string[],
   count: number,
   dayIndex: number
 ): Promise<IndianMealCombo[]> {
-  // Try tight window first (±80 kcal)
-  let query = supabaseAdmin
-    .from('indian_meal_combos')
-    .select('*')
-    .eq('meal_category', category)
-    .gte('total_kcal', targetKcal - 80)
-    .lte('total_kcal', targetKcal + 80)
-
-  if (isVegetarian) {
-    query = query.eq('is_vegetarian', true)
-  }
-
-  let { data, error } = await query
-
-  // Fallback to wider window (±150 kcal) if no results
-  if (!data || data.length === 0) {
-    let fallbackQuery = supabaseAdmin
+  function buildQuery(lower: number, upper: number, limit?: number) {
+    let q = supabaseAdmin
       .from('indian_meal_combos')
       .select('*')
       .eq('meal_category', category)
-      .gte('total_kcal', targetKcal - 150)
-      .lte('total_kcal', targetKcal + 150)
+    q = applyDietFilter(q, dietType)
+    q = applyAllergenFilter(q, allergens)
+    if (limit) return q.limit(limit)
+    return q.gte('total_kcal', lower).lte('total_kcal', upper)
+  }
 
-    if (isVegetarian) {
-      fallbackQuery = fallbackQuery.eq('is_vegetarian', true)
-    }
+  let { data, error } = await buildQuery(targetKcal - 80, targetKcal + 80)
 
-    const fallback = await fallbackQuery
+  if (!data || data.length === 0) {
+    const fallback = await buildQuery(targetKcal - 150, targetKcal + 150)
     data = fallback.data
     error = fallback.error
   }
 
-  // Final fallback — just get any meal in category
   if (!data || data.length === 0) {
-    let anyQuery = supabaseAdmin
-      .from('indian_meal_combos')
-      .select('*')
-      .eq('meal_category', category)
-      .limit(20)
-
-    if (isVegetarian) {
-      anyQuery = anyQuery.eq('is_vegetarian', true)
-    }
-
-    const any = await anyQuery
+    const any = await buildQuery(0, 0, 20)
     data = any.data
     error = any.error
   }
@@ -84,7 +74,6 @@ export async function pickMealCombos(
     throw new Error(`No meal combos found for ${category} ~${targetKcal}kcal`)
   }
 
-  // Use dayIndex to rotate through options deterministically
   const shuffled = [...data].sort((a, b) => {
     const hashA = (a.id * 2654435761 + dayIndex * 1234567) >>> 0
     const hashB = (b.id * 2654435761 + dayIndex * 1234567) >>> 0
@@ -97,7 +86,8 @@ export async function pickMealCombos(
 export async function getMealSuggestions(
   category: 'Breakfast' | 'Lunch' | 'Dinner' | 'Snack',
   targetKcal: number,
-  isVegetarian: boolean
+  dietType: 'veg' | 'non-veg' | 'both',
+  allergens: string[] = []
 ): Promise<IndianMealCombo[]> {
-  return pickMealCombos(category, targetKcal, isVegetarian, 10, 0)
+  return pickMealCombos(category, targetKcal, dietType, allergens, 10, 0)
 }
