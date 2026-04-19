@@ -398,27 +398,11 @@
       <div class="form-section-label">Food Preferences</div>
 
       <div class="form-group">
-        <label class="form-label">Cuisine <span class="req">*</span></label>
-        <div class="cuisine-cards">
-          <label class="cuisine-card-label" id="cc-indian">
-            <input type="radio" name="cuisine" value="indian" /> 🇮🇳 Indian
-          </label>
-          <label class="cuisine-card-label" id="cc-continental">
-            <input type="radio" name="cuisine" value="continental" /> 🌍 Continental
-          </label>
-          <label class="cuisine-card-label" id="cc-japanese">
-            <input type="radio" name="cuisine" value="japanese" /> 🇯🇵 Japanese
-          </label>
-        </div>
-        <div class="field-error" id="err-cuisine">Please select a cuisine.</div>
-      </div>
-
-      <div class="form-group">
         <label class="form-label">Diet Type <span class="req">*</span></label>
         <div class="radio-group">
-          <label class="radio-item"><input type="radio" name="diet" value="nonveg" /> <span>Non-Vegetarian</span></label>
-          <label class="radio-item"><input type="radio" name="diet" value="veg" /> <span>Vegetarian</span></label>
-          <label class="radio-item"><input type="radio" name="diet" value="vegan" /> <span>Vegan</span></label>
+          <label class="radio-item"><input type="radio" name="diet" value="veg" /> <span>Veg</span></label>
+          <label class="radio-item"><input type="radio" name="diet" value="non-veg" /> <span>Non-Veg</span></label>
+          <label class="radio-item"><input type="radio" name="diet" value="both" /> <span>Both</span></label>
         </div>
         <div class="field-error" id="err-diet">Please select a diet type.</div>
       </div>
@@ -426,13 +410,11 @@
       <div class="form-group">
         <label class="form-label">Allergens <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
         <div class="checkbox-group">
-          <label class="checkbox-item"><input type="checkbox" name="allergen" value="gluten" /> <span>Gluten</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="allergen" value="soy" /> <span>Soy</span></label>
           <label class="checkbox-item"><input type="checkbox" name="allergen" value="dairy" /> <span>Dairy</span></label>
           <label class="checkbox-item"><input type="checkbox" name="allergen" value="eggs" /> <span>Eggs</span></label>
-          <label class="checkbox-item"><input type="checkbox" name="allergen" value="nuts" /> <span>Nuts</span></label>
-          <label class="checkbox-item"><input type="checkbox" name="allergen" value="soy" /> <span>Soy</span></label>
-          <label class="checkbox-item"><input type="checkbox" name="allergen" value="shellfish" /> <span>Shellfish</span></label>
           <label class="checkbox-item"><input type="checkbox" name="allergen" value="fish" /> <span>Fish</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="allergen" value="chicken" /> <span>Chicken</span></label>
         </div>
       </div>
 
@@ -462,7 +444,6 @@
           <div class="summary-row"><span class="summary-key">Activity</span><span class="summary-val" id="s-activity"></span></div>
           <div class="summary-row"><span class="summary-key">Goal</span><span class="summary-val" id="s-goal"></span></div>
           <div class="summary-row" id="s-target-weight-row" style="display:none;"><span class="summary-key">Target Weight</span><span class="summary-val" id="s-target-weight"></span></div>
-          <div class="summary-row"><span class="summary-key">Cuisines</span><span class="summary-val" id="s-cuisine"></span></div>
           <div class="summary-row"><span class="summary-key">Diet</span><span class="summary-val" id="s-diet"></span></div>
           <div class="summary-row"><span class="summary-key">Allergens</span><span class="summary-val" id="s-allergens"></span></div>
         </div>
@@ -495,7 +476,7 @@
             <div class="plan-includes-title">Plan includes</div>
             <li>7-day personalised meal plan</li>
             <li>Breakfast, lunch, dinner + snacks</li>
-            <li id="s-includes-cuisine"></li>
+            <li>Indian recipes</li>
             <li id="s-includes-diet"></li>
             <li>Downloadable PDF</li>
           </ul>
@@ -658,14 +639,6 @@ function checkTargetWeightCaution() {
 }
 document.getElementById('f-target-weight').addEventListener('input', checkTargetWeightCaution);
 
-// ── Cuisine card visual toggle (single-select radio) ──
-document.querySelectorAll('.cuisine-card-label').forEach(function(lbl) {
-  lbl.querySelector('input').addEventListener('change', function() {
-    document.querySelectorAll('.cuisine-card-label').forEach(function(l){ l.classList.remove('selected'); });
-    lbl.classList.add('selected');
-  });
-});
-
 // ── Blur validation helpers ──
 function addBlurValidation(inputId, validateFn) {
   var el = document.getElementById(inputId);
@@ -744,13 +717,6 @@ function validateGoal(showError) {
   else err.classList.remove('visible');
   return ok;
 }
-function validateCuisine(showError) {
-  var ok = !!document.querySelector('input[name="cuisine"]:checked');
-  var err = document.getElementById('err-cuisine');
-  if (!ok && showError) err.classList.add('visible');
-  else err.classList.remove('visible');
-  return ok;
-}
 function validateTargetWeight(showError) {
   var goal = document.querySelector('input[name="goal"]:checked');
   if (!goal || goal.value !== 'lose') return true; // not required for other goals
@@ -814,8 +780,7 @@ var ACTIVITY_LABELS = {
   moderately_active: 'Moderately active', very_active: 'Very active', extra_active: 'Extra active'
 };
 var GOAL_LABELS = { lose: '🔥 Lose Weight', maintain: '⚖️ Maintain Weight', gain: '💪 Gain Muscle' };
-var DIET_LABELS = { nonveg: 'Non-Vegetarian', veg: 'Vegetarian', vegan: 'Vegan' };
-var CUISINE_LABELS = { indian: '🇮🇳 Indian', continental: '🌍 Continental', japanese: '🇯🇵 Japanese' };
+var DIET_LABELS = { veg: 'Veg', 'non-veg': 'Non-Veg', both: 'Both' };
 
 // ════════════ STEP 1 SUBMIT ════════════
 function submitStep1() {
@@ -829,7 +794,6 @@ function submitStep1() {
   valid = validateActivity(true) && valid;
   valid = validateGoal(true)         && valid;
   valid = validateTargetWeight(true) && valid;
-  valid = validateCuisine(true)      && valid;
   valid = validateDiet(true)         && valid;
 
   if (!valid) {
@@ -846,8 +810,6 @@ function submitStep1() {
   var activity = document.getElementById('f-activity').value;
   var goal     = document.querySelector('input[name="goal"]:checked').value;
   var dietVal  = document.querySelector('input[name="diet"]:checked').value;
-  var cuisineVal = document.querySelector('input[name="cuisine"]:checked').value;
-  var cuisine  = [cuisineVal];
   var targetWeightRaw = parseFloat(document.getElementById('f-target-weight').value);
   var targetWeight = (goal === 'lose' && !isNaN(targetWeightRaw)) ? targetWeightRaw : null;
   var allergens= Array.from(document.querySelectorAll('input[name="allergen"]:checked')).map(function(c){ return c.value; });
@@ -870,9 +832,9 @@ function submitStep1() {
     height_cm:      height,
     activity_level: activity,
     goal:           goal,
-    cuisine:        cuisine,
-    is_vegetarian:  dietVal === 'veg' || dietVal === 'vegan',
-    is_vegan:       dietVal === 'vegan',
+    cuisine:        ['indian'],
+    is_vegetarian:  dietVal !== 'non-veg',
+    is_vegan:       false,
     diet_type:      dietVal,
     allergens:      allergens,
     target_weight_kg: targetWeight,
@@ -893,8 +855,7 @@ function populateStep2() {
   var bmiInfo = bmiCategory(planData.bmi);
   var goalLabel = { lose: 'Lose Weight', maintain: 'Maintain Weight', gain: 'Gain Muscle' }[planData.goal];
   var genderLabel = { male: 'Male', female: 'Female', other: 'Other' }[planData.gender];
-  var dietLabel = DIET_LABELS[planData.diet_type];
-  var cuisineStr = planData.cuisine.map(function(c){ return CUISINE_LABELS[c]; }).join(', ');
+  var dietLabel = DIET_LABELS[planData.diet_type] || planData.diet_type;
   var allergenStr = planData.allergens.length > 0 ? planData.allergens.map(function(a){ return a.charAt(0).toUpperCase() + a.slice(1); }).join(', ') : 'None';
   var targetNote = planData.goal === 'lose' ? 'TDEE − 500 kcal' : planData.goal === 'gain' ? 'TDEE + 300 kcal' : 'Maintenance';
 
@@ -912,7 +873,6 @@ function populateStep2() {
   } else {
     twRow.style.display = 'none';
   }
-  setText('s-cuisine',  cuisineStr);
   setText('s-diet',     dietLabel);
   setText('s-allergens',allergenStr);
   setText('s-tdee',     planData.tdee.toLocaleString());
@@ -921,7 +881,6 @@ function populateStep2() {
   setText('s-protein',  planData.protein_g + ' g/day');
   setText('s-carbs',    planData.carbs_g + ' g/day');
   setText('s-fat',      planData.fat_g + ' g/day');
-  setText('s-includes-cuisine', cuisineStr + ' recipes');
   setText('s-includes-diet',    dietLabel + ' options');
 
   // BMI with badge
@@ -958,9 +917,10 @@ async function submitStep2() {
         weight_kg:       planData.weight_kg,
         height_cm:       planData.height_cm,
         activity_level:  planData.activity_level,
-        cuisine:         planData.cuisine,
+        cuisine:         ['indian'],
         is_vegetarian:   planData.is_vegetarian,
-        is_vegan:        planData.is_vegan,
+        is_vegan:        false,
+        diet_type:       planData.diet_type,
         allergens:       planData.allergens,
         tdee:             planData.tdee,
         target_calories:  planData.target_calories,
