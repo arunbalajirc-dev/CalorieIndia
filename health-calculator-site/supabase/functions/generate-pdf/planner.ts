@@ -9,7 +9,7 @@ export interface MealFood {
   fibre_g: number
   serving_size: number
   serving_unit: string
-  scaled_grams: number       // how many grams to eat to hit target calories
+  scaled_grams: number
 }
 
 export interface DayMeal {
@@ -24,126 +24,136 @@ export interface DayMeal {
 }
 
 export interface MealPlan {
-  days: DayMeal[]            // always 7 days
-  user_name:        string
-  goal:             string   // 'lose' | 'maintain' | 'gain'
-  goal_label:       string   // 'Weight Loss' | 'Maintain Weight' | 'Gain Muscle'
-  target_calories:  number
-  protein_target:   number
-  carbs_target:     number
-  fat_target:       number
-  tdee:             number
-  bmi:              number
-  bmi_category:     string
-  cuisine_labels:   string[] // e.g. ['Indian', 'Japanese']
-  diet_label:       string   // 'Non-Vegetarian' | 'Vegetarian' | 'Vegan'
-  generated_date:   string   // formatted DD MMM YYYY
+  days: DayMeal[]
+  user_name:       string
+  goal:            string
+  goal_label:      string
+  target_calories: number
+  protein_target:  number
+  carbs_target:    number
+  fat_target:      number
+  tdee:            number
+  bmi:             number
+  bmi_category:    string
+  cuisine_labels:  string[]
+  diet_label:      string
+  generated_date:  string
 }
 
-// Calorie distribution per meal
 const MEAL_SPLIT = {
   breakfast: 0.25,
   lunch:     0.35,
   dinner:    0.30,
-  snacks:    0.10
+  snacks:    0.10,
+}
+
+async function fetchCombos(
+  category: string,
+  dietType: string,
+  allergens: string[],
+  targetKcal: number,
+  limit = 20,
+): Promise<any[]> {
+  for (const margin of [80, 150, 300]) {
+    let q = (supabaseAdmin as any)
+      .from('indian_meal_combos')
+      .select('*')
+      .eq('meal_category', category)
+      .gte('total_kcal', targetKcal - margin)
+      .lte('total_kcal', targetKcal + margin)
+
+    if (dietType === 'veg') {
+      q = q.eq('diet_type', 'veg')
+    } else if (dietType === 'non-veg') {
+      q = q.in('diet_type', ['veg', 'non-veg'])
+    }
+
+    if (allergens.length > 0) {
+      q = q.not('allergens', 'ov', `{${allergens.join(',')}}`)
+    }
+
+    const { data } = await q.limit(limit)
+    if (data && data.length > 0) return data
+  }
+
+  // Fallback: any combos for this category/diet
+  let q = (supabaseAdmin as any)
+    .from('indian_meal_combos')
+    .select('*')
+    .eq('meal_category', category)
+
+  if (dietType === 'veg') q = q.eq('diet_type', 'veg')
+  else if (dietType === 'non-veg') q = q.in('diet_type', ['veg', 'non-veg'])
+
+  const { data, error } = await q.limit(limit)
+  if (error || !data?.length) {
+    console.error(`No combos found for ${category}:`, error?.message)
+    return []
+  }
+  return data
+}
+
+function comboToMealFood(combo: any): MealFood {
+  return {
+    name:         combo.meal_name,
+    calories:     Math.round(combo.total_kcal),
+    protein_g:    Math.round(combo.protein_g * 10) / 10,
+    carbs_g:      Math.round(combo.carbs_g   * 10) / 10,
+    fat_g:        Math.round(combo.fat_g     * 10) / 10,
+    fibre_g:      Math.round((combo.fibre_g ?? 0) * 10) / 10,
+    serving_size: 1,
+    serving_unit: ' serving',
+    scaled_grams: 1,
+  }
+}
+
+function deterministicPick(pool: any[], seed: number): any | null {
+  if (!pool.length) return null
+  const sorted = [...pool].sort((a, b) => {
+    const hA = (a.id * 2654435761 + seed * 1234567) >>> 0
+    const hB = (b.id * 2654435761 + seed * 1234567) >>> 0
+    return hA - hB
+  })
+  return sorted[0]
 }
 
 export async function buildMealPlan(intakeData: any, goal: string): Promise<MealPlan> {
   const {
-    name, cuisine, is_vegetarian, is_vegan, allergens = [],
-    target_calories, protein_target, carbs_target, fat_target,
-    tdee, bmi, weight_kg
+    name,
+    diet_type     = 'veg',
+    allergens     = [],
+    target_calories,
+    protein_target,
+    carbs_target,
+    fat_target,
+    tdee,
+    bmi,
+    weight_kg,
   } = intakeData
 
-  // Fetch foods from RPC
-  const { data: foods, error } = await supabaseAdmin.rpc('get_plan_foods', {
-    p_goal:              goal,
-    p_cuisine:           cuisine,
-    p_is_vegetarian:     is_vegetarian,
-    p_is_vegan:          is_vegan,
-    p_exclude_allergens: allergens,
-    p_categories:        [],
-    p_limit:             300
-  })
+  const bfCals     = Math.round(target_calories * MEAL_SPLIT.breakfast)
+  const lunchCals  = Math.round(target_calories * MEAL_SPLIT.lunch)
+  const dinnerCals = Math.round(target_calories * MEAL_SPLIT.dinner)
+  const snackCals  = Math.round(target_calories * MEAL_SPLIT.snacks)
 
-  if (error || !foods?.length) {
-    throw new Error(`get_plan_foods failed: ${error?.message ?? 'no foods returned'}`)
-  }
+  const [bfPool, lunchPool, dinnerPool, snacksPool] = await Promise.all([
+    fetchCombos('Breakfast', diet_type, allergens, bfCals,     20),
+    fetchCombos('Lunch',     diet_type, allergens, lunchCals,  20),
+    fetchCombos('Dinner',    diet_type, allergens, dinnerCals, 20),
+    fetchCombos('Snack',     diet_type, allergens, snackCals,  20),
+  ])
 
-  // Group foods by category
-  const byCategory: Record<string, any[]> = {}
-  for (const food of foods) {
-    if (!byCategory[food.category]) byCategory[food.category] = []
-    byCategory[food.category].push(food)
-  }
-
-  // Helper: pick N random foods from a category, cycling if needed
-  function pick(category: string, n: number, dayIndex: number): MealFood[] {
-    const pool = byCategory[category] ?? byCategory['other'] ?? foods
-    const result: MealFood[] = []
-    for (let i = 0; i < n; i++) {
-      const food = pool[(dayIndex * n + i) % pool.length]
-      result.push({
-        name:         food.name,
-        calories:     food.calories,
-        protein_g:    food.protein_g,
-        carbs_g:      food.carbs_g,
-        fat_g:        food.fat_g,
-        fibre_g:      food.fibre_g,
-        serving_size: food.serving_size,
-        serving_unit: food.serving_unit,
-        scaled_grams: food.serving_size  // default, scaled below
-      })
-    }
-    return result
-  }
-
-  // Scale foods in a meal slot to hit target calories for that slot
-  function scaleMeal(foods: MealFood[], targetCals: number): MealFood[] {
-    if (!foods.length) return foods
-    const totalRaw = foods.reduce((s, f) => s + f.calories, 0)
-    if (totalRaw === 0) return foods
-    const ratio = targetCals / totalRaw
-    return foods.map(f => ({
-      ...f,
-      scaled_grams: Math.round(f.serving_size * ratio),
-      calories:     Math.round(f.calories  * ratio),
-      protein_g:    Math.round(f.protein_g * ratio * 10) / 10,
-      carbs_g:      Math.round(f.carbs_g   * ratio * 10) / 10,
-      fat_g:        Math.round(f.fat_g     * ratio * 10) / 10,
-      fibre_g:      Math.round(f.fibre_g   * ratio * 10) / 10,
-    }))
-  }
-
-  // Build 7 days
   const days: DayMeal[] = []
   for (let d = 0; d < 7; d++) {
-    const bfCals     = Math.round(target_calories * MEAL_SPLIT.breakfast)
-    const lunchCals  = Math.round(target_calories * MEAL_SPLIT.lunch)
-    const dinnerCals = Math.round(target_calories * MEAL_SPLIT.dinner)
-    const snackCals  = Math.round(target_calories * MEAL_SPLIT.snacks)
+    const bfCombo     = deterministicPick(bfPool,     d)
+    const lunchCombo  = deterministicPick(lunchPool,  d + 7)
+    const dinnerCombo = deterministicPick(dinnerPool, d + 14)
+    const snackCombo  = deterministicPick(snacksPool, d + 21)
 
-    const breakfast = scaleMeal([
-      ...pick('grain',   1, d),
-      ...pick('protein', 1, d + 7),
-      ...pick('fruit',   1, d + 14)
-    ], bfCals)
-
-    const lunch = scaleMeal([
-      ...pick('grain',     1, d + 21),
-      ...pick('protein',   1, d + 28),
-      ...pick('vegetable', 2, d + 35)
-    ], lunchCals)
-
-    const dinner = scaleMeal([
-      ...pick('grain',     1, d + 42),
-      ...pick('protein',   1, d + 49),
-      ...pick('vegetable', 1, d + 56)
-    ], dinnerCals)
-
-    const snacks = scaleMeal([
-      ...pick('fruit', 1, d + 63)
-    ], snackCals)
+    const breakfast = bfCombo     ? [comboToMealFood(bfCombo)]     : []
+    const lunch     = lunchCombo  ? [comboToMealFood(lunchCombo)]  : []
+    const dinner    = dinnerCombo ? [comboToMealFood(dinnerCombo)] : []
+    const snacks    = snackCombo  ? [comboToMealFood(snackCombo)]  : []
 
     const allFoods = [...breakfast, ...lunch, ...dinner, ...snacks]
 
@@ -156,37 +166,22 @@ export async function buildMealPlan(intakeData: any, goal: string): Promise<Meal
     })
   }
 
-  // BMI category
   const bmiCategory =
     bmi < 18.5 ? 'Underweight' :
     bmi < 25   ? 'Normal weight' :
     bmi < 30   ? 'Overweight' : 'Obese'
 
-  // Goal label
   const goalLabel =
-    goal === 'lose'     ? 'Weight Loss' :
-    goal === 'gain'     ? 'Gain Muscle' : 'Maintain Weight'
+    goal === 'lose' ? 'Weight Loss' :
+    goal === 'gain' ? 'Gain Muscle' : 'Maintain Weight'
 
-  // Diet label
-  const { diet_type } = intakeData
   const dietLabel =
     diet_type === 'non-veg' ? 'Non-Vegetarian' :
-    diet_type === 'both'    ? 'Veg & Non-Veg' :
-    diet_type === 'veg'     ? 'Vegetarian' :
-    is_vegan                ? 'Vegan' :
-    is_vegetarian           ? 'Vegetarian' : 'Non-Vegetarian'
+    diet_type === 'both'    ? 'Veg & Non-Veg'  : 'Vegetarian'
 
-  // Cuisine labels
-  const cuisineMap: Record<string, string> = {
-    indian: 'Indian', continental: 'Continental', japanese: 'Japanese'
-  }
-  const rawCuisine = (cuisine as string[] | undefined) ?? ['indian']
-  const cuisineLabels = rawCuisine.map(c => cuisineMap[c] ?? c)
-
-  // Format date
   const now = new Date()
   const generatedDate = now.toLocaleDateString('en-IN', {
-    day: '2-digit', month: 'short', year: 'numeric'
+    day: '2-digit', month: 'short', year: 'numeric',
   })
 
   return {
@@ -195,14 +190,14 @@ export async function buildMealPlan(intakeData: any, goal: string): Promise<Meal
     goal,
     goal_label:      goalLabel,
     target_calories: Math.round(target_calories),
-    protein_target:  Math.round(intakeData.protein_target ?? weight_kg * (goal === 'gain' ? 2 : 1.6)),
+    protein_target:  Math.round(protein_target ?? weight_kg * (goal === 'gain' ? 2 : 1.6)),
     carbs_target:    Math.round(carbs_target ?? 0),
     fat_target:      Math.round(fat_target ?? 0),
     tdee:            Math.round(tdee),
     bmi:             Math.round(bmi * 10) / 10,
     bmi_category:    bmiCategory,
-    cuisine_labels:  cuisineLabels,
+    cuisine_labels:  ['Indian'],
     diet_label:      dietLabel,
-    generated_date:  generatedDate
+    generated_date:  generatedDate,
   }
 }
