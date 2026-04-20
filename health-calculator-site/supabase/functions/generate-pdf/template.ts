@@ -642,7 +642,7 @@ function page4(plan: MealPlan, intakeData: any): string {
       <div class="card" style="flex-shrink:0;padding:12px 13px;">
         <div class="label" style="margin-bottom:9px;">Calories Burned — All Activities Compared (15 / 30 / 60 min)</div>
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#F97316,#EAB308,#22C55E);"></div>
-        <svg viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;height:260px;">${s}</svg>
+        <svg viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;height:195px;">${s}</svg>
       </div>
 
       <!-- Exercise Grid — 2 per row -->
