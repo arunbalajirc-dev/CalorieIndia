@@ -22,7 +22,6 @@ function bmiInfo(bmi: number): { cat: string; color: string; pct: number } {
 
 // ─── SHARED LAYOUT ───────────────────────────────────────────────────────────
 
-// Yellow band + green wave — used as top header on pages 2–7
 function pageHeader(title: string, subtitle: string, subtitle2 = ''): string {
   return `
   <div style="flex-shrink:0;background:#FFD700;padding:22px 28px 0 28px;position:relative;">
@@ -68,8 +67,7 @@ const BASE_STYLES = `
 // ─── PAGE 1 — COVER ──────────────────────────────────────────────────────────
 
 function page1(plan: MealPlan, intakeData: any): string {
-  const { weight_kg, height_cm, age, gender } = intakeData
-  const goalLabel = plan.goal === 'lose' ? 'Weight Loss' : plan.goal === 'gain' ? 'Muscle Gain' : 'Maintenance'
+  const { weight_kg } = intakeData
   const dietDisplay = (intakeData.diet_type ?? 'veg') === 'veg' ? 'Vegetarian' : (intakeData.diet_type === 'non-veg' ? 'Non-Vegetarian' : 'Veg + Non-Veg')
 
   return `
@@ -78,74 +76,73 @@ function page1(plan: MealPlan, intakeData: any): string {
     <!-- Background photo -->
     <div style="position:absolute;inset:0;z-index:0;">
       <img src="../images/cover-bg.png" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.55;" alt=""/>
-      <!-- diagonal dark overlay top-left -->
       <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.85) 45%,rgba(0,0,0,.15) 100%);"></div>
     </div>
 
-    <!-- Yellow accent line top-right -->
-    <div style="position:absolute;top:0;right:60px;width:2px;height:200px;background:#FFD700;z-index:2;opacity:.7;"></div>
-
     <!-- Logo top-right -->
     <div style="position:absolute;top:22px;right:22px;z-index:3;">
-      <img src="../images/Nt-logo.png" style="height:52px;width:auto;" alt="Nutrition Tracker"/>
+      <img src="https://raw.githubusercontent.com/arunbalajirc-dev/CalorieIndia/main/health-calculator-site/images/Nt-logo.png" crossOrigin="anonymous" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" style="height:52px;width:auto;" alt="Nutrition Tracker"/><span style="display:none;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;color:#FFD700;line-height:1;">Nutrition Tracker</span>
     </div>
 
     <!-- Main text content -->
     <div style="position:relative;z-index:2;padding:48px 36px;flex:1;display:flex;flex-direction:column;justify-content:flex-start;max-width:68%;">
 
-      <!-- Heading -->
-      <h1 style="font-family:'Montserrat',sans-serif;font-size:42px;font-weight:900;color:#FFD700;line-height:1.05;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:16px;">
+      <h1 style="font-family:'Montserrat',sans-serif;font-size:58px;font-weight:900;color:#FFD700;line-height:1.05;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:16px;">
         Your Personalised<br>Meal Plan
       </h1>
 
-      <!-- Sub-heading -->
-      <p style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.75);line-height:1.65;margin-bottom:28px;max-width:340px;">
+      <p style="font-family:'Inter',sans-serif;font-size:17px;color:rgba(255,255,255,.75);line-height:1.65;margin-bottom:28px;max-width:400px;">
         Calorie-precise, macro-balanced meals built<br>for Indian bodies and Indian kitchens…
       </p>
 
-      <!-- Divider -->
       <div style="width:48px;height:3px;background:#FFD700;border-radius:2px;margin-bottom:24px;"></div>
 
-      <!-- User details -->
+      <!-- User name · weight · goal -->
       <div style="margin-bottom:10px;">
-        <span style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.05em;">
-          ${plan.user_name} &nbsp;·&nbsp; ${goalLabel} &nbsp;·&nbsp; ${plan.target_calories} kcal/day
+        <span style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.05em;">
+          ${plan.user_name} &nbsp;·&nbsp; ${weight_kg} kg &nbsp;·&nbsp; ${plan.goal_label}
         </span>
       </div>
 
       <!-- Macro row -->
       <div style="display:flex;gap:20px;margin-bottom:32px;">
         <div>
-          <span style="font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:#22C55E;">${plan.protein_target}g</span>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;">Protein</div>
+          <span style="font-family:'DM Mono',monospace;font-size:30px;font-weight:500;color:#22C55E;">${plan.protein_target}g</span>
+          <div style="font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;">Protein</div>
         </div>
         <div style="width:1px;background:rgba(255,255,255,.12);"></div>
         <div>
-          <span style="font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:#F97316;">${plan.carbs_target}g</span>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;">Carbs</div>
+          <span style="font-family:'DM Mono',monospace;font-size:30px;font-weight:500;color:#F97316;">${plan.carbs_target}g</span>
+          <div style="font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;">Carbs</div>
         </div>
         <div style="width:1px;background:rgba(255,255,255,.12);"></div>
         <div>
-          <span style="font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:#A855F7;">${plan.fat_target}g</span>
-          <div style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;">Fat</div>
+          <span style="font-family:'DM Mono',monospace;font-size:30px;font-weight:500;color:#A855F7;">${plan.fat_target}g</span>
+          <div style="font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;">Fat</div>
         </div>
       </div>
 
       <!-- Diet badge -->
       <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.25);border-radius:99px;padding:6px 14px;width:fit-content;">
-        <span style="font-size:10px;">🥗</span>
-        <span style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;color:#FFD700;">${dietDisplay} · Indian Cuisine</span>
+        <span style="font-size:13px;">🥗</span>
+        <span style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:#FFD700;">${dietDisplay} · Indian Cuisine</span>
       </div>
 
     </div>
 
+    <!-- Banner image lower section -->
+    <div style="position:absolute;bottom:0;left:0;right:0;height:360px;z-index:1;overflow:hidden;">
+      <img src="https://raw.githubusercontent.com/arunbalajirc-dev/CalorieIndia/main/health-calculator-site/images/image%20bg%201.PNG" crossOrigin="anonymous" style="width:100%;height:100%;object-fit:cover;object-position:center;" alt=""/>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,#000 0%,transparent 25%,transparent 65%,#000 100%);"></div>
+    </div>
+
     <!-- Generated date bottom-right -->
-    <div style="position:absolute;bottom:28px;right:28px;z-index:2;text-align:right;">
+    <div style="position:absolute;bottom:28px;right:28px;z-index:4;text-align:right;">
       <span style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.06em;">${plan.generated_date}</span>
     </div>
 
     <!-- Yellow corner bottom-right -->
-    <div style="position:absolute;bottom:0;right:0;width:60px;height:60px;background:#FFD700;clip-path:polygon(100% 0,100% 100%,0 100%);z-index:2;"></div>
+    <div style="position:absolute;bottom:0;right:0;width:60px;height:60px;background:#FFD700;clip-path:polygon(100% 0,100% 100%,0 100%);z-index:5;"></div>
 
   </div>`
 }
@@ -167,6 +164,22 @@ function page2(plan: MealPlan, intakeData: any): string {
   const losing = toChange > 0
   const weeksTotal = deficit !== 0 ? Math.round((Math.abs(toChange) * 7700) / (Math.abs(deficit) * 7)) : 0
   const months = Math.max(1, Math.round(weeksTotal / 4.33))
+  const weeklyLoss = ((Math.abs(deficit) * 7) / 7700).toFixed(2)
+  const ph = Math.round(weeksTotal / 3)
+
+  // BMI risk note
+  let bmiRiskNote = ''
+  if (bmi < 18.5) bmiRiskNote = 'You are Underweight. Focus on calorie surplus and strength training to build lean mass.'
+  else if (bmi < 23) bmiRiskNote = 'You are in the Healthy range for Asian standards. Focus on maintaining and improving body composition.'
+  else if (bmi < 25) bmiRiskNote = 'You are Overweight. Even a 5% reduction in body weight significantly reduces cardiovascular and metabolic risk.'
+  else if (bmi < 30) bmiRiskNote = 'You are in Obese Class I. This range is associated with elevated risk of Type 2 diabetes, hypertension, and joint stress. Losing 8–10% of body weight produces measurable clinical improvements.'
+  else bmiRiskNote = 'You are in Obese Class II. Priority should be medical supervision alongside diet and movement changes.'
+
+  const phaseNotes = [
+    `Phase 1 (Wk 1–${ph}): Build consistency — hit your calorie target daily, weigh portions, track every meal`,
+    `Phase 2 (Wk ${ph+1}–${ph*2}): Introduce 3× strength training per week. Protein becomes critical to prevent muscle loss.`,
+    `Phase 3 (Wk ${ph*2+1}–${weeksTotal}): Fine-tune. If weight plateaus, reduce target by 100 kcal or add 1 extra exercise session.`,
+  ]
 
   // ── Projected Timeline SVG
   const TW = 520, TH = 110, PAD = { l: 38, r: 30, t: 14, b: 28 }
@@ -214,7 +227,6 @@ function page2(plan: MealPlan, intakeData: any): string {
     <text x="${lp.x.toFixed(1)}" y="${(lp.y - 7).toFixed(1)}" text-anchor="middle" font-size="8" fill="#22C55E" font-family="DM Mono,monospace" font-weight="600">${targetWeight}kg</text>`
 
   // ── 3-Phase Roadmap
-  const ph = Math.round(weeksTotal / 3)
   const phases = [
     { n: '01', icon: '🔥', name: 'Ignition',      wk: `Wk 1–${ph}`,              color: '#F97316', desc: 'Establish calorie deficit, learn portion sizes, build daily tracking habit' },
     { n: '02', icon: '⚙️',  name: 'Adaptation',    wk: `Wk ${ph+1}–${ph*2}`,     color: '#A855F7', desc: 'Introduce strength training, optimise protein intake, manage the plateau' },
@@ -230,7 +242,7 @@ function page2(plan: MealPlan, intakeData: any): string {
   <div class="page">
     ${pageHeader('Your Health Snapshot', 'Personalized for Metabolic Standards')}
 
-    <div style="flex:1;background:#000;padding:14px 20px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden;">
+    <div style="flex:1;background:#000;padding:14px 20px 10px;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
 
       <!-- ROW 1: Profile + BMI side by side -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;flex-shrink:0;">
@@ -259,7 +271,6 @@ function page2(plan: MealPlan, intakeData: any): string {
         <!-- BMI + Caloric Card -->
         <div class="card card-accent-green">
           <div class="label">BMI Scale — Asian Standard</div>
-          <!-- BMI Bar -->
           <div style="height:10px;border-radius:99px;position:relative;margin-bottom:7px;background:linear-gradient(90deg,#3B82F6 0%,#22C55E 20%,#22C55E 40%,#EAB308 55%,#F97316 70%,#EF4444 85%,#7C3AED 100%);">
             <div style="position:absolute;top:-4px;width:18px;height:18px;background:#fff;border-radius:50%;border:3px solid #000;box-shadow:0 0 0 2px ${B.color};transform:translateX(-50%);left:${B.pct}%;"></div>
           </div>
@@ -292,10 +303,10 @@ function page2(plan: MealPlan, intakeData: any): string {
         </div>
       </div>
 
-      <!-- ROW 2: Weight Timeline -->
-      <div class="card card-accent-yellow" style="flex-shrink:0;">
+      <!-- ROW 2: Weight Timeline (flex:1 to expand) -->
+      <div class="card card-accent-yellow" style="flex:1;min-height:0;">
         <div class="label">Projected Weight Timeline</div>
-        <svg width="100%" viewBox="0 0 ${TW} ${TH}" preserveAspectRatio="none" style="display:block;height:105px;">${svgTimeline}</svg>
+        <svg width="100%" viewBox="0 0 ${TW} ${TH}" preserveAspectRatio="none" style="display:block;height:140px;">${svgTimeline}</svg>
       </div>
 
       <!-- ROW 3: 3-Phase Roadmap -->
@@ -311,6 +322,26 @@ function page2(plan: MealPlan, intakeData: any): string {
             <div style="font-size:8px;color:#666;margin-bottom:3px;">${p.wk}</div>
             <div style="font-size:8px;color:#888;line-height:1.35;padding:0 4px;">${p.desc}</div>
           </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- Insight Notes (fills remaining space) -->
+      <div class="card card-accent-green" style="flex:1;min-height:0;">
+        <div class="label">Progress Insights &amp; Phase Guidance</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div style="background:#0d1f0d;border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:7px 10px;">
+            <span style="font-size:9px;color:#888;line-height:1.5;">📉 At your current deficit of <strong style="color:#22C55E;">${Math.abs(deficit)} kcal/day</strong>, you will lose approximately <strong style="color:#FFD700;">${weeklyLoss} kg per week</strong> — safe, sustainable progress.</span>
+          </div>
+          <div style="background:#0a0a0a;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:7px 10px;">
+            <span style="font-size:9px;color:#888;line-height:1.5;">⚕ ${bmiRiskNote}</span>
+          </div>
+          <div style="background:#0a0a0a;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:7px 10px;">
+            ${phaseNotes.map((note, i) => `
+            <div style="display:flex;gap:6px;${i < 2 ? 'margin-bottom:4px;' : ''}">
+              <div style="width:6px;height:6px;border-radius:50%;background:${['#F97316','#A855F7','#22C55E'][i]};flex-shrink:0;margin-top:3px;"></div>
+              <span style="font-size:8.5px;color:#888;line-height:1.4;">${note}</span>
+            </div>`).join('')}
+          </div>
         </div>
       </div>
 
@@ -367,6 +398,20 @@ function page3(plan: MealPlan, intakeData: any): string {
     { name: 'Vitamin B12',      score: isVeg ? 32 : 54,                                       color: '#A855F7' },
   ]
 
+  const proteinScore = nutrients[0].score
+  const ironScore    = nutrients[1].score
+  const fibreScore   = nutrients[2].score
+  const b12Score     = nutrients[5].score
+
+  const nutrientNotes = [
+    `Protein (${proteinScore}%): ${proteinScore >= 80 ? 'Good. Your protein intake supports muscle retention during weight loss.' : 'Low. Increase paneer, dal, soy, or Greek yogurt daily.'}`,
+    `Iron (${ironScore}%): ${isVeg ? 'Vegetarians absorb less iron. Eat iron-rich foods (spinach, rajma) with Vitamin C (lemon juice) to improve absorption.' : 'Include chicken liver or red meat 2× per week to maintain iron levels.'}`,
+    `Fibre (${fibreScore}%): ${fibreScore < 60 ? 'Low fibre slows metabolism and increases hunger. Add oats, vegetables, and whole grains daily.' : 'Good fibre intake. This helps control hunger and blood sugar.'}`,
+    `Vitamin D (38%): Most Indians are deficient. 20 min of morning sunlight daily is essential. Consider supplementation.`,
+    `Calcium (62%): Add 2 servings of dairy or fortified foods daily.`,
+    `Vitamin B12 (${b12Score}%): ${isVeg ? 'B12 is only in animal products. Supplementation is strongly recommended for vegetarians.' : 'Maintain B12 through eggs, fish, and meat regularly.'}`,
+  ]
+
   // Radar SVG
   const n = nutrients.length, CX2 = 100, CY2 = 85, MR = 65
   let rh = ''
@@ -404,8 +449,8 @@ function page3(plan: MealPlan, intakeData: any): string {
 
     <div style="flex:1;background:#000;padding:14px 20px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden;">
 
-      <!-- ROW 1: Macros + Energy side by side -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;flex-shrink:0;">
+      <!-- ROW 1: Macros + Energy stacked -->
+      <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0;">
 
         <!-- Daily Macro Targets -->
         <div class="card card-accent-purple">
@@ -461,18 +506,40 @@ function page3(plan: MealPlan, intakeData: any): string {
       <!-- ROW 2: Micro-Nutrient -->
       <div class="card card-accent-blue" style="flex:1;min-height:0;">
         <div class="label">Micro-Nutrient Focus Areas — Adequacy Score</div>
-        <div style="display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;height:calc(100% - 22px);">
-          <div>
-            ${nutrients.map(nu => `
-            <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px;">
-              <span style="font-size:9.5px;color:#ccc;width:130px;flex-shrink:0;">${nu.name}</span>
-              <div style="flex:1;height:8px;background:#1a1a1a;border-radius:99px;overflow:hidden;">
-                <div style="width:${nu.score}%;height:100%;background:${nu.color};border-radius:99px;"></div>
-              </div>
-              <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:${nu.color};width:32px;text-align:right;">${nu.score}%</span>
+        <div style="display:flex;flex-direction:column;gap:8px;height:calc(100% - 22px);">
+          <!-- Bars + Radar -->
+          <div style="display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start;">
+            <div>
+              ${nutrients.map(nu => `
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:7px;">
+                <span style="font-size:9.5px;color:#ccc;width:130px;flex-shrink:0;">${nu.name}</span>
+                <div style="flex:1;height:12px;background:#1a1a1a;border-radius:99px;overflow:hidden;">
+                  <div style="width:${nu.score}%;height:100%;background:${nu.color};border-radius:99px;"></div>
+                </div>
+                <span style="font-family:'DM Mono',monospace;font-size:9.5px;color:${nu.color};width:32px;text-align:right;">${nu.score}%</span>
+              </div>`).join('')}
+            </div>
+            <svg width="200" height="210" viewBox="0 0 200 200">${rh}</svg>
+          </div>
+          <!-- Explanation Notes -->
+          <div style="background:#0a0a0a;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:8px 10px;flex:1;">
+            <div style="font-size:9px;font-weight:600;color:#ccc;margin-bottom:5px;">What these scores mean for you:</div>
+            ${nutrientNotes.map(note => `
+            <div style="display:flex;gap:5px;margin-bottom:3px;">
+              <div style="width:4px;height:4px;border-radius:50%;background:#22C55E;flex-shrink:0;margin-top:4px;"></div>
+              <span style="font-size:8.5px;color:#888;line-height:1.4;">${note}</span>
             </div>`).join('')}
           </div>
-          <svg width="200" height="165" viewBox="0 0 200 165">${rh}</svg>
+        </div>
+      </div>
+
+      <!-- Food Library Guidance Strip -->
+      <div style="background:#111;border-left:3px solid #FFD700;border-radius:0 8px 8px 0;padding:7px 11px;flex-shrink:0;">
+        <div style="font-size:8.5px;font-weight:600;color:#FFD700;margin-bottom:3px;">How to hit these targets using your food library (Pages 6–7):</div>
+        <div style="font-size:9px;color:#888;line-height:1.5;">
+          · Protein target ${protG}g → prioritise high-protein breakfast and dinner combos from your food library<br>
+          · Carbs target ${carbG}g → your lunch combo provides the bulk of complex carbs<br>
+          · Fat target ${fatG}g → keep dinner combos light on fat to stay within target
         </div>
       </div>
 
@@ -518,7 +585,7 @@ function page4(plan: MealPlan, intakeData: any): string {
   ]
 
   // Bar chart SVG
-  const VW = 680, VH = 175, PAD = { l: 34, r: 14, t: 12, b: 40 }
+  const VW = 680, VH = 240, PAD = { l: 34, r: 14, t: 12, b: 40 }
   const cw2 = VW - PAD.l - PAD.r, ch2 = VH - PAD.t - PAD.b
   const maxBurn = burn(exercises[1].met, 60) + 30
   const groupW = cw2 / exercises.length
@@ -528,7 +595,7 @@ function page4(plan: MealPlan, intakeData: any): string {
   for (let i = 0; i <= 5; i++) {
     const val = Math.round(maxBurn / 5 * i), y = PAD.t + ch2 - (val / maxBurn) * ch2
     s += `<line x1="${PAD.l}" y1="${y.toFixed(1)}" x2="${VW - PAD.r}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`
-    s += `<text x="${PAD.l - 4}" y="${(y + 3).toFixed(1)}" text-anchor="end" font-size="7" fill="rgba(255,255,255,.25)" font-family="DM Mono,monospace">${val}</text>`
+    s += `<text x="${PAD.l - 4}" y="${(y + 3).toFixed(1)}" text-anchor="end" font-size="9" fill="rgba(255,255,255,.25)" font-family="DM Mono,monospace">${val}</text>`
   }
   exercises.forEach((ex, gi) => {
     const gx = PAD.l + gi * groupW
@@ -538,16 +605,16 @@ function page4(plan: MealPlan, intakeData: any): string {
       const bx = gx + barGap + di * (barW + barGap)
       const by = PAD.t + ch2 - bh
       s += `<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${barW.toFixed(1)}" height="${bh.toFixed(1)}" rx="3" fill="${timeColors[di]}" opacity="0.85"/>`
-      if (bh > 14) s += `<text x="${(bx + barW / 2).toFixed(1)}" y="${(by - 3).toFixed(1)}" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.7)" font-family="DM Mono,monospace">${cal}</text>`
+      if (bh > 14) s += `<text x="${(bx + barW / 2).toFixed(1)}" y="${(by - 3).toFixed(1)}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.7)" font-family="DM Mono,monospace">${cal}</text>`
     })
     const lx = (gx + groupW / 2).toFixed(1)
     s += `<text x="${lx}" y="${VH - 26}" text-anchor="middle" font-size="12" fill="rgba(255,255,255,.55)">${ex.icon}</text>`
     const words = ex.name.split(' ')
     if (words.length > 1) {
-      s += `<text x="${lx}" y="${VH - 13}" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Inter,sans-serif">${words[0]}</text>`
-      s += `<text x="${lx}" y="${VH - 4}" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Inter,sans-serif">${words.slice(1).join(' ')}</text>`
+      s += `<text x="${lx}" y="${VH - 13}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.35)" font-family="Inter,sans-serif">${words[0]}</text>`
+      s += `<text x="${lx}" y="${VH - 4}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.35)" font-family="Inter,sans-serif">${words.slice(1).join(' ')}</text>`
     } else {
-      s += `<text x="${lx}" y="${VH - 8}" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.35)" font-family="Inter,sans-serif">${ex.name}</text>`
+      s += `<text x="${lx}" y="${VH - 8}" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.35)" font-family="Inter,sans-serif">${ex.name}</text>`
     }
   })
   durations.forEach((d, i) => {
@@ -566,8 +633,8 @@ function page4(plan: MealPlan, intakeData: any): string {
       <div style="display:flex;gap:7px;flex-shrink:0;">
         ${strip.map(st => `
         <div style="flex:1;background:#111;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 9px;text-align:center;">
-          <div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:#fff;line-height:1;">${st.v}</div>
-          <div style="font-size:7.5px;color:#666;margin-top:3px;text-transform:uppercase;letter-spacing:.05em;">${st.l}</div>
+          <div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:#fff;line-height:1;">${st.v}</div>
+          <div style="font-size:9px;color:#666;margin-top:3px;text-transform:uppercase;letter-spacing:.05em;">${st.l}</div>
         </div>`).join('')}
       </div>
 
@@ -575,36 +642,36 @@ function page4(plan: MealPlan, intakeData: any): string {
       <div class="card" style="flex-shrink:0;padding:12px 13px;">
         <div class="label" style="margin-bottom:9px;">Calories Burned — All Activities Compared (15 / 30 / 60 min)</div>
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#F97316,#EAB308,#22C55E);"></div>
-        <svg viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;">${s}</svg>
+        <svg viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;height:260px;">${s}</svg>
       </div>
 
-      <!-- Exercise Grid -->
-      <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;min-height:0;">
+      <!-- Exercise Grid — 2 per row -->
+      <div style="flex:1;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;min-height:0;">
         ${exercises.map(ex => {
           const burnRows = durations.map(dur => {
             const cal = burn(ex.met, dur)
             const pct = (cal / maxBurn60 * 100).toFixed(1)
             return `
             <div style="display:flex;align-items:center;gap:5px;">
-              <span style="font-size:8.5px;color:#666;width:28px;flex-shrink:0;">${dur}m</span>
+              <span style="font-size:10px;color:#666;width:28px;flex-shrink:0;">${dur}m</span>
               <div style="flex:1;height:6px;background:#1a1a1a;border-radius:99px;overflow:hidden;">
                 <div style="width:${pct}%;height:100%;background:${ex.color};border-radius:99px;"></div>
               </div>
-              <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:${ex.color};width:40px;text-align:right;">${cal} kcal</span>
+              <span style="font-family:'DM Mono',monospace;font-size:11px;color:${ex.color};width:50px;text-align:right;">${cal} kcal</span>
             </div>`
           }).join('')
           return `
-          <div class="card" style="padding:10px;position:relative;">
+          <div class="card" style="padding:12px;position:relative;">
             <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${ex.color};border-radius:12px 12px 0 0;"></div>
             <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;">
               <span style="font-size:15px;">${ex.icon}</span>
               <div>
-                <div style="font-size:10.5px;font-weight:700;color:#eee;">${ex.name}</div>
-                <div style="font-size:8.5px;color:#666;">MET ${ex.met} · <span style="background:${ex.color}22;color:${ex.color};border:1px solid ${ex.color}44;padding:1px 5px;border-radius:99px;font-size:7.5px;">${ex.intensity}</span></div>
+                <div style="font-size:13px;font-weight:700;color:#eee;">${ex.name}</div>
+                <div style="font-size:10px;color:#666;">MET ${ex.met} · <span style="background:${ex.color}22;color:${ex.color};border:1px solid ${ex.color}44;padding:1px 5px;border-radius:99px;font-size:9px;">${ex.intensity}</span></div>
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:4px;">${burnRows}</div>
-            <div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,.07);font-size:8.5px;color:#666;line-height:1.35;">${ex.tip}</div>
+            <div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,.07);font-size:10px;color:#666;line-height:1.5;">${ex.tip}</div>
           </div>`
         }).join('')}
       </div>
@@ -632,6 +699,17 @@ function page5(plan: MealPlan, intakeData: any): string {
   const exerDef  = Math.round(totalDef * 0.2)
   const tc = plan.target_calories
 
+  // Calorie burn notes calculations
+  const W = weight_kg
+  const burnFn = (met: number, mins: number) => Math.round(met * W * (mins / 60))
+  const walkBurnPer30 = burnFn(4.3, 30)
+  const runBurnPer30  = burnFn(9.8, 30)
+  const walkMinsFor100 = walkBurnPer30 > 0 ? Math.round(100 / walkBurnPer30 * 30) : 0
+  const runMinsFor100  = runBurnPer30 > 0  ? Math.round(100 / runBurnPer30  * 30) : 0
+  const dietKcal = Math.round(Math.abs(totalDef) * 0.8)
+  const exerKcal = Math.round(Math.abs(totalDef) * 0.2)
+  const daysPerKg = totalDef !== 0 ? Math.round(7700 / Math.abs(totalDef)) : 0
+
   const mealSlots = [
     { meal: 'Breakfast', pct: 0.25, icon: '☀️', color: '#F97316', bg: 'rgba(249,115,22,.12)', bd: 'rgba(249,115,22,.3)' },
     { meal: 'Lunch',     pct: 0.35, icon: '🍱', color: '#22C55E', bg: 'rgba(34,197,94,.12)',  bd: 'rgba(34,197,94,.3)'  },
@@ -644,6 +722,8 @@ function page5(plan: MealPlan, intakeData: any): string {
     { bad: 'Full-fat milk (250ml) — 150 kcal', good: 'Toned milk (250ml) — 90 kcal', save: 'Save 60 kcal' },
     { bad: 'Maida roti (2) — 180 kcal', good: 'Wheat roti (2) — 140 kcal', save: 'Save 40 kcal' },
     { bad: 'Packaged biscuits (4) — 180 kcal', good: 'Roasted chana (30g) — 120 kcal', save: 'Save 60 kcal' },
+    { bad: 'Fried samosa (2) — 260 kcal', good: 'Baked mathri (2) — 160 kcal', save: 'Save 100 kcal' },
+    { bad: 'Packaged fruit juice (200ml) — 110 kcal', good: 'Whole fruit (1 medium) — 60 kcal', save: 'Save 50 kcal' },
   ]
 
   return `
@@ -669,14 +749,14 @@ function page5(plan: MealPlan, intakeData: any): string {
               <div style="width:8px;height:8px;border-radius:50%;background:#22C55E;"></div>
               <span style="font-size:10px;font-weight:700;color:#22C55E;">80% — What You Eat</span>
             </div>
-            <p style="font-size:9px;color:#888;line-height:1.5;">Your calorie deficit is driven primarily by food — what you pick, how much, and when. This is the controllable lever.</p>
+            <p style="font-size:11px;color:#888;line-height:1.5;">Your calorie deficit is driven primarily by food — what you pick, how much, and when. This is the controllable lever.</p>
           </div>
           <div style="background:#1a1a1a;border-radius:9px;padding:10px 12px;">
             <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;">
               <div style="width:8px;height:8px;border-radius:50%;background:#F97316;"></div>
               <span style="font-size:10px;font-weight:700;color:#F97316;">20% — How You Move</span>
             </div>
-            <p style="font-size:9px;color:#888;line-height:1.5;">Exercise accelerates results and builds muscle, but you cannot out-train a bad diet. Achievable with just 30 min daily.</p>
+            <p style="font-size:11px;color:#888;line-height:1.5;">Exercise accelerates results and builds muscle, but you cannot out-train a bad diet. Achievable with just 30 min daily.</p>
           </div>
         </div>
       </div>
@@ -685,7 +765,7 @@ function page5(plan: MealPlan, intakeData: any): string {
       <div style="background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,215,0,.05));border:1px solid rgba(255,215,0,.3);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
         <div>
           <div style="font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:3px;">Your Daily Calorie Target</div>
-          <div style="font-family:'DM Mono',monospace;font-size:28px;font-weight:500;color:#FFD700;line-height:1;">${tc} <span style="font-size:14px;color:#888;">kcal</span></div>
+          <div style="font-family:'DM Mono',monospace;font-size:34px;font-weight:500;color:#FFD700;line-height:1;">${tc} <span style="font-size:14px;color:#888;">kcal</span></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 20px 1fr 20px 1fr;gap:0;align-items:center;">
           ${[
@@ -714,8 +794,8 @@ function page5(plan: MealPlan, intakeData: any): string {
             <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${m.color};"></div>
             <div style="font-size:20px;margin-bottom:5px;">${m.icon}</div>
             <div style="font-size:10.5px;font-weight:700;color:#eee;margin-bottom:3px;">${m.meal}</div>
-            <div style="font-family:'DM Mono',monospace;font-size:14px;color:${m.color};margin-bottom:4px;">${Math.round(tc * m.pct)} kcal</div>
-            <div style="font-size:8px;color:#888;">${Math.round(m.pct * 100)}% of daily target</div>
+            <div style="font-family:'DM Mono',monospace;font-size:18px;color:${m.color};margin-bottom:4px;">${Math.round(tc * m.pct)} kcal</div>
+            <div style="font-size:10px;color:#888;">${Math.round(m.pct * 100)}% of daily target</div>
           </div>`).join('')}
         </div>
         <div style="margin-top:8px;background:#1a1a1a;border-radius:9px;padding:8px 11px;display:flex;align-items:center;gap:9px;">
@@ -725,16 +805,39 @@ function page5(plan: MealPlan, intakeData: any): string {
       </div>
 
       <!-- Smart swaps -->
-      <div class="card" style="flex:1;min-height:0;">
+      <div class="card" style="flex-shrink:0;">
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#FFD700,transparent);"></div>
         <div class="label">Smart Food Swaps — Same Satisfaction, Fewer Calories</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
           ${swaps.map(sw => `
           <div style="background:#1a1a1a;border-radius:9px;padding:9px 11px;">
-            <div style="font-size:8.5px;color:#EF4444;margin-bottom:3px;display:flex;align-items:center;gap:4px;"><span>❌</span>${sw.bad}</div>
-            <div style="font-size:8.5px;color:#22C55E;margin-bottom:4px;display:flex;align-items:center;gap:4px;"><span>✅</span>${sw.good}</div>
+            <div style="font-size:11px;color:#EF4444;margin-bottom:3px;display:flex;align-items:center;gap:4px;"><span>❌</span>${sw.bad}</div>
+            <div style="font-size:11px;color:#22C55E;margin-bottom:4px;display:flex;align-items:center;gap:4px;"><span>✅</span>${sw.good}</div>
             <span style="font-size:8px;background:rgba(34,197,94,.15);color:#22C55E;border:1px solid rgba(34,197,94,.3);padding:2px 8px;border-radius:99px;">${sw.save}</span>
           </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- Calorie Burn Explanation Notes -->
+      <div style="background:#111;border-left:3px solid #FFD700;border:1px solid rgba(255,215,0,.2);border-left:3px solid #FFD700;border-radius:0 8px 8px 0;padding:8px 11px;flex:1;min-height:0;">
+        <div style="font-size:9px;font-weight:600;color:#FFD700;margin-bottom:5px;">Understanding Your Calorie Gap</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="display:flex;gap:5px;">
+            <div style="width:4px;height:4px;border-radius:50%;background:#22C55E;flex-shrink:0;margin-top:4px;"></div>
+            <span style="font-size:11px;color:#888;line-height:1.5;">Your <strong style="color:#22C55E;">${dietKcal} kcal</strong> diet deficit means eating ${dietKcal} fewer calories than your TDEE of <strong style="color:#F97316;">${tdee} kcal/day</strong> — achieved by following your meal plan exactly.</span>
+          </div>
+          <div style="display:flex;gap:5px;">
+            <div style="width:4px;height:4px;border-radius:50%;background:#F97316;flex-shrink:0;margin-top:4px;"></div>
+            <span style="font-size:11px;color:#888;line-height:1.5;">Your <strong style="color:#F97316;">${exerKcal} kcal</strong> exercise target = approximately <strong style="color:#fff;">${Math.floor(walkMinsFor100 * exerKcal / 100)} min brisk walk</strong> OR <strong style="color:#fff;">${Math.floor(runMinsFor100 * exerKcal / 100)} min jogging</strong> daily.</span>
+          </div>
+          <div style="display:flex;gap:5px;">
+            <div style="width:4px;height:4px;border-radius:50%;background:#A855F7;flex-shrink:0;margin-top:4px;"></div>
+            <span style="font-size:11px;color:#888;line-height:1.5;">On a typical day at <strong style="color:#fff;">${weight_kg}kg</strong>: you burn <strong style="color:#F97316;">${tdee} kcal</strong> just by living and moving. Your meal plan gives you <strong style="color:#22C55E;">${tc} kcal</strong>. The <strong style="color:#FFD700;">${Math.abs(totalDef)} kcal</strong> gap is your daily fat-burning engine.</span>
+          </div>
+          <div style="display:flex;gap:5px;">
+            <div style="width:4px;height:4px;border-radius:50%;background:#FFD700;flex-shrink:0;margin-top:4px;"></div>
+            <span style="font-size:11px;color:#888;line-height:1.5;">1 kg of body fat = <strong style="color:#fff;">7,700 kcal</strong>. At <strong style="color:#FFD700;">${Math.abs(totalDef)} kcal/day</strong> deficit, you will burn 1 kg of fat every <strong style="color:#22C55E;">${daysPerKg} days</strong>.</span>
+          </div>
         </div>
       </div>
 
@@ -751,22 +854,10 @@ function page5(plan: MealPlan, intakeData: any): string {
 // ─── PAGE 6 — FOOD LIBRARY ───────────────────────────────────────────────────
 
 function page6(plan: MealPlan, intakeData: any): string {
-  // Collect unique foods across all days, all meal slots
-  const seen = new Set<string>()
-  const allFoods: (MealFood & { slot: string })[] = []
-  const slotMap: Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', snacks: 'Snack', dinner: 'Dinner' }
   const slotColors: Record<string, string> = { breakfast: '#F97316', lunch: '#22C55E', snacks: '#3B82F6', dinner: '#A855F7' }
-
-  for (const day of plan.days) {
-    for (const slot of ['breakfast','lunch','snacks','dinner'] as const) {
-      for (const food of day[slot]) {
-        if (!seen.has(food.name) && allFoods.length < 15) {
-          seen.add(food.name)
-          allFoods.push({ ...food, slot })
-        }
-      }
-    }
-  }
+  const slotIcons:  Record<string, string> = { breakfast: '☀️', lunch: '🍱', snacks: '🍎', dinner: '🌙' }
+  const slotNames:  Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', snacks: 'Snacks', dinner: 'Dinner' }
+  const dietDisplay = (intakeData.diet_type ?? 'veg') === 'veg' ? 'Veg' : (intakeData.diet_type === 'non-veg' ? 'Non-Veg' : 'Both')
 
   const slotKcal = {
     breakfast: plan.days[0].breakfast.reduce((s, f) => s + f.calories, 0),
@@ -775,18 +866,96 @@ function page6(plan: MealPlan, intakeData: any): string {
     dinner:    plan.days[0].dinner.reduce((s, f) => s + f.calories, 0),
   }
 
+  function getUniqueFoodsForSlot(slot: 'breakfast'|'lunch'|'snacks'|'dinner', max: number): MealFood[] {
+    const seen = new Set<string>()
+    const result: MealFood[] = []
+    for (const day of plan.days) {
+      for (const food of day[slot]) {
+        if (!seen.has(food.name) && result.length < max) {
+          seen.add(food.name)
+          result.push(food)
+        }
+      }
+    }
+    return result
+  }
+
+  function renderSlotTable(slot: 'breakfast'|'lunch'|'snacks'|'dinner'): string {
+    const color = slotColors[slot]
+    const foods = getUniqueFoodsForSlot(slot, 10)
+    const kcal  = slotKcal[slot as keyof typeof slotKcal]
+
+    return `
+    <div style="background:#111;border:1px solid rgba(255,255,255,.1);border-radius:12px;position:relative;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${color};"></div>
+      <div style="padding:8px 10px 5px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:5px;">
+          <span style="font-size:13px;">${slotIcons[slot]}</span>
+          <span style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:${color};">${slotNames[slot]}</span>
+          <span style="font-family:'DM Mono',monospace;font-size:9px;color:#888;">${kcal} kcal</span>
+        </div>
+        <span style="font-size:7px;font-weight:600;padding:2px 6px;border-radius:99px;background:${color}20;color:${color};border:1px solid ${color}44;">${dietDisplay}</span>
+      </div>
+      <div style="flex:1;overflow:hidden;">
+        <table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr style="background:#1a1a1a;">
+              <th style="padding:4px 6px;font-size:7px;text-align:left;color:#555;letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06);">#</th>
+              <th style="padding:4px 6px;font-size:7px;text-align:left;color:#555;letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06);">Meal Name</th>
+              <th style="padding:4px 6px;font-size:7px;text-align:center;color:#FFD700;letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06);">Kcal</th>
+              <th style="padding:4px 6px;font-size:7px;text-align:center;color:${color};letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06);">Grams</th>
+              <th style="padding:4px 6px;font-size:7px;text-align:center;color:#22C55E;letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06);">Prot</th>
+              <th style="padding:4px 6px;font-size:7px;text-align:center;color:#F97316;letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06);">Carb</th>
+              <th style="padding:4px 6px;font-size:7px;text-align:center;color:#A855F7;letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06);">Fat</th>
+              <th style="padding:4px 6px;font-size:7px;text-align:center;color:#555;letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06);">Macros</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${foods.map((food, idx) => {
+              const total = food.protein_g * 4 + food.carbs_g * 4 + food.fat_g * 9 || 1
+              const pP = Math.round(food.protein_g * 4 / total * 100)
+              const pC = Math.round(food.carbs_g * 4 / total * 100)
+              const pF = 100 - pP - pC
+              return `
+              <tr style="border-bottom:1px solid rgba(255,255,255,.04);">
+                <td style="padding:4px 6px;font-size:8px;color:#555;">${String(idx + 1).padStart(2,'0')}</td>
+                <td style="padding:4px 6px;font-size:8.5px;color:#ddd;font-weight:500;">${food.name}</td>
+                <td style="padding:4px 6px;text-align:center;">
+                  <span style="font-family:'DM Mono',monospace;font-size:8px;font-weight:700;color:#FFD700;">${food.calories}</span>
+                </td>
+                <td style="padding:4px 6px;text-align:center;">
+                  <span style="font-family:'DM Mono',monospace;font-size:8px;font-weight:600;padding:1px 6px;border-radius:99px;background:${color}18;color:${color};border:1px solid ${color}44;">${food.serving_display}</span>
+                </td>
+                <td style="padding:4px 6px;font-size:8px;text-align:center;font-family:'DM Mono',monospace;color:#22C55E;">${food.protein_g}g</td>
+                <td style="padding:4px 6px;font-size:8px;text-align:center;font-family:'DM Mono',monospace;color:#F97316;">${food.carbs_g}g</td>
+                <td style="padding:4px 6px;font-size:8px;text-align:center;font-family:'DM Mono',monospace;color:#A855F7;">${food.fat_g}g</td>
+                <td style="padding:4px 6px;text-align:center;">
+                  <div style="display:flex;flex-direction:column;gap:1.5px;width:44px;">
+                    <div style="display:flex;align-items:center;gap:2px;"><span style="font-size:6px;color:#555;width:7px;text-align:right;">P</span><div style="flex:1;height:3px;background:#1a1a1a;border-radius:99px;overflow:hidden;"><div style="width:${pP}%;height:100%;background:#22C55E;"></div></div></div>
+                    <div style="display:flex;align-items:center;gap:2px;"><span style="font-size:6px;color:#555;width:7px;text-align:right;">C</span><div style="flex:1;height:3px;background:#1a1a1a;border-radius:99px;overflow:hidden;"><div style="width:${pC}%;height:100%;background:#F97316;"></div></div></div>
+                    <div style="display:flex;align-items:center;gap:2px;"><span style="font-size:6px;color:#555;width:7px;text-align:right;">F</span><div style="flex:1;height:3px;background:#1a1a1a;border-radius:99px;overflow:hidden;"><div style="width:${pF}%;height:100%;background:#A855F7;"></div></div></div>
+                  </div>
+                </td>
+              </tr>`
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`
+  }
+
   return `
   <div class="page">
     ${pageHeader('Your Food Library', 'Calorie-controlled options · Each food scaled to your daily target · Pick one item per day')}
 
-    <div style="flex:1;background:#000;padding:13px 20px 10px;display:flex;flex-direction:column;gap:10px;overflow:hidden;">
+    <div style="flex:1;background:#000;padding:13px 20px 10px;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
 
       <!-- Slot budget bar -->
       <div style="display:flex;gap:7px;flex-shrink:0;">
-        ${Object.entries(slotKcal).map(([slot, kcal]) => `
+        ${(Object.entries(slotKcal) as [string,number][]).map(([slot, kcal]) => `
         <div style="flex:1;background:#111;border:1px solid ${slotColors[slot]}33;border-radius:10px;padding:8px 10px;text-align:center;position:relative;overflow:hidden;">
           <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${slotColors[slot]};"></div>
-          <div style="font-size:9px;color:#666;text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px;">${slotMap[slot]}</div>
+          <div style="font-size:9px;color:#666;text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px;">${slotNames[slot]}</div>
           <div style="font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:${slotColors[slot]};">${kcal} kcal</div>
           <div style="font-size:7.5px;color:#555;margin-top:1px;">slot budget</div>
         </div>`).join('')}
@@ -800,61 +969,12 @@ function page6(plan: MealPlan, intakeData: any): string {
         </div>
       </div>
 
-      <!-- Instruction -->
-      <div style="background:#1a1a1a;border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:8px 12px;flex-shrink:0;">
-        <p style="font-size:9px;color:#888;line-height:1.5;"><strong style="color:#ccc;">How to use:</strong> Each food below is already scaled to match its meal slot calorie target. Pick any 1 food per slot per day. The serving size gives you exactly the right calories — just weigh once and you're done.</p>
-      </div>
-
-      <!-- Food Table -->
-      <div style="flex:1;overflow:hidden;border-radius:10px;border:1px solid rgba(255,255,255,.08);">
-        <table style="width:100%;border-collapse:collapse;">
-          <thead>
-            <tr style="background:#1a1a1a;">
-              <th style="padding:7px 8px;font-size:7.5px;text-align:left;color:#666;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);">#</th>
-              <th style="padding:7px 8px;font-size:7.5px;text-align:left;color:#666;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);">Food Item</th>
-              <th style="padding:7px 8px;font-size:7.5px;text-align:center;color:#666;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);">Slot</th>
-              <th style="padding:7px 8px;font-size:7.5px;text-align:center;color:#666;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);">kcal</th>
-              <th style="padding:7px 8px;font-size:7.5px;text-align:center;color:#FFD700;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);">Eat This Much</th>
-              <th style="padding:7px 8px;font-size:7.5px;text-align:center;color:#22C55E;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);">Protein</th>
-              <th style="padding:7px 8px;font-size:7.5px;text-align:center;color:#F97316;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);">Carbs</th>
-              <th style="padding:7px 8px;font-size:7.5px;text-align:center;color:#A855F7;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);">Fat</th>
-              <th style="padding:7px 8px;font-size:7.5px;text-align:center;color:#666;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);">Macros</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${allFoods.map((food, idx) => {
-              const total = food.protein_g * 4 + food.carbs_g * 4 + food.fat_g * 9 || 1
-              const pP = Math.round(food.protein_g * 4 / total * 100)
-              const pC = Math.round(food.carbs_g * 4 / total * 100)
-              const pF = 100 - pP - pC
-              const sc = slotColors[food.slot] ?? '#888'
-              return `
-              <tr style="border-bottom:1px solid rgba(255,255,255,.04);">
-                <td style="padding:5px 8px;font-size:8.5px;color:#555;">${String(idx + 1).padStart(2,'0')}</td>
-                <td style="padding:5px 8px;font-size:9px;color:#ddd;font-weight:500;">${food.name}</td>
-                <td style="padding:5px 8px;text-align:center;">
-                  <span style="font-size:7.5px;font-weight:600;padding:2px 7px;border-radius:99px;background:${sc}20;color:${sc};border:1px solid ${sc}44;">${slotMap[food.slot]}</span>
-                </td>
-                <td style="padding:5px 8px;text-align:center;">
-                  <span style="font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;background:rgba(255,215,0,.12);color:#FFD700;border:1px solid rgba(255,215,0,.3);">${food.calories}</span>
-                </td>
-                <td style="padding:5px 8px;text-align:center;">
-                  <span style="font-family:'DM Mono',monospace;font-size:9px;font-weight:600;padding:2px 9px;border-radius:99px;background:${sc}18;color:${sc};border:1px solid ${sc}44;">→ ${food.scaled_grams}${food.serving_unit}</span>
-                </td>
-                <td style="padding:5px 8px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#22C55E;">${food.protein_g}g</td>
-                <td style="padding:5px 8px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#F97316;">${food.carbs_g}g</td>
-                <td style="padding:5px 8px;font-size:9px;text-align:center;font-family:'DM Mono',monospace;color:#A855F7;">${food.fat_g}g</td>
-                <td style="padding:5px 8px;text-align:center;">
-                  <div style="display:flex;flex-direction:column;gap:2px;width:50px;">
-                    <div style="display:flex;align-items:center;gap:2px;"><span style="font-size:6.5px;color:#555;width:9px;text-align:right;">P</span><div style="flex:1;height:3.5px;background:#1a1a1a;border-radius:99px;overflow:hidden;"><div style="width:${pP}%;height:100%;background:#22C55E;"></div></div></div>
-                    <div style="display:flex;align-items:center;gap:2px;"><span style="font-size:6.5px;color:#555;width:9px;text-align:right;">C</span><div style="flex:1;height:3.5px;background:#1a1a1a;border-radius:99px;overflow:hidden;"><div style="width:${pC}%;height:100%;background:#F97316;"></div></div></div>
-                    <div style="display:flex;align-items:center;gap:2px;"><span style="font-size:6.5px;color:#555;width:9px;text-align:right;">F</span><div style="flex:1;height:3.5px;background:#1a1a1a;border-radius:99px;overflow:hidden;"><div style="width:${pF}%;height:100%;background:#A855F7;"></div></div></div>
-                  </div>
-                </td>
-              </tr>`
-            }).join('')}
-          </tbody>
-        </table>
+      <!-- 2×2 grid of slot tables -->
+      <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;min-height:0;">
+        ${renderSlotTable('breakfast')}
+        ${renderSlotTable('lunch')}
+        ${renderSlotTable('snacks')}
+        ${renderSlotTable('dinner')}
       </div>
 
       <!-- Footer -->
@@ -900,23 +1020,23 @@ function page7(plan: MealPlan): string {
           <tbody>
             ${plan.days.map((day, i) => `
             <tr style="border-bottom:1px solid rgba(255,255,255,.04);">
-              <td style="padding:6px 6px;vertical-align:top;">
-                <div style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;color:#FFD700;">${DAY_NAMES[i].slice(0,3)}</div>
+              <td style="padding:8px 6px;vertical-align:top;">
+                <div style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:800;color:#FFD700;">${DAY_NAMES[i].slice(0,3)}</div>
                 <div style="font-size:7.5px;color:#555;">Day ${i+1}</div>
               </td>
-              <td style="padding:6px 6px;vertical-align:top;">
-                ${day.breakfast.map(f => `<div style="font-size:8px;color:#eee;line-height:1.35;">${f.name}</div><div style="font-size:7.5px;color:#F97316;font-family:'DM Mono',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
+              <td style="padding:8px 6px;vertical-align:top;">
+                ${day.breakfast.map(f => `<div style="font-size:9px;color:#eee;line-height:1.35;">${f.name}</div><div style="font-size:8px;color:#F97316;font-family:'DM Mono',monospace;">${f.serving_display} · ${f.calories}kcal</div>`).join('')}
               </td>
-              <td style="padding:6px 6px;vertical-align:top;">
-                ${day.lunch.map(f => `<div style="font-size:8px;color:#eee;line-height:1.35;">${f.name}</div><div style="font-size:7.5px;color:#22C55E;font-family:'DM Mono',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
+              <td style="padding:8px 6px;vertical-align:top;">
+                ${day.lunch.map(f => `<div style="font-size:9px;color:#eee;line-height:1.35;">${f.name}</div><div style="font-size:8px;color:#22C55E;font-family:'DM Mono',monospace;">${f.serving_display} · ${f.calories}kcal</div>`).join('')}
               </td>
-              <td style="padding:6px 6px;vertical-align:top;">
-                ${day.snacks.map(f => `<div style="font-size:8px;color:#eee;line-height:1.35;">${f.name}</div><div style="font-size:7.5px;color:#3B82F6;font-family:'DM Mono',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
+              <td style="padding:8px 6px;vertical-align:top;">
+                ${day.snacks.map(f => `<div style="font-size:9px;color:#eee;line-height:1.35;">${f.name}</div><div style="font-size:8px;color:#3B82F6;font-family:'DM Mono',monospace;">${f.serving_display} · ${f.calories}kcal</div>`).join('')}
               </td>
-              <td style="padding:6px 6px;vertical-align:top;">
-                ${day.dinner.map(f => `<div style="font-size:8px;color:#eee;line-height:1.35;">${f.name}</div><div style="font-size:7.5px;color:#A855F7;font-family:'DM Mono',monospace;">${f.scaled_grams}${f.serving_unit} · ${f.calories}kcal</div>`).join('')}
+              <td style="padding:8px 6px;vertical-align:top;">
+                ${day.dinner.map(f => `<div style="font-size:9px;color:#eee;line-height:1.35;">${f.name}</div><div style="font-size:8px;color:#A855F7;font-family:'DM Mono',monospace;">${f.serving_display} · ${f.calories}kcal</div>`).join('')}
               </td>
-              <td style="padding:6px 6px;text-align:right;vertical-align:top;">
+              <td style="padding:8px 6px;text-align:right;vertical-align:top;">
                 <div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:#FFD700;">${day.total_calories}</div>
                 <div style="font-size:7px;color:#555;">kcal</div>
                 <div style="font-size:7.5px;color:#22C55E;margin-top:2px;">P: ${day.total_protein}g</div>
@@ -928,8 +1048,8 @@ function page7(plan: MealPlan): string {
         </table>
       </div>
 
-      <!-- Farewell card -->
-      <div style="background:#111;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:11px 14px;position:relative;overflow:hidden;flex-shrink:0;">
+      <!-- Farewell card (pushes to bottom) -->
+      <div style="background:#111;border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:11px 14px;position:relative;overflow:hidden;flex-shrink:0;margin-top:auto;">
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#FFD700,#22C55E,#F97316);"></div>
         <div style="display:flex;align-items:center;gap:14px;">
           <div style="flex:1;">
