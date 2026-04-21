@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -9,7 +10,7 @@ export default function Footer() {
             {/* Brand */}
             <div className="sf-brand">
               <Link href="/" className="sf-brand-logo">
-                <img src="/images/nutrition-tracker-logo.png" alt="Nutrition Tracker" />
+                <Image src="/images/nutrition-tracker-logo.png" alt="Nutrition Tracker" width={140} height={40} style={{ objectFit: 'contain' }} />
               </Link>
               <p>India&apos;s most practical weight loss resource. Science-backed nutrition for Indian bodies.</p>
               <div className="sf-brand-email">
