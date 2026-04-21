@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { trackCalc } from '@/lib/analytics';
+import PaymentButton from '@/components/PaymentButton';
 
 interface CalcResults {
   tdee: { val: string; bmr: number; lose: number; gain: number } | null;
@@ -169,6 +170,16 @@ export default function CalculatorPage() {
                   <div className="result-mini"><div className="val">{r.tdee.lose}</div><div className="lbl">Lose 0.5kg/wk</div></div>
                   <div className="result-mini"><div className="val">{r.tdee.bmr}</div><div className="lbl">BMR</div></div>
                   <div className="result-mini"><div className="val">{r.tdee.gain}</div><div className="lbl">Gain 0.5kg/wk</div></div>
+                </div>
+                <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid var(--border, #e0e0e0)' }}>
+                  <p style={{ fontSize: '13px', color: 'var(--muted)', marginBottom: '12px' }}>
+                    Get your personalised 7-day Indian meal plan based on these numbers.
+                  </p>
+                  <PaymentButton
+                    amount={249}
+                    planData={{ tdee: r.tdee, age: tdeeAge, gender: tdeeGender, weight: tdeeWeight, height: tdeeHeight, activity: tdeeActivity }}
+                    label="Get My Meal Plan — ₹249 →"
+                  />
                 </div>
               </div>
             )}
