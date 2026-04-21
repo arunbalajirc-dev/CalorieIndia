@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "rootDirectory": "health-calculator-site",
-  "framework": "nextjs",
   "functions": {
     "app/api/generate-pdf/route.ts": {
       "memory": 1024,
