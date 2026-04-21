@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
@@ -44,10 +45,12 @@ export default function Navbar() {
     >
       {/* Logo */}
       <Link href="/" className="ci-logo">
-        <img
+        <Image
           src="/images/nutrition-tracker-logo.png"
           alt="Nutrition Tracker"
-          style={{ height: '44px', objectFit: 'contain' }}
+          width={140}
+          height={40}
+          style={{ objectFit: 'contain' }}
         />
       </Link>
 

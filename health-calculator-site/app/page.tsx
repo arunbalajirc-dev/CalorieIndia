@@ -4,12 +4,25 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { getAllPosts } from '@/lib/blog';
 
 interface TDEEResult {
   bmi: string;
   deficit: string;
   weeks: number;
 }
+
+const catStyle: Record<string, { thumb: string; tagClass: string; tagLabel: string; emoji: string }> = {
+  diet:    { thumb: 'mint',     tagClass: 'indian-diet',  tagLabel: 'Indian Diet',  emoji: '🥗' },
+  calorie: { thumb: 'peach',    tagClass: 'weight-loss',  tagLabel: 'Calorie Guide', emoji: '🍌' },
+  fitness: { thumb: 'peach',    tagClass: 'weight-loss',  tagLabel: 'Fitness',       emoji: '🏃' },
+  weight:  { thumb: 'lavender', tagClass: 'pcos',         tagLabel: 'Weight',        emoji: '⚖️' },
+  pcos:    { thumb: 'lavender', tagClass: 'pcos',         tagLabel: 'PCOS',          emoji: '🌸' },
+  yoga:    { thumb: 'mint',     tagClass: 'indian-diet',  tagLabel: 'Yoga',          emoji: '🧘' },
+  fasting: { thumb: 'peach',    tagClass: 'weight-loss',  tagLabel: 'Fasting',       emoji: '⏱️' },
+};
+
+const recentPosts = getAllPosts().slice(0, 3);
 
 export default function HomePage() {
   const [age, setAge] = useState('28');
@@ -22,8 +35,14 @@ export default function HomePage() {
     const wt = parseFloat(w) || 72;
     const ht = parseFloat(h) || 168;
     const bmi = (wt / ((ht / 100) ** 2)).toFixed(1);
-    const weeks = Math.round((5 * 7700) / (500 * 7));
-    return { bmi, deficit: '–500 cal', weeks };
+    // Mifflin-St Jeor gender-neutral average (midpoint of +5 male, -161 female)
+    const bmr = 10 * wt + 6.25 * ht - 5 * ag - 78;
+    const tdee = Math.round(bmr * 1.55);
+    const deficit = tdee - 500;
+    const targetWeight = 22.5 * (ht / 100) ** 2;
+    const weightToLose = Math.max(0.5, wt - targetWeight);
+    const weeks = Math.round(weightToLose * 7700 / (500 * 7));
+    return { bmi, deficit: `${deficit} cal`, weeks };
   }
 
   function handleCalc() {
@@ -192,42 +211,23 @@ export default function HomePage() {
           </div>
           <div className="section-subtitle">Evidence-based articles for the Indian context.</div>
           <div className="blog-grid">
-            <div className="blog-card">
-              <div className="blog-thumb mint">🥗</div>
-              <div className="blog-body">
-                <div className="blog-tag weight-loss">Weight Loss</div>
-                <div className="blog-title">How Many Calories Should You Eat to Lose Weight?</div>
-                <div className="blog-excerpt">
-                  Understanding your caloric needs is the first step to sustainable weight
-                  loss. Learn how to calculate your personal calorie target.
-                </div>
-                <div className="blog-meta"><span>March 15, 2026</span><span>📖 8 min read</span></div>
-              </div>
-            </div>
-            <div className="blog-card">
-              <div className="blog-thumb peach">🍌</div>
-              <div className="blog-body">
-                <div className="blog-tag indian-diet">Indian Diet</div>
-                <div className="blog-title">Calories in Common Indian Foods: The Complete List</div>
-                <div className="blog-excerpt">
-                  From dal makhani to dosa, a comprehensive calorie database of over 500
-                  Indian foods to help you track intake.
-                </div>
-                <div className="blog-meta"><span>March 10, 2026</span><span>📖 12 min read</span></div>
-              </div>
-            </div>
-            <div className="blog-card">
-              <div className="blog-thumb lavender">🌸</div>
-              <div className="blog-body">
-                <div className="blog-tag pcos">PCOS</div>
-                <div className="blog-title">PCOS Weight Loss: A Complete Guide for Indian Women</div>
-                <div className="blog-excerpt">
-                  PCOS makes weight loss harder, but not impossible. Discover diet strategies
-                  and lifestyle changes that actually work.
-                </div>
-                <div className="blog-meta"><span>March 5, 2026</span><span>📖 14 min read</span></div>
-              </div>
-            </div>
+            {recentPosts.map((post) => {
+              const cat = catStyle[post.category] ?? { thumb: 'mint', tagClass: 'weight-loss', tagLabel: post.category, emoji: '📝' };
+              return (
+                <Link key={post.id} href={`/blog/${post.id}`} className="blog-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <div className={`blog-thumb ${cat.thumb}`}>{cat.emoji}</div>
+                  <div className="blog-body">
+                    <div className={`blog-tag ${cat.tagClass}`}>{cat.tagLabel}</div>
+                    <div className="blog-title">{post.title}</div>
+                    <div className="blog-excerpt">{post.excerpt}</div>
+                    <div className="blog-meta">
+                      <span>{new Date(post.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                      <span>📖 {post.readTime} min read</span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

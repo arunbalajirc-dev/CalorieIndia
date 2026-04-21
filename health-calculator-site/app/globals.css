@@ -277,6 +277,7 @@ a { text-decoration: none; color: inherit; }
   max-width: 1200px; margin: 0 auto;
   display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
 }
+.hero-inner > div:first-child { text-align: left; }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 6px;
   background: var(--green-light); color: var(--green);
