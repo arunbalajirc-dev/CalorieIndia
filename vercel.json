@@ -1,8 +1,7 @@
 {
   "version": 2,
-  "outputDirectory": "health-calculator-site",
   "functions": {
-    "api/generate-pdf.ts": {
+    "app/api/generate-pdf/route.ts": {
       "memory": 1024,
       "maxDuration": 60
     }
