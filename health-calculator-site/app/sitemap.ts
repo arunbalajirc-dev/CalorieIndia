@@ -1,23 +1,47 @@
-import { MetadataRoute } from 'next';
-import { getAllPosts } from '@/lib/blog';
-
-const BASE = 'https://nutritiontracker.in';
+import { MetadataRoute } from 'next'
+import { getAllPosts } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: BASE, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
-    { url: `${BASE}/calculator`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${BASE}/bmi-calculator`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/tdee-calculator`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-  ];
+  const posts = getAllPosts()
 
-  const blogRoutes: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
-    url: `${BASE}/blog/${post.id}`,
+  const blogRoutes = posts.map((post) => ({
+    url: `https://nutritiontracker.in/blog/${post.id}`,
     lastModified: new Date(post.date),
-    changeFrequency: 'monthly',
-    priority: 0.6,
-  }));
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
 
-  return [...staticRoutes, ...blogRoutes];
+  return [
+    {
+      url: 'https://nutritiontracker.in',
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 1.0,
+    },
+    {
+      url: 'https://nutritiontracker.in/calculator',
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    },
+    {
+      url: 'https://nutritiontracker.in/bmi-calculator',
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: 'https://nutritiontracker.in/tdee-calculator',
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: 'https://nutritiontracker.in/blog',
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    ...blogRoutes,
+  ]
 }
