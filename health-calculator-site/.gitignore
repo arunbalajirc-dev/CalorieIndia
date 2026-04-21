@@ -1,3 +1,17 @@
+# Next.js
+.next/
+out/
 
-supabase.exe
-supabase/.temp/
+# Dependencies
+node_modules/
+
+# Environment
+.env.local
+.env.*.local
+
+# Build
+build/
+
+# Misc
+*.tsbuildinfo
+next-env.d.ts
