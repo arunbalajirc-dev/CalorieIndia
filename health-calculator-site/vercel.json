@@ -2,6 +2,9 @@
   "redirects": [
     { "source": "/food-lookup",     "destination": "/food-lookup.html",     "permanent": false },
     { "source": "/recipe-database", "destination": "/recipe-database.html", "permanent": false },
-    { "source": "/meal-plan",       "destination": "/meal-plan.html",       "permanent": false }
+    { "source": "/meal-plan",       "destination": "/meal-plan.html",       "permanent": false },
+    { "source": "/privacy-policy",  "destination": "/privacy-policy.html",  "permanent": false },
+    { "source": "/disclaimer",      "destination": "/disclaimer.html",      "permanent": false },
+    { "source": "/terms-of-use",    "destination": "/terms-of-use.html",    "permanent": false }
   ]
 }
