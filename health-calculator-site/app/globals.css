@@ -630,3 +630,175 @@ a { text-decoration: none; color: inherit; }
   .blog-featured-body h2 { font-size: 1.4rem; }
   .blog-page-content { padding: 32px 16px 60px; }
 }
+
+/* =====================================================
+   Blog Post Page
+   ===================================================== */
+.blog-post-wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.blog-post-breadcrumb {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.blog-post-breadcrumb a {
+  color: var(--green-dark);
+  text-decoration: none;
+}
+.blog-post-breadcrumb a:hover { text-decoration: underline; }
+
+.blog-post-header {
+  margin-bottom: 36px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.blog-post-header h1 {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  margin: 12px 0 16px;
+  line-height: 1.25;
+  color: var(--text);
+}
+
+.blog-post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  align-items: center;
+}
+.blog-post-author { font-weight: 600; color: var(--text); }
+.blog-post-role {
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 99px;
+}
+
+.blog-post-excerpt {
+  font-size: 1.1rem;
+  color: var(--muted);
+  line-height: 1.75;
+  border-left: 4px solid var(--green);
+  padding-left: 18px;
+  margin: 0;
+}
+
+/* Article Body */
+.blog-post-body {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--text);
+  margin-bottom: 48px;
+}
+.blog-post-body h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin: 44px 0 14px;
+  color: var(--text);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--green-light);
+}
+.blog-post-body h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 30px 0 10px;
+  color: var(--text);
+}
+.blog-post-body p { margin: 0 0 18px; }
+.blog-post-body ul,
+.blog-post-body ol {
+  padding-left: 24px;
+  margin-bottom: 18px;
+}
+.blog-post-body li { margin-bottom: 8px; }
+.blog-post-body strong { color: var(--text); font-weight: 600; }
+.blog-post-body a { color: var(--green-dark); text-decoration: underline; }
+.blog-post-body a:hover { color: var(--green); }
+
+/* Tables inside blog post */
+.blog-post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.blog-post-body th {
+  background: var(--green-dark);
+  color: #fff;
+  padding: 11px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.blog-post-body td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.blog-post-body tr:last-child td { border-bottom: none; }
+.blog-post-body tr:nth-child(even) td { background: #f8fdf8; }
+
+/* Highlight / callout box */
+.blog-post-body .highlight-box {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 1px solid #86efac;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+.blog-post-body .highlight-box p:last-child,
+.blog-post-body .highlight-box ul:last-child { margin-bottom: 0; }
+
+/* CTA bar at bottom of post */
+.teal-cta-bar {
+  background: linear-gradient(135deg, #0f766e, #0d9488);
+  border-radius: 16px;
+  padding: 36px 40px;
+  text-align: center;
+  color: #fff;
+  margin-top: 48px;
+}
+.teal-cta-bar h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.teal-cta-bar p {
+  opacity: 0.9;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+.teal-cta-bar a {
+  display: inline-block;
+  background: #fff;
+  color: #0f766e;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.teal-cta-bar a:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .blog-post-wrap { padding: 24px 16px 60px; }
+  .blog-post-body h2 { font-size: 1.25rem; }
+  .blog-post-body table { font-size: 0.8rem; }
+  .teal-cta-bar { padding: 28px 20px; }
+}

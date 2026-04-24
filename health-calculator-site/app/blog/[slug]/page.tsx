@@ -9,6 +9,15 @@ interface Props {
   params: { slug: string };
 }
 
+const CATEGORY_LABELS: Record<string, string> = {
+  diet: 'Indian Diet',
+  calorie: 'Calories',
+  fitness: 'Fitness',
+  weight: 'Weight',
+  recipe: 'Recipes',
+  yoga: 'Yoga',
+};
+
 export async function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.id }));
 }
@@ -39,31 +48,33 @@ export default function BlogPostPage({ params }: Props) {
       <Navbar />
 
       <article className="blog-post-wrap">
-        <div className="breadcrumb">
+        <div className="blog-post-breadcrumb">
           <Link href="/">Home</Link> › <Link href="/blog">Blog</Link> › {post.title}
         </div>
 
         <header className="blog-post-header">
-          <div className="blog-tag" data-category={post.category}>{post.category}</div>
+          <div className="blog-tag" data-category={post.category}>
+            {CATEGORY_LABELS[post.category] ?? post.category}
+          </div>
           <h1>{post.title}</h1>
           <div className="blog-post-meta">
-            <span>{post.author}</span>
-            <span>{post.authorRole}</span>
+            <span className="blog-post-author">{post.author}</span>
+            <span className="blog-post-role">{post.authorRole}</span>
             <span>{post.date}</span>
             <span>📖 {post.readTime} min read</span>
           </div>
           <p className="blog-post-excerpt">{post.excerpt}</p>
         </header>
 
-        <div className="blog-post-body">
-          <p>
-            This article is coming soon. In the meantime, use our free calculators to reach your health goals.
-          </p>
-          <div className="teal-cta-bar" style={{ marginTop: '40px' }}>
-            <h3>Try Our Free Calculators</h3>
-            <p>Calculate your TDEE, BMI, ideal weight, and more — built for Indian bodies.</p>
-            <Link href="/calculator">Open Calculators →</Link>
-          </div>
+        <div
+          className="blog-post-body"
+          dangerouslySetInnerHTML={{ __html: post.content ?? '' }}
+        />
+
+        <div className="teal-cta-bar">
+          <h3>Try Our Free Calculators</h3>
+          <p>Calculate your TDEE, BMI, ideal weight, and more — built for Indian bodies.</p>
+          <Link href="/calculator">Open Calculators →</Link>
         </div>
       </article>
 
