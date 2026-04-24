@@ -35,7 +35,7 @@ export default function BlogPage() {
         <p>Evidence-based guides for Indian bodies, Indian diets, and real Indian lifestyles.</p>
       </div>
 
-      <div className="content-wrap">
+      <div className="blog-page-content">
         {featured && (
           <div className="blog-featured">
             <Link href={`/blog/${featured.id}`} className="blog-featured-link">
