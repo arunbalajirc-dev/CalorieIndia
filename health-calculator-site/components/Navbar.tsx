@@ -128,14 +128,14 @@ export default function Navbar() {
           <Link href="/blog" style={activeStyle('/blog')}>Blog</Link>
         </li>
         <li>
-          <Link href="/meal-plan" style={{ color: '#2d6a4f', fontWeight: 600, ...activeStyle('/meal-plan') }}>
+          <Link href="/get-your-meal-plan" style={{ color: '#2d6a4f', fontWeight: 600, ...activeStyle('/get-your-meal-plan') }}>
             🍱 Meal Plan
           </Link>
         </li>
       </ul>
 
       {/* Desktop CTA */}
-      <Link href="/meal-plan" className="ci-cta ci-cta-desktop">
+      <Link href="/get-your-meal-plan" className="ci-cta ci-cta-desktop">
         Get My Meal Plan →
       </Link>
 
@@ -168,9 +168,9 @@ export default function Navbar() {
         <Link href="/food-lookup" style={{ color: '#E07B39', fontWeight: 600 }} onClick={closeMobile}><span>🍽️</span> Food Database</Link>
         <Link href="/recipe-database" style={{ color: '#2d6a4f', fontWeight: 600 }} onClick={closeMobile}><span>📖</span> Recipe Database</Link>
         <Link href="/blog" onClick={closeMobile}><span>📝</span> Blog</Link>
-        <Link href="/meal-plan" style={{ color: '#2d6a4f', fontWeight: 600 }} onClick={closeMobile}><span>🍱</span> Meal Plan</Link>
+        <Link href="/get-your-meal-plan" style={{ color: '#2d6a4f', fontWeight: 600 }} onClick={closeMobile}><span>🍱</span> Meal Plan</Link>
         <Link
-          href="/meal-plan"
+          href="/get-your-meal-plan"
           style={{ marginTop: '12px', background: '#2d6a4f', color: '#fff', borderRadius: '8px', justifyContent: 'center', fontWeight: 600 }}
           onClick={closeMobile}
         >
