@@ -1,6 +1,17 @@
 {
   "rewrites": [
     { "source": "/about",                      "destination": "/about.html" },
+    { "source": "/blog/bmi-indian-bodies",              "destination": "/blog/bmi-indian-bodies.html" },
+    { "source": "/blog/calories-in-indian-meals",       "destination": "/blog/calories-in-indian-meals.html" },
+    { "source": "/blog/healthy-indian-street-food-swaps","destination": "/blog/healthy-indian-street-food-swaps.html" },
+    { "source": "/blog/high-protein-indian-breakfasts", "destination": "/blog/high-protein-indian-breakfasts.html" },
+    { "source": "/blog/home-workout-plan-india",        "destination": "/blog/home-workout-plan-india.html" },
+    { "source": "/blog/indian-diet-guide-lose-weight",  "destination": "/blog/indian-diet-guide-lose-weight.html" },
+    { "source": "/blog/intermittent-fasting-indians",   "destination": "/blog/intermittent-fasting-indians.html" },
+    { "source": "/blog/south-vs-north-indian-diet",     "destination": "/blog/south-vs-north-indian-diet.html" },
+    { "source": "/blog/surya-namaskar-calories",        "destination": "/blog/surya-namaskar-calories.html" },
+    { "source": "/blog/tdee-calculator-indians",        "destination": "/blog/tdee-calculator-indians.html" },
+    { "source": "/blog/vegetarian-protein-india",       "destination": "/blog/vegetarian-protein-india.html" },
     { "source": "/blog",                       "destination": "/blog.html" },
     { "source": "/bmi-calculator",             "destination": "/bmi-calculator.html" },
     { "source": "/calculator",                 "destination": "/calculator.html" },

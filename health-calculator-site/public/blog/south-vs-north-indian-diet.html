@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>South Indian vs North Indian Diet: Which Is Healthier? | Nutrition Tracker</title>
+  <meta name="description" content="Rice or roti? Sambar or dal? We compare macronutrients, fibre content, and glycemic load across both regional diets using ICMR food composition data."/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #2D6A4F; --green-dark: #1B4332; --green-mid: #40916C;
+      --green-light: #52B788; --green-pale: #D8F3DC; --green-xpale: #F0FAF3;
+      --saffron: #E07B39; --saffron-pale: #FFF0E6; --saffron-dark: #C45E1E;
+      --cream: #FAFAF7; --cream2: #F5F4EF; --ink: #1A1A2E; --ink2: #2D2D3D;
+      --muted: #6B7280; --muted2: #9CA3AF; --border: #E5E5E0; --border2: #D1D0CA;
+      --white: #FFFFFF; --radius: 12px; --radius-lg: 18px;
+      --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+      --shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; font-size: 16px; }
+    nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 200; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 1.5rem; }
+    .logo { font-family: 'Lora', serif; font-size: 1.3rem; color: var(--green); text-decoration: none; font-weight: 700; }
+    .logo span { color: var(--saffron); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.875rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta { background: var(--green); color: var(--white) !important; padding: 6px 16px; border-radius: 99px; font-size: 0.8rem !important; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--green-dark) !important; }
+    .breadcrumb { background: var(--cream2); border-bottom: 1px solid var(--border); padding: 0.6rem 1.5rem; }
+    .breadcrumb-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--muted); flex-wrap: wrap; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--green); }
+    .breadcrumb-current { color: var(--ink); font-weight: 500; }
+    .hero-banner { background: linear-gradient(to bottom, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.82) 100%), url('../images/blog/south-vs-north-indian-diet.jpg') center/cover no-repeat; position: relative; overflow: hidden; padding: 4rem 1.5rem 3.5rem; }
+    .hero-banner::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(224,123,57,0.15) 0%, transparent 40%); }
+    .hero-pattern { position: absolute; inset: 0; opacity: 0.04; background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%); background-size: 20px 20px; }
+    .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; text-align: center; }
+    .hero-category { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.95); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 14px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.2); margin-bottom: 1.25rem; }
+    .hero-title { font-family: 'Lora', serif; font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .hero-subtitle { font-size: 1.05rem; color: rgba(255,255,255,0.8); max-width: 580px; margin: 0 auto 2rem; line-height: 1.6; }
+    .hero-meta { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    .hero-meta-item { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.85); font-size: 0.82rem; font-weight: 500; }
+    .hero-divider { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+    .reading-badge { display: inline-flex; align-items: center; gap: 5px; background: var(--saffron); color: var(--white); font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 99px; }
+    .progress-bar { position: fixed; top: 60px; left: 0; height: 3px; background: var(--saffron); width: 0%; z-index: 190; transition: width 0.1s linear; }
+    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start; }
+    .article-body { min-width: 0; }
+    .key-takeaways { background: var(--green-xpale); border: 1.5px solid var(--green-pale); border-left: 5px solid var(--green); border-radius: var(--radius); padding: 1.4rem 1.5rem; margin-bottom: 2.5rem; }
+    .key-takeaways h3 { font-family: 'Lora', serif; font-size: 0.95rem; font-weight: 700; color: var(--green-dark); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .key-takeaways ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .key-takeaways li { display: flex; align-items: flex-start; gap: 8px; font-size: 0.875rem; color: var(--ink2); }
+    .key-takeaways li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .article-section { scroll-margin-top: 80px; margin-bottom: 3rem; }
+    .article-section h2 { font-family: 'Lora', serif; font-size: 1.65rem; font-weight: 700; color: var(--ink); margin-bottom: 1rem; line-height: 1.3; padding-bottom: 0.6rem; border-bottom: 2px solid var(--green-pale); }
+    .article-section h3 { font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 600; color: var(--ink); margin: 1.5rem 0 0.75rem; }
+    .article-section p { color: var(--ink2); margin-bottom: 1rem; font-size: 1rem; line-height: 1.8; }
+    .article-section ul, .article-section ol { padding-left: 1.25rem; margin-bottom: 1rem; }
+    .article-section li { color: var(--ink2); font-size: 0.96rem; margin-bottom: 0.45rem; line-height: 1.7; }
+    .article-section strong { color: var(--ink); font-weight: 600; }
+    .highlight-box { background: var(--saffron-pale); border-left: 4px solid var(--saffron); border-radius: 0 var(--radius) var(--radius) 0; padding: 1.1rem 1.25rem; margin: 1.5rem 0; font-size: 0.92rem; color: var(--ink2); line-height: 1.7; }
+    .highlight-box strong { color: var(--saffron-dark); }
+    .fact-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.4rem; margin: 1.5rem 0; display: flex; gap: 1rem; align-items: flex-start; box-shadow: var(--shadow-sm); }
+    .fact-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .fact-box p { margin: 0; font-size: 0.9rem; color: var(--ink2); line-height: 1.7; }
+    .calorie-table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.88rem; }
+    .calorie-table th { background: var(--green); color: var(--white); padding: 10px 14px; text-align: left; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.02em; }
+    .calorie-table th:first-child { border-radius: 8px 0 0 0; }
+    .calorie-table th:last-child { border-radius: 0 8px 0 0; }
+    .calorie-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--ink2); }
+    .calorie-table tr:nth-child(even) td { background: var(--cream2); }
+    .calorie-table tr:last-child td { border-bottom: none; }
+    .calorie-table .kcal { font-weight: 600; color: var(--green-dark); }
+    .meal-plan { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.25rem 0; }
+    .meal-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow-sm); }
+    .meal-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 0.6rem; }
+    .meal-card-icon { font-size: 1.1rem; }
+    .meal-card-title { font-weight: 700; font-size: 0.82rem; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.04em; }
+    .meal-card ul { list-style: none; padding: 0; }
+    .meal-card li { font-size: 0.82rem; color: var(--ink2); padding: 2px 0; display: flex; align-items: baseline; gap: 6px; }
+    .meal-card li::before { content: '·'; color: var(--green); font-weight: 700; }
+    .meal-kcal { font-size: 0.72rem; color: var(--muted); font-weight: 500; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+    .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.25rem 0; }
+    .tip-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow-sm); display: flex; gap: 0.75rem; align-items: flex-start; }
+    .tip-num { width: 28px; height: 28px; border-radius: 50%; background: var(--green); color: var(--white); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; min-width: 28px; }
+    .tip-card p { font-size: 0.85rem; color: var(--ink2); margin: 0; line-height: 1.6; }
+    .pull-quote { border-left: 4px solid var(--green); padding: 1rem 1.5rem; margin: 2rem 0; background: var(--white); border-radius: 0 var(--radius) var(--radius) 0; box-shadow: var(--shadow-sm); }
+    .pull-quote p { font-family: 'Lora', serif; font-style: italic; font-size: 1.1rem; color: var(--ink); line-height: 1.65; margin: 0 0 0.5rem; }
+    .pull-quote cite { font-size: 0.8rem; color: var(--muted); font-style: normal; }
+    .author-box { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin: 2.5rem 0; box-shadow: var(--shadow-sm); }
+    .author-avatar { width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0; background: var(--green); display: flex; align-items: center; justify-content: center; font-family: 'Lora', serif; font-size: 1.4rem; color: var(--white); font-weight: 700; }
+    .author-name { font-weight: 700; font-size: 0.95rem; color: var(--ink); margin-bottom: 2px; }
+    .author-role { font-size: 0.78rem; color: var(--green); font-weight: 600; margin-bottom: 0.5rem; }
+    .author-bio { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+    .share-row { display: flex; align-items: center; gap: 0.75rem; margin: 2rem 0; flex-wrap: wrap; }
+    .share-label { font-size: 0.82rem; font-weight: 600; color: var(--muted); }
+    .share-btn { display: flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 99px; border: 1.5px solid var(--border); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 600; cursor: pointer; color: var(--muted); transition: all 0.18s; text-decoration: none; }
+    .share-btn:hover { border-color: var(--green); color: var(--green); }
+    .tags-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
+    .tag { background: var(--cream2); border: 1px solid var(--border); color: var(--muted); font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 99px; }
+    .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
+    .post-nav-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; text-decoration: none; color: inherit; transition: all 0.2s; display: flex; flex-direction: column; gap: 0.4rem; box-shadow: var(--shadow-sm); }
+    .post-nav-card:hover { border-color: var(--green); box-shadow: var(--shadow); transform: translateY(-2px); }
+    .post-nav-dir { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+    .post-nav-card.next .post-nav-dir { justify-content: flex-end; }
+    .post-nav-cat { font-size: 0.72rem; font-weight: 600; color: var(--green); }
+    .post-nav-title { font-family: 'Lora', serif; font-size: 0.95rem; font-weight: 600; color: var(--ink); line-height: 1.4; }
+    .post-nav-card.next .post-nav-cat, .post-nav-card.next .post-nav-title, .post-nav-card.next .post-nav-time { text-align: right; }
+    .post-nav-time { font-size: 0.75rem; color: var(--muted2); }
+    .sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 1.25rem; }
+    .toc-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+    .toc-header { background: var(--green); padding: 0.9rem 1.1rem; display: flex; align-items: center; gap: 8px; }
+    .toc-header h3 { font-size: 0.8rem; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 0.06em; }
+    .toc-body { padding: 0.75rem 0; }
+    .toc-item { display: block; padding: 0.45rem 1.1rem; text-decoration: none; font-size: 0.82rem; color: var(--muted); transition: all 0.18s; border-left: 3px solid transparent; line-height: 1.4; }
+    .toc-item:hover { color: var(--green); background: var(--green-xpale); border-left-color: var(--green-light); }
+    .toc-item.active { color: var(--green-dark); background: var(--green-xpale); border-left-color: var(--green); font-weight: 600; }
+    .toc-progress { height: 3px; background: var(--border); margin: 0 1.1rem 0.5rem; border-radius: 99px; }
+    .toc-progress-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.3s; }
+    .meta-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem; box-shadow: var(--shadow-sm); }
+    .meta-card-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.75rem; }
+    .meta-row { display: flex; align-items: center; gap: 8px; padding: 0.4rem 0; font-size: 0.82rem; color: var(--ink2); }
+    .meta-row:not(:last-child) { border-bottom: 1px solid var(--border); }
+    .meta-row-icon { font-size: 0.9rem; width: 20px; }
+    .meta-row-label { color: var(--muted); font-size: 0.75rem; }
+    .meta-row-val { font-weight: 600; font-size: 0.82rem; color: var(--ink); }
+    .cta-card { background: linear-gradient(to bottom, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.82) 100%), url('../images/blog/south-vs-north-indian-diet.jpg') center/cover no-repeat; border-radius: var(--radius-lg); padding: 1.25rem; color: var(--white); text-align: center; }
+    .cta-card h4 { font-family: 'Lora', serif; font-size: 1rem; margin-bottom: 0.4rem; }
+    .cta-card p { font-size: 0.78rem; opacity: 0.85; margin-bottom: 1rem; line-height: 1.5; }
+    .cta-btn { display: block; background: var(--saffron); color: var(--white); text-decoration: none; border-radius: 99px; padding: 9px 20px; font-size: 0.82rem; font-weight: 700; transition: opacity 0.2s; }
+    .cta-btn:hover { opacity: 0.9; }
+    .related-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+    .related-header { background: var(--cream2); padding: 0.75rem 1.1rem; border-bottom: 1px solid var(--border); }
+    .related-header h3 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+    .related-item { padding: 0.7rem 1.1rem; border-bottom: 1px solid var(--border); display: flex; gap: 0.6rem; align-items: flex-start; text-decoration: none; transition: background 0.15s; }
+    .related-item:last-child { border-bottom: none; }
+    .related-item:hover { background: var(--green-xpale); }
+    .related-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); flex-shrink: 0; margin-top: 6px; }
+    .related-text { font-size: 0.8rem; color: var(--ink2); line-height: 1.4; font-weight: 500; }
+    .related-time { font-size: 0.72rem; color: var(--muted2); }
+    .site-footer { background: var(--ink); color: rgba(255,255,255,0.7); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; }
+    .footer-brand .f-logo { font-family: 'Lora', serif; font-size: 1.4rem; color: var(--white); font-weight: 700; margin-bottom: 0.75rem; }
+    .footer-brand .f-logo span { color: var(--saffron); }
+    .footer-brand p { font-size: 0.83rem; line-height: 1.7; opacity: 0.7; max-width: 240px; }
+    .footer-col h4 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.5); margin-bottom: 0.9rem; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.85rem; margin-bottom: 0.5rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--green-light); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.25rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 0.5rem; }
+    .footer-bottom a { color: var(--green-light); text-decoration: none; }
+    @media (max-width: 900px) { .page-wrap { grid-template-columns: 1fr; } .sidebar { position: static; } .toc-card { display: none; } .footer-inner { grid-template-columns: 1fr 1fr; } .post-nav { grid-template-columns: 1fr; } .meal-plan, .tips-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .footer-inner { grid-template-columns: 1fr; } .nav-links { display: none; } }
+  </style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div id="site-nav"></div>
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="../index.html">Home</a> <span>›</span>
+    <a href="../blog.html">Blog</a> <span>›</span>
+    <a href="../blog.html">Indian Diet</a> <span>›</span>
+    <span class="breadcrumb-current">South Indian vs North Indian Diet: Which Is Healthier?</span>
+  </div>
+</div>
+<div class="hero-banner">
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+    <div class="hero-category"><span>🍛</span> Indian Diet</div>
+    <h1 class="hero-title">South Indian vs North Indian Diet: Which Is Healthier?</h1>
+    <p class="hero-subtitle">Rice or roti? Sambar or dal? We compare macronutrients, fibre content, and glycemic load across both regional diets using ICMR food composition data.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span>👤</span><span>Nutrition Tracker Team</span></div>
+      <span class="hero-divider"></span>
+      <div class="hero-meta-item"><span>📅</span><span>13 June 2025</span></div>
+      <span class="hero-divider"></span>
+      <div class="hero-meta-item"><span>🔄</span><span>Updated 27 June 2025</span></div>
+      <span class="hero-divider"></span>
+      <span class="reading-badge">⏱ 6 min read</span>
+    </div>
+  </div>
+</div>
+<div class="page-wrap">
+  <article class="article-body">
+    <div class="key-takeaways">
+      <h3>📌 Key Takeaways</h3>
+      <ul>
+        <li>Neither diet is universally healthier — each has strengths and weaknesses depending on the dish</li>
+        <li>South Indian diets tend to be higher in fibre and fermented foods (good for gut health)</li>
+        <li>North Indian diets tend to be higher in protein from dairy and legumes</li>
+        <li>The glycemic load of both diets depends far more on cooking method than the base ingredient</li>
+        <li>The healthiest approach is to take the best elements of both regional traditions</li>
+      </ul>
+    </div>
+    <section class="article-section" id="s-overview">
+      <h2>An Overview of Both Regional Diets</h2>
+      <p>India's culinary geography is extraordinarily diverse. The broad divide between South Indian and North Indian diets reflects differences in climate, agriculture, religion, and history — not just taste preference.</p>
+<div class="meal-plan">
+<div class="meal-card"><div class="meal-card-header"><span class="meal-card-icon">🍚</span><span class="meal-card-title">Typical South Indian Day</span></div><ul><li>Breakfast: Idli + sambar + chutney</li><li>Lunch: Rice + sambar + rasam + curd + 2 sabzis</li><li>Snack: Filter coffee + murukku</li><li>Dinner: Dosa or upma + sambar</li></ul></div>
+<div class="meal-card"><div class="meal-card-header"><span class="meal-card-icon">🫓</span><span class="meal-card-title">Typical North Indian Day</span></div><ul><li>Breakfast: Paratha + curd + pickle</li><li>Lunch: Roti + dal + sabzi + curd</li><li>Snack: Chai + biscuits or namkeen</li><li>Dinner: Roti + paneer/dal + salad</li></ul></div>
+</div>
+    </section>
+    <section class="article-section" id="s-compare">
+      <h2>Nutritional Comparison: South vs North</h2>
+      <table class="calorie-table"><thead><tr><th>Nutrient</th><th>South Indian Diet</th><th>North Indian Diet</th><th>Winner</th></tr></thead><tbody>
+<tr><td>Daily fibre intake</td><td class="kcal">22–28g</td><td>18–22g</td><td>South India</td></tr>
+<tr><td>Daily protein intake</td><td>45–55g</td><td class="kcal">55–70g</td><td>North India</td></tr>
+<tr><td>Fermented foods</td><td class="kcal">High (idli, dosa, curd)</td><td>Moderate (curd, kanji)</td><td>South India</td></tr>
+<tr><td>Cooking oil used</td><td>Coconut/gingelly oil</td><td class="kcal">Mustard/refined oil</td><td>Roughly equal</td></tr>
+<tr><td>Glycemic load (lunch)</td><td>Moderate-High (rice-based)</td><td class="kcal">Moderate (roti-based)</td><td>North India (slight)</td></tr>
+<tr><td>Calcium from dairy</td><td>Moderate</td><td class="kcal">High (paneer, lassi, dahi)</td><td>North India</td></tr>
+</tbody></table>
+<div class="highlight-box"><strong>The fibre advantage:</strong> Sambar alone — made with toor dal, tamarind, and vegetables — provides 6–8g of fibre per serving. The combination of sambar, rasam, and curd in a South Indian lunch makes it one of the most gut-friendly meal patterns in the world.</div>
+    </section>
+    <section class="article-section" id="s-glycemic">
+      <h2>The Rice vs Roti Glycemic Index Debate</h2>
+      <p>The most common argument for North Indian diet superiority is that roti (wheat-based) has a lower glycemic index than white rice. This is partially true but significantly nuanced.</p>
+<table class="calorie-table"><thead><tr><th>Food</th><th>Glycemic Index</th><th>Glycemic Load (serving)</th></tr></thead><tbody>
+<tr><td>White rice (cooked)</td><td>72</td><td class="kcal">29</td></tr>
+<tr><td>Parboiled rice (idli)</td><td>38</td><td class="kcal">14</td></tr>
+<tr><td>Rice (cooled and reheated)</td><td>54</td><td class="kcal">21</td></tr>
+<tr><td>Whole wheat roti</td><td>62</td><td class="kcal">22</td></tr>
+<tr><td>Maida roti/naan</td><td>71</td><td class="kcal">25</td></tr>
+</tbody></table>
+<div class="fact-box"><span class="fact-icon">💡</span><p>Parboiled rice — used in idli and dosa fermentation — has a significantly lower glycemic index than regular white rice. When eaten with sambar (fibre, protein) and curd (fat, protein), the glycemic response is further blunted. The South Indian breakfast is nutritionally more sophisticated than it appears.</p></div>
+    </section>
+    <section class="article-section" id="s-verdict">
+      <h2>The Verdict: Take the Best of Both</h2>
+      <p>No single regional diet wins overall. The optimal Indian diet borrows from both traditions:</p>
+<div class="tips-grid">
+<div class="tip-card"><div class="tip-num">✅</div><p><strong>From South India:</strong> Fermented breakfasts (idli/dosa), fibre-rich sambar, coconut oil in moderation, rasam as a digestive, and liberal use of curry leaves and mustard seeds.</p></div>
+<div class="tip-card"><div class="tip-num">✅</div><p><strong>From North India:</strong> Dal as a daily protein source, high dairy consumption for calcium, mustard greens (sarson ka saag), and whole wheat rotis for sustained energy.</p></div>
+<div class="tip-card"><div class="tip-num">❌</div><p><strong>Limit from South India:</strong> Coconut chutney in excess (calorie-dense), fried snacks like murukku and bonda, and the large quantity of white rice at every meal.</p></div>
+<div class="tip-card"><div class="tip-num">❌</div><p><strong>Limit from North India:</strong> Butter and cream in gravies, excess ghee on rotis, maida-based bread and naan, and high-sugar sweets like gulab jamun and jalebi.</p></div>
+</div>
+    </section>
+
+    <div class="tags-row"><span class="tag">#SouthIndianDiet</span> <span class="tag">#NorthIndianDiet</span> <span class="tag">#nutrition</span> <span class="tag">#ICMR</span> <span class="tag">#regionalFood</span></div>
+    <div class="share-row">
+      <span class="share-label">Share this article:</span>
+      <a class="share-btn" href="#">🐦 Twitter</a>
+      <a class="share-btn" href="#">💼 LinkedIn</a>
+      <a class="share-btn" href="#">📱 WhatsApp</a>
+      <a class="share-btn" href="#" id="copyBtn">🔗 Copy Link</a>
+    </div>
+    <div class="author-box">
+      <div class="author-avatar">CI</div>
+      <div>
+        <div class="author-name">Nutrition Tracker Team</div>
+        <div class="author-role">Nutrition Research Team</div>
+        <div class="author-bio">The Nutrition Tracker research team comprises nutritionists, dietitians, and data analysts who review ICMR food composition tables and peer-reviewed studies to bring accurate, India-specific nutrition information.</div>
+      </div>
+    </div>
+    <div class="post-nav">
+      <a class="post-nav-card prev" href="surya-namaskar-calories.html">
+        <div class="post-nav-dir">← Previous Article</div>
+        <div class="post-nav-cat">Yoga & Wellness</div>
+        <div class="post-nav-title">Surya Namaskar for Weight Loss: How Many Calories Does It Burn?</div>
+        <div class="post-nav-time">⏱ 5 min read</div>
+      </a>
+      <a class="post-nav-card next" href="intermittent-fasting-indians.html">
+        <div class="post-nav-dir">Next Article →</div>
+        <div class="post-nav-cat">Weight Management</div>
+        <div class="post-nav-title">Intermittent Fasting for Indians: Does It Work with Indian Meal Timings?</div>
+        <div class="post-nav-time">⏱ 7 min read</div>
+      </a>
+    </div>
+  </article>
+  <aside class="sidebar">
+    <div class="toc-card">
+      <div class="toc-header"><span>📋</span><h3>In This Article</h3></div>
+      <div class="toc-progress"><div class="toc-progress-fill" id="tocProgress"></div></div>
+      <div class="toc-body">
+        <a class="toc-item" href="#s-overview" data-section="s-overview">An Overview of Both Regional Diets</a>
+        <a class="toc-item" href="#s-compare" data-section="s-compare">Nutritional Comparison: South vs North</a>
+        <a class="toc-item" href="#s-glycemic" data-section="s-glycemic">The Rice vs Roti Glycemic Index Debate</a>
+        <a class="toc-item" href="#s-verdict" data-section="s-verdict">The Verdict: Take the Best of Both</a>
+      </div>
+    </div>
+    <div class="meta-card">
+      <div class="meta-card-title">Article Details</div>
+      <div class="meta-row"><span class="meta-row-icon">⏱</span><div><div class="meta-row-label">Reading Time</div><div class="meta-row-val">6 minutes</div></div></div>
+      <div class="meta-row"><span class="meta-row-icon">📅</span><div><div class="meta-row-label">Published</div><div class="meta-row-val">13 June 2025</div></div></div>
+      <div class="meta-row"><span class="meta-row-icon">🔄</span><div><div class="meta-row-label">Last Updated</div><div class="meta-row-val">27 June 2025</div></div></div>
+      <div class="meta-row"><span class="meta-row-icon">👤</span><div><div class="meta-row-label">Author</div><div class="meta-row-val">Nutrition Tracker Team</div></div></div>
+      <div class="meta-row"><span class="meta-row-icon">🏷️</span><div><div class="meta-row-label">Category</div><div class="meta-row-val">Indian Diet</div></div></div>
+    </div>
+    <div class="cta-card">
+      <h4>Know Your Calorie Need</h4>
+      <p>Use our free TDEE calculator to find your personalised daily target.</p>
+      <a class="cta-btn" href="../index.html#calorie">Calculate My TDEE →</a>
+    </div>
+    <div class="related-card">
+      <div class="related-header"><h3>Related Articles</h3></div>
+      <a class="related-item" href="indian-diet-guide-lose-weight.html"><div class="related-dot"></div><div><div class="related-text">Complete Indian Diet Guide to Lose Weight</div><div class="related-time">⏱ 8 min</div></div></a>
+      <a class="related-item" href="calories-in-indian-meals.html"><div class="related-dot"></div><div><div class="related-text">Calories in a Typical Indian Meal</div><div class="related-time">⏱ 5 min</div></div></a>
+      <a class="related-item" href="high-protein-indian-breakfasts.html"><div class="related-dot"></div><div><div class="related-text">10 High-Protein Indian Breakfasts Under 400 Cal</div><div class="related-time">⏱ 4 min</div></div></a>
+      <a class="related-item" href="vegetarian-protein-india.html"><div class="related-dot"></div><div><div class="related-text">Getting 100g Protein as a Vegetarian Indian</div><div class="related-time">⏱ 6 min</div></div></a>
+      <a class="related-item" href="tdee-calculator-indians.html"><div class="related-dot"></div><div><div class="related-text">TDEE Calculator for Indians</div><div class="related-time">⏱ 5 min</div></div></a>
+    </div>
+  </aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="f-logo">Nutrition Tracker</div>
+      <p>India's trusted resource for nutrition science, calorie tracking tools, and healthy living — built for the Indian lifestyle.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Calculators</h4>
+      <a href="../index.html#calorie">Calorie Calculator</a>
+      <a href="../bmi-calculator.html">BMI Calculator</a>
+      <a href="../index.html#tdee">TDEE Calculator</a>
+      <a href="../index.html#bmr">BMR Calculator</a>
+    </div>
+    <div class="footer-col">
+      <h4>Blog</h4>
+      <a href="../blog.html">All Articles</a>
+      <a href="../blog.html?cat=diet">Indian Diet</a>
+      <a href="../blog.html?cat=calorie">Calorie Tracking</a>
+      <a href="../blog.html?cat=fitness">Fitness</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="../about.html">About Us</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../privacy-policy.html">Privacy Policy</a> · <a href="../terms-of-use.html">Terms of Use</a>
+      <a href="../disclaimer.html">Medical Disclaimer</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Nutrition Tracker. All rights reserved.</span>
+    <span>Built with ❤️ for India's health journey · <a href="../privacy-policy.html">Privacy</a> · <a href="../disclaimer.html">Disclaimer</a></span>
+  </div>
+</footer>
+<script>
+  const progressBar = document.getElementById('progressBar');
+  const tocProgress = document.getElementById('tocProgress');
+  const sections = document.querySelectorAll('.article-section');
+  const tocItems = document.querySelectorAll('.toc-item');
+  window.addEventListener('scroll', () => {
+    const pct = Math.min(100, (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+    progressBar.style.width = pct + '%';
+    if (tocProgress) tocProgress.style.width = pct + '%';
+    let current = '';
+    sections.forEach(sec => { if (window.scrollY >= sec.offsetTop - 100) current = sec.id; });
+    tocItems.forEach(item => item.classList.toggle('active', item.dataset.section === current));
+  });
+  document.getElementById('copyBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const btn = e.currentTarget;
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ Copied!';
+      setTimeout(() => btn.innerHTML = orig, 2000);
+    });
+  });
+</script>
+<script>fetch('/nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;document.querySelectorAll('#site-nav a[href]').forEach(a=>{var h=a.getAttribute('href');if(h&&!h.startsWith('http')&&!h.startsWith('#')&&!h.startsWith('/')&&!h.startsWith('../'))a.setAttribute('href','../'+h);});});</script>
+</body>
+</html>
