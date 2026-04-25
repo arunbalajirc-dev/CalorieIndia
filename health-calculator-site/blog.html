@@ -280,6 +280,6 @@ function goPage(n){currentPage=n;renderGrid();renderPagination();window.scrollTo
 function fmtDate(s){return new Date(s).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
 loadBlogs();
 </script>
-<script>fetch('nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;});</script>
+<script>fetch('/nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;});</script>
 </body>
 </html>

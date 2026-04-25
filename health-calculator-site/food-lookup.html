@@ -878,7 +878,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel()
 // ── INIT ─────────────────────────────────────────────────────────────────────
 fetchFoods();
 
-fetch('nav.html')
+fetch('/nav.html')
   .then(r => r.text())
   .then(h => document.getElementById('site-nav').innerHTML = h)
   .catch(() => {});

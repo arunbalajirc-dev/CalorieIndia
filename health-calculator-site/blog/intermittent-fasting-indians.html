@@ -361,6 +361,6 @@
     });
   });
 </script>
-<script>fetch('../nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;document.querySelectorAll('#site-nav a[href]').forEach(a=>{var h=a.getAttribute('href');if(h&&!h.startsWith('http')&&!h.startsWith('#')&&!h.startsWith('/')&&!h.startsWith('../'))a.setAttribute('href','../'+h);});});</script>
+<script>fetch('/nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;document.querySelectorAll('#site-nav a[href]').forEach(a=>{var h=a.getAttribute('href');if(h&&!h.startsWith('http')&&!h.startsWith('#')&&!h.startsWith('/')&&!h.startsWith('../'))a.setAttribute('href','../'+h);});});</script>
 </body>
 </html>
