@@ -32,12 +32,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to update payment record' }, { status: 500 });
     }
 
-    // Fire-and-forget PDF generation
-    fetch(`${process.env.NEXT_PUBLIC_APP_URL ?? ''}/api/generate-pdf`, {
+    // Fire-and-forget PDF generation via Supabase Edge Function
+    fetch('https://clutyaynlukgsumnopkf.supabase.co/functions/v1/generate-pdf', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+      },
       body: JSON.stringify({ user_plan_id: payment.user_plan_id }),
-    }).catch(() => { /* PDF errors handled separately */ });
+    }).catch(() => { /* PDF errors handled by Supabase Edge Function */ });
 
     return NextResponse.json({ success: true, payment_id: razorpay_payment_id });
   } catch (e) {
