@@ -4,6 +4,10 @@ import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 
 export const metadata: Metadata = {
+  icons: {
+    icon: '/images/Nutrition tracker logo (256 x 256 px).png',
+    apple: '/images/Nutrition tracker logo (256 x 256 px).png',
+  },
   title: 'Nutrition Tracker — Personalized Indian Diet Plans',
   description: 'Get your personalized Indian meal plan based on your TDEE, BMI and health goals. Instant PDF download.',
   metadataBase: new URL('https://nutritiontracker.in'),
