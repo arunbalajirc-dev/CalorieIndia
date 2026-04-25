@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
@@ -44,10 +45,12 @@ export default function Navbar() {
     >
       {/* Logo */}
       <Link href="/" className="ci-logo">
-        <img
+        <Image
           src="/images/nutrition-tracker-logo.png"
           alt="Nutrition Tracker"
-          style={{ height: '44px', objectFit: 'contain' }}
+          width={140}
+          height={40}
+          style={{ objectFit: 'contain' }}
         />
       </Link>
 
@@ -125,14 +128,14 @@ export default function Navbar() {
           <Link href="/blog" style={activeStyle('/blog')}>Blog</Link>
         </li>
         <li>
-          <Link href="/meal-plan" style={{ color: '#2d6a4f', fontWeight: 600, ...activeStyle('/meal-plan') }}>
+          <Link href="/get-your-meal-plan" style={{ color: '#2d6a4f', fontWeight: 600, ...activeStyle('/get-your-meal-plan') }}>
             🍱 Meal Plan
           </Link>
         </li>
       </ul>
 
       {/* Desktop CTA */}
-      <Link href="/meal-plan" className="ci-cta ci-cta-desktop">
+      <Link href="/get-your-meal-plan" className="ci-cta ci-cta-desktop">
         Get My Meal Plan →
       </Link>
 
@@ -165,9 +168,9 @@ export default function Navbar() {
         <Link href="/food-lookup" style={{ color: '#E07B39', fontWeight: 600 }} onClick={closeMobile}><span>🍽️</span> Food Database</Link>
         <Link href="/recipe-database" style={{ color: '#2d6a4f', fontWeight: 600 }} onClick={closeMobile}><span>📖</span> Recipe Database</Link>
         <Link href="/blog" onClick={closeMobile}><span>📝</span> Blog</Link>
-        <Link href="/meal-plan" style={{ color: '#2d6a4f', fontWeight: 600 }} onClick={closeMobile}><span>🍱</span> Meal Plan</Link>
+        <Link href="/get-your-meal-plan" style={{ color: '#2d6a4f', fontWeight: 600 }} onClick={closeMobile}><span>🍱</span> Meal Plan</Link>
         <Link
-          href="/meal-plan"
+          href="/get-your-meal-plan"
           style={{ marginTop: '12px', background: '#2d6a4f', color: '#fff', borderRadius: '8px', justifyContent: 'center', fontWeight: 600 }}
           onClick={closeMobile}
         >

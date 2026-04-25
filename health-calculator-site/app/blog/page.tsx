@@ -35,10 +35,16 @@ export default function BlogPage() {
         <p>Evidence-based guides for Indian bodies, Indian diets, and real Indian lifestyles.</p>
       </div>
 
-      <div className="content-wrap">
+      <div className="blog-page-content">
         {featured && (
           <div className="blog-featured">
             <Link href={`/blog/${featured.id}`} className="blog-featured-link">
+              {featured.image && (
+                <div className="blog-featured-thumb">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={featured.image} alt={featured.title} />
+                </div>
+              )}
               <div className="blog-featured-body">
                 <div className="blog-tag" data-category={featured.category}>
                   {CATEGORY_LABELS[featured.category] ?? featured.category}
@@ -59,6 +65,12 @@ export default function BlogPage() {
           {rest.map((post) => (
             <Link key={post.id} href={`/blog/${post.id}`} className="blog-card-link">
               <div className="blog-card">
+                {post.image && (
+                  <div className="blog-card-thumb">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={post.image} alt={post.title} loading="lazy" />
+                  </div>
+                )}
                 <div className="blog-card-body">
                   <div className="blog-tag" data-category={post.category}>
                     {CATEGORY_LABELS[post.category] ?? post.category}

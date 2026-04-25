@@ -1,4 +1,5 @@
 import blogsData from '@/data/blogs.json';
+import blogContent from '@/data/blog-content';
 
 export interface BlogPost {
   id: string;
@@ -13,6 +14,7 @@ export interface BlogPost {
   readTime: number;
   featured: boolean;
   published: boolean;
+  content?: string;
 }
 
 const allPosts: BlogPost[] = blogsData as BlogPost[];
@@ -22,5 +24,10 @@ export function getAllPosts(): BlogPost[] {
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return allPosts.find((p) => p.id === slug && p.published);
+  const post = allPosts.find((p) => p.id === slug && p.published);
+  if (!post) return undefined;
+  return {
+    ...post,
+    content: blogContent[slug] ?? '',
+  };
 }

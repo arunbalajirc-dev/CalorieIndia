@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Your Personalized Indian Diet Plan in 5 Minutes – Nutrition Tracker</title>
+  <meta name="description" content="Calorie-accurate, macro-balanced meal plans tailored to your weight, height, and lifestyle — no guesswork. Get your personalized Indian diet plan for ₹249." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow: #FFD700;
+      --green: #2ECC40;
+      --green-glow: rgba(46, 204, 64, 0.35);
+      --amber-glow: rgba(255, 160, 30, 0.4);
+      --white: #ffffff;
+      --dark: #0a0a0a;
+      --dark-2: #111111;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV WRAPPER ── */
+    #site-nav { position: relative; z-index: 100; }
+
+    /* ── SHARED CTA BUTTON ── */
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border: 2px solid var(--yellow);
+      color: var(--yellow);
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .cta-btn:hover {
+      background: var(--yellow);
+      color: #000;
+    }
+
+    /* ════════════════════════════════════════
+       SECTION 1 — HERO
+    ════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--dark);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: -120px;
+      left: -180px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, var(--green-glow) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 5% 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      width: 100%;
+    }
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .hero-text p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.75);
+      max-width: 440px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .hero-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-image img {
+      max-width: 100%;
+      width: 420px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 60px rgba(46, 204, 64, 0.2));
+    }
+
+    /* ════════════════════════════════════════
+       SECTION 2 — WHAT'S INCLUDED
+    ════════════════════════════════════════ */
+    .included {
+      position: relative;
+      overflow: hidden;
+      background: var(--dark-2);
+      padding: 100px 5%;
+    }
+    .included::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px;
+      height: 700px;
+      background: radial-gradient(ellipse, var(--amber-glow) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .included-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+    .included-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 44px 40px;
+    }
+    .included-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.88);
+    }
+    .check-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: #fff;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+    .included-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .included-image img {
+      max-width: 100%;
+      width: 480px;
+      height: auto;
+      border-radius: 16px;
+      object-fit: cover;
+      filter: drop-shadow(0 16px 48px rgba(255, 160, 30, 0.15));
+    }
+
+    /* ════════════════════════════════════════
+       SECTION 3 — FEATURES
+    ════════════════════════════════════════ */
+    .features {
+      position: relative;
+      overflow: hidden;
+      background: var(--dark);
+      padding: 100px 5%;
+    }
+    .features::before {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--green-glow) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .features-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+    .features-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+    .features-left img {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid var(--glass-border);
+    }
+    .features-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .feature-row:last-child { border-bottom: none; }
+    .feature-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .feature-text h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+    .feature-text p {
+      font-size: 0.83rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.5;
+    }
+
+    /* ════════════════════════════════════════
+       SECTION 4 — PRICE COMPARISON
+    ════════════════════════════════════════ */
+    .pricing {
+      background: var(--dark-2);
+      padding: 100px 5%;
+      text-align: center;
+    }
+    .pricing-cards {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .pricing-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .pricing-circle {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--glass-border);
+      background: var(--glass-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pricing-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .pricing-circle.logo-circle {
+      border-color: var(--yellow);
+      background: #111;
+      padding: 20px;
+    }
+    .pricing-circle.logo-circle img {
+      object-fit: contain;
+      padding: 10px;
+    }
+    .pricing-label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+    .pricing-price {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.65);
+    }
+    .pricing-price.highlight {
+      color: var(--yellow);
+      font-size: 1.5rem;
+    }
+    .pricing-tagline {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 36px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner,
+      .included-inner,
+      .features-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+      .hero-text p { margin-left: auto; margin-right: auto; }
+      .hero-image { order: -1; }
+      .hero-image img { width: 280px; }
+      .included-image { order: -1; }
+      .included-image img { width: 100%; max-width: 360px; }
+      .features-left img { max-width: 360px; margin: 0 auto; display: block; }
+      .checklist li { text-align: left; }
+      .pricing-cards { gap: 24px; }
+      .pricing-circle { width: 140px; height: 140px; }
+    }
+
+    @media (max-width: 520px) {
+      .hero { min-height: auto; }
+      .hero-inner { padding: 60px 5%; }
+      .included { padding: 70px 5%; }
+      .features { padding: 70px 5%; }
+      .pricing { padding: 70px 5%; }
+      .included-card { padding: 30px 24px; }
+      .features-card { padding: 24px 20px; }
+      .pricing-circle { width: 110px; height: 110px; }
+      .pricing-cards { gap: 16px; }
+      .pricing-price.highlight { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div id="site-nav"></div>
+
+  <!-- ════════════════════════════════════════
+       SECTION 1 — HERO
+  ════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Get Your Personalized Indian Diet Plan in 5 Minutes</h1>
+        <p>Calorie-accurate, macro-balanced meal plans tailored to your weight, height, and lifestyle — no guesswork.</p>
+        <a href="https://nutritiontracker.in/meal-plan.html" class="cta-btn">GET MY PLAN FOR ₹249</a>
+      </div>
+      <div class="hero-image">
+        <img src="images/Your personalised meal plan booklet.png" alt="Your Personalised Meal Plan booklet" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SECTION 2 — WHAT'S INCLUDED
+  ════════════════════════════════════════ -->
+  <section class="included">
+    <div class="included-inner">
+      <div class="included-card">
+        <h2>Your Personalized Diet Plan Includes</h2>
+        <ul class="checklist">
+          <li>
+            <span class="check-icon">✓</span>
+            Daily calorie target (based on your body)
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            Macro breakdown (Protein, Carbs, Fat)
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            7-day Indian meal plan
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            Weight loss timeline
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            Food swaps (eat smarter, not less)
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            Activity &amp; calorie burn guide
+          </li>
+        </ul>
+      </div>
+      <div class="included-image">
+        <img src="images/Diet planner master page section 2 image 1.png" alt="Diet plan on phone" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SECTION 3 — FEATURES
+  ════════════════════════════════════════ -->
+  <section class="features">
+    <div class="features-inner">
+      <div class="features-left">
+        <h2>Features</h2>
+        <img src="images/Diet planner master page section 3 image 1.png" alt="Calorie Burn Engine calculator screenshot" />
+      </div>
+      <div class="features-card">
+        <div class="feature-row">
+          <div class="feature-icon">👤</div>
+          <div class="feature-text">
+            <h3>Your Body Analysis</h3>
+            <p>BMI, TDEE, BMR, Weight loss projection</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon">⚙️</div>
+          <div class="feature-text">
+            <h3>Indian Meal Library</h3>
+            <p>Breakfast, Lunch, Snacks, Dinner, Mix &amp; match options</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon">🛡️</div>
+          <div class="feature-text">
+            <h3>7-Day Plan</h3>
+            <p>Ready-to-follow daily schedule / Beginner → Strength → Maintenance</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon">🛡️</div>
+          <div class="feature-text">
+            <h3>Fat Loss Engine</h3>
+            <p>500 kcal deficit logic explained, Sustainable fat loss</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SECTION 4 — PRICE COMPARISON
+  ════════════════════════════════════════ -->
+  <section class="pricing">
+    <div class="pricing-cards">
+      <div class="pricing-item">
+        <div class="pricing-circle">
+          <img src="images/Diet planner master page section 4 image 1.png" alt="Mutton Biryani" />
+        </div>
+        <div class="pricing-label">Mutton Biryani</div>
+        <div class="pricing-price">₹300 – 350</div>
+      </div>
+      <div class="pricing-item">
+        <div class="pricing-circle">
+          <img src="images/Diet planner master page section 4 image 2.png" alt="Dietitian consultation" />
+        </div>
+        <div class="pricing-label">Dietitian consultation</div>
+        <div class="pricing-price">₹1000+</div>
+      </div>
+      <div class="pricing-item">
+        <div class="pricing-circle logo-circle">
+          <img src="images/nutrition-tracker-logo.png" alt="Nutrition Tracker" />
+        </div>
+        <div class="pricing-label">Your Plan</div>
+        <div class="pricing-price highlight">₹249</div>
+      </div>
+    </div>
+    <p class="pricing-tagline">Less than 1 meal — but guides your next 90 days</p>
+    <a href="https://nutritiontracker.in/meal-plan.html" class="cta-btn">BUY NOW</a>
+  </section>
+
+  <script>
+    fetch('/nav.html')
+      .then(r => r.text())
+      .then(h => document.getElementById('site-nav').innerHTML = h);
+  </script>
+
+</body>
+</html>
