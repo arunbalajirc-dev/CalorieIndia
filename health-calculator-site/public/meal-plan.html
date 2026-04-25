@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Get Your Personalised Meal Plan – Nutrition Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #2d7a4f;
+      --green-light: #e8f5ee;
+      --green-dark: #1e5c3a;
+      --accent: #2d7a4f;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --bg: #fafaf8;
+      --white: #ffffff;
+      --border: #e5e7eb;
+      --dark: #111813;
+      --error: #dc2626;
+      --error-bg: #fef2f2;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+
+    /* ── PAGE LAYOUT ── */
+    .page-hero {
+      background: linear-gradient(155deg, #edf7f2 0%, var(--bg) 55%);
+      padding: 40px 24px 32px;
+      text-align: center;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; font-weight: 700; margin-bottom: 10px; line-height: 1.2;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--green); }
+    .page-hero p { color: var(--muted); font-size: 15px; max-width: 480px; margin: 0 auto; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap { max-width: 640px; margin: 32px auto 0; padding: 0 24px; }
+    .progress-steps {
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; margin-bottom: 8px;
+    }
+    .progress-steps::before {
+      content: '';
+      position: absolute; top: 16px; left: 16px; right: 16px; height: 2px;
+      background: var(--border); z-index: 0;
+    }
+    .progress-fill {
+      position: absolute; top: 16px; left: 16px; height: 2px;
+      background: var(--green); z-index: 1; transition: width .4s ease;
+    }
+    .step-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; z-index: 2;
+      border: 2px solid var(--border); background: var(--white); color: var(--muted);
+      transition: all .3s;
+    }
+    .step-dot.active { background: var(--green); border-color: var(--green); color: #fff; }
+    .step-dot.done  { background: var(--green-light); border-color: var(--green); color: var(--green); }
+    .step-labels { display: flex; justify-content: space-between; }
+    .step-label { font-size: 11px; color: var(--muted); text-align: center; width: 80px; margin-left: -24px; }
+    .step-label:first-child { margin-left: 0; }
+    .step-label.active { color: var(--green); font-weight: 600; }
+
+    /* ── STEPS CONTAINER ── */
+    .steps-container { max-width: 720px; margin: 32px auto 64px; padding: 0 16px; }
+
+    /* ── CARD ── */
+    .mp-card {
+      background: var(--white); border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.10); padding: 36px;
+      border: 1px solid var(--border);
+    }
+    @media (max-width: 600px) { .mp-card { padding: 24px 18px; } }
+
+    .step-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .step-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+
+    /* ── SECTION HEADERS ── */
+    .form-section-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em;
+      color: var(--green); margin-bottom: 16px; margin-top: 28px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .form-section-label:first-of-type { margin-top: 0; border-top: none; padding-top: 0; }
+
+    /* ── FORM FIELDS ── */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { margin-bottom: 16px; }
+    .form-label {
+      font-size: 12px; color: var(--muted); margin-bottom: 6px; display: block; font-weight: 500;
+    }
+    .form-label .req { color: var(--error); margin-left: 2px; }
+    .form-input {
+      width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 14px; font-family: inherit; background: var(--bg); color: var(--text); outline: none;
+      transition: border-color .2s;
+    }
+    .form-input:focus { border-color: var(--green); }
+    .form-input.error { border-color: var(--error); background: var(--error-bg); }
+    .form-select {
+      width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 14px; font-family: inherit; background: var(--bg); color: var(--text); outline: none;
+      transition: border-color .2s; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+    }
+    .form-select:focus { border-color: var(--green); }
+    .form-select.error { border-color: var(--error); background-color: var(--error-bg); }
+    .field-error { font-size: 12px; color: var(--error); margin-top: 4px; display: none; }
+    .field-error.visible { display: block; }
+
+    /* ── RADIO BUTTONS ── */
+    .radio-group { display: flex; flex-wrap: wrap; gap: 10px; }
+    .radio-item { display: flex; align-items: center; gap: 7px; cursor: pointer; }
+    .radio-item input[type="radio"] { accent-color: var(--green); width: 16px; height: 16px; cursor: pointer; }
+    .radio-item span { font-size: 14px; }
+
+    /* ── GOAL RADIO CARDS ── */
+    .goal-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 480px) { .goal-cards { grid-template-columns: 1fr; } }
+    .goal-card-label {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 6px; padding: 18px 12px; border: 2px solid var(--border); border-radius: 12px;
+      cursor: pointer; text-align: center; transition: all .2s; background: var(--bg);
+    }
+    .goal-card-label:hover { border-color: var(--green); background: var(--green-light); }
+    .goal-card-label input[type="radio"] { display: none; }
+    .goal-card-label.selected { border-color: var(--green); background: var(--green-light); }
+    .goal-emoji { font-size: 26px; }
+    .goal-text { font-size: 13px; font-weight: 600; color: var(--text); }
+
+    /* ── CHECKBOXES ── */
+    .checkbox-group { display: flex; flex-wrap: wrap; gap: 10px; }
+    .checkbox-item { display: flex; align-items: center; gap: 7px; cursor: pointer; }
+    .checkbox-item input[type="checkbox"] { accent-color: var(--green); width: 16px; height: 16px; cursor: pointer; }
+    .checkbox-item span { font-size: 14px; }
+
+    /* ── CUISINE CARDS ── */
+    .cuisine-cards { display: flex; flex-wrap: wrap; gap: 10px; }
+    .cuisine-card-label {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border: 1.5px solid var(--border); border-radius: 8px;
+      cursor: pointer; font-size: 14px; font-weight: 500; background: var(--bg);
+      transition: all .15s;
+    }
+    .cuisine-card-label:hover { border-color: var(--green); }
+    .cuisine-card-label input[type="checkbox"] { display: none; }
+    .cuisine-card-label.selected { border-color: var(--green); background: var(--green-light); color: var(--green); }
+
+    /* ── INLINE ERROR BANNER ── */
+    .inline-error {
+      background: var(--error-bg); border: 1px solid #fca5a5; border-radius: 8px;
+      padding: 12px 16px; font-size: 13px; color: var(--error); margin-bottom: 16px; display: none;
+    }
+    .inline-error.visible { display: block; }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      background: var(--green); color: #fff; padding: 13px 28px; border-radius: 8px;
+      font-size: 15px; font-weight: 600; text-decoration: none; display: inline-flex;
+      align-items: center; gap: 8px; border: none; cursor: pointer; font-family: inherit;
+      transition: background .2s, transform .1s, box-shadow .2s;
+    }
+    .btn-primary:hover { background: var(--green-dark); box-shadow: 0 4px 12px rgba(45,122,79,.35); }
+    .btn-primary:active { transform: scale(.97); }
+    .btn-primary:disabled { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-primary-full { width: 100%; justify-content: center; }
+
+    .btn-ghost {
+      background: none; color: var(--muted); border: 1px solid var(--border);
+      padding: 11px 20px; border-radius: 8px; font-size: 14px; font-weight: 500;
+      cursor: pointer; font-family: inherit; transition: all .2s;
+    }
+    .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── STEP 2 SUMMARY ── */
+    .summary-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    @media (max-width: 560px) { .summary-grid { grid-template-columns: 1fr; } }
+
+    .summary-panel {
+      background: var(--bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border);
+    }
+    .summary-panel-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--muted); margin-bottom: 14px;
+    }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-key { color: var(--muted); }
+    .summary-val { font-weight: 600; text-align: right; max-width: 55%; }
+    .bmi-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; margin-left: 6px;
+    }
+    .bmi-underweight { background: #dbeafe; color: #1d4ed8; }
+    .bmi-normal      { background: var(--green-light); color: var(--green-dark); }
+    .bmi-overweight  { background: #fef3c7; color: #92400e; }
+    .bmi-obese       { background: #fee2e2; color: #991b1b; }
+
+    .calorie-box {
+      background: var(--green-light); border-radius: 10px; padding: 14px 16px;
+      margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .calorie-box-label { font-size: 12px; color: var(--green-dark); font-weight: 500; }
+    .calorie-box-value { font-size: 22px; font-weight: 700; color: var(--green); }
+    .calorie-box-unit  { font-size: 12px; color: var(--muted); margin-left: 2px; }
+
+    .macro-row {
+      display: flex; justify-content: space-between; padding: 7px 0;
+      border-bottom: 1px solid var(--border); font-size: 13px;
+    }
+    .macro-row:last-child { border-bottom: none; }
+    .macro-label { color: var(--muted); }
+    .macro-value { font-weight: 600; color: var(--text); }
+
+    .plan-includes { margin-top: 16px; }
+    .plan-includes-title { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    .plan-includes li { font-size: 13px; color: var(--text); padding: 3px 0; list-style: none; }
+    .plan-includes li::before { content: '✓ '; color: var(--green); font-weight: 700; }
+
+    .step2-footer { margin-top: 24px; text-align: center; }
+    .step2-footer .sub-note { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .step2-footer .back-link {
+      font-size: 13px; color: var(--muted); text-decoration: none; cursor: pointer;
+      display: inline-block; margin-top: 12px;
+    }
+    .step2-footer .back-link:hover { color: var(--green); }
+
+    /* ── STEP 3 PAYMENT ── */
+    .payment-summary-box {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; margin-bottom: 24px;
+    }
+    .payment-summary-box h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 12px; }
+    .psrow { display: flex; justify-content: space-between; font-size: 14px; padding: 5px 0; border-bottom: 1px solid var(--border); }
+    .psrow:last-child { border-bottom: none; }
+    .psrow-key { color: var(--muted); }
+    .psrow-val { font-weight: 600; }
+
+    .payment-trust { margin-top: 20px; }
+    .payment-trust p { font-size: 12px; color: var(--muted); padding: 4px 0; }
+
+    /* ── SUCCESS BADGE ── */
+    .ready-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); border: 1px solid rgba(45,122,79,.25);
+      color: var(--green); padding: 8px 18px; border-radius: 24px;
+      font-size: 14px; font-weight: 600; margin-bottom: 24px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════ PAGE HERO -->
+<section class="page-hero">
+  <h1>Your personalised <em>Indian meal plan</em></h1>
+  <p>Tell us about yourself and we'll generate a 7-day calorie-counted plan built for your goal.</p>
+</section>
+
+<!-- ═══════════════════════ PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    <div class="step-dot active" id="dot-1">1</div>
+    <div class="step-dot" id="dot-2">2</div>
+    <div class="step-dot" id="dot-3">3</div>
+  </div>
+  <div class="step-labels">
+    <div class="step-label active" id="label-1">Your Details</div>
+    <div class="step-label" id="label-2">Preview</div>
+    <div class="step-label" id="label-3">Payment</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ STEPS -->
+<div class="steps-container">
+
+  <!-- ════════════ STEP 1: INTAKE FORM ════════════ -->
+  <div id="step-1">
+    <div class="mp-card">
+      <div class="step-title">Tell us about yourself</div>
+      <div class="step-subtitle">Step 1 of 3 — Your Details</div>
+
+      <div class="inline-error" id="form-error"></div>
+
+      <!-- ── Personal Details ── -->
+      <div class="form-section-label">Personal Details</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f-name">Name <span class="req">*</span></label>
+          <input class="form-input" type="text" id="f-name" placeholder="Arjun Sharma" autocomplete="name" />
+          <div class="field-error" id="err-name">Please enter your name.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-email">Email <span class="req">*</span></label>
+          <input class="form-input" type="email" id="f-email" placeholder="arjun@email.com" autocomplete="email" />
+          <div class="field-error" id="err-email">Please enter a valid email address.</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f-age">Age <span class="req">*</span></label>
+          <input class="form-input" type="number" id="f-age" placeholder="28" min="10" max="100" />
+          <div class="field-error" id="err-age">Age must be between 10 and 100.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Gender <span class="req">*</span></label>
+          <div class="radio-group" style="margin-top:8px;">
+            <label class="radio-item"><input type="radio" name="gender" value="male" /> <span>Male</span></label>
+            <label class="radio-item"><input type="radio" name="gender" value="female" /> <span>Female</span></label>
+            <label class="radio-item"><input type="radio" name="gender" value="other" /> <span>Other</span></label>
+          </div>
+          <div class="field-error" id="err-gender">Please select a gender.</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f-weight">Weight (kg) <span class="req">*</span></label>
+          <input class="form-input" type="number" id="f-weight" placeholder="72" min="20" max="300" step="0.1" />
+          <div class="field-error" id="err-weight">Weight must be between 20 and 300 kg.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-height">Height (cm) <span class="req">*</span></label>
+          <input class="form-input" type="number" id="f-height" placeholder="168" min="100" max="250" step="0.1" />
+          <div class="field-error" id="err-height">Height must be between 100 and 250 cm.</div>
+        </div>
+      </div>
+
+      <!-- ── Goals ── -->
+      <div class="form-section-label">Your Goals</div>
+
+      <div class="form-group">
+        <label class="form-label" for="f-activity">Activity Level <span class="req">*</span></label>
+        <select class="form-select" id="f-activity">
+          <option value="">Select your activity level…</option>
+          <option value="sedentary">Sedentary (desk job, little exercise)</option>
+          <option value="lightly_active">Lightly active (light exercise 1–3 days/week)</option>
+          <option value="moderately_active">Moderately active (moderate exercise 3–5 days/week)</option>
+          <option value="very_active">Very active (hard exercise 6–7 days/week)</option>
+          <option value="extra_active">Extra active (physical job + hard exercise)</option>
+        </select>
+        <div class="field-error" id="err-activity">Please select your activity level.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Goal <span class="req">*</span></label>
+        <div class="goal-cards">
+          <label class="goal-card-label" id="gc-lose">
+            <input type="radio" name="goal" value="lose" />
+            <span class="goal-emoji">🔥</span>
+            <span class="goal-text">Lose Weight</span>
+          </label>
+          <label class="goal-card-label" id="gc-maintain">
+            <input type="radio" name="goal" value="maintain" />
+            <span class="goal-emoji">⚖️</span>
+            <span class="goal-text">Maintain Weight</span>
+          </label>
+          <label class="goal-card-label" id="gc-gain">
+            <input type="radio" name="goal" value="gain" />
+            <span class="goal-emoji">💪</span>
+            <span class="goal-text">Gain Muscle</span>
+          </label>
+        </div>
+        <div class="field-error" id="err-goal">Please select a goal.</div>
+      </div>
+
+      <!-- Target weight — only shown when goal = lose -->
+      <div class="form-group" id="target-weight-group" style="display:none;">
+        <label class="form-label" for="f-target-weight">Target Weight (kg) <span class="req">*</span></label>
+        <input class="form-input" type="number" id="f-target-weight" placeholder="e.g. 65" min="20" max="300" step="0.1" disabled />
+        <div class="field-error" id="err-target-weight"></div>
+        <div id="target-weight-caution" style="display:none;margin-top:6px;padding:10px 14px;background:#fef9c3;border:1px solid #fde047;border-radius:8px;font-size:13px;color:#854d0e;">
+          ⚠️ A difference of 1–3 kg is very small. Consider choosing <strong>Maintain Weight</strong> as your goal instead.
+        </div>
+      </div>
+
+      <!-- ── Food Preferences ── -->
+      <div class="form-section-label">Food Preferences</div>
+
+      <div class="form-group">
+        <label class="form-label">Diet Type <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="diet" value="veg" /> <span>Veg</span></label>
+          <label class="radio-item"><input type="radio" name="diet" value="non-veg" /> <span>Non-Veg</span></label>
+          <label class="radio-item"><input type="radio" name="diet" value="both" /> <span>Both</span></label>
+        </div>
+        <div class="field-error" id="err-diet">Please select a diet type.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Allergens <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-item"><input type="checkbox" name="allergen" value="soy" /> <span>Soy</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="allergen" value="dairy" /> <span>Dairy</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="allergen" value="eggs" /> <span>Eggs</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="allergen" value="fish" /> <span>Fish</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="allergen" value="chicken" /> <span>Chicken</span></label>
+        </div>
+      </div>
+
+      <button class="btn-primary btn-primary-full" onclick="submitStep1()" style="margin-top:8px;">
+        Preview My Plan →
+      </button>
+    </div>
+  </div>
+
+  <!-- ════════════ STEP 2: PREVIEW ════════════ -->
+  <div id="step-2" style="display:none;">
+    <div class="mp-card">
+      <div class="step-title">Your Plan Preview</div>
+      <div class="step-subtitle">Step 2 of 3 — Review your details before generating</div>
+
+      <div class="summary-grid">
+
+        <!-- Left: Profile -->
+        <div class="summary-panel">
+          <div class="summary-panel-title">Your Profile</div>
+          <div class="summary-row"><span class="summary-key">Name</span><span class="summary-val" id="s-name"></span></div>
+          <div class="summary-row"><span class="summary-key">Age</span><span class="summary-val" id="s-age"></span></div>
+          <div class="summary-row"><span class="summary-key">Gender</span><span class="summary-val" id="s-gender"></span></div>
+          <div class="summary-row"><span class="summary-key">Weight</span><span class="summary-val" id="s-weight"></span></div>
+          <div class="summary-row"><span class="summary-key">Height</span><span class="summary-val" id="s-height"></span></div>
+          <div class="summary-row"><span class="summary-key">BMI</span><span class="summary-val" id="s-bmi"></span></div>
+          <div class="summary-row"><span class="summary-key">Activity</span><span class="summary-val" id="s-activity"></span></div>
+          <div class="summary-row"><span class="summary-key">Goal</span><span class="summary-val" id="s-goal"></span></div>
+          <div class="summary-row" id="s-target-weight-row" style="display:none;"><span class="summary-key">Target Weight</span><span class="summary-val" id="s-target-weight"></span></div>
+          <div class="summary-row"><span class="summary-key">Diet</span><span class="summary-val" id="s-diet"></span></div>
+          <div class="summary-row"><span class="summary-key">Allergens</span><span class="summary-val" id="s-allergens"></span></div>
+        </div>
+
+        <!-- Right: Calorie Targets -->
+        <div class="summary-panel">
+          <div class="summary-panel-title">Your Calorie Targets</div>
+
+          <div class="calorie-box" style="background:#f0f9f4;">
+            <div>
+              <div class="calorie-box-label">Your TDEE</div>
+              <div style="font-size:11px;color:var(--muted);">Maintenance calories</div>
+            </div>
+            <div><span class="calorie-box-value" id="s-tdee">—</span> <span class="calorie-box-unit">kcal/day</span></div>
+          </div>
+
+          <div class="calorie-box">
+            <div>
+              <div class="calorie-box-label">Your Target</div>
+              <div style="font-size:11px;color:var(--muted);" id="s-target-note"></div>
+            </div>
+            <div><span class="calorie-box-value" id="s-target">—</span> <span class="calorie-box-unit">kcal/day</span></div>
+          </div>
+
+          <div class="macro-row"><span class="macro-label">Protein target</span><span class="macro-value" id="s-protein"></span></div>
+          <div class="macro-row"><span class="macro-label">Carb target</span><span class="macro-value" id="s-carbs"></span></div>
+          <div class="macro-row"><span class="macro-label">Fat target</span><span class="macro-value" id="s-fat"></span></div>
+
+          <ul class="plan-includes" id="s-includes-list">
+            <div class="plan-includes-title">Plan includes</div>
+            <li>7-day personalised meal plan</li>
+            <li>Breakfast, lunch, dinner + snacks</li>
+            <li>Indian recipes</li>
+            <li id="s-includes-diet"></li>
+            <li>Downloadable PDF</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="inline-error" id="step2-error"></div>
+
+      <div class="step2-footer">
+        <button class="btn-primary btn-primary-full" id="btn-generate" onclick="submitStep2()">
+          Generate My Plan — ₹250
+        </button>
+        <div class="sub-note">One-time payment · Instant PDF download · No subscription</div>
+        <a class="back-link" onclick="goToStep1()">← Edit my details</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ STEP 3: PAYMENT PLACEHOLDER ════════════ -->
+  <div id="step-3" style="display:none;">
+    <div class="mp-card" style="text-align:center;">
+      <div class="ready-badge">✅ Your plan is ready to generate!</div>
+
+      <div class="step-title" style="margin-bottom:4px;">Complete Your Payment</div>
+      <div class="step-subtitle">Step 3 of 3 — Payment</div>
+
+      <div class="payment-summary-box" style="text-align:left;">
+        <h4>Order Summary</h4>
+        <div class="psrow"><span class="psrow-key">Plan for</span><span class="psrow-val" id="p-name"></span></div>
+        <div class="psrow"><span class="psrow-key">Goal</span><span class="psrow-val" id="p-goal"></span></div>
+        <div class="psrow"><span class="psrow-key">Target calories</span><span class="psrow-val" id="p-calories"></span></div>
+        <div class="psrow"><span class="psrow-key">Plan ID</span><span class="psrow-val" id="p-plan-id" style="font-family:monospace;font-size:13px;"></span></div>
+      </div>
+
+      <div id="payment-action" style="margin-bottom:16px;">
+        <button id="rzp-pay-btn" class="btn-primary btn-primary-full" onclick="startPayment()">
+          Pay ₹249 · Get My Meal Plan
+        </button>
+      </div>
+
+      <div id="payment-loading" style="display:none;background:var(--green-light);border:1px solid rgba(45,122,79,.2);border-radius:12px;padding:32px 24px;text-align:center;margin-bottom:16px;">
+        <div style="width:36px;height:36px;margin:0 auto 14px;border:3px solid rgba(45,122,79,.2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;"></div>
+        <div id="payment-loading-title" style="font-size:16px;font-weight:700;color:var(--green);margin-bottom:4px;">Confirming payment…</div>
+        <div style="font-size:13px;color:var(--muted);">Please wait — this usually takes a few seconds.</div>
+      </div>
+
+      <div id="payment-fallback" style="display:none;background:#fef9c3;border:1px solid #fde047;border-radius:12px;padding:20px 24px;margin-bottom:16px;">
+        <div style="font-size:14px;font-weight:700;color:#92400e;margin-bottom:4px;">Your plan is being prepared.</div>
+        <div style="font-size:13px;color:#78350f;">You'll receive a download link at <strong id="pf-email"></strong> shortly.</div>
+      </div>
+
+      <div id="payment-error" style="display:none;background:#fef2f2;border:1px solid #fca5a5;border-radius:12px;padding:16px 20px;margin-bottom:16px;font-size:13px;color:#dc2626;"></div>
+
+      <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">₹249 · Secure payment via Razorpay</div>
+
+      <div class="payment-trust">
+        <p>🔒 Your data is stored securely.</p>
+        <p>📄 PDF will download automatically after payment.</p>
+        <p>📧 A copy will be emailed to <strong id="p-email"></strong>.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /steps-container -->
+
+<script>
+const SUPABASE_URL      = 'https://clutyaynlukgsumnopkf.supabase.co';
+const SUPABASE_ANON_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdXR5YXlubHVrZ3N1bW5vcGtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTAwMzcsImV4cCI6MjA5MDUyNjAzN30.rhWn8jZI0KegFiOrCG8aVDpNVnDhLxrSz-0R62jxja0';
+// key_id is returned by the create-order API — never hardcode here
+const CREATE_ORDER_URL     = 'https://clutyaynlukgsumnopkf.supabase.co/functions/v1/create-order';
+const HANDLE_PAYMENT_URL   = 'https://clutyaynlukgsumnopkf.supabase.co/functions/v1/handle-payment';
+const GENERATE_PDF_URL     = 'https://calorie-india.vercel.app/api/generate-pdf';
+const POLL_RPC_URL         = 'https://clutyaynlukgsumnopkf.supabase.co/rest/v1/rpc/get_payment_status';
+
+/* ═══════════════════════════════════════
+   MEAL PLAN PAGE — Step Controller
+   ═══════════════════════════════════════ */
+
+// ── In-memory plan data ──
+var planData = {};
+
+// ── Progress indicator ──
+function setProgress(step) {
+  var fill = document.getElementById('progress-fill');
+  var fills = [0, 0, 50, 100];
+  fill.style.width = fills[step] + '%';
+
+  for (var i = 1; i <= 3; i++) {
+    var dot   = document.getElementById('dot-' + i);
+    var label = document.getElementById('label-' + i);
+    dot.classList.remove('active', 'done');
+    label.classList.remove('active');
+    if (i < step)       { dot.classList.add('done');   dot.textContent = '✓'; }
+    else if (i === step){ dot.classList.add('active');  dot.textContent = i; label.classList.add('active'); }
+    else                { dot.textContent = i; }
+  }
+}
+
+// ── Show step ──
+function showStep(n) {
+  document.getElementById('step-1').style.display = n === 1 ? 'block' : 'none';
+  document.getElementById('step-2').style.display = n === 2 ? 'block' : 'none';
+  document.getElementById('step-3').style.display = n === 3 ? 'block' : 'none';
+  setProgress(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Goal card visual toggle + target weight show/hide ──
+document.querySelectorAll('.goal-card-label').forEach(function(lbl) {
+  lbl.querySelector('input').addEventListener('change', function() {
+    document.querySelectorAll('.goal-card-label').forEach(function(l){ l.classList.remove('selected'); });
+    lbl.classList.add('selected');
+    var goal = lbl.querySelector('input').value;
+    var twGroup = document.getElementById('target-weight-group');
+    var twInput = document.getElementById('f-target-weight');
+    if (goal === 'lose') {
+      twGroup.style.display = 'block';
+      // only enable if weight already filled
+      var weightVal = parseFloat(document.getElementById('f-weight').value);
+      if (!isNaN(weightVal) && weightVal >= 20) {
+        twInput.disabled = false;
+      }
+    } else {
+      twGroup.style.display = 'none';
+      twInput.disabled = true;
+      twInput.value = '';
+      document.getElementById('err-target-weight').classList.remove('visible');
+      document.getElementById('target-weight-caution').style.display = 'none';
+    }
+  });
+});
+
+// ── Enable target weight once weight is filled ──
+document.getElementById('f-weight').addEventListener('input', function() {
+  var goal = document.querySelector('input[name="goal"]:checked');
+  if (goal && goal.value === 'lose') {
+    var weightVal = parseFloat(this.value);
+    var twInput = document.getElementById('f-target-weight');
+    twInput.disabled = isNaN(weightVal) || weightVal < 20;
+    if (twInput.disabled) {
+      twInput.value = '';
+      document.getElementById('target-weight-caution').style.display = 'none';
+    } else {
+      checkTargetWeightCaution();
+    }
+  }
+});
+
+// ── Target weight caution check ──
+function checkTargetWeightCaution() {
+  var weightVal = parseFloat(document.getElementById('f-weight').value);
+  var targetVal = parseFloat(document.getElementById('f-target-weight').value);
+  var caution = document.getElementById('target-weight-caution');
+  if (!isNaN(weightVal) && !isNaN(targetVal)) {
+    var diff = weightVal - targetVal;
+    caution.style.display = (diff >= 1 && diff <= 3) ? 'block' : 'none';
+  } else {
+    caution.style.display = 'none';
+  }
+}
+document.getElementById('f-target-weight').addEventListener('input', checkTargetWeightCaution);
+
+// ── Blur validation helpers ──
+function addBlurValidation(inputId, validateFn) {
+  var el = document.getElementById(inputId);
+  if (el) el.addEventListener('blur', function(){ validateFn(true); });
+}
+
+function showErr(errId, inputEl, msg) {
+  var err = document.getElementById(errId);
+  if (err) { err.textContent = msg; err.classList.add('visible'); }
+  if (inputEl) inputEl.classList.add('error');
+}
+function clearErr(errId, inputEl) {
+  var err = document.getElementById(errId);
+  if (err) err.classList.remove('visible');
+  if (inputEl) inputEl.classList.remove('error');
+}
+
+// ── Individual field validators (return true = valid) ──
+function validateName(showError) {
+  var el = document.getElementById('f-name');
+  var ok = el.value.trim().length > 0;
+  if (!ok && showError) showErr('err-name', el, 'Please enter your name.');
+  else clearErr('err-name', el);
+  return ok;
+}
+function validateEmail(showError) {
+  var el = document.getElementById('f-email');
+  var v  = el.value.trim();
+  var ok = v.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  if (!ok && showError) showErr('err-email', el, 'Please enter a valid email address.');
+  else clearErr('err-email', el);
+  return ok;
+}
+function validateAge(showError) {
+  var el = document.getElementById('f-age');
+  var v  = parseInt(el.value, 10);
+  var ok = !isNaN(v) && v >= 10 && v <= 100;
+  if (!ok && showError) showErr('err-age', el, 'Age must be between 10 and 100.');
+  else clearErr('err-age', el);
+  return ok;
+}
+function validateWeight(showError) {
+  var el = document.getElementById('f-weight');
+  var v  = parseFloat(el.value);
+  var ok = !isNaN(v) && v >= 20 && v <= 300;
+  if (!ok && showError) showErr('err-weight', el, 'Weight must be between 20 and 300 kg.');
+  else clearErr('err-weight', el);
+  return ok;
+}
+function validateHeight(showError) {
+  var el = document.getElementById('f-height');
+  var v  = parseFloat(el.value);
+  var ok = !isNaN(v) && v >= 100 && v <= 250;
+  if (!ok && showError) showErr('err-height', el, 'Height must be between 100 and 250 cm.');
+  else clearErr('err-height', el);
+  return ok;
+}
+function validateActivity(showError) {
+  var el = document.getElementById('f-activity');
+  var ok = el.value !== '';
+  if (!ok && showError) showErr('err-activity', el, 'Please select your activity level.');
+  else clearErr('err-activity', el);
+  return ok;
+}
+function validateGender(showError) {
+  var ok = !!document.querySelector('input[name="gender"]:checked');
+  var err = document.getElementById('err-gender');
+  if (!ok && showError) err.classList.add('visible');
+  else err.classList.remove('visible');
+  return ok;
+}
+function validateGoal(showError) {
+  var ok = !!document.querySelector('input[name="goal"]:checked');
+  var err = document.getElementById('err-goal');
+  if (!ok && showError) err.classList.add('visible');
+  else err.classList.remove('visible');
+  return ok;
+}
+function validateTargetWeight(showError) {
+  var goal = document.querySelector('input[name="goal"]:checked');
+  if (!goal || goal.value !== 'lose') return true; // not required for other goals
+  var weightVal = parseFloat(document.getElementById('f-weight').value);
+  var el = document.getElementById('f-target-weight');
+  var v  = parseFloat(el.value);
+  var err = document.getElementById('err-target-weight');
+  if (isNaN(v) || v < 20 || v >= weightVal) {
+    if (showError) { err.textContent = 'Target weight must be less than your current weight.'; err.classList.add('visible'); el.classList.add('error'); }
+    return false;
+  }
+  err.classList.remove('visible'); el.classList.remove('error');
+  return true;
+}
+function validateDiet(showError) {
+  var ok = !!document.querySelector('input[name="diet"]:checked');
+  var err = document.getElementById('err-diet');
+  if (!ok && showError) err.classList.add('visible');
+  else err.classList.remove('visible');
+  return ok;
+}
+
+// Attach blur validators
+addBlurValidation('f-name',     function(s){ validateName(s); });
+addBlurValidation('f-email',    function(s){ validateEmail(s); });
+addBlurValidation('f-age',      function(s){ validateAge(s); });
+addBlurValidation('f-weight',   function(s){ validateWeight(s); });
+addBlurValidation('f-height',   function(s){ validateHeight(s); });
+document.getElementById('f-activity').addEventListener('change', function(){ validateActivity(true); });
+
+// ── TDEE calculation ──
+function calcTDEE(weight, height, age, gender, activity) {
+  var bmrMale   = 10 * weight + 6.25 * height - 5 * age + 5;
+  var bmrFemale = 10 * weight + 6.25 * height - 5 * age - 161;
+  var bmr;
+  if (gender === 'male')        bmr = bmrMale;
+  else if (gender === 'female') bmr = bmrFemale;
+  else                          bmr = (bmrMale + bmrFemale) / 2;
+
+  var multipliers = {
+    sedentary: 1.2, lightly_active: 1.375, moderately_active: 1.55,
+    very_active: 1.725, extra_active: 1.9
+  };
+  return Math.round(bmr * (multipliers[activity] || 1.2));
+}
+
+function calcBMI(weight, height) {
+  return (weight / Math.pow(height / 100, 2)).toFixed(1);
+}
+
+function bmiCategory(bmi) {
+  var b = parseFloat(bmi);
+  if (b < 18.5) return { label: 'Underweight', cls: 'bmi-underweight' };
+  if (b < 25)   return { label: 'Normal weight', cls: 'bmi-normal' };
+  if (b < 30)   return { label: 'Overweight', cls: 'bmi-overweight' };
+  return { label: 'Obese', cls: 'bmi-obese' };
+}
+
+var ACTIVITY_LABELS = {
+  sedentary: 'Sedentary', lightly_active: 'Lightly active',
+  moderately_active: 'Moderately active', very_active: 'Very active', extra_active: 'Extra active'
+};
+var GOAL_LABELS = { lose: '🔥 Lose Weight', maintain: '⚖️ Maintain Weight', gain: '💪 Gain Muscle' };
+var DIET_LABELS = { veg: 'Veg', 'non-veg': 'Non-Veg', both: 'Both' };
+
+// ════════════ STEP 1 SUBMIT ════════════
+function submitStep1() {
+  var valid = true;
+  valid = validateName(true)     && valid;
+  valid = validateEmail(true)    && valid;
+  valid = validateAge(true)      && valid;
+  valid = validateGender(true)   && valid;
+  valid = validateWeight(true)   && valid;
+  valid = validateHeight(true)   && valid;
+  valid = validateActivity(true) && valid;
+  valid = validateGoal(true)         && valid;
+  valid = validateTargetWeight(true) && valid;
+  valid = validateDiet(true)         && valid;
+
+  if (!valid) {
+    var firstErr = document.querySelector('.field-error.visible');
+    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // Collect values
+  var weight   = parseFloat(document.getElementById('f-weight').value);
+  var height   = parseFloat(document.getElementById('f-height').value);
+  var age      = parseInt(document.getElementById('f-age').value, 10);
+  var gender   = document.querySelector('input[name="gender"]:checked').value;
+  var activity = document.getElementById('f-activity').value;
+  var goal     = document.querySelector('input[name="goal"]:checked').value;
+  var dietVal  = document.querySelector('input[name="diet"]:checked').value;
+  var targetWeightRaw = parseFloat(document.getElementById('f-target-weight').value);
+  var targetWeight = (goal === 'lose' && !isNaN(targetWeightRaw)) ? targetWeightRaw : null;
+  var allergens= Array.from(document.querySelectorAll('input[name="allergen"]:checked')).map(function(c){ return c.value; });
+
+  var tdee = calcTDEE(weight, height, age, gender, activity);
+  var target = goal === 'lose' ? tdee - 500 : goal === 'gain' ? tdee + 300 : tdee;
+  var bmi  = calcBMI(weight, height);
+
+  // Macros
+  var proteinG = Math.round(goal === 'gain' ? weight * 2 : weight * 1.6);
+  var fatG     = Math.round((target * 0.25) / 9);
+  var carbG    = Math.round((target - (proteinG * 4) - (fatG * 9)) / 4);
+
+  planData = {
+    name:           document.getElementById('f-name').value.trim(),
+    email:          document.getElementById('f-email').value.trim(),
+    age:            age,
+    gender:         gender,
+    weight_kg:      weight,
+    height_cm:      height,
+    activity_level: activity,
+    goal:           goal,
+    cuisine:        ['indian'],
+    is_vegetarian:  dietVal !== 'non-veg',
+    is_vegan:       false,
+    diet_type:      dietVal,
+    allergens:      allergens,
+    target_weight_kg: targetWeight,
+    tdee:           tdee,
+    target_calories: target,
+    bmi:            parseFloat(bmi),
+    protein_g:      proteinG,
+    carbs_g:        carbG,
+    fat_g:          fatG
+  };
+
+  populateStep2();
+  showStep(2);
+}
+
+// ════════════ POPULATE STEP 2 ════════════
+function populateStep2() {
+  var bmiInfo = bmiCategory(planData.bmi);
+  var goalLabel = { lose: 'Lose Weight', maintain: 'Maintain Weight', gain: 'Gain Muscle' }[planData.goal];
+  var genderLabel = { male: 'Male', female: 'Female', other: 'Other' }[planData.gender];
+  var dietLabel = DIET_LABELS[planData.diet_type] || planData.diet_type;
+  var allergenStr = planData.allergens.length > 0 ? planData.allergens.map(function(a){ return a.charAt(0).toUpperCase() + a.slice(1); }).join(', ') : 'None';
+  var targetNote = planData.goal === 'lose' ? 'TDEE − 500 kcal' : planData.goal === 'gain' ? 'TDEE + 300 kcal' : 'Maintenance';
+
+  setText('s-name',     planData.name);
+  setText('s-age',      planData.age + ' years');
+  setText('s-gender',   genderLabel);
+  setText('s-weight',   planData.weight_kg + ' kg');
+  setText('s-height',   planData.height_cm + ' cm');
+  setText('s-activity', ACTIVITY_LABELS[planData.activity_level]);
+  setText('s-goal',     goalLabel);
+  var twRow = document.getElementById('s-target-weight-row');
+  if (planData.target_weight_kg) {
+    twRow.style.display = '';
+    setText('s-target-weight', planData.target_weight_kg + ' kg');
+  } else {
+    twRow.style.display = 'none';
+  }
+  setText('s-diet',     dietLabel);
+  setText('s-allergens',allergenStr);
+  setText('s-tdee',     planData.tdee.toLocaleString());
+  setText('s-target',   planData.target_calories.toLocaleString());
+  setText('s-target-note', targetNote);
+  setText('s-protein',  planData.protein_g + ' g/day');
+  setText('s-carbs',    planData.carbs_g + ' g/day');
+  setText('s-fat',      planData.fat_g + ' g/day');
+  setText('s-includes-diet',    dietLabel + ' options');
+
+  // BMI with badge
+  var bmiEl = document.getElementById('s-bmi');
+  bmiEl.innerHTML = planData.bmi + ' <span class="bmi-badge ' + bmiInfo.cls + '">' + bmiInfo.label + '</span>';
+}
+
+function setText(id, val) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+// ════════════ STEP 1 BACK ════════════
+function goToStep1() {
+  showStep(1);
+}
+
+// ════════════ STEP 2 SUBMIT (Supabase insert) ════════════
+async function submitStep2() {
+  var btn = document.getElementById('btn-generate');
+  var errEl = document.getElementById('step2-error');
+  errEl.classList.remove('visible');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  try {
+    var payload = {
+      email:       planData.email,
+      goal:        planData.goal,
+      intake_data: {
+        name:            planData.name,
+        age:             planData.age,
+        gender:          planData.gender,
+        weight_kg:       planData.weight_kg,
+        height_cm:       planData.height_cm,
+        activity_level:  planData.activity_level,
+        cuisine:         ['indian'],
+        is_vegetarian:   planData.is_vegetarian,
+        is_vegan:        false,
+        diet_type:       planData.diet_type,
+        allergens:       planData.allergens,
+        tdee:             planData.tdee,
+        target_calories:  planData.target_calories,
+        protein_target:   planData.protein_g,
+        carbs_target:     planData.carbs_g,
+        fat_target:       planData.fat_g,
+        bmi:              planData.bmi,
+        target_weight:    planData.target_weight_kg,
+        target_weight_kg: planData.target_weight_kg
+      },
+      status: 'draft'
+    };
+
+    var res = await fetch(SUPABASE_URL + '/rest/v1/user_plans', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey':        SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer':        'return=representation'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      var errText = await res.text();
+      throw new Error(errText || 'Failed to save your plan. Please try again.');
+    }
+
+    var rows = await res.json();
+    var planId = rows[0] && rows[0].id ? rows[0].id : null;
+
+    if (planId) {
+      sessionStorage.setItem('nutritiontracker_plan_id', planId);
+    }
+    sessionStorage.setItem('nutritiontracker_email', planData.email);
+
+    populateStep3(planId);
+    showStep(3);
+
+  } catch (e) {
+    var msg = (e && e.message) ? e.message : 'Something went wrong. Please try again.';
+    errEl.textContent = msg;
+    errEl.classList.add('visible');
+    btn.disabled = false;
+    btn.textContent = 'Generate My Plan — ₹250';
+  }
+}
+
+// ════════════ POPULATE STEP 3 ════════════
+function populateStep3(planId) {
+  var goalLabel = { lose: 'Lose Weight', maintain: 'Maintain Weight', gain: 'Gain Muscle' }[planData.goal];
+  var shortId = planId ? planId.substring(0, 8) : '—';
+
+  setText('p-name',     planData.name);
+  setText('p-goal',     goalLabel);
+  setText('p-calories', planData.target_calories.toLocaleString() + ' kcal/day');
+  setText('p-plan-id',  shortId + '…');
+  setText('p-email',    planData.email);
+}
+
+// ════════════ RAZORPAY CHECKOUT ════════════
+async function startPayment() {
+  var planId = sessionStorage.getItem('nutritiontracker_plan_id');
+  if (!planId) { showPaymentError('Plan ID not found. Please go back and try again.'); return; }
+
+  var btn = document.getElementById('rzp-pay-btn');
+  btn.disabled = true;
+  btn.textContent = 'Creating order…';
+  document.getElementById('payment-error').style.display = 'none';
+
+  try {
+    var res = await fetch(CREATE_ORDER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
+      body: JSON.stringify({ amount: 249, receipt: planId.substring(0, 40), user_plan_id: planId })
+    });
+    var order = await res.json();
+    if (!res.ok || order.error) throw new Error(order.error || 'Failed to create payment order.');
+
+    var rzp = new Razorpay({
+      key: order.key_id,
+      amount: order.amount,
+      currency: order.currency,
+      order_id: order.id,
+      name: 'Nutrition Tracker',
+      description: '7-Day Personalised Indian Meal Plan',
+      prefill: { name: planData.name, email: planData.email },
+      theme: { color: '#2d7a4f' },
+      handler: async function(response) {
+        showLoadingState('Confirming payment…');
+        try {
+          var verifyRes = await fetch(HANDLE_PAYMENT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY },
+            body: JSON.stringify({
+              razorpay_order_id:   response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature:  response.razorpay_signature
+            })
+          });
+          var result = await verifyRes.json();
+          if (result.success) {
+            pollPaymentStatus(response.razorpay_order_id, planId);
+          } else {
+            hideLoadingState();
+            showPaymentError('Payment verification failed. Contact support with Payment ID: ' + response.razorpay_payment_id);
+          }
+        } catch(e) {
+          hideLoadingState();
+          showPaymentError('Payment received but verification failed. Please contact support.');
+        }
+      },
+      modal: {
+        ondismiss: function() {
+          btn.disabled = false;
+          btn.textContent = 'Pay ₹249 · Get My Meal Plan';
+        }
+      }
+    });
+    rzp.open();
+    btn.disabled = false;
+    btn.textContent = 'Pay ₹249 · Get My Meal Plan';
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Pay ₹249 · Get My Meal Plan';
+    showPaymentError(e.message || 'Something went wrong. Please try again.');
+  }
+}
+
+// ════════════ PAYMENT STATUS POLLING ════════════
+function pollPaymentStatus(orderId, planId) {
+  var maxAttempts = 20;
+  var attempts = 0;
+  var settled = false;
+
+  var interval = setInterval(async function() {
+    if (settled) return;
+    attempts++;
+    try {
+      var res = await fetch(POLL_RPC_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey':        SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+        },
+        body: JSON.stringify({ p_order_id: orderId })
+      });
+      var raw = await res.json();
+      var status = Array.isArray(raw) ? raw[0] : raw;
+      if (status === 'paid') {
+        settled = true;
+        clearInterval(interval);
+        clearTimeout(timeout);
+        updateLoadingText('Generating your PDF…');
+        triggerPdfDownload(planId);
+      }
+    } catch(e) { /* network blip — keep polling */ }
+
+    if (!settled && attempts >= maxAttempts) {
+      settled = true;
+      clearInterval(interval);
+      clearTimeout(timeout);
+      showFallbackMessage();
+    }
+  }, 3000);
+
+  var timeout = setTimeout(function() {
+    if (settled) return;
+    settled = true;
+    clearInterval(interval);
+    showFallbackMessage();
+  }, 60000);
+}
+
+// ════════════ TRIGGER PDF + REDIRECT ════════════
+async function triggerPdfDownload(planId) {
+  try {
+    var res = await fetch(GENERATE_PDF_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_plan_id: planId })
+    });
+    var data = await res.json();
+    if (res.ok && data.pdf_url) {
+      var email = planData.email || sessionStorage.getItem('nutritiontracker_email') || '';
+      window.location.href = 'thank-you.html?pdf=' + encodeURIComponent(data.pdf_url)
+                           + '&email=' + encodeURIComponent(email);
+    } else {
+      showFallbackMessage();
+    }
+  } catch(e) {
+    showFallbackMessage();
+  }
+}
+
+// ════════════ UI HELPERS ════════════
+function showLoadingState(msg) {
+  document.getElementById('payment-action').style.display = 'none';
+  document.getElementById('payment-loading').style.display = 'block';
+  updateLoadingText(msg || 'Confirming payment…');
+}
+function updateLoadingText(msg) {
+  setText('payment-loading-title', msg);
+}
+function hideLoadingState() {
+  document.getElementById('payment-loading').style.display = 'none';
+  document.getElementById('payment-action').style.display = 'block';
+}
+function showFallbackMessage() {
+  document.getElementById('payment-loading').style.display = 'none';
+  document.getElementById('payment-fallback').style.display = 'block';
+  var email = planData.email || sessionStorage.getItem('nutritiontracker_email') || 'your email';
+  setText('pf-email', email);
+}
+function showPaymentError(msg) {
+  var el = document.getElementById('payment-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+</script>
+
+<footer style="background:#111813;color:rgba(255,255,255,.4);text-align:center;padding:20px 24px;font-size:12px;font-family:'DM Sans',sans-serif;border-top:1px solid rgba(255,255,255,.07);">
+  <p>© 2026 Nutrition Tracker. All rights reserved. &nbsp;|&nbsp;
+    <a href="privacy-policy.html" style="color:rgba(255,255,255,.5);text-decoration:none;">Privacy Policy</a> &nbsp;|&nbsp;
+    <a href="terms-of-use.html" style="color:rgba(255,255,255,.5);text-decoration:none;">Terms of Use</a> &nbsp;|&nbsp;
+    <a href="disclaimer.html" style="color:rgba(255,255,255,.5);text-decoration:none;">Disclaimer</a>
+  </p>
+</footer>
+</body>
+</html>
