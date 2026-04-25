@@ -234,7 +234,7 @@
 <script src="shared.js"></script>
 <script>
   // Load our nav
-  fetch('nav.html')
+  fetch('/nav.html')
     .then(r => r.text())
     .then(h => {
       document.getElementById('site-nav').innerHTML = h;
