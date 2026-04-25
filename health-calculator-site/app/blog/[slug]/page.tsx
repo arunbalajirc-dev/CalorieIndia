@@ -52,6 +52,13 @@ export default function BlogPostPage({ params }: Props) {
           <Link href="/">Home</Link> › <Link href="/blog">Blog</Link> › {post.title}
         </div>
 
+        {post.image && (
+          <div className="blog-post-hero">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={post.image} alt={post.title} />
+          </div>
+        )}
+
         <header className="blog-post-header">
           <div className="blog-tag" data-category={post.category}>
             {CATEGORY_LABELS[post.category] ?? post.category}
