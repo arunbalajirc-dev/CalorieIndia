@@ -1,11 +1,37 @@
 {
+  "rewrites": [
+    { "source": "/about",                      "destination": "/about.html" },
+    { "source": "/blog",                       "destination": "/blog.html" },
+    { "source": "/bmi-calculator",             "destination": "/bmi-calculator.html" },
+    { "source": "/calculator",                 "destination": "/calculator.html" },
+    { "source": "/calorie-burn-calculator",    "destination": "/calorie-burn-calculator.html" },
+    { "source": "/calorie-deficit-calculator", "destination": "/calorie-deficit-calculator.html" },
+    { "source": "/disclaimer",                 "destination": "/disclaimer.html" },
+    { "source": "/food-lookup",                "destination": "/food-lookup.html" },
+    { "source": "/get-your-meal-plan",         "destination": "/get-your-meal-plan.html" },
+    { "source": "/ideal-weight-calculator",    "destination": "/ideal-weight-calculator.html" },
+    { "source": "/macro-calculator",           "destination": "/macro-calculator.html" },
+    { "source": "/meal-plan",                  "destination": "/meal-plan.html" },
+    { "source": "/privacy-policy",             "destination": "/privacy-policy.html" },
+    { "source": "/recipe-database",            "destination": "/recipe-database.html" },
+    { "source": "/tdee-calculator",            "destination": "/tdee-calculator.html" },
+    { "source": "/terms-of-use",               "destination": "/terms-of-use.html" }
+  ],
   "redirects": [
-    { "source": "/food-lookup",     "destination": "/food-lookup.html",     "permanent": false },
-    { "source": "/recipe-database", "destination": "/recipe-database.html", "permanent": false },
-    { "source": "/meal-plan",       "destination": "/meal-plan.html",       "permanent": false },
-    { "source": "/privacy-policy",  "destination": "/privacy-policy.html",  "permanent": false },
-    { "source": "/disclaimer",      "destination": "/disclaimer.html",      "permanent": false },
-    { "source": "/terms-of-use",         "destination": "/terms-of-use.html",         "permanent": false },
-    { "source": "/get-your-meal-plan",   "destination": "/get-your-meal-plan.html",   "permanent": false }
+    { "source": "/blog.html",                       "destination": "/blog",                       "permanent": true },
+    { "source": "/food-lookup.html",                "destination": "/food-lookup",                "permanent": true },
+    { "source": "/recipe-database.html",            "destination": "/recipe-database",            "permanent": true },
+    { "source": "/meal-plan.html",                  "destination": "/meal-plan",                  "permanent": true },
+    { "source": "/get-your-meal-plan.html",         "destination": "/get-your-meal-plan",         "permanent": true },
+    { "source": "/bmi-calculator.html",             "destination": "/bmi-calculator",             "permanent": true },
+    { "source": "/tdee-calculator.html",            "destination": "/tdee-calculator",            "permanent": true },
+    { "source": "/calorie-deficit-calculator.html", "destination": "/calorie-deficit-calculator", "permanent": true },
+    { "source": "/macro-calculator.html",           "destination": "/macro-calculator",           "permanent": true },
+    { "source": "/ideal-weight-calculator.html",    "destination": "/ideal-weight-calculator",    "permanent": true },
+    { "source": "/calorie-burn-calculator.html",    "destination": "/calorie-burn-calculator",    "permanent": true },
+    { "source": "/privacy-policy.html",             "destination": "/privacy-policy",             "permanent": true },
+    { "source": "/terms-of-use.html",               "destination": "/terms-of-use",               "permanent": true },
+    { "source": "/disclaimer.html",                 "destination": "/disclaimer",                 "permanent": true },
+    { "source": "/about.html",                      "destination": "/about",                      "permanent": true }
   ]
 }

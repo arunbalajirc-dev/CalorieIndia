@@ -311,6 +311,9 @@
 <!-- ═══ FOOTER (loaded by load-partials.js) ═══ -->
 <div id="site-footer"></div>
 
-<script src="partials/load-partials.js"></script>
+<script>
+fetch("/nav.html").then(r=>r.text()).then(h=>{document.getElementById("site-nav").innerHTML=h;});
+fetch("/footer.html").then(r=>r.text()).then(h=>{document.getElementById("site-footer").innerHTML=h;});
+</script>
 </body>
 </html>

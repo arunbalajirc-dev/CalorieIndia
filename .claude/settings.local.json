@@ -5,7 +5,8 @@
       "mcp__ef394ad0-149b-433a-9f14-c94dcecaaef5__list_projects",
       "mcp__ef394ad0-149b-433a-9f14-c94dcecaaef5__get_project",
       "Bash(git -C \"C:\\\\Users\\\\arunbalaji\\\\Documents\\\\CalorieIndia\\\\.claude\\\\worktrees\\\\ecstatic-lederberg-b4a9c6\" log --oneline --all)",
-      "Bash(git -C \"C:\\\\Users\\\\arunbalaji\\\\Documents\\\\CalorieIndia\\\\.claude\\\\worktrees\\\\ecstatic-lederberg-b4a9c6\" show e36cd58 --name-only --format=\"\")"
+      "Bash(git -C \"C:\\\\Users\\\\arunbalaji\\\\Documents\\\\CalorieIndia\\\\.claude\\\\worktrees\\\\ecstatic-lederberg-b4a9c6\" show e36cd58 --name-only --format=\"\")",
+      "Bash(xargs -I {} basename {})"
     ]
   }
 }

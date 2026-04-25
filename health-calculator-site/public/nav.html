@@ -42,7 +42,6 @@
   }
   .ci-nav-links > li > a:hover { color: #2d6a4f; }
 
-  /* Dropdown */
   .ci-dropdown { position: relative; }
   .ci-dropdown > a {
     display: flex;
@@ -165,6 +164,8 @@
     right: 0;
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     z-index: 999;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
   }
   .ci-mobile-menu.open { display: block; }
   .ci-mobile-menu a {
@@ -196,48 +197,46 @@
 </style>
 
 <nav id="ci-nav">
-  <!-- Logo -->
   <a href="/" class="ci-logo">
-    <img id="nt-nav-logo" src="/images/nutrition-tracker-logo.png" alt="Nutrition Tracker" style="height:44px;object-fit:contain;">
+    <img src="/images/nutrition-tracker-logo.png" alt="Nutrition Tracker" style="height:44px;object-fit:contain;">
   </a>
 
-  <!-- Desktop links -->
   <ul class="ci-nav-links">
     <li class="ci-dropdown">
-      <a href="/calculator.html">
+      <a href="/calculator">
         Calculators
         <i class="ci-chevron">▾</i>
       </a>
       <div class="ci-dropdown-panel">
-        <a href="/tdee-calculator.html">
+        <a href="/tdee-calculator">
           <span class="ci-drop-icon">🔥</span>
           <span class="ci-drop-text">
             <span class="ci-drop-name">TDEE Calculator</span>
             <span class="ci-drop-desc">Total Daily Energy Expenditure</span>
           </span>
         </a>
-        <a href="/bmi-calculator.html">
+        <a href="/bmi-calculator">
           <span class="ci-drop-icon">⚖️</span>
           <span class="ci-drop-text">
             <span class="ci-drop-name">BMI Calculator</span>
             <span class="ci-drop-desc">Asian BMI ranges for Indians</span>
           </span>
         </a>
-        <a href="/calorie-deficit-calculator.html">
+        <a href="/calorie-deficit-calculator">
           <span class="ci-drop-icon">🧮</span>
           <span class="ci-drop-text">
             <span class="ci-drop-name">Calorie Deficit Calculator</span>
             <span class="ci-drop-desc">Find your weight loss target</span>
           </span>
         </a>
-        <a href="/macro-calculator.html">
+        <a href="/macro-calculator">
           <span class="ci-drop-icon">🥗</span>
           <span class="ci-drop-text">
             <span class="ci-drop-name">Macro Calculator</span>
             <span class="ci-drop-desc">Protein, carbs &amp; fat split</span>
           </span>
         </a>
-        <a href="/ideal-weight-calculator.html">
+        <a href="/ideal-weight-calculator">
           <span class="ci-drop-icon">💛</span>
           <span class="ci-drop-text">
             <span class="ci-drop-name">Ideal Weight Calculator</span>
@@ -245,7 +244,7 @@
           </span>
         </a>
         <hr class="ci-drop-divider">
-        <a href="/calorie-burn-calculator.html">
+        <a href="/calorie-burn-calculator">
           <span class="ci-drop-icon">🏃</span>
           <span class="ci-drop-text">
             <span class="ci-drop-name">Calorie Burn Calculator</span>
@@ -256,55 +255,55 @@
     </li>
 
     <li>
-      <a href="/food-lookup.html" class="ci-food-db-link">
+      <a href="/food-lookup" class="ci-food-db-link">
         🍽️ Food Database
       </a>
     </li>
 
     <li>
-      <a href="/recipe-database.html" class="ci-food-db-link" style="color:#2d6a4f !important;">
+      <a href="/recipe-database" class="ci-food-db-link" style="color:#2d6a4f !important;">
         📖 Recipe Database
       </a>
     </li>
 
-    <li><a href="/blog.html">Blog</a></li>
-    <li><a href="/get-your-meal-plan.html" style="color:#2d6a4f;font-weight:600;">🍱 Meal Plan</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/get-your-meal-plan" style="color:#2d6a4f;font-weight:600;">🍱 Meal Plan</a></li>
   </ul>
 
-  <!-- Desktop CTA -->
-  <a href="/get-your-meal-plan.html" class="ci-cta ci-cta-desktop">Get My Meal Plan →</a>
+  <a href="/get-your-meal-plan" class="ci-cta ci-cta-desktop">Get My Meal Plan →</a>
 
-  <!-- Mobile hamburger -->
   <button class="ci-hamburger" id="ci-hamburger-btn" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
 
-  <!-- Mobile menu -->
   <div class="ci-mobile-menu" id="ci-mobile-menu">
     <div class="ci-mobile-section-label">Calculators</div>
-    <a href="/tdee-calculator.html"><span>🔥</span> TDEE Calculator</a>
-    <a href="/bmi-calculator.html"><span>⚖️</span> BMI Calculator</a>
-    <a href="/calorie-deficit-calculator.html"><span>🧮</span> Calorie Deficit Calculator</a>
-    <a href="/macro-calculator.html"><span>🥗</span> Macro Calculator</a>
-    <a href="/ideal-weight-calculator.html"><span>💛</span> Ideal Weight Calculator</a>
-    <a href="/calorie-burn-calculator.html"><span>🏃</span> Calorie Burn Calculator</a>
+    <a href="/tdee-calculator"><span>🔥</span> TDEE Calculator</a>
+    <a href="/bmi-calculator"><span>⚖️</span> BMI Calculator</a>
+    <a href="/calorie-deficit-calculator"><span>🧮</span> Calorie Deficit Calculator</a>
+    <a href="/macro-calculator"><span>🥗</span> Macro Calculator</a>
+    <a href="/ideal-weight-calculator"><span>💛</span> Ideal Weight Calculator</a>
+    <a href="/calorie-burn-calculator"><span>🏃</span> Calorie Burn Calculator</a>
     <div class="ci-mobile-section-label">More</div>
-    <a href="/food-lookup.html" style="color:#E07B39;font-weight:600;"><span>🍽️</span> Food Database</a>
-    <a href="/recipe-database.html" style="color:#2d6a4f;font-weight:600;"><span>📖</span> Recipe Database</a>
-    <a href="/blog.html"><span>📝</span> Blog</a>
-    <a href="/get-your-meal-plan.html" style="color:#2d6a4f;font-weight:600;"><span>🍱</span> Meal Plan</a>
-    <a href="/get-your-meal-plan.html" style="margin-top:12px;background:#2d6a4f;color:#fff;border-radius:8px;justify-content:center;font-weight:600;">Get My Meal Plan →</a>
+    <a href="/food-lookup" style="color:#E07B39;font-weight:600;"><span>🍽️</span> Food Database</a>
+    <a href="/recipe-database" style="color:#2d6a4f;font-weight:600;"><span>📖</span> Recipe Database</a>
+    <a href="/blog"><span>📝</span> Blog</a>
+    <a href="/get-your-meal-plan" style="color:#2d6a4f;font-weight:600;"><span>🍱</span> Meal Plan</a>
+    <a href="/get-your-meal-plan" style="margin-top:12px;background:#2d6a4f;color:#fff;border-radius:8px;justify-content:center;font-weight:600;">Get My Meal Plan →</a>
   </div>
 </nav>
 
 <script>
 (function () {
-  // Add body padding to compensate for fixed nav
-  document.body.style.paddingTop = '64px';
+  var nav = document.getElementById('ci-nav');
+
+  // Set body padding to match actual fixed nav height
+  if (nav) {
+    document.body.style.paddingTop = nav.offsetHeight + 'px';
+  }
 
   var btn  = document.getElementById('ci-hamburger-btn');
   var menu = document.getElementById('ci-mobile-menu');
-  var nav  = document.getElementById('ci-nav');
 
   if (btn && menu) {
     btn.addEventListener('click', function () {
@@ -327,11 +326,11 @@
     }, { passive: true });
   }
 
-  // Highlight active page link using absolute hrefs
-  var path = window.location.pathname;
-  document.querySelectorAll('#ci-nav a, .ci-mobile-menu a').forEach(function (a) {
-    var href = a.getAttribute('href');
-    if (href && href !== '/' && path.endsWith(href)) {
+  // Highlight active nav link — compare path against clean href
+  var path = window.location.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+  document.querySelectorAll('#ci-nav a[href], .ci-mobile-menu a[href]').forEach(function (a) {
+    var href = (a.getAttribute('href') || '').replace(/\.html$/, '').replace(/\/$/, '') || '/';
+    if (href === path) {
       a.style.color = '#2d6a4f';
       a.style.fontWeight = '700';
     }
