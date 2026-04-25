@@ -1,3 +1,8 @@
+// DEPRECATED: This route is no longer called by the payment flow.
+// PDF generation is handled by the Supabase Edge Function:
+// https://clutyaynlukgsumnopkf.supabase.co/functions/v1/generate-pdf
+// See app/api/handle-payment/route.ts for the active PDF trigger.
+
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase';
 
