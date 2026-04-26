@@ -87,19 +87,20 @@ function page1(plan: MealPlan, intakeData: any): string {
   return `
   <div class="page" style="background:#000;min-height:297mm;">
 
-    <!-- Cover photo right side (50% width, fades left into black) -->
-    <div style="position:absolute;right:0;top:0;bottom:0;width:52%;z-index:1;overflow:hidden;">
+    <!-- Cover photo bottom 50% — fades up into black -->
+    <div style="position:absolute;left:0;right:0;bottom:0;height:52%;z-index:1;overflow:hidden;">
       <img src="https://nutritiontracker.in/images/image%20bg%201.PNG"
-           style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"
+           style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;"
            crossOrigin="anonymous"
            onerror="this.parentElement.style.display='none'" alt=""/>
-      <!-- Gradient fade: left edge blends into black, bottom fade -->
-      <div style="position:absolute;inset:0;background:linear-gradient(90deg,#000 0%,rgba(0,0,0,.55) 35%,rgba(0,0,0,.1) 100%);"></div>
-      <div style="position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(0deg,#000 0%,transparent 100%);"></div>
+      <!-- Top fade: image blends up into black -->
+      <div style="position:absolute;top:0;left:0;right:0;height:55%;background:linear-gradient(0deg,transparent 0%,#000 100%);"></div>
+      <!-- Side darkening for readability -->
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.45) 0%,transparent 50%,rgba(0,0,0,.3) 100%);"></div>
     </div>
 
-    <!-- Background gradient (left side) -->
-    <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,rgba(0,0,0,1) 0%,rgba(0,0,0,.95) 48%,transparent 100%);"></div>
+    <!-- Background gradient top half stays pure black -->
+    <div style="position:absolute;top:0;left:0;right:0;height:52%;z-index:0;background:#000;"></div>
 
     <!-- Logo top-right -->
     <div style="position:absolute;top:22px;right:22px;z-index:3;">
@@ -107,7 +108,7 @@ function page1(plan: MealPlan, intakeData: any): string {
     </div>
 
     <!-- Main text content -->
-    <div style="position:relative;z-index:2;padding:48px 36px;flex:1;display:flex;flex-direction:column;justify-content:flex-start;max-width:68%;">
+    <div style="position:relative;z-index:2;padding:40px 36px;flex:1;display:flex;flex-direction:column;justify-content:flex-start;max-width:75%;">
 
       <h1 style="font-family:'Montserrat',sans-serif;font-size:58px;font-weight:900;color:#FFD700;line-height:1.05;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:16px;">
         Your Personalised<br>Meal Plan
@@ -349,8 +350,24 @@ function page2(plan: MealPlan, intakeData: any): string {
       <div class="card card-accent-green" style="flex:1;min-height:0;">
         <div class="label">Progress Insights &amp; Phase Guidance</div>
         <div style="display:flex;flex-direction:column;gap:5px;">
-          <div style="background:#0d1f0d;border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:7px 10px;">
-            <span style="font-size:9px;color:#888;line-height:1.5;">📉 Your diet deficit is <strong style="color:#22C55E;">${Math.abs(deficit)} kcal/day</strong>${plan.deficit_mode ? ' (' + plan.deficit_mode + ')' : ''}${exerciseBurnTarget > 0 ? `. To reach <strong style="color:#FFD700;">0.5 kg/week</strong>, burn an additional <strong style="color:#F97316;">${exerciseBurnTarget} kcal/day</strong> through exercise — your <strong style="color:#F97316;">Exercise Burn Target</strong>.` : ` — you will lose approximately <strong style="color:#FFD700;">${weeklyLoss} kg per week</strong>.`}</span>
+          <div style="background:#0d1f0d;border:1px solid rgba(34,197,94,.25);border-radius:10px;padding:14px 16px;">
+            ${exerciseBurnTarget > 0 ? `
+            <div style="font-family:'Montserrat',sans-serif;font-size:17px;font-weight:800;color:#fff;line-height:1.45;letter-spacing:-.01em;">
+              Your diet deficit is
+              <span style="color:#22C55E;">${Math.abs(deficit)} kcal/day</span>${plan.deficit_mode ? `<span style="font-size:12px;font-weight:500;color:#666;"> (${plan.deficit_mode})</span>` : ''}.
+              To reach
+              <span style="color:#FFD700;">0.5 kg/week</span>,
+              burn an additional
+              <span style="color:#F97316;">${exerciseBurnTarget} kcal/day</span>
+              through exercise —<br>your
+              <span style="color:#F97316;text-decoration:underline;text-underline-offset:3px;">Exercise Burn Target</span>.
+            </div>` : `
+            <div style="font-family:'Montserrat',sans-serif;font-size:17px;font-weight:800;color:#fff;line-height:1.45;">
+              At your current deficit of
+              <span style="color:#22C55E;">${Math.abs(deficit)} kcal/day</span>,
+              you will lose approximately
+              <span style="color:#FFD700;">${weeklyLoss} kg per week</span> — safe, sustainable progress.
+            </div>`}
           </div>
           <div style="background:#0a0a0a;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:7px 10px;">
             <span style="font-size:9px;color:#888;line-height:1.5;">⚕ ${bmiRiskNote}</span>
@@ -383,6 +400,9 @@ function page3(plan: MealPlan, intakeData: any): string {
     ? 10 * weight_kg + 6.25 * height_cm - 5 * age + 5
     : 10 * weight_kg + 6.25 * height_cm - 5 * age - 161
   const tdee = Math.round(bmr * activityMultiplier(activity_level))
+  const deficit3 = plan.deficit_kcal ?? (plan.goal === 'lose' ? 500 : plan.goal === 'gain' ? -300 : 0)
+  const exerciseBurn3 = plan.goal === 'lose' ? Math.max(0, 500 - Math.abs(deficit3)) : 0
+  const totalDailyDeficit = Math.abs(deficit3) + exerciseBurn3
   const protG = plan.protein_target, carbG = plan.carbs_target, fatG = plan.fat_target
   const tCal = plan.target_calories
 
@@ -511,6 +531,31 @@ function page3(plan: MealPlan, intakeData: any): string {
             </div>
           </div>
         </div>
+
+        ${exerciseBurn3 > 0 ? `
+        <div class="card card-accent-yellow">
+          <div class="label">🔥 Exercise Burn Target — To Reach 0.5 kg/week</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;">
+            <div style="background:#1a1a1a;border-radius:10px;padding:11px 12px;">
+              <div style="font-family:'DM Mono',monospace;font-size:24px;font-weight:500;color:#A855F7;line-height:1;">${Math.abs(deficit3)}</div>
+              <div style="font-size:9px;color:#666;margin-top:3px;">Diet Deficit kcal/day</div>
+            </div>
+            <div style="background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.3);border-radius:10px;padding:11px 12px;">
+              <div style="font-family:'DM Mono',monospace;font-size:24px;font-weight:500;color:#F97316;line-height:1;">${exerciseBurn3}</div>
+              <div style="font-size:9px;color:#F97316;margin-top:3px;font-weight:600;">Exercise Burn kcal/day</div>
+            </div>
+            <div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:10px;padding:11px 12px;">
+              <div style="font-family:'DM Mono',monospace;font-size:24px;font-weight:500;color:#22C55E;line-height:1;">${totalDailyDeficit}</div>
+              <div style="font-size:9px;color:#22C55E;margin-top:3px;font-weight:600;">Total Deficit kcal/day</div>
+            </div>
+          </div>
+          <div style="background:#1a1a1a;border-radius:9px;padding:10px 12px;">
+            <div style="font-size:9.5px;color:#aaa;line-height:1.6;">
+              <strong style="color:#F97316;">Exercise Burn Target</strong> is the extra kcal you need to burn through movement to reach <strong style="color:#FFD700;">0.5 kg/week</strong> total loss.<br>
+              Match this number using activities on Page 4 — e.g. a <strong style="color:#fff;">${Math.round(exerciseBurn3 / (4.3 * weight_kg / 60))} min brisk walk</strong> or <strong style="color:#fff;">${Math.round(exerciseBurn3 / (9.8 * weight_kg / 60))} min run</strong> achieves this daily.
+            </div>
+          </div>
+        </div>` : ''}
       </div>
 
       <div class="card card-accent-blue" style="flex:1;min-height:0;">
@@ -656,38 +701,37 @@ function page4(plan: MealPlan, intakeData: any): string {
         </div>`).join('')}
       </div>
 
-      <div class="card" style="flex-shrink:0;padding:12px 13px;">
-        <div class="label" style="margin-bottom:9px;">Calories Burned — All Activities Compared (15 / 30 / 60 min)</div>
+      <div class="card" style="flex-shrink:0;padding:9px 13px;">
+        <div class="label" style="margin-bottom:7px;">Calories Burned — All Activities Compared (15 / 30 / 60 min)</div>
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#F97316,#EAB308,#22C55E);"></div>
-        <svg viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;height:195px;">${s}</svg>
+        <svg viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;height:160px;">${s}</svg>
       </div>
 
-      <div style="flex:1;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;min-height:0;">
+      <div style="flex:1;display:grid;grid-template-columns:repeat(2,1fr);gap:6px;min-height:0;overflow:hidden;">
         ${exercises.map(ex => {
           const burnRows = durations.map(dur => {
             const cal = burn(ex.met, dur)
             const pct = (cal / maxBurn60 * 100).toFixed(1)
             return `
-            <div style="display:flex;align-items:center;gap:5px;">
-              <span style="font-size:10px;color:#666;width:28px;flex-shrink:0;">${dur}m</span>
-              <div style="flex:1;height:6px;background:#1a1a1a;border-radius:99px;overflow:hidden;">
+            <div style="display:flex;align-items:center;gap:4px;">
+              <span style="font-size:9px;color:#666;width:24px;flex-shrink:0;">${dur}m</span>
+              <div style="flex:1;height:5px;background:#1a1a1a;border-radius:99px;overflow:hidden;">
                 <div style="width:${pct}%;height:100%;background:${ex.color};border-radius:99px;"></div>
               </div>
-              <span style="font-family:'DM Mono',monospace;font-size:11px;color:${ex.color};width:50px;text-align:right;">${cal} kcal</span>
+              <span style="font-family:'DM Mono',monospace;font-size:10px;color:${ex.color};width:46px;text-align:right;">${cal} kcal</span>
             </div>`
           }).join('')
           return `
-          <div class="card" style="padding:12px;position:relative;">
+          <div class="card" style="padding:9px 10px;position:relative;">
             <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${ex.color};border-radius:12px 12px 0 0;"></div>
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;">
-              <span style="font-size:15px;">${ex.icon}</span>
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;">
+              <span style="font-size:13px;">${ex.icon}</span>
               <div>
-                <div style="font-size:13px;font-weight:700;color:#eee;">${ex.name}</div>
-                <div style="font-size:10px;color:#666;">MET ${ex.met} · <span style="background:${ex.color}22;color:${ex.color};border:1px solid ${ex.color}44;padding:1px 5px;border-radius:99px;font-size:9px;">${ex.intensity}</span></div>
+                <div style="font-size:11px;font-weight:700;color:#eee;">${ex.name}</div>
+                <div style="font-size:9px;color:#666;">MET ${ex.met} · <span style="background:${ex.color}22;color:${ex.color};border:1px solid ${ex.color}44;padding:1px 4px;border-radius:99px;font-size:8px;">${ex.intensity}</span></div>
               </div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:4px;">${burnRows}</div>
-            <div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,.07);font-size:10px;color:#666;line-height:1.5;">${ex.tip}</div>
+            <div style="display:flex;flex-direction:column;gap:3px;">${burnRows}</div>
           </div>`
         }).join('')}
       </div>
