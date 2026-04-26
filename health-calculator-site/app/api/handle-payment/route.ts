@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Fire-and-forget PDF generation via Vercel API route
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://caloriesindia.com';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nutritiontracker.in';
     fetch(`${siteUrl}/api/generate-pdf`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
