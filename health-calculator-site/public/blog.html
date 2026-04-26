@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health & Fitness Blog | Nutrition Tracker</title>
+  <meta name="description" content="Expert nutrition tips, Indian diet plans, fitness guides, and calorie tracking advice for healthy living in India." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #2D6A4F; --green-light: #52B788; --green-pale: #D8F3DC;
+      --saffron: #E07B39; --saffron-pale: #FFF0E6; --cream: #FAFAF7;
+      --ink: #1A1A2E; --muted: #6B7280; --border: #E5E5E0;
+      --white: #FFFFFF; --radius: 14px; --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; }
+    .blog-hero { background: linear-gradient(135deg, var(--green) 0%, #1B4332 100%); color: var(--white); padding: 4rem 1.5rem 3rem; text-align: center; }
+    .blog-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; margin-bottom: 0.75rem; }
+    .blog-hero p { font-size: 1rem; opacity: 0.85; max-width: 520px; margin: 0 auto 1.5rem; }
+    .hero-badge { display: inline-block; background: var(--saffron); color: var(--white); font-size: 0.75rem; font-weight: 600; padding: 4px 14px; border-radius: 99px; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 1rem; }
+    .controls-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 0.75rem 1.5rem; }
+    .controls-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 300px; }
+    .search-wrap input { width: 100%; padding: 7px 14px 7px 36px; border-radius: 99px; border: 1.5px solid var(--border); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; outline: none; transition: border-color 0.2s; background: var(--cream); }
+    .search-wrap input:focus { border-color: var(--green-light); }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 0.85rem; color: var(--muted); }
+    .filter-group { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .filter-label { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; align-self: center; }
+    .filter-btn { padding: 6px 14px; border-radius: 99px; border: 1.5px solid var(--border); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; cursor: pointer; color: var(--muted); white-space: nowrap; transition: all 0.18s; }
+    .filter-btn:hover { border-color: var(--green-light); color: var(--green); }
+    .filter-btn.active { background: var(--green); color: var(--white); border-color: var(--green); }
+    .sort-select { padding: 7px 12px; border-radius: 99px; border: 1.5px solid var(--border); font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--muted); background: var(--white); cursor: pointer; outline: none; margin-left: auto; }
+    .main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    .results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+    .results-count { font-size: 0.85rem; color: var(--muted); }
+    .results-count strong { color: var(--ink); }
+    .featured-post { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin-bottom: 2.5rem; box-shadow: var(--shadow); }
+    .featured-thumb { min-height: 280px; position: relative; overflow: hidden; }
+    .featured-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .thumb-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
+    .fallback-icon { font-size: 4rem; }
+    .fallback-label { font-family: 'Playfair Display', serif; color: rgba(255,255,255,0.85); font-size: 1.1rem; }
+    .featured-body { padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
+    .featured-cat { display: inline-block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--saffron); background: var(--saffron-pale); padding: 3px 10px; border-radius: 99px; margin-bottom: 0.75rem; width: fit-content; }
+    .featured-body h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; line-height: 1.3; margin-bottom: 0.75rem; color: var(--ink); }
+    .featured-body p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.65; }
+    .read-more { display: inline-flex; align-items: center; gap: 6px; font-size: 0.875rem; font-weight: 600; color: var(--green); text-decoration: none; transition: gap 0.2s; }
+    .read-more:hover { gap: 10px; }
+    .meta-info { display: flex; align-items: center; gap: 0.75rem; font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; flex-wrap: wrap; }
+    .meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .blog-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+    .blog-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .card-thumb { height: 200px; position: relative; overflow: hidden; }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+    .blog-card:hover .card-thumb img { transform: scale(1.04); }
+    .card-thumb .thumb-fallback { position: absolute; inset: 0; }
+    .fallback-emoji { font-size: 2.5rem; }
+    .fallback-text { font-family: 'Playfair Display', serif; font-size: 0.8rem; opacity: 0.75; color: white; }
+    .card-cat-badge { position: absolute; top: 10px; left: 10px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 9px; border-radius: 99px; z-index: 1; }
+    .card-body { padding: 1rem 1.1rem 1.25rem; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1rem; line-height: 1.4; color: var(--ink); margin-bottom: 0.5rem; font-weight: 700; }
+    .card-excerpt { font-size: 0.82rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: 0.75rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 0.65rem; margin-top: auto; }
+    .card-footer a { font-weight: 600; color: var(--green); text-decoration: none; font-size: 0.8rem; }
+    .card-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+    .card-tag { font-size: 0.68rem; background: var(--cream); color: var(--muted); padding: 2px 8px; border-radius: 99px; border: 1px solid var(--border); }
+    .b-diet { background: #D8F3DC; color: #1B4332; }
+    .b-fitness { background: #E0F2FE; color: #075985; }
+    .b-calorie { background: #FFF0E6; color: #7C2D12; }
+    .b-yoga { background: #F3E8FF; color: #581C87; }
+    .b-weight { background: #FEF3C7; color: #78350F; }
+    .b-recipe { background: #ECFDF5; color: #064E3B; }
+    .ft-diet { background: linear-gradient(135deg,#1B4332,#2D6A4F); }
+    .ft-calorie { background: linear-gradient(135deg,#92400E,#E07B39); }
+    .ft-fitness { background: linear-gradient(135deg,#164E63,#0891B2); }
+    .ft-yoga { background: linear-gradient(135deg,#3B0764,#7C3AED); }
+    .ft-weight { background: linear-gradient(135deg,#78350F,#D97706); }
+    .ft-recipe { background: linear-gradient(135deg,#064E3B,#059669); }
+    .pagination { display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-top: 2rem; }
+    .page-btn { padding: 8px 14px; border-radius: 8px; border: 1.5px solid var(--border); background: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; color: var(--muted); transition: all 0.18s; min-width: 40px; text-align: center; }
+    .page-btn:hover { border-color: var(--green-light); color: var(--green); }
+    .page-btn.active { background: var(--green); color: var(--white); border-color: var(--green); }
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .empty-state { text-align: center; padding: 4rem 1rem; color: var(--muted); }
+    .empty-state .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-state h3 { font-family: 'Playfair Display', serif; color: var(--ink); margin-bottom: 0.5rem; }
+    .newsletter { background: var(--green); border-radius: var(--radius); padding: 2.5rem 2rem; text-align: center; color: var(--white); margin-top: 3rem; }
+    .newsletter h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 0.5rem; }
+    .newsletter p { font-size: 0.9rem; opacity: 0.85; margin-bottom: 1.25rem; }
+    .nl-form { display: flex; gap: 0.5rem; max-width: 400px; margin: 0 auto; flex-wrap: wrap; }
+    .nl-form input { flex: 1; min-width: 0; padding: 10px 16px; border-radius: 99px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; outline: none; }
+    .nl-form button { padding: 10px 22px; border-radius: 99px; background: var(--saffron); color: var(--white); border: none; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 600; cursor: pointer; }
+    footer { background: var(--ink); color: rgba(255,255,255,0.6); text-align: center; padding: 1.5rem; font-size: 0.8rem; margin-top: 4rem; }
+    footer a { color: #52B788; text-decoration: none; }
+    @media (max-width: 680px) {
+      .featured-post { grid-template-columns: 1fr; }
+      .featured-thumb { min-height: 200px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .controls-inner { flex-direction: column; align-items: stretch; }
+      .search-wrap { max-width: 100%; }
+      .sort-select { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+<div id="site-nav"></div>
+<section class="blog-hero">
+  <span class="hero-badge">Health Insights for India</span>
+  <h1>Eat Smart. Move Well. Live Better.</h1>
+  <p>Practical nutrition science, Indian diet guides, and fitness tips — tailored for the Indian lifestyle.</p>
+</section>
+<div class="controls-bar">
+  <div class="controls-inner">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search articles..." oninput="applyFilters()" />
+    </div>
+    <span class="filter-label">Category:</span>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+      <button class="filter-btn" onclick="setFilter('diet',this)">Indian Diet</button>
+      <button class="filter-btn" onclick="setFilter('calorie',this)">Calorie Tracking</button>
+      <button class="filter-btn" onclick="setFilter('fitness',this)">Fitness</button>
+      <button class="filter-btn" onclick="setFilter('yoga',this)">Yoga &amp; Wellness</button>
+      <button class="filter-btn" onclick="setFilter('weight',this)">Weight Management</button>
+      <button class="filter-btn" onclick="setFilter('recipe',this)">Healthy Recipes</button>
+    </div>
+    <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+      <option value="date-desc">Newest First</option>
+      <option value="date-asc">Oldest First</option>
+      <option value="read-asc">Shortest Read</option>
+      <option value="read-desc">Longest Read</option>
+    </select>
+  </div>
+</div>
+<main class="main">
+  <div id="featuredSection"></div>
+  <div class="results-bar"><span class="results-count" id="resultsCount"></span></div>
+  <div class="blog-grid" id="blogGrid"></div>
+  <div id="emptyState" class="empty-state" style="display:none;">
+    <div class="empty-icon">🔎</div>
+    <h3>No articles found</h3>
+    <p>Try a different search term or category filter.</p>
+  </div>
+  <div class="pagination" id="pagination"></div>
+  <div class="newsletter">
+    <h3>Get Weekly Health Tips</h3>
+    <p>India-specific nutrition advice and calorie guides — straight to your inbox, every Saturday.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="Your email address" />
+      <button type="button">Subscribe</button>
+    </div>
+  </div>
+</main>
+<footer>
+  <p>© 2025 Nutrition Tracker · Built for India's health journey · <a href="/privacy-policy">Privacy Policy</a> · <a href="/terms-of-use">Terms of Use</a> · <a href="/disclaimer">Disclaimer</a></p>
+</footer>
+<script>
+const POSTS_PER_PAGE = 9;
+const CAT_LABELS = { diet:'Indian Diet', calorie:'Calorie Tracking', fitness:'Fitness', yoga:'Yoga & Wellness', weight:'Weight Management', recipe:'Healthy Recipes' };
+const CAT_EMOJIS = { diet:'🥗', calorie:'🔢', fitness:'🏃', yoga:'🧘', weight:'⚖️', recipe:'🍛' };
+let allBlogs=[], filtered=[], currentPage=1, activeFilter='all';
+
+async function loadBlogs(){
+  try {
+    const res = await fetch('/data/blogs.json');
+    allBlogs = (await res.json()).filter(b=>b.published!==false);
+    applyFilters();
+  } catch(e){
+    document.getElementById('blogGrid').innerHTML='<p style="color:var(--muted);padding:2rem 0;grid-column:1/-1">Could not load blogs.json — make sure data/blogs.json exists in your repo.</p>';
+  }
+}
+
+function setFilter(cat,btn){
+  activeFilter=cat; currentPage=1;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  const sort=document.getElementById('sortSelect').value;
+  filtered=allBlogs.filter(b=>{
+    const mc=activeFilter==='all'||b.category===activeFilter;
+    const mq=!q||b.title.toLowerCase().includes(q)||b.excerpt.toLowerCase().includes(q)||(b.tags||[]).some(t=>t.toLowerCase().includes(q));
+    return mc&&mq;
+  });
+  filtered.sort((a,b)=>{
+    if(sort==='date-desc') return new Date(b.date)-new Date(a.date);
+    if(sort==='date-asc')  return new Date(a.date)-new Date(b.date);
+    if(sort==='read-asc')  return a.readTime-b.readTime;
+    if(sort==='read-desc') return b.readTime-a.readTime;
+  });
+  renderFeatured(); renderGrid(); renderPagination();
+}
+
+function renderFeatured(){
+  const sec=document.getElementById('featuredSection');
+  const feat=allBlogs.find(b=>b.featured&&b.published!==false);
+  const q=document.getElementById('searchInput').value;
+  if(!feat||activeFilter!=='all'||q){sec.innerHTML='';return;}
+  sec.innerHTML=`<article class="featured-post">
+    <div class="featured-thumb ft-${feat.category}">
+      ${feat.image?`<img src="${feat.image}" alt="${feat.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>`:''}
+      <div class="thumb-fallback" ${feat.image?'style="display:none"':''}>
+        <span class="fallback-icon">${CAT_EMOJIS[feat.category]||'📝'}</span>
+        <span class="fallback-label">${CAT_LABELS[feat.category]||feat.category}</span>
+      </div>
+    </div>
+    <div class="featured-body">
+      <span class="featured-cat">⭐ Featured · ${CAT_LABELS[feat.category]||feat.category}</span>
+      <h2>${feat.title}</h2>
+      <div class="meta-info">
+        <span>${feat.author}</span><span class="meta-dot"></span>
+        <span>${feat.readTime} min read</span><span class="meta-dot"></span>
+        <span>${fmtDate(feat.date)}</span>
+      </div>
+      <p>${feat.excerpt}</p>
+      <a class="read-more" href="/blog/${feat.id}">Read full article →</a>
+    </div>
+  </article>`;
+}
+
+function renderGrid(){
+  const grid=document.getElementById('blogGrid');
+  const empty=document.getElementById('emptyState');
+  const count=document.getElementById('resultsCount');
+  const q=document.getElementById('searchInput').value;
+  const nonFeat=activeFilter==='all'&&!q?filtered.filter(b=>!b.featured):filtered;
+  const total=nonFeat.length;
+  const start=(currentPage-1)*POSTS_PER_PAGE;
+  const page=nonFeat.slice(start,start+POSTS_PER_PAGE);
+  count.innerHTML=total?`Showing <strong>${Math.min(start+1,total)}–${Math.min(start+POSTS_PER_PAGE,total)}</strong> of <strong>${total}</strong> articles`:'';
+  if(!page.length){grid.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  grid.innerHTML=page.map(b=>`
+    <article class="blog-card">
+      <div class="card-thumb ft-${b.category}">
+        ${b.image?`<img src="${b.image}" alt="${b.title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>`:''}
+        <div class="thumb-fallback" ${b.image?'style="display:none"':''}>
+          <span class="fallback-emoji">${CAT_EMOJIS[b.category]||'📝'}</span>
+          <span class="fallback-text">${CAT_LABELS[b.category]||b.category}</span>
+        </div>
+        <span class="card-cat-badge b-${b.category}">${CAT_LABELS[b.category]||b.category}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${b.title}</div>
+        <div class="card-excerpt">${b.excerpt}</div>
+        ${b.tags&&b.tags.length?`<div class="card-tags">${b.tags.slice(0,3).map(t=>`<span class="card-tag">${t}</span>`).join('')}</div>`:''}
+        <div class="card-footer">
+          <span>${b.readTime} min · ${b.author}</span>
+          <a href="/blog/${b.id}">Read →</a>
+        </div>
+      </div>
+    </article>`).join('');
+}
+
+function renderPagination(){
+  const pag=document.getElementById('pagination');
+  const q=document.getElementById('searchInput').value;
+  const nonFeat=activeFilter==='all'&&!q?filtered.filter(b=>!b.featured):filtered;
+  const totalPages=Math.ceil(nonFeat.length/POSTS_PER_PAGE);
+  if(totalPages<=1){pag.innerHTML='';return;}
+  let h=`<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>← Prev</button>`;
+  for(let i=1;i<=totalPages;i++){
+    if(totalPages>7&&i>2&&i<totalPages-1&&Math.abs(i-currentPage)>1){
+      if(i===3||i===totalPages-2) h+=`<span style="padding:0 4px;color:var(--muted)">…</span>`;
+      continue;
+    }
+    h+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  h+=`<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>Next →</button>`;
+  pag.innerHTML=h;
+}
+
+function goPage(n){currentPage=n;renderGrid();renderPagination();window.scrollTo({top:0,behavior:'smooth'});}
+function fmtDate(s){return new Date(s).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});}
+loadBlogs();
+</script>
+<script>fetch('/nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;});</script>
+</body>
+</html>
