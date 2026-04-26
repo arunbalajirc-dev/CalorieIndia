@@ -273,15 +273,20 @@ export async function buildMealPlan(intakeData: any, goal: string): Promise<Meal
     day: '2-digit', month: 'short', year: 'numeric',
   })
 
+  // Calculate macros if not provided
+  const proteinG = Math.round(protein_target ?? weight_kg * (goal === 'gain' ? 2 : 1.6))
+  const fatG     = Math.round(fat_target     ?? target_calories * 0.27 / 9)
+  const carbG    = Math.round(carbs_target   ?? Math.max(0, (target_calories - proteinG * 4 - fatG * 9) / 4))
+
   return {
     days,
     user_name:       name,
     goal,
     goal_label:      goalLabel,
     target_calories: Math.round(target_calories),
-    protein_target:  Math.round(protein_target ?? weight_kg * (goal === 'gain' ? 2 : 1.6)),
-    carbs_target:    Math.round(carbs_target ?? 0),
-    fat_target:      Math.round(fat_target   ?? 0),
+    protein_target:  proteinG,
+    carbs_target:    carbG,
+    fat_target:      fatG,
     tdee:            Math.round(tdee),
     bmi:             Math.round(bmi * 10) / 10,
     bmi_category:    bmiCategory,

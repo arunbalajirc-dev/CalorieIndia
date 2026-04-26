@@ -87,8 +87,19 @@ function page1(plan: MealPlan, intakeData: any): string {
   return `
   <div class="page" style="background:#000;min-height:297mm;">
 
-    <!-- Background gradient -->
-    <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,rgba(0,0,0,.97) 0%,rgba(0,0,0,.88) 45%,rgba(34,197,94,.08) 100%);"></div>
+    <!-- Cover photo right side (50% width, fades left into black) -->
+    <div style="position:absolute;right:0;top:0;bottom:0;width:52%;z-index:1;overflow:hidden;">
+      <img src="https://nutritiontracker.in/images/image%20bg%201.PNG"
+           style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"
+           crossOrigin="anonymous"
+           onerror="this.parentElement.style.display='none'" alt=""/>
+      <!-- Gradient fade: left edge blends into black, bottom fade -->
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,#000 0%,rgba(0,0,0,.55) 35%,rgba(0,0,0,.1) 100%);"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(0deg,#000 0%,transparent 100%);"></div>
+    </div>
+
+    <!-- Background gradient (left side) -->
+    <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,rgba(0,0,0,1) 0%,rgba(0,0,0,.95) 48%,transparent 100%);"></div>
 
     <!-- Logo top-right -->
     <div style="position:absolute;top:22px;right:22px;z-index:3;">
@@ -173,6 +184,14 @@ function page2(plan: MealPlan, intakeData: any): string {
   const weeklyLoss = ((Math.abs(deficit) * 7) / 7700).toFixed(2)
   const ph = Math.round(weeksTotal / 3)
 
+  // Chart always shows 0.5 kg/week pace (aspirational target with diet + exercise)
+  const chartWeeks  = toChange > 0 ? Math.ceil(toChange / 0.5) : weeksTotal
+  const chartMonths = Math.max(1, Math.round(chartWeeks / 4.33 * 10) / 10)
+
+  // Exercise burn target: how many kcal/day from exercise to reach 0.5 kg/week total
+  const TARGET_DAILY = 500  // 0.5 kg/week = 500 kcal/day total deficit
+  const exerciseBurnTarget = plan.goal === 'lose' ? Math.max(0, TARGET_DAILY - Math.abs(deficit)) : 0
+
   let bmiRiskNote = ''
   if (bmi < 18.5) bmiRiskNote = 'You are Underweight. Focus on calorie surplus and strength training to build lean mass.'
   else if (bmi < 23) bmiRiskNote = 'You are in the Healthy range for Asian standards. Focus on maintaining and improving body composition.'
@@ -190,7 +209,8 @@ function page2(plan: MealPlan, intakeData: any): string {
   const cw = TW - PAD.l - PAD.r, ch = TH - PAD.t - PAD.b
   const wMin = Math.min(targetWeight, weight_kg) - 3
   const wMax = Math.max(targetWeight, weight_kg) + 4
-  const xOf = (m: number) => PAD.l + (m / (months || 1)) * cw
+  // Use chartMonths (0.5 kg/week pace) for x-axis scale
+  const xOf = (m: number) => PAD.l + (m / (chartMonths || 1)) * cw
   const yOf = (w: number) => PAD.t + ch - ((w - wMin) / (wMax - wMin || 1)) * ch
   let gridLines = ''
   for (let i = 0; i <= 4; i++) {
@@ -198,9 +218,9 @@ function page2(plan: MealPlan, intakeData: any): string {
     gridLines += `<line x1="${PAD.l}" y1="${gy.toFixed(1)}" x2="${TW - PAD.r}" y2="${gy.toFixed(1)}" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`
     gridLines += `<text x="${PAD.l - 4}" y="${(gy + 3).toFixed(1)}" text-anchor="end" font-size="7" fill="rgba(255,255,255,.3)" font-family="DM Mono,monospace">${gw.toFixed(0)}</text>`
   }
-  const mp = Math.min(7, months)
+  const mp = Math.min(7, Math.round(chartMonths))
   for (let m = 0; m <= mp; m++) {
-    gridLines += `<text x="${xOf(months * m / (mp || 1)).toFixed(1)}" y="${TH - 4}" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.3)" font-family="Inter,sans-serif">M${m}</text>`
+    gridLines += `<text x="${xOf(chartMonths * m / (mp || 1)).toFixed(1)}" y="${TH - 4}" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.3)" font-family="Inter,sans-serif">M${m}</text>`
   }
   const goalY = yOf(targetWeight)
   gridLines += `<line x1="${PAD.l}" y1="${goalY.toFixed(1)}" x2="${TW - PAD.r}" y2="${goalY.toFixed(1)}" stroke="#22C55E" stroke-width="1" stroke-dasharray="4,3" opacity=".4"/>`
@@ -208,7 +228,7 @@ function page2(plan: MealPlan, intakeData: any): string {
   const pts = []
   for (let s = 0; s <= 60; s++) {
     const t = s / 60, sw = 1 / (1 + Math.exp(-8 * (t - 0.5)))
-    pts.push({ x: xOf(months * t), y: yOf(weight_kg + (targetWeight - weight_kg) * sw) })
+    pts.push({ x: xOf(chartMonths * t), y: yOf(weight_kg + (targetWeight - weight_kg) * sw) })
   }
   let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`
   for (let i = 1; i < pts.length; i++) {
@@ -290,7 +310,8 @@ function page2(plan: MealPlan, intakeData: any): string {
           ${[
             { label: 'TDEE', val: `${tdee} kcal`, pct: tdePct, color: '#F97316' },
             { label: 'Target / Day', val: `${plan.target_calories} kcal`, pct: tCalPct, color: '#22C55E' },
-            { label: 'Deficit / Day', val: `${Math.abs(deficit)} kcal`, pct: defPct, color: '#A855F7' },
+            { label: 'Diet Deficit', val: `${Math.abs(deficit)} kcal`, pct: defPct, color: '#A855F7' },
+            ...(exerciseBurnTarget > 0 ? [{ label: '🔥 Exercise Burn Target', val: `${exerciseBurnTarget} kcal`, pct: Math.min(100, exerciseBurnTarget / tdee * 100 * 4), color: '#F97316' }] : []),
           ].map(row => `
           <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px;">
             <span style="font-size:9.5px;color:#888;width:72px;flex-shrink:0;">${row.label}</span>
@@ -303,8 +324,11 @@ function page2(plan: MealPlan, intakeData: any): string {
       </div>
 
       <div class="card card-accent-yellow" style="flex:1;min-height:0;">
-        <div class="label">Projected Weight Timeline</div>
-        <svg width="100%" viewBox="0 0 ${TW} ${TH}" preserveAspectRatio="none" style="display:block;height:140px;">${svgTimeline}</svg>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">
+          <div class="label" style="margin-bottom:0;">Projected Weight Timeline</div>
+          <span style="font-size:8px;color:#F97316;font-weight:600;letter-spacing:.04em;">@ 0.5 kg/week · ${chartWeeks} weeks · ${chartMonths} months</span>
+        </div>
+        <svg width="100%" viewBox="0 0 ${TW} ${TH}" preserveAspectRatio="none" style="display:block;height:130px;">${svgTimeline}</svg>
       </div>
 
       <div class="card card-accent-green" style="flex-shrink:0;">
@@ -326,7 +350,7 @@ function page2(plan: MealPlan, intakeData: any): string {
         <div class="label">Progress Insights &amp; Phase Guidance</div>
         <div style="display:flex;flex-direction:column;gap:5px;">
           <div style="background:#0d1f0d;border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:7px 10px;">
-            <span style="font-size:9px;color:#888;line-height:1.5;">📉 At your current deficit of <strong style="color:#22C55E;">${Math.abs(deficit)} kcal/day</strong>${plan.deficit_mode ? ' (' + plan.deficit_mode + ')' : ''}, you will lose approximately <strong style="color:#FFD700;">${weeklyLoss} kg per week</strong> — safe, sustainable progress.</span>
+            <span style="font-size:9px;color:#888;line-height:1.5;">📉 Your diet deficit is <strong style="color:#22C55E;">${Math.abs(deficit)} kcal/day</strong>${plan.deficit_mode ? ' (' + plan.deficit_mode + ')' : ''}${exerciseBurnTarget > 0 ? `. To reach <strong style="color:#FFD700;">0.5 kg/week</strong>, burn an additional <strong style="color:#F97316;">${exerciseBurnTarget} kcal/day</strong> through exercise — your <strong style="color:#F97316;">Exercise Burn Target</strong>.` : ` — you will lose approximately <strong style="color:#FFD700;">${weeklyLoss} kg per week</strong>.`}</span>
           </div>
           <div style="background:#0a0a0a;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:7px 10px;">
             <span style="font-size:9px;color:#888;line-height:1.5;">⚕ ${bmiRiskNote}</span>
@@ -545,6 +569,10 @@ function page4(plan: MealPlan, intakeData: any): string {
     : 10 * W + 6.25 * height_cm - 5 * age - 161
   const tdee = Math.round(bmr * activityMultiplier(activity_level))
 
+  // Exercise burn target: extra kcal/day needed to hit 0.5 kg/week total
+  const deficit4 = plan.deficit_kcal ?? (plan.goal === 'lose' ? 500 : plan.goal === 'gain' ? -300 : 0)
+  const exerciseBurn4 = plan.goal === 'lose' ? Math.max(0, 500 - Math.abs(deficit4)) : 0
+
   const exercises = [
     { name: 'Brisk Walk',      icon: '🚶', met: 4.3, color: '#22C55E', intensity: 'Moderate',   tip: 'Best starting point. 30 min daily builds the habit and burns significant calories.' },
     { name: 'Running',         icon: '🏃', met: 9.8, color: '#EF4444', intensity: 'High',        tip: 'Most efficient fat burner. Even 15 min of jogging makes a measurable difference.' },
@@ -608,10 +636,22 @@ function page4(plan: MealPlan, intakeData: any): string {
 
     <div style="flex:1;background:#000;padding:12px 20px 10px;display:flex;flex-direction:column;gap:9px;overflow:hidden;">
 
+      ${exerciseBurn4 > 0 ? `
+      <div style="background:linear-gradient(90deg,rgba(249,115,22,.15),rgba(249,115,22,.05));border:1px solid rgba(249,115,22,.35);border-radius:10px;padding:9px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+        <div>
+          <div style="font-size:9px;color:#F97316;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">🔥 Exercise Burn Target</div>
+          <div style="font-size:9px;color:#aaa;line-height:1.4;">Burn <strong style="color:#F97316;">${exerciseBurn4} kcal/day</strong> through exercise to reach <strong style="color:#FFD700;">0.5 kg/week</strong> total loss (diet + exercise combined).</div>
+        </div>
+        <div style="text-align:center;flex-shrink:0;margin-left:12px;">
+          <div style="font-family:'DM Mono',monospace;font-size:28px;font-weight:500;color:#F97316;line-height:1;">${exerciseBurn4}</div>
+          <div style="font-size:8px;color:#888;">kcal/day</div>
+        </div>
+      </div>` : ''}
+
       <div style="display:flex;gap:7px;flex-shrink:0;">
-        ${strip.map(st => `
+        ${strip.map((st, i) => `
         <div style="flex:1;background:#111;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 9px;text-align:center;">
-          <div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:#fff;line-height:1;">${st.v}</div>
+          <div style="font-family:'DM Mono',monospace;font-size:${i < 2 ? '22' : '20'}px;font-weight:500;color:${i < 2 ? '#FFD700' : '#fff'};line-height:1;">${st.v}</div>
           <div style="font-size:9px;color:#666;margin-top:3px;text-transform:uppercase;letter-spacing:.05em;">${st.l}</div>
         </div>`).join('')}
       </div>
