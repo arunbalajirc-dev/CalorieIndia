@@ -39,6 +39,89 @@ export interface MealPlan {
   cuisine_labels:  string[]
   diet_label:      string
   generated_date:  string
+  // Safe deficit fields
+  deficit_kcal:    number
+  deficit_mode:    string
+  safety_flag:     string | null
+  weekly_loss_kg:  number
+  months_to_goal:  number
+}
+
+// ── Safe deficit calculation ──────────────────────────────────────────────────
+// Replaces the unsafe flat −500 kcal approach. Tiers by TDEE & kg-to-lose.
+// Always enforces BMR+100 and absolute gender floor.
+
+export interface DeficitResult {
+  targetCalories: number
+  deficitKcal:    number        // positive = deficit, negative = surplus
+  deficitPercent: number
+  deficitMode:    string
+  weeklyLossKg:   number
+  monthsToGoal:   number
+  safetyFlag:     string | null
+}
+
+export function calculateSafeTarget(
+  tdee:            number,
+  bmr:             number,
+  gender:          string,
+  currentWeightKg: number,
+  targetWeightKg:  number | null,
+  goal:            string,
+): DeficitResult {
+  if (goal === 'maintain') {
+    return {
+      targetCalories: tdee, deficitKcal: 0, deficitPercent: 0,
+      deficitMode: 'Maintenance', weeklyLossKg: 0, monthsToGoal: 0, safetyFlag: null,
+    }
+  }
+  if (goal === 'gain') {
+    return {
+      targetCalories: tdee + 300, deficitKcal: -300,
+      deficitPercent: -Math.round(300 / tdee * 100),
+      deficitMode: 'Lean Surplus +300', weeklyLossKg: -0.3, monthsToGoal: 0, safetyFlag: null,
+    }
+  }
+
+  // goal === 'lose' — tiered by TDEE then kg-to-lose
+  const kgToLose = Math.max(0, currentWeightKg - (targetWeightKg ?? currentWeightKg))
+
+  let pct: number
+  let deficitMode: string
+  if (tdee < 1600) {
+    pct = 15; deficitMode = 'Conservative 15%'
+  } else if (kgToLose <= 5) {
+    pct = 10; deficitMode = 'Conservative 10%'
+  } else if (kgToLose <= 15) {
+    pct = 20; deficitMode = 'Standard 20%'
+  } else {
+    pct = 25; deficitMode = 'Aggressive 25%'
+  }
+
+  let deficitKcal = Math.round(tdee * pct / 100)
+  if (pct === 25 && deficitKcal > 750) deficitKcal = 750   // hard cap
+
+  let targetCalories = tdee - deficitKcal
+
+  // Safety floors
+  const absoluteFloor = gender === 'male' ? 1500 : 1200
+  const bmrFloor      = Math.round(bmr) + 100
+  const floor         = Math.max(absoluteFloor, bmrFloor)
+
+  let safetyFlag: string | null = null
+  if (targetCalories < floor) {
+    safetyFlag     = `Target adjusted to ${floor} kcal (BMR+100 safety floor). Eating below this level risks muscle loss.`
+    targetCalories = floor
+    deficitKcal    = tdee - targetCalories
+  }
+
+  const deficitPercent = Math.round(deficitKcal / tdee * 100)
+  const weeklyLossKg   = Math.round(deficitKcal * 7 / 7700 * 10) / 10
+  const monthsToGoal   = kgToLose > 0 && deficitKcal > 0
+    ? Math.round((kgToLose * 7700) / (deficitKcal * 7) / 4.33)
+    : 0
+
+  return { targetCalories, deficitKcal, deficitPercent, deficitMode, weeklyLossKg, monthsToGoal, safetyFlag }
 }
 
 const MEAL_SPLIT = {
@@ -119,14 +202,34 @@ export async function buildMealPlan(intakeData: any, goal: string): Promise<Meal
     name,
     diet_type    = 'veg',
     allergens    = [],
-    target_calories,
     protein_target,
     carbs_target,
     fat_target,
-    tdee,
     bmi,
     weight_kg,
+    height_cm,
+    age,
+    gender       = 'female',
+    activity_level = 'lightly_active',
   } = intakeData
+
+  // ── Recompute TDEE & BMR from first principles (ignore stored target_calories) ──
+  const actMultiplier: Record<string, number> = {
+    sedentary: 1.2, lightly_active: 1.375, moderately_active: 1.55,
+    very_active: 1.725, extra_active: 1.9,
+  }
+  const bmr  = gender === 'male'
+    ? 10 * weight_kg + 6.25 * height_cm - 5 * age + 5
+    : 10 * weight_kg + 6.25 * height_cm - 5 * age - 161
+  const tdee = intakeData.tdee ?? Math.round(bmr * (actMultiplier[activity_level] ?? 1.375))
+
+  // ── Apply safe deficit protocol ──
+  const targetWeightKg: number | null = intakeData.target_weight ?? intakeData.target_weight_kg ?? null
+  const safeTarget = calculateSafeTarget(tdee, bmr, gender, weight_kg, targetWeightKg, goal)
+  const target_calories = safeTarget.targetCalories
+
+  console.log(`Safe deficit: ${safeTarget.deficitMode} → target=${target_calories} kcal (was ${intakeData.target_calories ?? 'unknown'})`)
+  if (safeTarget.safetyFlag) console.warn(`Safety flag: ${safeTarget.safetyFlag}`)
 
   // Fetch a large pool for each slot — note capital-first category names
   const [bfPool, lunchPool, dinnerPool, snacksPool] = await Promise.all([
@@ -196,5 +299,11 @@ export async function buildMealPlan(intakeData: any, goal: string): Promise<Meal
     cuisine_labels:  ['Indian'],
     diet_label:      dietLabel,
     generated_date:  generatedDate,
+    // Safe deficit fields
+    deficit_kcal:    safeTarget.deficitKcal,
+    deficit_mode:    safeTarget.deficitMode,
+    safety_flag:     safeTarget.safetyFlag,
+    weekly_loss_kg:  safeTarget.weeklyLossKg,
+    months_to_goal:  safeTarget.monthsToGoal,
   }
 }

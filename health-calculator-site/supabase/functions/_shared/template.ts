@@ -13,6 +13,12 @@ export interface MealPlan {
   days: DayMeal[]; user_name: string; goal: string; goal_label: string
   target_calories: number; protein_target: number; carbs_target: number; fat_target: number
   tdee: number; bmi: number; bmi_category: string; cuisine_labels: string[]; diet_label: string; generated_date: string
+  // Safe deficit fields (populated by calculateSafeTarget in planner.ts)
+  deficit_kcal:   number
+  deficit_mode:   string
+  safety_flag:    string | null
+  weekly_loss_kg: number
+  months_to_goal: number
 }
 
 const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
@@ -146,13 +152,12 @@ function page1(plan: MealPlan, intakeData: any): string {
     ? 10 * weight_kg + 6.25 * height_cm - 5 * age + 5
     : 10 * weight_kg + 6.25 * height_cm - 5 * age - 161
   const tdee  = Math.round(bmr * activityMultiplier(activity_level))
-  const deficit = plan.goal === 'lose' ? 500 : plan.goal === 'gain' ? -300 : 0
+  const deficit = plan.deficit_kcal ?? (plan.goal === 'lose' ? 500 : plan.goal === 'gain' ? -300 : 0)
   const toChange = +(weight_kg - (intakeData.target_weight ?? weight_kg)).toFixed(1)
   const losing  = toChange > 0
-  const weeksTotal = deficit !== 0
-    ? Math.round((Math.abs(toChange) * 7700) / (Math.abs(deficit) * 7))
-    : 0
-  const months = Math.round(weeksTotal / 4.33)
+  const months = plan.months_to_goal ?? (deficit !== 0
+    ? Math.round(Math.round((Math.abs(toChange) * 7700) / (Math.abs(deficit) * 7)) / 4.33)
+    : 0)
 
   const W = 550, H = 135, PAD = { l: 38, r: 24, t: 14, b: 26 }
   const cw = W - PAD.l - PAD.r, ch = H - PAD.t - PAD.b
@@ -300,9 +305,11 @@ function page2(plan: MealPlan, intakeData: any): string {
     ? 10 * weight_kg + 6.25 * height_cm - 5 * age + 5
     : 10 * weight_kg + 6.25 * height_cm - 5 * age - 161
   const tdee = Math.round(bmr * activityMultiplier(activity_level))
-  const deficit = plan.goal === 'lose' ? 500 : plan.goal === 'gain' ? -300 : 0
+  const deficit = plan.deficit_kcal ?? (plan.goal === 'lose' ? 500 : plan.goal === 'gain' ? -300 : 0)
   const toChange = Math.abs(+(weight_kg - (intakeData.target_weight ?? weight_kg)).toFixed(1))
-  const weeksTotal = deficit !== 0 ? Math.round((toChange * 7700) / (Math.abs(deficit) * 7)) : 12
+  const weeksTotal = plan.months_to_goal
+    ? Math.round(plan.months_to_goal * 4.33)
+    : (deficit !== 0 ? Math.round((toChange * 7700) / (Math.abs(deficit) * 7)) : 12)
   const ph = Math.round(weeksTotal / 3)
 
   const protG = plan.protein_target
@@ -333,13 +340,14 @@ function page2(plan: MealPlan, intakeData: any): string {
 
   const hm = height_cm / 100
   const bmi = weight_kg / (hm * hm)
+  const dietType = intakeData.diet_type ?? 'veg'
   const nutrients = [
     { name: 'Protein Adequacy', score: Math.min(100, Math.round(protG / weight_kg * 62.5)), color: '#22C55E' },
-    { name: 'Iron',             score: bmi > 25 ? 52 : 74, color: '#EF4444' },
-    { name: 'Fibre',            score: bmi > 27 ? 44 : 68, color: '#F97316' },
-    { name: 'Vitamin D',        score: 38,                  color: '#EAB308' },
-    { name: 'Calcium',          score: 62,                  color: '#3B82F6' },
-    { name: 'Vitamin B12',      score: 54,                  color: '#A855F7' },
+    { name: 'Iron',        score: dietType === 'non-veg' ? (bmi > 25 ? 65 : 82) : (bmi > 25 ? 48 : 66), color: '#EF4444' },
+    { name: 'Fibre',       score: bmi > 27 ? 44 : 68,                                                     color: '#F97316' },
+    { name: 'Vitamin D',   score: 38,                                                                      color: '#EAB308' },
+    { name: 'Calcium',     score: dietType === 'non-veg' ? 70 : 62,                                       color: '#3B82F6' },
+    { name: 'Vitamin B12', score: dietType === 'non-veg' ? 82 : (dietType === 'both' ? 65 : 32),          color: '#A855F7' },
   ]
 
   const n = nutrients.length, CX2 = 95, CY2 = 80, MR = 60
@@ -603,12 +611,13 @@ function page4(plan: MealPlan, intakeData: any): string {
     ? 10 * weight_kg + 6.25 * height_cm - 5 * age + 5
     : 10 * weight_kg + 6.25 * height_cm - 5 * age - 161
   const tdee      = Math.round(bmr * activityMultiplier(activity_level))
-  const totalDef  = plan.goal === 'lose' ? 500 : plan.goal === 'gain' ? -300 : 0
+  const totalDef  = plan.deficit_kcal ?? (plan.goal === 'lose' ? 500 : plan.goal === 'gain' ? -300 : 0)
   const dietDef   = Math.round(totalDef * 0.8)
   const exerDef   = Math.round(totalDef * 0.2)
   const toChange  = Math.abs(+(weight_kg - (intakeData.target_weight ?? weight_kg)).toFixed(1))
-  const weeksTotal = totalDef !== 0 ? Math.round((toChange * 7700) / (Math.abs(totalDef) * 7)) : 12
-  const months    = Math.round(weeksTotal / 4.33)
+  const months    = plan.months_to_goal ?? (totalDef !== 0
+    ? Math.round((toChange * 7700) / (Math.abs(totalDef) * 7) / 4.33)
+    : 12)
 
   const mealGuide = [
     { icon: '☀️', meal: 'Breakfast', page: 6, pct: 0.25, color: '#F97316', bg: 'rgba(249,115,22,.12)', bd: 'rgba(249,115,22,.3)' },
@@ -664,7 +673,7 @@ function page4(plan: MealPlan, intakeData: any): string {
             <div style="font-size:10px;color:#7A8C82;margin-top:2px;">TDEE — your daily maintenance</div>
           </div>
           <div style="text-align:right;">
-            <span style="padding:5px 14px;border-radius:99px;font-size:11px;font-weight:700;background:rgba(168,85,247,.15);color:#A855F7;border:1px solid rgba(168,85,247,.3);">${totalDef} kcal deficit needed</span>
+            <span style="padding:5px 14px;border-radius:99px;font-size:11px;font-weight:700;background:rgba(168,85,247,.15);color:#A855F7;border:1px solid rgba(168,85,247,.3);">${totalDef} kcal deficit${plan.deficit_mode ? ' · ' + plan.deficit_mode : ''}</span>
             <div style="font-size:9px;color:#7A8C82;margin-top:4px;">to reach <span style="color:#22C55E;">${intakeData.target_weight ?? weight_kg} kg</span> in ${months} months</div>
           </div>
         </div>

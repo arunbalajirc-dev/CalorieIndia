@@ -747,6 +747,33 @@ addBlurValidation('f-weight',   function(s){ validateWeight(s); });
 addBlurValidation('f-height',   function(s){ validateHeight(s); });
 document.getElementById('f-activity').addEventListener('change', function(){ validateActivity(true); });
 
+// ── Safe deficit calculation (mirrors planner.ts logic) ──
+function calculateSafeCalories(tdee, bmr, gender, weight, targetWeight, goal) {
+  if (goal === 'maintain') return { target: tdee, deficit: 0, mode: 'Maintenance', months: 0 };
+  if (goal === 'gain')     return { target: tdee + 300, deficit: -300, mode: 'Lean Surplus +300', months: 0 };
+
+  var kgToLose = targetWeight ? Math.max(0, weight - targetWeight) : 5;
+  var pct, mode;
+  if (tdee < 1600)        { pct = 0.15; mode = 'Conservative 15%'; }
+  else if (kgToLose <= 5) { pct = 0.10; mode = 'Conservative 10%'; }
+  else if (kgToLose <= 15){ pct = 0.20; mode = 'Standard 20%';     }
+  else                    { pct = 0.25; mode = 'Aggressive 25%';   }
+
+  var deficit = Math.round(tdee * pct);
+  if (pct === 0.25 && deficit > 750) deficit = 750;
+
+  var target = tdee - deficit;
+  var absFloor = gender === 'male' ? 1500 : 1200;
+  var bmrFloor = Math.round(bmr) + 100;
+  var floor = Math.max(absFloor, bmrFloor);
+  if (target < floor) { target = floor; deficit = tdee - target; }
+
+  var months = kgToLose > 0 && deficit > 0
+    ? Math.round((kgToLose * 7700) / (deficit * 7) / 4.33)
+    : 0;
+  return { target: target, deficit: deficit, mode: mode, months: months };
+}
+
 // ── TDEE calculation ──
 function calcTDEE(weight, height, age, gender, activity) {
   var bmrMale   = 10 * weight + 6.25 * height - 5 * age + 5;
@@ -815,7 +842,11 @@ function submitStep1() {
   var allergens= Array.from(document.querySelectorAll('input[name="allergen"]:checked')).map(function(c){ return c.value; });
 
   var tdee = calcTDEE(weight, height, age, gender, activity);
-  var target = goal === 'lose' ? tdee - 500 : goal === 'gain' ? tdee + 300 : tdee;
+  var bmrForSafe = gender === 'male'
+    ? 10 * weight + 6.25 * height - 5 * age + 5
+    : 10 * weight + 6.25 * height - 5 * age - 161;
+  var safeCalc = calculateSafeCalories(tdee, bmrForSafe, gender, weight, targetWeight, goal);
+  var target = safeCalc.target;
   var bmi  = calcBMI(weight, height);
 
   // Macros
@@ -840,6 +871,9 @@ function submitStep1() {
     target_weight_kg: targetWeight,
     tdee:           tdee,
     target_calories: target,
+    deficit_kcal:   safeCalc.deficit,
+    deficit_mode:   safeCalc.mode,
+    months_to_goal: safeCalc.months,
     bmi:            parseFloat(bmi),
     protein_g:      proteinG,
     carbs_g:        carbG,
@@ -857,7 +891,11 @@ function populateStep2() {
   var genderLabel = { male: 'Male', female: 'Female', other: 'Other' }[planData.gender];
   var dietLabel = DIET_LABELS[planData.diet_type] || planData.diet_type;
   var allergenStr = planData.allergens.length > 0 ? planData.allergens.map(function(a){ return a.charAt(0).toUpperCase() + a.slice(1); }).join(', ') : 'None';
-  var targetNote = planData.goal === 'lose' ? 'TDEE − 500 kcal' : planData.goal === 'gain' ? 'TDEE + 300 kcal' : 'Maintenance';
+  var targetNote = planData.goal === 'lose'
+    ? (planData.deficit_mode
+        ? planData.deficit_mode + ' (−' + planData.deficit_kcal + ' kcal)'
+        : 'Safe deficit (−' + planData.deficit_kcal + ' kcal)')
+    : planData.goal === 'gain' ? 'TDEE + 300 kcal' : 'Maintenance';
 
   setText('s-name',     planData.name);
   setText('s-age',      planData.age + ' years');
@@ -924,6 +962,9 @@ async function submitStep2() {
         allergens:       planData.allergens,
         tdee:             planData.tdee,
         target_calories:  planData.target_calories,
+        deficit_kcal:     planData.deficit_kcal,
+        deficit_mode:     planData.deficit_mode,
+        months_to_goal:   planData.months_to_goal,
         protein_target:   planData.protein_g,
         carbs_target:     planData.carbs_g,
         fat_target:       planData.fat_g,
