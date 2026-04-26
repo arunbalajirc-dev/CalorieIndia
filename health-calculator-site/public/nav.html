@@ -1,0 +1,339 @@
+<!-- Nutrition Tracker Shared Nav — edit this file only to update nav across all pages -->
+<style>
+  #ci-nav {
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 0 5%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+  }
+  .ci-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    text-decoration: none;
+  }
+  .ci-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .ci-nav-links > li > a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .ci-nav-links > li > a:hover { color: #2d6a4f; }
+
+  .ci-dropdown { position: relative; }
+  .ci-dropdown > a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #2d6a4f !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+  }
+  .ci-chevron {
+    display: inline-block;
+    transition: transform 0.2s;
+    font-style: normal;
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+  .ci-dropdown:hover .ci-chevron,
+  .ci-dropdown.open .ci-chevron { transform: rotate(180deg); }
+
+  .ci-dropdown-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-top: 3px solid #2d6a4f;
+    border-radius: 0 0 14px 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+    min-width: 300px;
+    z-index: 1001;
+    padding: 6px 0 10px;
+  }
+  .ci-dropdown::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: -20px;
+    right: -20px;
+    height: 12px;
+    background: transparent;
+  }
+  .ci-dropdown:hover .ci-dropdown-panel,
+  .ci-dropdown.open .ci-dropdown-panel { display: block; }
+
+  .ci-dropdown-panel a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 18px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.12s;
+    white-space: nowrap;
+  }
+  .ci-dropdown-panel a:hover { background: #f0faf5; color: #2d6a4f; }
+  .ci-drop-icon { font-size: 1.1rem; width: 26px; text-align: center; flex-shrink: 0; }
+  .ci-drop-text { display: flex; flex-direction: column; }
+  .ci-drop-name { font-size: 0.88rem; font-weight: 600; color: inherit; }
+  .ci-drop-desc { font-size: 0.75rem; color: #888; font-weight: 400; margin-top: 1px; }
+  .ci-dropdown-panel a:hover .ci-drop-desc { color: #5a9e7a; }
+  .ci-drop-divider { border: none; border-top: 1px solid #f0f0f0; margin: 5px 0; }
+
+  .ci-food-db-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #E07B39 !important;
+    font-weight: 600 !important;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .ci-food-db-link:hover { opacity: 0.8; }
+
+  .ci-cta {
+    background: #2d6a4f;
+    color: #fff !important;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .ci-cta:hover { background: #245c43 !important; color: #fff !important; }
+
+  .ci-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .ci-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #333;
+    border-radius: 2px;
+    transition: all 0.25s;
+    transform-origin: center;
+  }
+  .ci-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .ci-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .ci-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .ci-mobile-menu {
+    display: none;
+    background: #fff;
+    border-top: 1px solid #e8e8e8;
+    padding: 12px 5% 20px;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    z-index: 999;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+  .ci-mobile-menu.open { display: block; }
+  .ci-mobile-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 4px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .ci-mobile-menu a:last-child { border-bottom: none; }
+  .ci-mobile-section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #2d6a4f;
+    padding: 14px 4px 4px;
+  }
+
+  @media (max-width: 768px) {
+    .ci-nav-links { display: none; }
+    .ci-cta-desktop { display: none; }
+    .ci-hamburger { display: flex; }
+  }
+</style>
+
+<nav id="ci-nav">
+  <a href="/" class="ci-logo">
+    <img src="/images/nutrition-tracker-logo.png" alt="Nutrition Tracker" style="height:44px;object-fit:contain;">
+  </a>
+
+  <ul class="ci-nav-links">
+    <li class="ci-dropdown">
+      <a href="/calculator">
+        Calculators
+        <i class="ci-chevron">▾</i>
+      </a>
+      <div class="ci-dropdown-panel">
+        <a href="/tdee-calculator">
+          <span class="ci-drop-icon">🔥</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">TDEE Calculator</span>
+            <span class="ci-drop-desc">Total Daily Energy Expenditure</span>
+          </span>
+        </a>
+        <a href="/bmi-calculator">
+          <span class="ci-drop-icon">⚖️</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">BMI Calculator</span>
+            <span class="ci-drop-desc">Asian BMI ranges for Indians</span>
+          </span>
+        </a>
+        <a href="/calorie-deficit-calculator">
+          <span class="ci-drop-icon">🧮</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">Calorie Deficit Calculator</span>
+            <span class="ci-drop-desc">Find your weight loss target</span>
+          </span>
+        </a>
+        <a href="/macro-calculator">
+          <span class="ci-drop-icon">🥗</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">Macro Calculator</span>
+            <span class="ci-drop-desc">Protein, carbs &amp; fat split</span>
+          </span>
+        </a>
+        <a href="/ideal-weight-calculator">
+          <span class="ci-drop-icon">💛</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">Ideal Weight Calculator</span>
+            <span class="ci-drop-desc">Healthy weight for your height</span>
+          </span>
+        </a>
+        <hr class="ci-drop-divider">
+        <a href="/calorie-burn-calculator">
+          <span class="ci-drop-icon">🏃</span>
+          <span class="ci-drop-text">
+            <span class="ci-drop-name">Calorie Burn Calculator</span>
+            <span class="ci-drop-desc">Calories burned by exercise</span>
+          </span>
+        </a>
+      </div>
+    </li>
+
+    <li>
+      <a href="/food-lookup" class="ci-food-db-link">
+        🍽️ Food Database
+      </a>
+    </li>
+
+    <li>
+      <a href="/recipe-database" class="ci-food-db-link" style="color:#2d6a4f !important;">
+        📖 Recipe Database
+      </a>
+    </li>
+
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="/get-your-meal-plan" style="color:#2d6a4f;font-weight:600;">🍱 Meal Plan</a></li>
+  </ul>
+
+  <a href="/get-your-meal-plan" class="ci-cta ci-cta-desktop">Get My Meal Plan →</a>
+
+  <button class="ci-hamburger" id="ci-hamburger-btn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="ci-mobile-menu" id="ci-mobile-menu">
+    <div class="ci-mobile-section-label">Calculators</div>
+    <a href="/tdee-calculator"><span>🔥</span> TDEE Calculator</a>
+    <a href="/bmi-calculator"><span>⚖️</span> BMI Calculator</a>
+    <a href="/calorie-deficit-calculator"><span>🧮</span> Calorie Deficit Calculator</a>
+    <a href="/macro-calculator"><span>🥗</span> Macro Calculator</a>
+    <a href="/ideal-weight-calculator"><span>💛</span> Ideal Weight Calculator</a>
+    <a href="/calorie-burn-calculator"><span>🏃</span> Calorie Burn Calculator</a>
+    <div class="ci-mobile-section-label">More</div>
+    <a href="/food-lookup" style="color:#E07B39;font-weight:600;"><span>🍽️</span> Food Database</a>
+    <a href="/recipe-database" style="color:#2d6a4f;font-weight:600;"><span>📖</span> Recipe Database</a>
+    <a href="/blog"><span>📝</span> Blog</a>
+    <a href="/get-your-meal-plan" style="color:#2d6a4f;font-weight:600;"><span>🍱</span> Meal Plan</a>
+    <a href="/get-your-meal-plan" style="margin-top:12px;background:#2d6a4f;color:#fff;border-radius:8px;justify-content:center;font-weight:600;">Get My Meal Plan →</a>
+  </div>
+</nav>
+
+<script>
+(function () {
+  var nav = document.getElementById('ci-nav');
+
+  // Set body padding to match actual fixed nav height
+  if (nav) {
+    document.body.style.paddingTop = nav.offsetHeight + 'px';
+  }
+
+  var btn  = document.getElementById('ci-hamburger-btn');
+  var menu = document.getElementById('ci-mobile-menu');
+
+  if (btn && menu) {
+    btn.addEventListener('click', function () {
+      var isOpen = menu.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.setAttribute('aria-expanded', isOpen);
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (menu && !menu.contains(e.target) && btn && !btn.contains(e.target)) {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+    }
+  });
+
+  if (nav) {
+    window.addEventListener('scroll', function () {
+      nav.style.boxShadow = window.scrollY > 8 ? '0 4px 20px rgba(0,0,0,.10)' : 'none';
+    }, { passive: true });
+  }
+
+  // Highlight active nav link — compare path against clean href
+  var path = window.location.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+  document.querySelectorAll('#ci-nav a[href], .ci-mobile-menu a[href]').forEach(function (a) {
+    var href = (a.getAttribute('href') || '').replace(/\.html$/, '').replace(/\/$/, '') || '/';
+    if (href === path) {
+      a.style.color = '#2d6a4f';
+      a.style.fontWeight = '700';
+    }
+  });
+})();
+</script>

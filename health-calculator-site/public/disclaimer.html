@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="/images/Nutrition tracker logo (256 x 256 px).png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disclaimer — Nutrition Tracker</title>
+  <meta name="description" content="NutritionTracker Disclaimer — important notice about the nature of our nutritional content and health tools.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #1B6B45;
+      --green-dark: #134d33;
+      --green-light: #2a8a5a;
+      --orange: #E07B39;
+      --orange-light: #f0935a;
+      --bg: #0f1a14;
+      --bg2: #16241a;
+      --text: #f0ede6;
+      --muted: #8a9e92;
+      --border: rgba(255,255,255,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    /* ── HERO ── */
+    .page-hero {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 24px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(27,107,69,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 960px; margin: 0 auto; }
+    .page-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(180,40,40,0.1);
+      border: 1px solid rgba(180,40,40,0.25);
+      color: #e09090;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 5px 12px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 900; line-height: 1.1; margin-bottom: 16px;
+    }
+    .page-title em { font-style: italic; color: var(--orange); }
+    .page-meta { font-size: 13px; color: var(--muted); }
+    .page-meta span { display: inline-flex; align-items: center; gap: 6px; margin-right: 20px; }
+
+    /* ── LAYOUT ── */
+    .content-wrap {
+      max-width: 960px; margin: 0 auto;
+      padding: 64px 24px 80px;
+      display: grid; grid-template-columns: 220px 1fr;
+      gap: 48px; align-items: start;
+    }
+    @media (max-width: 720px) {
+      .content-wrap { grid-template-columns: 1fr; }
+      .toc { display: none; }
+    }
+
+    /* ── TOC ── */
+    .toc {
+      position: sticky; top: 80px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px;
+    }
+    .toc-title {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
+    }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .toc-list a {
+      display: block; font-size: 12px; color: var(--muted);
+      text-decoration: none; padding: 5px 8px; border-radius: 6px;
+      transition: all 0.2s; line-height: 1.4;
+    }
+    .toc-list a:hover { color: var(--orange); background: rgba(224,123,57,0.08); }
+
+    /* ── ARTICLE ── */
+    .article section { margin-bottom: 48px; scroll-margin-top: 80px; }
+    .section-num {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 8px; display: block;
+    }
+    .article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px; font-weight: 700; color: var(--text);
+      margin-bottom: 16px; line-height: 1.25;
+    }
+    .article p { color: #c8d4cd; margin-bottom: 14px; font-size: 14.5px; }
+    .article p:last-child { margin-bottom: 0; }
+    .article ul, .article ol { padding-left: 20px; color: #c8d4cd; font-size: 14.5px; margin-bottom: 14px; }
+    .article li { margin-bottom: 8px; }
+    .article strong { color: var(--text); font-weight: 600; }
+
+    .alert-card {
+      background: rgba(180,40,40,0.07);
+      border: 1px solid rgba(180,40,40,0.22);
+      border-left: 3px solid #c0504a;
+      border-radius: 10px; padding: 18px 20px; margin: 24px 0;
+      font-size: 14px; color: #c89090;
+    }
+    .alert-card strong { color: #e07070; display: block; margin-bottom: 6px; font-size: 14px; }
+
+    .green-card {
+      background: rgba(27,107,69,0.08);
+      border: 1px solid rgba(27,107,69,0.25);
+      border-left: 3px solid var(--green-light);
+      border-radius: 10px; padding: 16px 20px; margin: 20px 0;
+      font-size: 14px; color: #a8c8b8;
+    }
+    .green-card strong { color: #6bcfa0; }
+
+    .disclaimer-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--orange);
+      border-radius: 14px; padding: 28px 32px; margin: 32px 0;
+      position: relative;
+    }
+    .disclaimer-block::before {
+      content: '!';
+      position: absolute; top: -18px; left: 28px;
+      width: 36px; height: 36px;
+      background: var(--orange); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 800; color: white;
+      line-height: 36px; text-align: center;
+    }
+    .disclaimer-block p { color: #c8d4cd; font-size: 14px; line-height: 1.8; }
+
+    .contact-card {
+      background: linear-gradient(135deg, rgba(27,107,69,0.15), rgba(224,123,57,0.08));
+      border: 1px solid rgba(27,107,69,0.3);
+      border-radius: 14px; padding: 28px; margin-top: 48px;
+    }
+    .contact-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 10px; }
+    .contact-card p { font-size: 14px; color: #a8c8b8; }
+    .contact-card a { color: var(--orange); text-decoration: none; }
+    .contact-card a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV (loaded by load-partials.js) ═══ -->
+<div id="site-nav"></div>
+
+<!-- ═══ HERO ═══ -->
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="page-badge">⚠ Important Notice</div>
+    <h1 class="page-title"><em>Disclaimer</em></h1>
+    <div class="page-meta">
+      <span>📅 Effective: 17 April 2026</span>
+      <span>🔄 Last updated: 17 April 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTENT ═══ -->
+<div class="content-wrap">
+  <aside class="toc">
+    <div class="toc-title">Contents</div>
+    <ul class="toc-list">
+      <li><a href="#s1">Not Medical Advice</a></li>
+      <li><a href="#s2">Consult a Professional</a></li>
+      <li><a href="#s3">Accuracy of Content</a></li>
+      <li><a href="#s4">Individual Results</a></li>
+      <li><a href="#s5">Nutritional Data</a></li>
+      <li><a href="#s6">Calculators &amp; Tools</a></li>
+      <li><a href="#s7">Affiliate &amp; Links</a></li>
+      <li><a href="#s8">No Liability</a></li>
+      <li><a href="#s9">Testimonials</a></li>
+      <li><a href="#s10">Contact</a></li>
+    </ul>
+  </aside>
+
+  <article class="article">
+
+    <div class="disclaimer-block">
+      <p><strong style="color:var(--text);">Important:</strong> NutritionTracker provides personalised meal plans and nutritional information for general wellness and educational purposes only. Nothing on this website should be interpreted as professional medical, dietary, or clinical advice. Always consult a qualified healthcare professional before making significant changes to your diet or lifestyle.</p>
+    </div>
+
+    <section id="s1">
+      <span class="section-num">01</span>
+      <h2>Not Medical Advice</h2>
+      <p>The meal plans, nutritional data, calorie estimates, health calculators, and all other content provided by NutritionTracker are intended for <strong>general informational and wellness purposes only</strong>. This content does not constitute:</p>
+      <ul>
+        <li>Medical advice or diagnosis</li>
+        <li>Clinical dietary therapy or treatment</li>
+        <li>A substitute for consultation with a registered dietitian, nutritionist, or physician</li>
+        <li>Any form of professional health or medical service</li>
+      </ul>
+      <p>NutritionTracker is a digital product designed to help generally healthy adults explore structured Indian meal planning. It is not designed for therapeutic nutrition management.</p>
+    </section>
+
+    <section id="s2">
+      <span class="section-num">02</span>
+      <h2>Consult a Professional First</h2>
+      <div class="alert-card">
+        <strong>Before starting any new diet plan, please consult a qualified professional if you have:</strong>
+        Diabetes, hypertension, heart disease, kidney disorders, eating disorders, thyroid conditions, gastrointestinal conditions, food allergies or intolerances, are pregnant or breastfeeding, are recovering from surgery or illness, or are on any prescribed medication.
+      </div>
+      <p>The meal plans generated by NutritionTracker are algorithmic outputs based on standard nutritional guidelines (ICMR-NIN, IFCT 2017). They are not reviewed by a healthcare professional on a per-user basis.</p>
+      <p>We strongly encourage all users to share their generated plan with a registered dietitian or doctor before following it, particularly if they have any underlying health concerns.</p>
+    </section>
+
+    <section id="s3">
+      <span class="section-num">03</span>
+      <h2>Accuracy of Content</h2>
+      <p>We make reasonable efforts to ensure the accuracy of the nutritional information, calorie estimates, and meal recommendations on NutritionTracker. Our primary data sources include:</p>
+      <ul>
+        <li>Indian Food Composition Tables (IFCT 2017) by NIN, Hyderabad</li>
+        <li>ICMR Recommended Dietary Allowances (RDA) for Indians</li>
+        <li>National Institute of Nutrition (NIN) dietary guidelines</li>
+      </ul>
+      <p>However, nutritional values can vary significantly based on ingredient quality, regional variation, cooking method, portion size, and preparation technique. The values presented should be treated as <strong>estimates, not precise measurements</strong>.</p>
+      <p>NutritionTracker does not guarantee the completeness, accuracy, or timeliness of any nutritional information and reserves the right to update content without notice.</p>
+    </section>
+
+    <section id="s4">
+      <span class="section-num">04</span>
+      <h2>Individual Results May Vary</h2>
+      <p>Nutrition and weight management are highly individualised. Factors including genetics, metabolism, gut microbiome, sleep quality, stress levels, hormonal status, physical activity, and adherence all influence outcomes.</p>
+      <p>NutritionTracker does not guarantee any specific results — including but not limited to weight loss, muscle gain, improved energy, or any other health outcome. Statements such as "typical results" or user experiences shared as testimonials represent individual cases and may not reflect your personal experience.</p>
+      <div class="green-card">
+        <strong>Tip:</strong> Treat your NutritionTracker meal plan as a starting point, not a rigid prescription. Adjust portion sizes and food choices based on your own hunger, energy, and preferences.
+      </div>
+    </section>
+
+    <section id="s5">
+      <span class="section-num">05</span>
+      <h2>Nutritional Data &amp; Food Database</h2>
+      <p>The nutritional values available in our Food Database are derived from IFCT 2017 and supplementary Indian food databases. These are provided for informational reference only.</p>
+      <p>Nutrient content in real food can deviate from database values due to:</p>
+      <ul>
+        <li>Seasonal and regional variation in produce</li>
+        <li>Cooking methods (boiling, frying, steaming) affecting nutrient retention</li>
+        <li>Brand-specific differences in packaged foods</li>
+        <li>Serving size estimation inaccuracies</li>
+      </ul>
+      <p>Users requiring precise nutritional analysis (e.g. for clinical or athletic purposes) should use laboratory-tested values or consult a sports dietitian.</p>
+    </section>
+
+    <section id="s6">
+      <span class="section-num">06</span>
+      <h2>Health Calculators &amp; Tools</h2>
+      <p>The BMI, TDEE, BMR, ideal weight, and other calculators available on NutritionTracker use standard formulae (Mifflin-St Jeor, Harris-Benedict, etc.) validated for general adult populations. These tools provide estimates based on population averages and may not accurately reflect your individual physiology.</p>
+      <p>In particular:</p>
+      <ul>
+        <li><strong>BMI</strong> does not account for muscle mass, bone density, or fat distribution — it is a screening tool, not a diagnostic one.</li>
+        <li><strong>TDEE</strong> estimates assume standard activity multipliers and may not reflect your actual energy expenditure.</li>
+        <li><strong>Calorie targets</strong> generated are starting estimates and should be adjusted based on real-world progress.</li>
+      </ul>
+    </section>
+
+    <section id="s7">
+      <span class="section-num">07</span>
+      <h2>Affiliate Links &amp; Third-Party References</h2>
+      <p>Some blog posts or pages on NutritionTracker may contain affiliate links to products or services (for example, via Amazon Associates or Cuelinks). If you click on an affiliate link and make a purchase, we may earn a small commission at no additional cost to you.</p>
+      <p>We only recommend products we genuinely believe are useful. However, the presence of an affiliate link does not constitute a medical or nutritional endorsement. NutritionTracker is not responsible for the quality, safety, or effectiveness of any third-party products mentioned on the site.</p>
+      <p>External links to third-party websites are provided for convenience only. We have no control over the content of those sites and accept no liability for them.</p>
+    </section>
+
+    <section id="s8">
+      <span class="section-num">08</span>
+      <h2>No Liability for Health Outcomes</h2>
+      <p>To the fullest extent permitted by applicable law, NutritionTracker, its owners, team members, and affiliates expressly disclaim all liability for:</p>
+      <ul>
+        <li>Any adverse health effects arising from following a NutritionTracker meal plan.</li>
+        <li>Allergic reactions to foods listed in the meal plan.</li>
+        <li>Failure to achieve expected results.</li>
+        <li>Decisions made based on information provided on the website.</li>
+        <li>Inaccuracies in nutritional data or calorie estimates.</li>
+      </ul>
+      <p>Your use of this Service is entirely at your own risk. By proceeding with a purchase, you acknowledge this disclaimer and accept full personal responsibility for your dietary choices.</p>
+    </section>
+
+    <section id="s9">
+      <span class="section-num">09</span>
+      <h2>Testimonials &amp; User Results</h2>
+      <p>Any testimonials, success stories, or before-and-after examples shared on NutritionTracker represent individual user experiences. These are not guaranteed outcomes and may not be typical. Results depend on numerous personal factors including adherence, lifestyle, and individual metabolism.</p>
+      <p>Testimonials should not be used as a basis for personal medical or dietary decisions. They are shared for motivational context only.</p>
+    </section>
+
+    <section id="s10">
+      <span class="section-num">10</span>
+      <h2>Questions or Concerns</h2>
+      <div class="contact-card">
+        <h3>Have a question about this disclaimer?</h3>
+        <p>If you have specific concerns about whether NutritionTracker is appropriate for your health situation, or if you'd like to raise any issues about the content on this site, please contact us:</p>
+        <p style="margin-top:12px;">📧 Email: <a href="mailto:support@nutritiontracker.in">support@nutritiontracker.in</a></p>
+        <p>🌐 Website: <a href="https://nutritiontracker.in">nutritiontracker.in</a></p>
+        <p style="margin-top:16px; font-size:13px; color:#8a9e92;">For serious medical queries, please consult a registered healthcare professional. NutritionTracker cannot provide personalised medical advice.</p>
+      </div>
+    </section>
+
+  </article>
+</div>
+
+<!-- ═══ FOOTER (loaded by load-partials.js) ═══ -->
+<div id="site-footer"></div>
+
+<script>
+fetch("/nav.html").then(r=>r.text()).then(h=>{document.getElementById("site-nav").innerHTML=h;});
+fetch("/footer.html").then(r=>r.text()).then(h=>{document.getElementById("site-footer").innerHTML=h;});
+</script>
+</body>
+</html>
