@@ -1,8 +1,46 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { PDFDocument } from 'https://esm.sh/pdf-lib@1.17.1'
 import { corsHeaders } from '../_shared/cors.ts'
 import { supabaseAdmin } from '../_shared/supabase-client.ts'
 import { buildMealPlan } from './planner.ts'
-import { renderTemplate } from './template.ts'
+import { renderChunk1, renderChunk2, renderChunk3 } from '../_shared/template.ts'
+
+// ── helpers ───────────────────────────────────────────────────────────────────
+
+async function htmlToPdfBytes(html: string, token: string): Promise<Uint8Array> {
+  const res = await fetch(
+    `https://chrome.browserless.io/pdf?token=${token}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        html,
+        options: {
+          printBackground: true,
+          format: 'A4',
+          margin: { top: '0', bottom: '0', left: '0', right: '0' },
+        },
+      }),
+    }
+  )
+  if (!res.ok) {
+    const err = await res.text()
+    throw new Error(`Browserless failed (${res.status}): ${err}`)
+  }
+  return new Uint8Array(await res.arrayBuffer())
+}
+
+async function mergePdfs(chunks: Uint8Array[]): Promise<Uint8Array> {
+  const merged = await PDFDocument.create()
+  for (const bytes of chunks) {
+    const src = await PDFDocument.load(bytes)
+    const pages = await merged.copyPages(src, src.getPageIndices())
+    pages.forEach(p => merged.addPage(p))
+  }
+  return merged.save()
+}
+
+// ── main handler ──────────────────────────────────────────────────────────────
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -36,54 +74,46 @@ serve(async (req) => {
       )
     }
 
-    // 2. Build meal plan
+    // 2. Build meal plan data
     console.log(`Building meal plan for ${user_plan_id}, goal: ${plan.goal}`)
     const mealPlan = await buildMealPlan(plan.intake_data, plan.goal)
 
-    // 3. Render HTML template
-    const html = renderTemplate(mealPlan, plan.intake_data)
-    console.log(`HTML rendered, length: ${html.length} chars`)
+    // 3. Render 3 HTML chunks (≈3 pages each, ~95k chars each)
+    const intake = plan.intake_data
+    const [html1, html2, html3] = [
+      renderChunk1(mealPlan, intake),
+      renderChunk2(mealPlan, intake),
+      renderChunk3(mealPlan, intake),
+    ]
+    console.log(`Chunks rendered: ${html1.length} / ${html2.length} / ${html3.length} chars`)
 
-    // 4. Call Browserless to generate PDF
+    // 4. Convert each chunk to PDF via Browserless (sequential to respect rate limits)
     const browserlessToken = Deno.env.get('BROWSERLESS_API_TOKEN')!
-    const browserlessRes = await fetch(
-      `https://chrome.browserless.io/pdf?token=${browserlessToken}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          html,
-          options: {
-            printBackground: true,
-            format:          'A4',
-            margin: {
-              top:    '15mm',
-              bottom: '15mm',
-              left:   '20mm',
-              right:  '20mm'
-            }
-          }
-        })
-      }
-    )
+    console.log('Generating PDF chunk 1…')
+    const pdf1 = await htmlToPdfBytes(html1, browserlessToken)
+    console.log(`Chunk 1 PDF: ${pdf1.byteLength} bytes`)
 
-    if (!browserlessRes.ok) {
-      const errText = await browserlessRes.text()
-      console.error('Browserless error:', errText)
-      throw new Error(`Browserless failed: ${browserlessRes.status} ${errText}`)
-    }
+    console.log('Generating PDF chunk 2…')
+    const pdf2 = await htmlToPdfBytes(html2, browserlessToken)
+    console.log(`Chunk 2 PDF: ${pdf2.byteLength} bytes`)
 
-    const pdfBytes = await browserlessRes.arrayBuffer()
-    console.log(`PDF generated, size: ${pdfBytes.byteLength} bytes`)
+    console.log('Generating PDF chunk 3…')
+    const pdf3 = await htmlToPdfBytes(html3, browserlessToken)
+    console.log(`Chunk 3 PDF: ${pdf3.byteLength} bytes`)
 
-    // 5. Upload to Supabase Storage
+    // 5. Merge all three PDFs into one
+    console.log('Merging PDFs…')
+    const merged = await mergePdfs([pdf1, pdf2, pdf3])
+    console.log(`Merged PDF: ${merged.byteLength} bytes`)
+
+    // 6. Upload to Supabase Storage
     const pdfPath = `plans/${user_plan_id}.pdf`
     const { error: uploadError } = await supabaseAdmin
       .storage
       .from('meal-plans')
-      .upload(pdfPath, pdfBytes, {
+      .upload(pdfPath, merged, {
         contentType: 'application/pdf',
-        upsert:      true
+        upsert: true,
       })
 
     if (uploadError) {
@@ -91,7 +121,7 @@ serve(async (req) => {
       throw new Error(`Upload failed: ${uploadError.message}`)
     }
 
-    // 6. Generate signed URL (24 hours)
+    // 7. Generate signed URL (24 hours)
     const { data: signedData, error: signedError } = await supabaseAdmin
       .storage
       .from('meal-plans')
@@ -101,13 +131,13 @@ serve(async (req) => {
       throw new Error(`Signed URL generation failed: ${signedError?.message}`)
     }
 
-    // 7. Update user_plans
+    // 8. Update user_plans record
     await supabaseAdmin
       .from('user_plans')
       .update({
         status:   'ready',
         pdf_url:  signedData.signedUrl,
-        pdf_path: pdfPath
+        pdf_path: pdfPath,
       })
       .eq('id', user_plan_id)
 
@@ -121,7 +151,6 @@ serve(async (req) => {
   } catch (err) {
     console.error('generate-pdf fatal error:', err)
 
-    // Mark plan as failed so frontend can show retry
     if (user_plan_id) {
       await supabaseAdmin
         .from('user_plans')
