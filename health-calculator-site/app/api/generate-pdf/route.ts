@@ -1,14 +1,37 @@
-// DEPRECATED: This route is no longer called by the payment flow.
-// PDF generation is handled by the Supabase Edge Function:
-// https://clutyaynlukgsumnopkf.supabase.co/functions/v1/generate-pdf
-// See app/api/handle-payment/route.ts for the active PDF trigger.
-
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase';
+import { buildMealPlan } from '@/lib/planner';
+import { renderTemplate } from '@/lib/template';
+
+export const maxDuration = 60;
+export const runtime = 'nodejs';
+
+async function htmlToPdf(html: string): Promise<Buffer> {
+  const token = process.env.BROWSERLESS_API_TOKEN;
+  if (!token) throw new Error('BROWSERLESS_API_TOKEN not configured');
+
+  const res = await fetch(`https://chrome.browserless.io/pdf?token=${token}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      html,
+      options: {
+        printBackground: true,
+        format: 'A4',
+        margin: { top: '15mm', bottom: '15mm', left: '20mm', right: '20mm' },
+      },
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Browserless error ${res.status}: ${await res.text()}`);
+  }
+
+  return Buffer.from(await res.arrayBuffer());
+}
 
 export async function POST(req: NextRequest) {
   const supabase = createServerClient();
-
   let user_plan_id: string | undefined;
 
   try {
@@ -18,53 +41,42 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'user_plan_id required' }, { status: 400 });
     }
 
-    const { data: plan, error: planError } = await supabase
+    // Fetch the plan row
+    const { data: planRow, error: planError } = await supabase
       .from('user_plans')
       .select('*')
       .eq('id', user_plan_id)
       .single();
 
-    if (planError || !plan) {
+    if (planError || !planRow) {
       return NextResponse.json({ error: 'Plan not found' }, { status: 404 });
     }
 
-    const browserlessToken = process.env.BROWSERLESS_API_TOKEN;
-    if (!browserlessToken) {
-      throw new Error('Browserless token not configured');
-    }
+    const intakeData = planRow.intake_data ?? planRow;
+    const goal: string = planRow.goal ?? intakeData.goal ?? 'lose';
 
-    // Generate HTML for the PDF
-    const html = buildPlanHtml(plan);
+    // Build meal plan with safe deficit logic
+    const mealPlan = await buildMealPlan(intakeData, goal);
 
-    // Call Browserless to convert HTML → PDF
-    const pdfRes = await fetch(
-      `https://chrome.browserless.io/pdf?token=${browserlessToken}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          html,
-          options: { format: 'A4', printBackground: true, margin: { top: '0', bottom: '0', left: '0', right: '0' } },
-        }),
-      },
-    );
+    // Render 7-page HTML
+    const html = renderTemplate(mealPlan, intakeData);
 
-    if (!pdfRes.ok) {
-      throw new Error(`Browserless error: ${await pdfRes.text()}`);
-    }
+    // Single Browserless call → PDF
+    const pdfBuffer = await htmlToPdf(html);
 
-    const pdfBytes = await pdfRes.arrayBuffer();
     const pdfPath = `plans/${user_plan_id}.pdf`;
 
+    // Upload to Supabase Storage
     const { error: uploadError } = await supabase.storage
       .from('meal-plans')
-      .upload(pdfPath, pdfBytes, { contentType: 'application/pdf', upsert: true });
+      .upload(pdfPath, pdfBuffer, { contentType: 'application/pdf', upsert: true });
 
     if (uploadError) throw uploadError;
 
+    // Create signed URL (24 hours)
     const { data: signed } = await supabase.storage
       .from('meal-plans')
-      .createSignedUrl(pdfPath, 60 * 60 * 24); // 24 hours
+      .createSignedUrl(pdfPath, 60 * 60 * 24);
 
     await supabase
       .from('user_plans')
@@ -74,28 +86,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, pdf_url: signed?.signedUrl });
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Unknown error';
+    console.error('[generate-pdf]', msg);
     if (user_plan_id) {
       await supabase.from('user_plans').update({ status: 'failed' }).eq('id', user_plan_id);
     }
     return NextResponse.json({ error: msg }, { status: 500 });
   }
-}
-
-function buildPlanHtml(plan: Record<string, unknown>): string {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<style>
-  body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 40px; color: #1a1a1a; }
-  h1 { color: #2e7d32; }
-  .label { font-size: 12px; color: #666; text-transform: uppercase; }
-</style>
-</head>
-<body>
-  <h1>Your 7-Day Indian Meal Plan</h1>
-  <p class="label">Generated for plan ID: ${String(plan.id)}</p>
-  <p>Your personalised meal plan is being prepared. Please check back shortly.</p>
-</body>
-</html>`;
 }
