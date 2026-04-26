@@ -1,4 +1,10 @@
 {
+  "functions": {
+    "app/api/generate-pdf/route.ts": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  },
   "rewrites": [
     { "source": "/about",                      "destination": "/about.html" },
     { "source": "/blog/bmi-indian-bodies",              "destination": "/blog/bmi-indian-bodies.html" },
