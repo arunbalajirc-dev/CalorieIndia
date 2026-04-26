@@ -585,15 +585,6 @@ function page3(plan: MealPlan, intakeData: any): string {
         </div>
       </div>
 
-      <div style="background:#111;border-left:3px solid #FFD700;border-radius:0 8px 8px 0;padding:7px 11px;flex-shrink:0;">
-        <div style="font-size:8.5px;font-weight:600;color:#FFD700;margin-bottom:3px;">How to hit these targets using your food library (Pages 6–7):</div>
-        <div style="font-size:9px;color:#888;line-height:1.5;">
-          · Protein target ${protG}g → prioritise high-protein breakfast and dinner combos from your food library<br>
-          · Carbs target ${carbG}g → your lunch combo provides the bulk of complex carbs<br>
-          · Fat target ${fatG}g → keep dinner combos light on fat to stay within target
-        </div>
-      </div>
-
       <div style="display:flex;justify-content:space-between;align-items:center;flex-shrink:0;padding:0 4px;">
         <span style="font-size:8px;color:#444;">Data sourced from IFCT 2017 · NIN India · CalorieIndia database</span>
         <span style="font-family:'DM Mono',monospace;font-size:8.5px;color:#555;">Page 3 of 7</span>
@@ -765,8 +756,9 @@ function page5(plan: MealPlan, intakeData: any): string {
   const runBurnPer30  = burnFn(9.8, 30)
   const walkMinsFor100 = walkBurnPer30 > 0 ? Math.round(100 / walkBurnPer30 * 30) : 0
   const runMinsFor100  = runBurnPer30 > 0  ? Math.round(100 / runBurnPer30  * 30) : 0
-  const dietKcal = Math.round(Math.abs(totalDef) * 0.8)
-  const exerKcal = Math.round(Math.abs(totalDef) * 0.2)
+  // Use actual deficit for diet, and exercise burn target (to reach 0.5 kg/week) for exercise
+  const dietKcal = Math.abs(totalDef)
+  const exerKcal = plan.goal === 'lose' ? Math.max(0, 500 - Math.abs(totalDef)) : Math.round(Math.abs(totalDef) * 0.2)
   const daysPerKg = totalDef !== 0 ? Math.round(7700 / Math.abs(totalDef)) : 0
 
   const mealSlots = [
@@ -883,7 +875,7 @@ function page5(plan: MealPlan, intakeData: any): string {
           </div>
           <div style="display:flex;gap:5px;">
             <div style="width:4px;height:4px;border-radius:50%;background:#F97316;flex-shrink:0;margin-top:4px;"></div>
-            <span style="font-size:11px;color:#888;line-height:1.5;">Your <strong style="color:#F97316;">${exerKcal} kcal</strong> exercise target = approximately <strong style="color:#fff;">${Math.floor(walkMinsFor100 * exerKcal / 100)} min brisk walk</strong> OR <strong style="color:#fff;">${Math.floor(runMinsFor100 * exerKcal / 100)} min jogging</strong> daily.</span>
+            <span style="font-size:11px;color:#888;line-height:1.5;">Your <strong style="color:#F97316;">${exerKcal} kcal</strong> exercise burn target = approximately <strong style="color:#fff;">${walkBurnPer30 > 0 ? Math.round(exerKcal / walkBurnPer30 * 30) : 0} min brisk walk</strong> OR <strong style="color:#fff;">${runBurnPer30 > 0 ? Math.round(exerKcal / runBurnPer30 * 30) : 0} min jogging</strong> daily.</span>
           </div>
           <div style="display:flex;gap:5px;">
             <div style="width:4px;height:4px;border-radius:50%;background:#A855F7;flex-shrink:0;margin-top:4px;"></div>
