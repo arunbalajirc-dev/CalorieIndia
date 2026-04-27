@@ -48,8 +48,8 @@ export default function Navbar() {
         <Image
           src="/images/nutrition-tracker-logo.png"
           alt="Nutrition Tracker"
-          width={140}
-          height={40}
+          width={200}
+          height={56}
           style={{ objectFit: 'contain' }}
         />
       </Link>
