@@ -89,7 +89,7 @@ function Hero() {
         background: 'linear-gradient(120deg, rgba(13,26,15,0.96) 0%, rgba(13,26,15,0.82) 55%, rgba(13,26,15,0.45) 100%)',
       }} />
 
-      <div style={{ position: 'relative', zIndex: 2, maxWidth: 1200, margin: '0 auto', padding: '80px 24px', width: '100%' }}>
+      <div style={{ position: 'relative', zIndex: 2, maxWidth: 1200, margin: '0 auto', padding: '40px 24px', width: '100%' }}>
         <div style={{ maxWidth: 680 }}>
 
           <div style={{
@@ -128,21 +128,51 @@ function Hero() {
           </p>
 
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-            <Link href="/get-your-meal-plan" style={{
-              background: ACCENT, color: '#000',
-              fontFamily: 'var(--font-barlow, sans-serif)', fontSize: 15, fontWeight: 800, letterSpacing: '.08em',
-              padding: '16px 32px', borderRadius: 10, textDecoration: 'none',
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-            }}>
+            <Link
+              href="/get-your-meal-plan"
+              style={{
+                background: ACCENT, color: '#000',
+                fontFamily: 'var(--font-barlow, sans-serif)', fontSize: 15, fontWeight: 800, letterSpacing: '.08em',
+                padding: '16px 32px', borderRadius: 10, textDecoration: 'none',
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                transition: 'transform 0.18s ease, box-shadow 0.18s ease',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.transform = 'translateY(-3px)'
+                el.style.boxShadow = `0 8px 28px rgba(245,158,11,0.45)`
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.transform = 'translateY(0)'
+                el.style.boxShadow = 'none'
+              }}
+            >
               GET MY MEAL PLAN →
             </Link>
-            <Link href="/blog" style={{
-              background: 'transparent', color: '#fff',
-              border: '1.5px solid rgba(255,255,255,0.35)',
-              fontFamily: 'var(--font-barlow, sans-serif)', fontSize: 15, fontWeight: 700, letterSpacing: '.08em',
-              padding: '16px 32px', borderRadius: 10, textDecoration: 'none',
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-            }}>
+            <Link
+              href="/blog"
+              style={{
+                background: 'transparent', color: '#fff',
+                border: '1.5px solid rgba(255,255,255,0.35)',
+                fontFamily: 'var(--font-barlow, sans-serif)', fontSize: 15, fontWeight: 700, letterSpacing: '.08em',
+                padding: '16px 32px', borderRadius: 10, textDecoration: 'none',
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                transition: 'background 0.18s ease, border-color 0.18s ease, color 0.18s ease',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.background = 'rgba(34,197,94,0.12)'
+                el.style.borderColor = GREEN
+                el.style.color = GREEN
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.background = 'transparent'
+                el.style.borderColor = 'rgba(255,255,255,0.35)'
+                el.style.color = '#fff'
+              }}
+            >
               BROWSE FREE GUIDES →
             </Link>
           </div>
@@ -259,10 +289,24 @@ function BlogSection({ posts }: { posts: ReturnType<typeof getLatest3> }) {
               Evidence-based articles for the Indian context.
             </p>
           </div>
-          <Link href="/blog" style={{
-            color: ACCENT, fontSize: 14, fontWeight: 600, textDecoration: 'none',
-            display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap',
-          }}>
+          <Link
+            href="/blog"
+            style={{
+              color: ACCENT, fontSize: 14, fontWeight: 600, textDecoration: 'none',
+              display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap',
+              transition: 'gap 0.18s ease, opacity 0.18s ease',
+            }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLAnchorElement
+              el.style.gap = '12px'
+              el.style.opacity = '0.85'
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLAnchorElement
+              el.style.gap = '6px'
+              el.style.opacity = '1'
+            }}
+          >
             View all articles →
           </Link>
         </div>
@@ -282,9 +326,11 @@ function BlogCard({ post }: { post: ReturnType<typeof getLatest3>[number] }) {
   const dateStr  = new Date(post.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
 
   return (
+    <Link href={`/blog/${post.id}`} style={{ textDecoration: 'none', display: 'block' }}>
     <article style={{
       background: BG2, border: `1px solid ${BORDER}`, borderRadius: 14,
       overflow: 'hidden', display: 'flex', flexDirection: 'column',
+      transition: 'border-color 0.18s ease, transform 0.18s ease', cursor: 'pointer',
     }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLElement
@@ -335,14 +381,15 @@ function BlogCard({ post }: { post: ReturnType<typeof getLatest3>[number] }) {
           {post.excerpt}
         </p>
 
-        <Link href={`/blog/${post.id}`} style={{
-          color: ACCENT, fontSize: 13, fontWeight: 600, textDecoration: 'none',
+        <span style={{
+          color: ACCENT, fontSize: 13, fontWeight: 600,
           display: 'flex', alignItems: 'center', gap: 6,
         }}>
           Read more →
-        </Link>
+        </span>
       </div>
     </article>
+    </Link>
   )
 }
 
@@ -354,56 +401,66 @@ function LeadMagnet() {
       <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
 
         <div>
-          <span style={{
-            fontSize: 11, fontWeight: 700, letterSpacing: '.15em', color: GREEN,
-            display: 'block', marginBottom: 16,
-          }}>
-            FREE DOWNLOAD
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+            <span style={{
+              background: ACCENT, color: '#000',
+              fontSize: 13, fontWeight: 800, letterSpacing: '.1em',
+              padding: '5px 14px', borderRadius: 99,
+            }}>
+              ₹249
+            </span>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.15em', color: GREEN }}>
+              PERSONALISED PLAN
+            </span>
+          </div>
 
           <h2 style={{
             fontFamily: 'var(--font-barlow, sans-serif)', fontSize: 'clamp(28px, 3.5vw, 44px)',
             fontWeight: 900, lineHeight: 1.1, color: '#fff', margin: '0 0 16px',
           }}>
-            Your free 7-day<br />
-            <span style={{ color: ACCENT }}>Indian meal plan</span>
+            Your <span style={{ color: ACCENT }}>personalised</span><br />
+            7-day Indian meal plan
           </h2>
 
           <p style={{ fontSize: 16, color: MUTED, lineHeight: 1.7, margin: '0 0 32px', maxWidth: 420 }}>
-            Calorie-counted Indian meals for 7 days. No crash dieting. Real food your family will love.
+            Calorie-counted Indian meals built around your weight, goal, and lifestyle. No crash dieting. Real food your family will love.
           </p>
 
-          <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 440 }}>
-            <div style={{ display: 'flex', gap: 10 }}>
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                style={{
-                  flex: 1, background: BG, border: `1px solid rgba(255,255,255,0.15)`,
-                  borderRadius: 8, padding: '14px 16px', color: '#f1f5f2',
-                  fontSize: 14, outline: 'none',
-                }}
-              />
-              <button type="submit" style={{
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 440 }}>
+            <Link
+              href="/get-your-meal-plan"
+              style={{
                 background: ACCENT, color: '#000', border: 'none',
-                fontFamily: 'var(--font-barlow, sans-serif)', fontSize: 13, fontWeight: 800, letterSpacing: '.07em',
-                padding: '14px 20px', borderRadius: 8, cursor: 'pointer', whiteSpace: 'nowrap',
-              }}>
-                SEND ME THE FREE PLAN →
-              </button>
-            </div>
+                fontFamily: 'var(--font-barlow, sans-serif)', fontSize: 15, fontWeight: 800, letterSpacing: '.07em',
+                padding: '16px 32px', borderRadius: 10, cursor: 'pointer', whiteSpace: 'nowrap',
+                textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8,
+                transition: 'transform 0.18s ease, box-shadow 0.18s ease',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.transform = 'translateY(-3px)'
+                el.style.boxShadow = `0 8px 28px rgba(245,158,11,0.45)`
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.transform = 'translateY(0)'
+                el.style.boxShadow = 'none'
+              }}
+            >
+              GET MY MEAL PLAN →
+            </Link>
             <p style={{ fontSize: 11, color: MUTED, margin: 0 }}>
-              🔒 No Spam. Unsubscribe anytime.
+              🔒 Instant download after checkout. One-time payment.
             </p>
-          </form>
+          </div>
         </div>
 
-        <div style={{ position: 'relative', height: 420, borderRadius: 16, overflow: 'hidden' }}>
+        <div style={{ position: 'relative', height: 460, borderRadius: 16, overflow: 'hidden' }}>
           <Image
-            src="/images/Meal-Booklet.jpg"
-            alt="7-day Indian meal plan booklet"
+            src="/images/Meal-booklet.png"
+            alt="Personalised Indian meal plan booklet"
             fill
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            style={{ objectFit: 'contain', objectPosition: 'center' }}
           />
         </div>
       </div>
