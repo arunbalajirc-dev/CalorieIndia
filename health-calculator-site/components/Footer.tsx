@@ -39,7 +39,7 @@ export default function Footer() {
             <div className="sf-col">
               <h4>Resources</h4>
               <ul>
-                <li><Link href="/food-lookup">Food Database</Link></li>
+                <li><Link href="/food-database">Food Database</Link></li>
                 <li><Link href="/recipe-database">Recipe Database</Link></li>
                 <li><Link href="/blog">Blog &amp; Guides</Link></li>
                 <li><Link href="/meal-plan">Free Meal Plan</Link></li>

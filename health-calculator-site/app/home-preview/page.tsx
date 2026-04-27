@@ -100,7 +100,7 @@ function Nav() {
           {[
             { label: 'Home',        href: '/' },
             { label: 'Calculators', href: '/tdee-calculator' },
-            { label: 'Database',    href: '/food-lookup' },
+            { label: 'Database',    href: '/food-database' },
             { label: 'Blog',        href: '/blog' },
           ].map(l => (
             <Link key={l.label} href={l.href} style={{ color: MUTED, fontSize: 14, fontWeight: 500, textDecoration: 'none', transition: 'color .2s' }}
