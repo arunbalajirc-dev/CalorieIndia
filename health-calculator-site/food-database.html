@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Indian Food Database – Nutrition Tracker</title>
-  <meta name="description" content="Search 900+ Indian foods with calories, protein, carbs, fat and fiber data from IFCT 2017 / ICMR / NIN."/>
+  <meta name="description" content="Search 500+ Indian foods with calories, protein, carbs, fat and fiber data from IFCT 2017 / ICMR / NIN."/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -22,7 +22,6 @@
       --border:       #e5e7eb;
       --dark:         #111813;
 
-      /* Food page accents */
       --saffron:      #E07B39;
       --saffron-light:#FFF4EC;
       --prot:         #185FA5;
@@ -37,7 +36,7 @@
 
     html { scroll-behavior: smooth; }
     body {
-      padding-top: 64px; /* fixed nav height */
+      padding-top: 64px;
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
@@ -201,8 +200,7 @@
       justify-content: center;
       font-size: 52px;
     }
-    .card-body {
-      padding-top: 64px; /* fixed nav height */ padding: 16px; }
+    .card-body { padding: 16px; }
     .card-top {
       display: flex;
       justify-content: space-between;
@@ -273,8 +271,7 @@
       overflow: hidden;
     }
     .skeleton-img  { height: 140px; }
-    .skeleton-body {
-      padding-top: 64px; /* fixed nav height */ padding: 16px; }
+    .skeleton-body { padding: 16px; }
     .skeleton-line { height: 14px; margin-bottom: 10px; }
     .skeleton-line.short { width: 60%; }
     .skeleton-line.med   { width: 80%; }
@@ -289,6 +286,35 @@
     .empty-state .emoji { font-size: 52px; margin-bottom: 12px; }
     .empty-state h3 { font-size: 18px; color: var(--text); margin-bottom: 6px; }
     .empty-state p { font-size: 14px; }
+
+    /* ── PAGINATION ── */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      min-width: 36px;
+      height: 36px;
+      padding: 0 12px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      color: var(--text);
+      font-size: 13px;
+      font-family: inherit;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .page-btn:hover:not(:disabled) { border-color: var(--green); color: var(--green); }
+    .page-btn.active { background: var(--green); border-color: var(--green); color: #fff; }
+    .page-btn:disabled { opacity: 0.35; cursor: default; }
+    .page-ellipsis { font-size: 13px; color: var(--muted); padding: 0 4px; line-height: 36px; }
 
     /* ── DETAIL PANEL (MODAL) ── */
     .panel-overlay {
@@ -330,8 +356,7 @@
       position: relative;
     }
 
-    .panel-body {
-      padding-top: 64px; /* fixed nav height */ padding: 24px; flex: 1; }
+    .panel-body { padding: 24px; flex: 1; }
 
     .panel-close {
       position: absolute;
@@ -373,17 +398,13 @@
       margin-bottom: 20px;
     }
 
-    /* 4 macro stat cards */
     .macro-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin-bottom: 20px;
     }
-    .macro-stat-card {
-      border-radius: 10px;
-      padding: 14px 16px;
-    }
+    .macro-stat-card { border-radius: 10px; padding: 14px 16px; }
     .macro-stat-card.prot { background: var(--prot-light); }
     .macro-stat-card.carb { background: var(--carb-light); }
     .macro-stat-card.fat  { background: var(--fat-light);  }
@@ -396,7 +417,6 @@
     .macro-stat-value { font-size: 26px; font-weight: 700; color: var(--text); line-height: 1; }
     .macro-stat-unit  { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    /* Calorie row */
     .kcal-hero {
       background: var(--saffron-light);
       border-radius: 12px;
@@ -410,7 +430,6 @@
     .kcal-val   { font-size: 34px; font-weight: 700; color: var(--saffron); line-height: 1; }
     .kcal-per   { font-size: 12px; color: var(--muted); }
 
-    /* Regional names */
     .panel-section-title {
       font-size: 12px;
       font-weight: 700;
@@ -429,7 +448,6 @@
       margin-bottom: 20px;
     }
 
-    /* Source line */
     .source-line {
       font-size: 12px;
       color: var(--muted);
@@ -506,11 +524,11 @@
 <!-- HERO -->
 <div class="page-hero">
   <h1>Indian <em>Food Database</em></h1>
-  <p>Search 900+ Indian foods with calories, macros, and nutritional data. All values are per 100g edible portion.</p>
+  <p>Search 500+ Indian foods with calories, macros, and nutritional data. All values are per 100g edible portion.</p>
   <div class="hero-badges">
     <span class="hero-badge">📗 IFCT 2017 Data</span>
     <span class="hero-badge">🔬 NIN / ICMR Verified</span>
-    <span class="hero-badge">🇮🇳 900+ Indian Foods</span>
+    <span class="hero-badge">🇮🇳 500+ Indian Foods</span>
     <span class="hero-badge">Per 100g Values</span>
   </div>
 </div>
@@ -526,15 +544,26 @@
 
   <div class="filter-row" id="filter-row">
     <button class="chip active" data-grup="">All</button>
-    <button class="chip" data-grup="Cereals and Millets">Cereals & Millets</button>
+    <button class="chip" data-grup="Cereals and Millets">Cereals &amp; Millets</button>
     <button class="chip" data-grup="Grain Legumes">Grain Legumes</button>
-    <button class="chip" data-grup="Vegetables">Vegetables</button>
+    <button class="chip" data-grup="Green Leafy Vegetables">Leafy Vegetables</button>
+    <button class="chip" data-grup="Other Vegetables">Vegetables</button>
+    <button class="chip" data-grup="Roots and Tubers">Roots &amp; Tubers</button>
     <button class="chip" data-grup="Fruits">Fruits</button>
     <button class="chip" data-grup="Milk and Milk Products">Dairy</button>
-    <button class="chip" data-grup="Meat and Meat Products">Meat</button>
-    <button class="chip" data-grup="Fish and Sea Food">Fish</button>
-    <button class="chip" data-grup="Nuts and Oil Seeds">Nuts</button>
-    <button class="chip" data-grup="Spices and Condiments">Spices</button>
+    <button class="chip" data-grup="Egg and Egg Products">Eggs</button>
+    <button class="chip" data-grup="Poultry">Poultry</button>
+    <button class="chip" data-grup="Animal Meat">Meat</button>
+    <button class="chip" data-grup="Marine Fish">Marine Fish</button>
+    <button class="chip" data-grup="Marine Shellfish">Shellfish</button>
+    <button class="chip" data-grup="Marine Mollusks">Mollusks</button>
+    <button class="chip" data-grup="Fresh Water Fish and Shellfish">Freshwater Fish</button>
+    <button class="chip" data-grup="Nuts and Oil Seeds">Nuts &amp; Seeds</button>
+    <button class="chip" data-grup="Condiments and Spices">Spices</button>
+    <button class="chip" data-grup="Mushrooms">Mushrooms</button>
+    <button class="chip" data-grup="Sugars">Sugars</button>
+    <button class="chip" data-grup="Edible Oils and Fats">Oils &amp; Fats</button>
+    <button class="chip" data-grup="Miscellaneous Foods">Misc</button>
   </div>
 
   <div class="status-bar">
@@ -542,6 +571,8 @@
   </div>
 
   <div id="food-grid"></div>
+
+  <div class="pagination" id="pagination"></div>
 
 </div>
 
@@ -570,33 +601,30 @@
       <div class="footer-col">
         <h4>Calculators</h4>
         <ul>
-          <li><a href="calculator.html#tdee">TDEE Calculator</a></li>
-          <li><a href="calculator.html#deficit">Calorie Deficit Calculator</a></li>
-          <li><a href="calculator.html#bmi">BMI Calculator</a></li>
-          <li><a href="calculator.html#macro">Macro Calculator</a></li>
-          <li><a href="calculator.html#ideal">Ideal Weight Calculator</a></li>
-          <li><a href="calculator.html#burn">Calorie Burn Calculator</a></li>
+          <li><a href="/tdee-calculator">TDEE Calculator</a></li>
+          <li><a href="/calorie-deficit-calculator">Calorie Deficit Calculator</a></li>
+          <li><a href="/bmi-calculator">BMI Calculator</a></li>
+          <li><a href="/macro-calculator">Macro Calculator</a></li>
+          <li><a href="/ideal-weight-calculator">Ideal Weight Calculator</a></li>
+          <li><a href="/calorie-burn-calculator">Calorie Burn Calculator</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Articles</h4>
         <ul>
-          <li><a href="weight-loss.html">Weight Loss Basics</a></li>
-          <li><a href="indian-diet.html">Indian Diet Guide</a></li>
-          <li><a href="pcos.html">PCOS &amp; Weight Loss</a></li>
-          <li><a href="blog.html">Calorie Counting Tips</a></li>
-          <li><a href="blog.html">Healthy Indian Recipes</a></li>
+          <li><a href="/blog">Blog &amp; Guides</a></li>
+          <li><a href="/recipe-database">Recipe Database</a></li>
+          <li><a href="/get-your-meal-plan">Meal Plan</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Info</h4>
         <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms-of-use.html">Terms of Use</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="food-lookup.html">Food Database</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-use">Terms of Use</a></li>
+          <li><a href="/disclaimer">Disclaimer</a></li>
+          <li><a href="/food-database">Food Database</a></li>
         </ul>
       </div>
     </div>
@@ -608,7 +636,7 @@
 </footer>
 
 <script>
-// ── CONFIG ───────────────────────────────────────────────────────────────────
+// ── CONFIG ────────────────────────────────────────────────────────────────────
 const SUPABASE_URL      = "https://clutyaynlukgsumnopkf.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdXR5YXlubHVrZ3N1bW5vcGtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTAwMzcsImV4cCI6MjA5MDUyNjAzN30.rhWn8jZI0KegFiOrCG8aVDpNVnDhLxrSz-0R62jxja0";
 const HEADERS = {
@@ -616,49 +644,66 @@ const HEADERS = {
   "Authorization": "Bearer " + SUPABASE_ANON_KEY,
   "Content-Type":  "application/json"
 };
+const PAGE_SIZE = 50;
 
-// ── EMOJI & GRADIENT MAP ─────────────────────────────────────────────────────
+// ── EMOJI & GRADIENT MAP (keyed to actual Supabase grup values) ───────────────
 const GROUP_EMOJI = {
-  "Cereals and Millets":       "🌾",
-  "Grain Legumes":             "🫘",
-  "Vegetables":                "🥦",
-  "Fruits":                    "🍌",
-  "Milk and Milk Products":    "🥛",
-  "Meat and Meat Products":    "🍗",
-  "Fish and Sea Food":         "🐟",
-  "Nuts and Oil Seeds":        "🥜",
-  "Spices and Condiments":     "🌶️",
-  "Sugars":                    "🍬",
-  "Fats and Oils":             "🫙",
-  "Beverages":                 "🍵",
-  "Egg and Egg Products":      "🥚",
+  "Cereals and Millets":             "🌾",
+  "Grain Legumes":                   "🫘",
+  "Green Leafy Vegetables":          "🥬",
+  "Other Vegetables":                "🥦",
+  "Roots and Tubers":                "🥔",
+  "Fruits":                          "🍌",
+  "Milk and Milk Products":          "🥛",
+  "Egg and Egg Products":            "🥚",
+  "Poultry":                         "🍗",
+  "Animal Meat":                     "🥩",
+  "Marine Fish":                     "🐟",
+  "Marine Shellfish":                "🦐",
+  "Marine Mollusks":                 "🦪",
+  "Fresh Water Fish and Shellfish":  "🎣",
+  "Nuts and Oil Seeds":              "🥜",
+  "Condiments and Spices":           "🌶️",
+  "Mushrooms":                       "🍄",
+  "Sugars":                          "🍬",
+  "Edible Oils and Fats":            "🫙",
+  "Miscellaneous Foods":             "🍽️",
 };
 const DEFAULT_EMOJI = "🍽️";
 
 const GROUP_GRADIENT = {
-  "Cereals and Millets":       "linear-gradient(135deg, #e8f5ee, #c8e6d4)",
-  "Grain Legumes":             "linear-gradient(135deg, #fff3e0, #ffe0b2)",
-  "Vegetables":                "linear-gradient(135deg, #e8f5e9, #c8e6c9)",
-  "Fruits":                    "linear-gradient(135deg, #fce4ec, #f8bbd0)",
-  "Milk and Milk Products":    "linear-gradient(135deg, #e3f2fd, #bbdefb)",
-  "Meat and Meat Products":    "linear-gradient(135deg, #fbe9e7, #ffccbc)",
-  "Fish and Sea Food":         "linear-gradient(135deg, #e0f7fa, #b2ebf2)",
-  "Nuts and Oil Seeds":        "linear-gradient(135deg, #fff8e1, #ffecb3)",
-  "Spices and Condiments":     "linear-gradient(135deg, #fce4ec, #ffcdd2)",
-  "Egg and Egg Products":      "linear-gradient(135deg, #fffde7, #fff9c4)",
-  "Sugars":                    "linear-gradient(135deg, #f3e5f5, #e1bee7)",
-  "Fats and Oils":             "linear-gradient(135deg, #f9fbe7, #f0f4c3)",
-  "Beverages":                 "linear-gradient(135deg, #e8eaf6, #c5cae9)",
+  "Cereals and Millets":             "linear-gradient(135deg, #e8f5ee, #c8e6d4)",
+  "Grain Legumes":                   "linear-gradient(135deg, #fff3e0, #ffe0b2)",
+  "Green Leafy Vegetables":          "linear-gradient(135deg, #e8f5e9, #c8e6c9)",
+  "Other Vegetables":                "linear-gradient(135deg, #e8f5e9, #c8e6c9)",
+  "Roots and Tubers":                "linear-gradient(135deg, #fff8e1, #ffecb3)",
+  "Fruits":                          "linear-gradient(135deg, #fce4ec, #f8bbd0)",
+  "Milk and Milk Products":          "linear-gradient(135deg, #e3f2fd, #bbdefb)",
+  "Egg and Egg Products":            "linear-gradient(135deg, #fffde7, #fff9c4)",
+  "Poultry":                         "linear-gradient(135deg, #fbe9e7, #ffccbc)",
+  "Animal Meat":                     "linear-gradient(135deg, #fbe9e7, #ffccbc)",
+  "Marine Fish":                     "linear-gradient(135deg, #e0f7fa, #b2ebf2)",
+  "Marine Shellfish":                "linear-gradient(135deg, #e0f7fa, #b2ebf2)",
+  "Marine Mollusks":                 "linear-gradient(135deg, #e0f7fa, #b2ebf2)",
+  "Fresh Water Fish and Shellfish":  "linear-gradient(135deg, #e0f7fa, #b2ebf2)",
+  "Nuts and Oil Seeds":              "linear-gradient(135deg, #fff8e1, #ffecb3)",
+  "Condiments and Spices":           "linear-gradient(135deg, #fce4ec, #ffcdd2)",
+  "Mushrooms":                       "linear-gradient(135deg, #f3e5f5, #e1bee7)",
+  "Sugars":                          "linear-gradient(135deg, #f3e5f5, #e1bee7)",
+  "Edible Oils and Fats":            "linear-gradient(135deg, #f9fbe7, #f0f4c3)",
+  "Miscellaneous Foods":             "linear-gradient(135deg, #f5f5f5, #eeeeee)",
 };
 const DEFAULT_GRADIENT = "linear-gradient(135deg, #f5f5f5, #eeeeee)";
 
-// ── STATE ────────────────────────────────────────────────────────────────────
-let allFoods   = [];
-let activeGrup = "";
-let searchTerm = "";
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let allFoods      = [];
+let filteredFoods = [];
+let activeGrup    = "";
+let searchTerm    = "";
+let currentPage   = 1;
 let searchTimer;
 
-// ── HELPERS ──────────────────────────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────────────────
 function foodEmoji(grup)    { return GROUP_EMOJI[grup]    || DEFAULT_EMOJI;    }
 function grupGradient(grup) { return GROUP_GRADIENT[grup] || DEFAULT_GRADIENT; }
 
@@ -673,7 +718,7 @@ function macroBar(val, max, cls) {
   </div>`;
 }
 
-// ── CARD RENDERING ───────────────────────────────────────────────────────────
+// ── CARD RENDERING ────────────────────────────────────────────────────────────
 function makeCardImg(food) {
   return `<div class="card-img" style="background:${grupGradient(food.grup)};">
     ${foodEmoji(food.grup)}
@@ -701,23 +746,86 @@ function renderCard(food) {
   </div>`;
 }
 
-function renderGrid(foods) {
+// ── FILTERING ─────────────────────────────────────────────────────────────────
+function getFiltered() {
+  let foods = allFoods;
+  if (activeGrup) foods = foods.filter(f => f.grup === activeGrup);
+  if (searchTerm.trim().length >= 2) {
+    const q = searchTerm.trim().toLowerCase();
+    foods = foods.filter(f => f.name && f.name.toLowerCase().includes(q));
+  }
+  return foods;
+}
+
+// ── PAGINATION ────────────────────────────────────────────────────────────────
+function renderPagination(totalPages) {
+  const pg = document.getElementById('pagination');
+  if (totalPages <= 1) { pg.innerHTML = ''; return; }
+
+  let pages = [];
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else {
+    pages = [1];
+    if (currentPage > 3) pages.push('…');
+    for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) pages.push(i);
+    if (currentPage < totalPages - 2) pages.push('…');
+    pages.push(totalPages);
+  }
+
+  const btns = pages.map(p =>
+    p === '…'
+      ? `<span class="page-ellipsis">…</span>`
+      : `<button class="page-btn${p === currentPage ? ' active' : ''}" onclick="goToPage(${p})">${p}</button>`
+  ).join('');
+
+  pg.innerHTML = `
+    <button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹ Prev</button>
+    ${btns}
+    <button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next ›</button>
+  `;
+}
+
+function goToPage(p) {
+  const totalPages = Math.max(1, Math.ceil(filteredFoods.length / PAGE_SIZE));
+  if (p < 1 || p > totalPages) return;
+  currentPage = p;
+  renderGrid();
+  const gridTop = document.getElementById('food-grid').getBoundingClientRect().top + window.scrollY - 100;
+  window.scrollTo({ top: gridTop, behavior: 'smooth' });
+}
+
+// ── GRID RENDERING ────────────────────────────────────────────────────────────
+function renderGrid() {
+  filteredFoods = getFiltered();
+  const total      = filteredFoods.length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  currentPage      = Math.min(currentPage, totalPages);
+  const start      = (currentPage - 1) * PAGE_SIZE;
+  const end        = Math.min(start + PAGE_SIZE, total);
+  const pageItems  = filteredFoods.slice(start, end);
+
   const grid = document.getElementById('food-grid');
-  if (!foods.length) {
+  if (!pageItems.length) {
     grid.innerHTML = `<div class="empty-state">
       <div class="emoji">🔍</div>
       <h3>No foods found</h3>
       <p>Try a different search term or clear the category filter.</p>
     </div>`;
+    document.getElementById('result-count').innerHTML = '';
+    document.getElementById('pagination').innerHTML = '';
     return;
   }
-  grid.innerHTML = foods.map(renderCard).join('');
+
+  grid.innerHTML = pageItems.map(renderCard).join('');
   document.getElementById('result-count').innerHTML =
-    `Showing <strong>${foods.length}</strong> food${foods.length !== 1 ? 's' : ''}`;
+    `Showing <strong>${start + 1}–${end}</strong> of <strong>${total}</strong> food${total !== 1 ? 's' : ''}`;
+  renderPagination(totalPages);
 }
 
+// ── SKELETON LOADING ──────────────────────────────────────────────────────────
 function renderSkeletons() {
-  document.getElementById('food-grid').innerHTML = Array(8).fill('').map(() => `
+  document.getElementById('food-grid').innerHTML = Array(12).fill('').map(() => `
     <div class="skeleton-card">
       <div class="skeleton skeleton-img"></div>
       <div class="skeleton-body">
@@ -729,37 +837,31 @@ function renderSkeletons() {
       </div>
     </div>`).join('');
   document.getElementById('result-count').textContent = 'Loading…';
+  document.getElementById('pagination').innerHTML = '';
 }
 
-// ── FETCH ────────────────────────────────────────────────────────────────────
-async function fetchFoods({ search = '', grup = '' } = {}) {
+// ── FETCH ALL ─────────────────────────────────────────────────────────────────
+async function fetchAllFoods() {
   renderSkeletons();
-
-  let url = `${SUPABASE_URL}/rest/v1/foods?select=*&limit=100`;
-  if (search.trim().length >= 2) {
-    url = `${SUPABASE_URL}/rest/v1/foods?name=ilike.*${encodeURIComponent(search.trim())}*&select=*&limit=50`;
-    if (grup) url += `&grup=eq.${encodeURIComponent(grup)}`;
-  } else if (grup) {
-    url = `${SUPABASE_URL}/rest/v1/foods?grup=eq.${encodeURIComponent(grup)}&select=*&limit=100`;
-  }
-
+  const url = `${SUPABASE_URL}/rest/v1/foods?select=*&limit=600&order=name.asc`;
   try {
     const res = await fetch(url, { headers: HEADERS });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     allFoods = await res.json();
-    renderGrid(allFoods);
+    currentPage = 1;
+    renderGrid();
   } catch (err) {
     console.error('Supabase fetch error:', err);
     document.getElementById('food-grid').innerHTML = `<div class="empty-state">
       <div class="emoji">⚠️</div>
       <h3>Couldn't load foods</h3>
-      <p>Check your Supabase config or internet connection.</p>
+      <p>Check your connection and try again.</p>
     </div>`;
     document.getElementById('result-count').textContent = 'Error loading data';
   }
 }
 
-// ── DETAIL PANEL ─────────────────────────────────────────────────────────────
+// ── DETAIL PANEL ──────────────────────────────────────────────────────────────
 function openPanel(id) {
   const food = allFoods.find(f => f.id === id);
   if (!food) return;
@@ -768,7 +870,6 @@ function openPanel(id) {
   const imgWrap = document.getElementById('panel-img-wrap');
   const body    = document.getElementById('panel-body');
 
-  // Gradient + emoji header (no broken images)
   imgWrap.style.background = grupGradient(food.grup);
   imgWrap.innerHTML = `
     <span style="font-size:80px;">${foodEmoji(food.grup)}</span>
@@ -847,21 +948,23 @@ function closePanel() {
   document.body.style.overflow = '';
 }
 
-// ── EVENTS ───────────────────────────────────────────────────────────────────
+// ── EVENTS ────────────────────────────────────────────────────────────────────
 document.getElementById('search-input').addEventListener('input', function () {
   searchTerm = this.value;
   document.getElementById('search-clear').classList.toggle('visible', searchTerm.length > 0);
   clearTimeout(searchTimer);
-  if (searchTerm.length === 0) { fetchFoods({ grup: activeGrup }); return; }
+  currentPage = 1;
+  if (searchTerm.length === 0) { renderGrid(); return; }
   if (searchTerm.length < 2) return;
-  searchTimer = setTimeout(() => fetchFoods({ search: searchTerm, grup: activeGrup }), 350);
+  searchTimer = setTimeout(() => renderGrid(), 350);
 });
 
 document.getElementById('search-clear').addEventListener('click', function () {
   document.getElementById('search-input').value = '';
   searchTerm = '';
   this.classList.remove('visible');
-  fetchFoods({ grup: activeGrup });
+  currentPage = 1;
+  renderGrid();
 });
 
 document.getElementById('filter-row').addEventListener('click', function (e) {
@@ -869,8 +972,9 @@ document.getElementById('filter-row').addEventListener('click', function (e) {
   if (!chip) return;
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
   chip.classList.add('active');
-  activeGrup = chip.dataset.grup;
-  fetchFoods({ search: searchTerm, grup: activeGrup });
+  activeGrup  = chip.dataset.grup;
+  currentPage = 1;
+  renderGrid();
 });
 
 document.getElementById('panel-overlay').addEventListener('click', function (e) {
@@ -879,8 +983,8 @@ document.getElementById('panel-overlay').addEventListener('click', function (e) 
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
-fetchFoods();
+// ── INIT ──────────────────────────────────────────────────────────────────────
+fetchAllFoods();
 
 fetch('/nav.html')
   .then(r => r.text())
