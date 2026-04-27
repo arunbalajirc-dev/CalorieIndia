@@ -73,16 +73,10 @@ serve(async (req) => {
       })
       .eq('id', userPlanId)
 
-    // Fire-and-forget: invoke generate-pdf
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!
-    const serviceKey  = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-
-    fetch(`${supabaseUrl}/functions/v1/generate-pdf`, {
+    // Fire-and-forget: invoke Vercel generate-pdf
+    fetch('https://nutritiontracker.in/api/generate-pdf', {
       method:  'POST',
-      headers: {
-        'Authorization':  `Bearer ${serviceKey}`,
-        'Content-Type':   'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_plan_id: userPlanId })
     }).catch(err => console.error('Failed to invoke generate-pdf:', err))
 
