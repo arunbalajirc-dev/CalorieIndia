@@ -32,7 +32,8 @@
     { "source": "/privacy-policy",             "destination": "/privacy-policy.html" },
     { "source": "/recipe-database",            "destination": "/recipe-database.html" },
     { "source": "/tdee-calculator",            "destination": "/tdee-calculator.html" },
-    { "source": "/terms-of-use",               "destination": "/terms-of-use.html" }
+    { "source": "/terms-of-use",               "destination": "/terms-of-use.html" },
+    { "source": "/thank-you",                  "destination": "/thank-you.html" }
   ],
   "redirects": [
     { "source": "/blog.html",                       "destination": "/blog",                       "permanent": true },

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Confirmed – Nutrition Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #2d7a4f;
+      --green-light: #e8f5ee;
+      --green-dark: #1e5c3a;
+      --text: #1a1a1a;
+      --muted: #6b7280;
+      --bg: #fafaf8;
+      --white: #ffffff;
+      --border: #e5e7eb;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.10);
+      border: 1px solid var(--border);
+      padding: 48px 40px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+    }
+    @media (max-width: 560px) { .card { padding: 32px 20px; } }
+
+    .icon-circle {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 32px;
+    }
+    .icon-circle.success { background: var(--green-light); }
+    .icon-circle.pending { background: #fef9c3; }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 700;
+      margin-bottom: 10px; line-height: 1.25;
+    }
+    h1 em { font-style: italic; color: var(--green); }
+
+    .subtitle {
+      font-size: 15px; color: var(--muted);
+      margin-bottom: 32px;
+      max-width: 380px; margin-left: auto; margin-right: auto;
+    }
+
+    .btn-download {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--green); color: #fff;
+      padding: 14px 32px; border-radius: 10px;
+      font-size: 16px; font-weight: 700; font-family: inherit;
+      text-decoration: none; border: none; cursor: pointer; width: 100%;
+      transition: background .2s, box-shadow .2s, transform .1s;
+      margin-bottom: 16px;
+    }
+    .btn-download:hover { background: var(--green-dark); box-shadow: 0 4px 14px rgba(45,122,79,.35); }
+    .btn-download:active { transform: scale(.97); }
+
+    .email-note { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+    .email-note strong { color: var(--text); }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+    .what-next { text-align: left; }
+    .what-next-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .09em; color: var(--muted); margin-bottom: 14px;
+    }
+    .what-next li {
+      font-size: 13px; color: var(--text);
+      padding: 5px 0; list-style: none;
+    }
+    .what-next li::before { content: '✓ '; color: var(--green); font-weight: 700; }
+
+    .pending-box {
+      background: #fef9c3; border: 1px solid #fde047;
+      border-radius: 10px; padding: 18px 20px; margin-bottom: 20px;
+      font-size: 13px; color: #92400e; text-align: left;
+    }
+
+    .back-link {
+      display: inline-block; margin-top: 24px;
+      font-size: 13px; color: var(--muted); text-decoration: none;
+    }
+    .back-link:hover { color: var(--green); }
+  </style>
+</head>
+<body>
+
+<!-- card-success: shown when ?pdf= param present -->
+<div id="card-success" class="card" style="display:none;">
+  <div class="icon-circle success">✅</div>
+  <h1>Payment confirmed!<br>Your <em>meal plan</em> is ready.</h1>
+  <p class="subtitle">Your personalised 7-day Indian meal plan has been generated. Download it below.</p>
+
+  <a id="btn-download" href="#" target="_blank" rel="noopener" class="btn-download">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Download Your Meal Plan PDF
+  </a>
+  <div class="email-note" id="email-note">
+    A copy has also been sent to <strong id="email-display">your email</strong>.
+  </div>
+
+  <hr class="divider">
+
+  <div class="what-next">
+    <div class="what-next-title">What's in your plan</div>
+    <ul>
+      <li>7-day personalised meal schedule</li>
+      <li>Breakfast, lunch, dinner &amp; snacks</li>
+      <li>Calorie &amp; macro targets for each meal</li>
+      <li>Indian cuisine — vegetarian &amp; non-veg options</li>
+    </ul>
+  </div>
+
+  <a href="index.html" class="back-link">← Back to Nutrition Tracker</a>
+</div>
+
+<!-- card-fallback: shown when ?pdf= param is missing -->
+<div id="card-fallback" class="card" style="display:none;">
+  <div class="icon-circle pending">⏳</div>
+  <h1>Payment confirmed!<br>Plan <em>being prepared.</em></h1>
+  <p class="subtitle">Your payment was successful. Your meal plan is still being generated.</p>
+
+  <div class="pending-box">
+    You'll receive a download link at <strong id="fallback-email">your email</strong> within a few minutes.
+    If you don't see it, check your spam folder.
+  </div>
+
+  <hr class="divider">
+
+  <div class="what-next">
+    <div class="what-next-title">What's in your plan</div>
+    <ul>
+      <li>7-day personalised meal schedule</li>
+      <li>Breakfast, lunch, dinner &amp; snacks</li>
+      <li>Calorie &amp; macro targets for each meal</li>
+      <li>Indian cuisine — vegetarian &amp; non-veg options</li>
+    </ul>
+  </div>
+
+  <a href="index.html" class="back-link">← Back to Nutrition Tracker</a>
+</div>
+
+<script>
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    var pdfUrl = params.get('pdf');
+    var email  = params.get('email');
+
+    if (pdfUrl) {
+      document.getElementById('btn-download').href = pdfUrl;
+      if (email) {
+        document.getElementById('email-display').textContent = decodeURIComponent(email);
+      } else {
+        document.getElementById('email-note').style.display = 'none';
+      }
+      document.getElementById('card-success').style.display = 'block';
+    } else {
+      if (email) {
+        document.getElementById('fallback-email').textContent = decodeURIComponent(email);
+      }
+      document.getElementById('card-fallback').style.display = 'block';
+    }
+  })();
+</script>
+
+</body>
+</html>
