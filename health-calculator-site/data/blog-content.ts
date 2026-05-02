@@ -4,6 +4,23 @@
 const blogContent: Record<string, string> = {
 
   'indian-diet-guide-lose-weight': `
+<div class="ai-overview">
+  <h2>AI Overview</h2>
+  <p>You don't need to starve or follow extreme diets to lose weight. The real challenge — especially for Indians — is managing regular eating habits while living a mostly inactive lifestyle. This guide keeps things simple. You'll use everyday Indian foods, control portions, add enough protein, and stay consistent. No cutting carbs completely, no skipping meals — just smarter eating that actually works long-term.</p>
+</div>
+
+<div class="key-takeaways">
+  <h2>Key Takeaways</h2>
+  <ul>
+    <li>Fat loss isn't about eating less — it's about eating smarter within your calorie limit</li>
+    <li>You don't need to quit Indian food — you need to fix how your plate is built</li>
+    <li>Low protein = constant hunger + poor results (this is where most people fail)</li>
+    <li>"Healthy food" can still make you gain weight if portions are out of control</li>
+    <li>Extreme diets don't fail later — they fail from day one due to poor sustainability</li>
+    <li>The real goal isn't quick weight loss — it's a system you can follow without quitting</li>
+  </ul>
+</div>
+
 <h2>Why Most Indian Diets Fail for Weight Loss</h2>
 <p>Before you try to fix your diet, you need to understand what's actually going wrong.</p>
 <p>The issue isn't Indian food — it's the way it's structured. Most meals are heavily skewed toward carbs, lack enough protein, and are often cooked with more oil than necessary. Combine that with irregular eating habits and low physical activity, and fat gain becomes predictable, not surprising.</p>
@@ -201,6 +218,23 @@ const blogContent: Record<string, string> = {
 `,
 
   'home-workout-plan-india': `
+<div class="ai-overview">
+  <h2>AI Overview</h2>
+  <p>Staying fit doesn't require a gym membership, expensive equipment, or complicated routines. For Indians balancing busy schedules, long commutes, and inconsistent lifestyles, a structured home workout plan can be the most practical solution. This guide breaks down a simple, effective, and culturally adaptable fitness routine that uses bodyweight exercises, minimal space, and zero equipment.</p>
+</div>
+
+<div class="key-takeaways">
+  <h2>Key Takeaways</h2>
+  <ul>
+    <li>You don't need a gym — consistency beats equipment every time</li>
+    <li>Bodyweight exercises are enough to build strength and burn fat</li>
+    <li>Indian lifestyles demand flexible, short, effective routines</li>
+    <li>Diet + movement together drive results, not workouts alone</li>
+    <li>30–40 minutes daily is sufficient if done with intensity</li>
+    <li>Tracking progress matters more than chasing perfection</li>
+  </ul>
+</div>
+
 <h2>Why Home Workouts Actually Work (If Done Right)</h2>
 <p>Most people don't fail because of lack of gyms. They fail because of inconsistency and poor structure.</p>
 <p>Home workouts remove friction:</p>
@@ -314,6 +348,23 @@ const blogContent: Record<string, string> = {
 `,
 
   'bmi-indian-bodies': `
+<div class="ai-overview">
+  <h2>AI Overview</h2>
+  <p>BMI was invented in 1832 by a Belgian statistician studying European male populations — it was never designed as a clinical health tool. Yet India's healthcare system still uses Western BMI thresholds to screen for obesity and metabolic disease, systematically misclassifying millions of South Asians as healthy when they are not. This guide explains why Indian bodies carry metabolic risk at lower BMI values, what ICMR and WHO now recommend as the Indian-specific thresholds, and which five metrics — from waist-to-height ratio to visceral fat percentage — give you a genuinely accurate picture of your metabolic health.</p>
+</div>
+
+<div class="key-takeaways">
+  <h2>Key Takeaways</h2>
+  <ul>
+    <li>📏 <strong>BMI was built for European bodies, not Indian ones</strong> — The standard overweight threshold of 25 misses significant metabolic risk in South Asians, who accumulate dangerous visceral fat at lower BMI values.</li>
+    <li>⚠️ <strong>Thin-fat syndrome is India's hidden epidemic</strong> — Millions of Indians appear lean by BMI but carry excess visceral fat and insulin resistance — a condition researchers call TOFI: Thin Outside, Fat Inside.</li>
+    <li>📐 <strong>Waist-to-height ratio is a stronger predictor than BMI</strong> — A ratio above 0.5 flags metabolic risk regardless of BMI, and it takes 30 seconds and a tape measure to calculate.</li>
+    <li>🩺 <strong>ICMR now uses India-specific BMI cutoffs</strong> — Indian overweight starts at BMI 23 and obesity at BMI 25, not the Western 25 and 30. Most health apps and clinics still use the wrong numbers.</li>
+    <li>🔬 <strong>Visceral fat, not total fat, is the real danger</strong> — Fat stored around abdominal organs drives insulin resistance, Type 2 diabetes, and cardiovascular disease — and it is disproportionately high in South Asians.</li>
+    <li>✅ <strong>Five metrics paint the complete picture</strong> — BMI + waist circumference + waist-to-height ratio + body fat percentage + fasting glucose together give you a health snapshot no single number can.</li>
+  </ul>
+</div>
+
 <h2>The BMI Problem No One Is Talking About</h2>
 <p>BMI is just your weight divided by your height squared. That's it.</p>
 <p>It doesn't tell you where fat is stored, how much is muscle vs fat, or anything about your metabolic health.</p>
@@ -417,6 +468,11 @@ const blogContent: Record<string, string> = {
 `,
 
   'high-protein-indian-breakfasts': `
+<div class="ai-overview">
+  <h2>AI Overview</h2>
+  <p>High-protein Indian breakfasts don't need to be complicated or calorie-heavy. With simple ingredients like lentils, paneer, eggs, and yogurt, you can build meals under 400 calories that keep you full longer, reduce cravings, and support weight management — without relying on processed foods or complex recipes. They also help improve morning energy levels and reduce the need for frequent snacking throughout the day. When planned right, these meals are practical, quick to prepare, and easy to fit into everyday routines.</p>
+</div>
+
 <h2>Why Protein at Breakfast Matters</h2>
 <p>Most Indian breakfasts are heavily carb-based — poha, idli, toast, paratha — they're easy to prepare but don't keep you full for long. Hunger returns quickly, leading to snacking and energy dips.</p>
 <p>The missing piece is protein.</p>
@@ -500,6 +556,11 @@ const blogContent: Record<string, string> = {
 `,
 
   'surya-namaskar-calories': `
+<div class="ai-overview">
+  <h2>AI Overview</h2>
+  <p>Surya Namaskar isn't just a yoga routine — it's a full-body movement sequence that can contribute meaningfully to weight loss when done consistently and correctly. The actual calorie burn depends on your body weight, pace, and intensity, but when scaled properly, it can rival traditional cardio like jogging or cycling. More importantly, it improves flexibility, posture, and metabolic efficiency, making it more than just a calorie-burning tool.</p>
+</div>
+
 <h2>What Surya Namaskar Actually Does</h2>
 <p>Surya Namaskar isn't just a yoga routine — it's a full-body movement sequence that can contribute meaningfully to weight loss when done consistently and correctly. The actual calorie burn depends on your body weight, pace, and intensity, but when scaled properly, it can rival traditional cardio like jogging or cycling.</p>
 <p>Surya Namaskar works because it keeps your body moving continuously. Unlike static yoga, you're constantly transitioning between movements. That keeps your heart rate up while engaging multiple muscle groups at the same time.</p>
@@ -577,6 +638,11 @@ const blogContent: Record<string, string> = {
 `,
 
   'south-vs-north-indian-diet': `
+<div class="ai-overview">
+  <h2>AI Overview</h2>
+  <p>South and North Indian diets are both nutritionally sound, but they differ in structure — especially in staple grains, cooking styles, and macronutrient balance. South Indian meals are typically rice-based with fermented foods, while North Indian diets lean more on wheat, dairy, and richer preparations. This comparison looks at key factors like fibre, protein, and glycemic impact to help determine which approach aligns better with specific health goals.</p>
+</div>
+
 <h2>Understanding the Basics of Both Diets</h2>
 <p>The "South vs North Indian diet" debate usually gets reduced to rice vs roti or idli vs paratha — which is a shallow way to look at it. The real issue isn't which region eats healthier. It's about how the diet is structured and how it fits your body, routine, and goals.</p>
 <p>Both diets can be well-balanced and nutrient-dense — or heavy, calorie-dense, and poorly optimized. The outcome depends entirely on how they're followed, not where they come from.</p>
@@ -639,6 +705,11 @@ const blogContent: Record<string, string> = {
 `,
 
   'intermittent-fasting-indians': `
+<div class="ai-overview">
+  <h2>AI Overview</h2>
+  <p>Intermittent fasting (IF) is a popular eating pattern focused on when you eat rather than what you eat. However, standard fasting protocols like 16:8 or 5:2 are often designed around Western routines. For Indians, daily life includes late dinners, social eating, tea breaks, and family-based meal schedules. This guide explains how to adapt intermittent fasting to Indian lifestyles without disrupting routines — while still achieving fat loss, better digestion, and improved metabolic health.</p>
+</div>
+
 <h2>What is Intermittent Fasting (IF)?</h2>
 <p>Before trying to follow it, understand this clearly — intermittent fasting is not a diet. It's a structure. Instead of focusing on what you eat, it focuses on when you eat. You cycle between eating and fasting periods, giving your body defined windows for food and rest.</p>
 <p>Common methods:</p>
@@ -732,6 +803,11 @@ const blogContent: Record<string, string> = {
 `,
 
   'tdee-calculator-indians': `
+<div class="ai-overview">
+  <h2>AI Overview</h2>
+  <p>Total Daily Energy Expenditure (TDEE) determines how many calories your body burns in a day, including basic metabolic functions and physical activity. For Indians, lifestyle diversity — from sedentary desk jobs to physically demanding labour — makes standard calorie formulas unreliable. This guide breaks down how to calculate accurate TDEE using India-relevant activity levels, explains common mistakes, and helps you align your calorie intake with your real daily routine.</p>
+</div>
+
 <h2>What is TDEE and Why It Matters</h2>
 <p>TDEE (Total Daily Energy Expenditure) is the total calories your body burns in a day.</p>
 <p>It includes:</p>
@@ -830,6 +906,23 @@ const blogContent: Record<string, string> = {
 `,
 
   'vegetarian-protein-india': `
+<div class="ai-overview">
+  <h2>AI Overview</h2>
+  <p>Most Indian vegetarians consume only 30–45g of protein a day — less than half the recommended amount. Yet Indian kitchens are already stocked with some of the world's richest plant-based protein sources. This guide decodes exactly how to hit 100g of protein daily using everyday Indian foods: dal, paneer, tofu, sattu, moong, soy chunks, and more. No protein powders. No expensive imports. Just strategic meal planning using ingredients your grandmother already cooked with — reframed for modern nutritional goals.</p>
+</div>
+
+<div class="key-takeaways">
+  <h2>Key Takeaways</h2>
+  <ul>
+    <li>💪 <strong>100g is achievable on a vegetarian Indian diet</strong> — With the right food combinations, you can hit 100g daily without supplements or imported products.</li>
+    <li>🫘 <strong>Dal + paneer + soy is your protein trinity</strong> — These three alone can contribute 60–70g of protein across meals when portioned correctly.</li>
+    <li>🌾 <strong>Sattu is India's most underrated protein food</strong> — At 25g protein per 100g, roasted chana sattu rivals many commercial protein powders gram-for-gram.</li>
+    <li>🕐 <strong>Distribute protein across all meals</strong> — Eating 30–35g at each main meal boosts absorption better than loading protein at dinner.</li>
+    <li>🔄 <strong>Complementary proteins fill the amino acid gaps</strong> — Combining grains + legumes (roti + dal, rice + rajma) creates complete protein profiles without meat.</li>
+    <li>📊 <strong>Most Indians are severely protein deficient</strong> — ICMR data shows average Indian protein intake is 47g/day, less than half the fitness-level recommendation.</li>
+  </ul>
+</div>
+
 <h2>Why 100g? Understanding India's Protein Gap</h2>
 <p>The ICMR–NIN recommends 0.8–1.0g of protein per kg of body weight for sedentary adults and 1.2–1.6g/kg for active individuals. For a 70kg moderately active person, that means 84–112g of protein daily. Yet national surveys consistently show average Indian protein intake hovering around 47g/day.</p>
 <p>The consequences are real: slower muscle recovery, higher injury risk, poor satiety, and — particularly for women — increased risk of sarcopenia after 40. The fix does not require a trip to a supplement store. It requires knowing which Indian foods are protein-dense and how to stack them.</p>
@@ -925,6 +1018,23 @@ const blogContent: Record<string, string> = {
 `,
 
   'healthy-indian-street-food-swaps': `
+<div class="ai-overview">
+  <h2>AI Overview</h2>
+  <p>Indian street food is a cultural cornerstone — bold, aromatic, deeply satisfying. But the deep-frying, refined flour, and sugar-heavy chutneys make regular indulgence a nutritional tightrope. This guide reimagines your favourite chaat, fries, and snacks through a science-backed lens, proving that swapping ingredients — not sacrificing dishes — is the smarter path. From chia-soaked pani puri water to baked samosa crusts and fibre-packed oats upma, every swap here is designed to slash calories by 30–50% while keeping every bit of the flavour, texture, and nostalgia intact.</p>
+</div>
+
+<div class="key-takeaways">
+  <h2>Key Takeaways</h2>
+  <ul>
+    <li>🌿 <strong>Swap the base, keep the taste</strong> — Replacing maida with whole wheat, oats, or jowar retains flavour while doubling fibre content.</li>
+    <li>🔥 <strong>Bake vs. fry = half the calories</strong> — Air-frying or baking cuts fat by up to 70% with almost no change in texture.</li>
+    <li>💧 <strong>Chia in pani puri water</strong> — Adds omega-3s, keeps you full, and transforms the humble pani puri into a functional food.</li>
+    <li>📊 <strong>Indian adults target 1,600–2,200 kcal</strong> — Street snacks often account for 25–40% of that in a single sitting — swaps change this radically.</li>
+    <li>🫘 <strong>Protein is the missing piece</strong> — Adding sprouts, paneer, or moong to fillings turns a snack into a balanced mini-meal.</li>
+    <li>⏱️ <strong>Prep time stays realistic</strong> — None of these swaps add more than 10 minutes to your cooking time.</li>
+  </ul>
+</div>
+
 <h2>Why Street Food Swaps Actually Work</h2>
 <p>The instinct when dieting is to cut out beloved foods entirely. Research consistently shows this creates rebound cycles — the longer you avoid a food, the stronger the craving grows.</p>
 <p>The smarter strategy is ingredient-level redesign: keep the dish, rewrite the nutrition label.</p>
