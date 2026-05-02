@@ -4,72 +4,101 @@
 const blogContent: Record<string, string> = {
 
   'indian-diet-guide-lose-weight': `
-<h2>Why Indian Diets Are Actually Well-Suited for Weight Loss</h2>
-<p>The traditional Indian thali is not your enemy. It is a nutritionally balanced plate that has sustained hundreds of millions of people for centuries. The problem is not the food — it is portion sizes, refined versions of staples (maida instead of atta, white rice instead of hand-pounded), and liquid calories from chai, juices, and cold drinks.</p>
-<p>The good news: you do not need to give up roti, rice, or dal. You need to understand how to combine them smartly and eat in a mild calorie deficit.</p>
-
-<h2>Step 1 — Know Your TDEE Before You Touch Your Diet</h2>
-<p>A calorie deficit means eating less than you burn. But "less" is meaningless without a baseline. Your Total Daily Energy Expenditure (TDEE) depends on your weight, height, age, gender, and activity level.</p>
-<div class="highlight-box">
-  <strong>Quick estimate for an average Indian adult:</strong>
-  <ul>
-    <li>Sedentary office worker (70 kg male): ~2,000–2,200 kcal/day</li>
-    <li>Homemaker with moderate activity (60 kg female): ~1,700–1,900 kcal/day</li>
-    <li>Labourer or athlete: 2,600–3,200 kcal/day</li>
-  </ul>
-  <p style="margin-bottom:0">Use our <a href="/calculator">TDEE Calculator</a> for a personalised number. Aim to eat 300–500 kcal below this figure daily.</p>
-</div>
-
-<h2>Step 2 — Build Every Meal Around the Indian Plate Framework</h2>
-<p>Think of your thali as three zones:</p>
+<h2>Why Most Indian Diets Fail for Weight Loss</h2>
+<p>Before you try to fix your diet, you need to understand what's actually going wrong.</p>
+<p>The issue isn't Indian food — it's the way it's structured. Most meals are heavily skewed toward carbs, lack enough protein, and are often cooked with more oil than necessary. Combine that with irregular eating habits and low physical activity, and fat gain becomes predictable, not surprising.</p>
+<p>Where things break down:</p>
 <ul>
-  <li><strong>Half the plate — vegetables (sabzi):</strong> Fill it with any cooked or raw vegetables. They are low in calories and high in fibre and micronutrients.</li>
-  <li><strong>A quarter — protein:</strong> Dal, chole, rajma, paneer, egg, chicken, or fish. Protein keeps you full and protects muscle mass while you lose fat.</li>
-  <li><strong>A quarter — carbs:</strong> 1–2 rotis (preferably whole wheat), or a katori of rice. This is where most Indians over-eat.</li>
+  <li>Heavy reliance on refined carbs like white rice, maida, and sugar</li>
+  <li>Protein intake is too low (dal alone doesn't cover your needs)</li>
+  <li>Frequent intake of fried or oil-heavy foods</li>
+  <li>No awareness of portion sizes or total calorie intake</li>
 </ul>
-<p>One simple rule: do not reduce the vegetables or protein — reduce the carb portion first if you need to cut calories.</p>
+<p>If your structure is off, no "diet plan" will fix your results.</p>
 
-<h2>Roti vs Rice — Which Is Better for Weight Loss?</h2>
-<p>Both are fine in appropriate quantities. Calorie-wise they are similar — a medium wheat roti (40 g) has about 120 kcal; a katori of cooked white rice (150 g) has about 195 kcal. The difference is satiety: roti has slightly more fibre and protein, so many people feel fuller on roti than on an equivalent calorie serving of rice.</p>
-<p>If you are a rice-eating South Indian, do not force yourself onto rotis. Instead, reduce the rice quantity, increase the sambar and rasam (both low calorie), and add a large serving of vegetables or kootu on the side.</p>
+<h2>The Core Principle: Calorie Deficit Without Starvation</h2>
+<p>This is the only rule that actually drives fat loss. Everything else is secondary.</p>
+<p>You don't need to drastically cut food — you need to control calories intelligently. That means adjusting how you eat, not just how much you eat.</p>
+<p>What this looks like in practice:</p>
+<ul>
+  <li>Reduce excess carbs instead of eliminating them completely</li>
+  <li>Increase protein to improve fullness and prevent overeating</li>
+  <li>Keep fats balanced — not too high, not zero</li>
+</ul>
+<p>The objective is simple: stay in a slight calorie deficit while still feeling satisfied enough to stay consistent.</p>
 
-<h2>Smart Swaps That Actually Work in Indian Cooking</h2>
+<h2>Ideal Indian Plate Structure for Fat Loss</h2>
+<p>Stop guessing your meals — fix your plate structure first.</p>
+<p>Most people don't overeat because they're hungry; they overeat because their meals are unbalanced. When your plate is carb-heavy and low in protein, you feel hungry again faster and end up eating more.</p>
+<p>A simple plate split solves this:</p>
 <table>
-  <thead><tr><th>Instead of this</th><th>Try this</th><th>Calories saved</th></tr></thead>
+  <thead><tr><th>Component</th><th>Portion Guide</th><th>Examples</th></tr></thead>
   <tbody>
-    <tr><td>2 plain parathas with butter</td><td>2 whole wheat rotis with curd</td><td>~250 kcal</td></tr>
-    <tr><td>Full-fat paneer (100 g)</td><td>Low-fat paneer (100 g)</td><td>~80 kcal</td></tr>
-    <tr><td>Poha with peanuts + oil</td><td>Poha with less oil, extra vegetables</td><td>~100 kcal</td></tr>
-    <tr><td>Sugary chai × 3 cups</td><td>Unsweetened chai × 3 cups</td><td>~120 kcal</td></tr>
-    <tr><td>Deep-fried snacks (samosa, pakora)</td><td>Roasted chana, makhana, or fruit</td><td>~200–350 kcal</td></tr>
+    <tr><td>Protein</td><td>25–30% of plate</td><td>Eggs, paneer, chicken, dal + curd</td></tr>
+    <tr><td>Carbs</td><td>35–40% of plate</td><td>Roti, rice, millets</td></tr>
+    <tr><td>Vegetables</td><td>30–35% of plate</td><td>Sabzi, salads</td></tr>
+    <tr><td>Healthy Fats</td><td>Small portion</td><td>Ghee, nuts, seeds</td></tr>
   </tbody>
 </table>
+<p>Balanced meals = better fullness + controlled calories.</p>
 
-<h2>A Sample Indian Day on a 1,600 kcal Plan</h2>
+<h2>Sample Daily Indian Diet Plan</h2>
+<p>Now apply that structure to a real day — nothing fancy, just practical eating.</p>
+<table>
+  <thead><tr><th>Meal</th><th>What to Eat</th></tr></thead>
+  <tbody>
+    <tr><td>Morning</td><td>Warm water + soaked almonds / black coffee</td></tr>
+    <tr><td>Breakfast</td><td>Eggs + roti / vegetable poha / upma</td></tr>
+    <tr><td>Mid Snack</td><td>Fruit + nuts</td></tr>
+    <tr><td>Lunch</td><td>Roti + dal + sabzi + curd</td></tr>
+    <tr><td>Evening</td><td>Buttermilk / boiled chana</td></tr>
+    <tr><td>Dinner</td><td>Roti + paneer/chicken + vegetables</td></tr>
+  </tbody>
+</table>
+<p>Keep dinner lighter — your activity is lower at night, so your intake should be too.</p>
+
+<h2>Why Protein is Non-Negotiable</h2>
+<p>This is the biggest gap in most Indian diets and the main reason people struggle with fat loss.</p>
+<p>Protein isn't just about muscle. It directly impacts how full you feel, how well your body recovers, and how effectively you lose fat without losing strength. Low protein intake leads to constant hunger, cravings, and slower progress.</p>
+<p>Where most people go wrong: relying only on dal and assuming it's enough — it's not.</p>
+<p>Better protein sources to include regularly:</p>
 <ul>
-  <li><strong>Early morning:</strong> 1 glass warm water + soaked methi seeds (optional)</li>
-  <li><strong>Breakfast (350 kcal):</strong> 2 moong dal chillas + green chutney + 1 cup unsweetened chai</li>
-  <li><strong>Mid-morning (100 kcal):</strong> 1 medium fruit (apple, guava, or banana)</li>
-  <li><strong>Lunch (500 kcal):</strong> 2 wheat rotis + 1 katori dal + 1 katori sabzi + raita + small salad</li>
-  <li><strong>Evening (150 kcal):</strong> Roasted chana or makhana + 1 cup tea without sugar</li>
-  <li><strong>Dinner (450 kcal):</strong> 1 roti + 1 katori sabzi + 1 katori dal or egg curry + curd</li>
+  <li>Eggs</li>
+  <li>Paneer</li>
+  <li>Chicken or fish</li>
+  <li>Curd or Greek yogurt</li>
+  <li>Soy, chana, and other legumes</li>
 </ul>
-<p>This totals roughly 1,550 kcal — a comfortable deficit for most Indian adults without feeling deprived.</p>
+<p>If protein is missing, your diet will feel harder and your results will be weaker.</p>
 
-<h2>Festival Season, Eating Out, and Family Pressure</h2>
-<p>Indian social life revolves around food. Refusing second helpings at a family function is socially complicated. Here is what to do instead:</p>
+<h2>How You Eat (Timing, Habits &amp; Control)</h2>
+<p>Keep it simple and repeatable.</p>
+<p>Eat 3 solid meals + 1–2 small snacks. Don't leave long gaps — that's what causes overeating. Avoid heavy late-night meals.</p>
+<p>Hydration matters more than you think: drink 2.5–3L water daily. Cut liquid calories (colas and packaged juices). Go for buttermilk, lemon water, coconut water.</p>
+<p>Foods to limit (not eliminate): fried snacks, sweets, processed foods, excess oil.</p>
+<p>You don't need restriction — you need control and consistency.</p>
+
+<h2>What Actually Drives Fat Loss</h2>
+<p>Results come from numbers, not just "clean eating."</p>
+<p>Daily calorie ranges:</p>
 <ul>
-  <li>Eat a small protein-rich snack before going out so you are not starving when you arrive.</li>
-  <li>Fill your plate with salads and vegetables first, then add small portions of rich dishes.</li>
-  <li>Skip the sweet altogether, or share one piece with someone else.</li>
-  <li>During festivals: enjoy the special food on the day itself, but keep the surrounding days tighter.</li>
+  <li>Sedentary: 1,400–1,600 kcal</li>
+  <li>Moderate: 1,600–1,900 kcal</li>
+  <li>Active: 1,900–2,200 kcal</li>
 </ul>
+<p>Protein: aim for ~0.8–1g per kg body weight. Stay in a small calorie deficit. Avoid crash diets — they slow metabolism and backfire.</p>
+<p>If your diet isn't sustainable, it's useless. No fancy plans. No extreme rules. Just structured eating, portion control, and consistency over time.</p>
 
-<h2>How Long Will It Take?</h2>
-<p>A 500 kcal daily deficit creates roughly 0.5 kg of fat loss per week. Expect 1–2 kg per month — not the 5 kg in a week that crash diets promise. Slow loss means you are mostly burning fat, not muscle. Muscle protects your metabolism and keeps the weight off long-term.</p>
-<div class="highlight-box">
-  <strong>The one-line rule:</strong> Eat mostly what your grandmother cooked, in portions that fit one hand — and walk 30 minutes every day. That alone puts most Indians in a meaningful calorie deficit.
-</div>
+<h2>Conclusion: Stop Dieting. Fix How You Eat.</h2>
+<p>Weight loss isn't a short phase — it's your daily habits showing up on the scale.</p>
+<p>You don't need to starve, skip meals, or abandon Indian food. You need structure, portion control, and consistency.</p>
+<p>If you can't follow it for months, it's a bad plan. This works because it's simple, flexible, and built to last.</p>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Can I lose weight without giving up Indian food?</strong> Yes. The issue isn't Indian food — it's portion size, excess oil, and frequency. Keep your usual meals, just control portions and cooking methods.</p>
+<p><strong>Do I need to count calories every day?</strong> Not forever. Track for a couple of weeks to understand portions, then you can manage by habit and consistency.</p>
+<p><strong>Is skipping meals a good way to lose weight?</strong> No. It usually leads to overeating later and poor energy levels. Regular, balanced meals work better long-term.</p>
+<p><strong>How fast should I expect results?</strong> If you're consistent, expect gradual fat loss (around 0.5–1 kg per week). Faster results usually mean unsustainable methods.</p>
 `,
 
   'calories-in-indian-meals': `
@@ -172,601 +201,795 @@ const blogContent: Record<string, string> = {
 `,
 
   'home-workout-plan-india': `
-<h2>Why Home Workouts Work Well for Most Indians</h2>
-<p>Most Indian homes — apartments, row houses, or joint family setups — do not have a dedicated exercise room. But you need surprisingly little space: a 6 × 4 foot clear area is enough for the entire programme below. No dumbbells, no resistance bands, no fancy equipment — just your bodyweight and consistency.</p>
-
-<h2>Before You Start: Set Up for Success</h2>
+<h2>Why Home Workouts Actually Work (If Done Right)</h2>
+<p>Most people don't fail because of lack of gyms. They fail because of inconsistency and poor structure.</p>
+<p>Home workouts remove friction:</p>
 <ul>
-  <li><strong>Time:</strong> 30–40 minutes, 5 days a week. Early mornings work best for most Indians before household chaos begins.</li>
-  <li><strong>Surface:</strong> A yoga mat, folded bedsheet, or carpet. Avoid marble or tiled floors without cushioning for floor exercises.</li>
-  <li><strong>Clothing:</strong> Any comfortable cotton shorts and a t-shirt. No special shoes needed for home workouts.</li>
-  <li><strong>Warm-up:</strong> Always warm up for 5 minutes before every session (instructions below).</li>
+  <li>No travel time</li>
+  <li>No waiting for equipment</li>
+  <li>No excuses</li>
+</ul>
+<p>But here's the catch — random YouTube workouts won't cut it. You need structure, progression, and intent.</p>
+<p>Here's what actually makes home workouts effective:</p>
+<ul>
+  <li><strong>Consistency becomes non-negotiable.</strong> When your workout space is your home, skipping requires a conscious decision, not an external excuse. That shift alone increases adherence more than any fancy program ever will.</li>
+  <li><strong>You train more frequently, not just harder.</strong> Gym-goers often burn out trying to "go all in" 3 times a week. At home, shorter and more frequent sessions create better long-term results. Frequency beats occasional intensity.</li>
+  <li><strong>Focus improves without distractions.</strong> No socializing, no waiting, no noise — just you and the workout. This leads to better mind-muscle connection and more efficient sessions.</li>
+  <li><strong>Progression is simpler than you think.</strong> You don't need heavier weights to improve. You can increase reps, slow down tempo, reduce rest time, or add extra rounds. Most people ignore these variables — that's why they plateau.</li>
 </ul>
 
-<h2>5-Minute Warm-Up Routine (Do Before Every Session)</h2>
+<h2>Weekly Home Workout Plan (No Equipment)</h2>
+<p>This plan is built for fat loss + strength + stamina. Each day has a purpose: some build strength, some burn fat, and others help your body recover so you don't burn out.</p>
+<table>
+  <thead><tr><th>Day</th><th>Focus Area</th><th>Workout Type</th><th>Duration</th></tr></thead>
+  <tbody>
+    <tr><td>Monday</td><td>Full Body</td><td>Strength + Cardio Mix</td><td>35 min</td></tr>
+    <tr><td>Tuesday</td><td>Lower Body</td><td>Legs + Core</td><td>30 min</td></tr>
+    <tr><td>Wednesday</td><td>Active Recovery</td><td>Walking + Mobility</td><td>25 min</td></tr>
+    <tr><td>Thursday</td><td>Upper Body</td><td>Push + Pull Focus</td><td>30 min</td></tr>
+    <tr><td>Friday</td><td>Full Body HIIT</td><td>High Intensity Intervals</td><td>25 min</td></tr>
+    <tr><td>Saturday</td><td>Core + Cardio</td><td>Abs + Fat Burn</td><td>30 min</td></tr>
+    <tr><td>Sunday</td><td>Rest</td><td>Light Stretch / Walk</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<h2>Full Body Routine Breakdown</h2>
+<p>Monday and Friday focus on full-body circuits — squats, push-ups, lunges, planks, and jumping jacks — to maximize calorie burn and train multiple muscle groups together. Keep intensity high, rest minimal, and complete 3–4 rounds.</p>
+<p>Tuesday shifts to lower body strength with controlled, higher-rep movements like squats, glute bridges, step-ups, and wall sits to boost metabolism and build a solid base.</p>
+<p>Thursday and Saturday balance the plan with upper body and core work. Exercises like incline push-ups, dips, shoulder taps, planks, and mountain climbers improve strength and stability. Focus on form over speed, stick to 3–4 rounds, and keep the sessions tight and consistent for best results.</p>
+
+<h2>Lower Body Strength (Tuesday)</h2>
+<p>This day builds your foundation — strong legs directly improve calorie burn and overall strength.</p>
+<p>Focus on controlled movements like squats, glute bridges, step-ups, and wall sits. Higher reps and steady tempo matter more than speed here. Aim for at least 3 solid rounds with minimal rest to keep the intensity up.</p>
+
+<h2>Upper Body Focus (Thursday)</h2>
+<p>Skipping the upper body is a common mistake, and it shows in weak overall strength. Use simple movements like incline push-ups, shoulder taps, tricep dips, and arm circles to target your chest, shoulders, and arms.</p>
+<p>Keep your form tight, stay consistent, and complete 3 rounds without dragging the workout.</p>
+
+<h2>Core + Fat Burn (Saturday)</h2>
+<p>This isn't about doing endless crunches — it's about control and stability. Combine planks, bicycle crunches, leg raises, and mountain climbers to engage your entire core while keeping your heart rate elevated.</p>
+<p>Move with precision, not speed, and complete 3–4 rounds for an effective finish to the week.</p>
+
+<h2>Active Recovery (Wednesday &amp; Sunday)</h2>
+<p>This is where most people go wrong — they either skip recovery or treat it like another intense workout. Both kill progress. Recovery days are meant to keep you moving without stressing your body.</p>
+<p>Stick to simple activities like 20–30 minutes of walking, light stretching, and basic mobility work. This helps reduce soreness, improve flexibility, and keeps your routine sustainable. Ignore recovery, and your performance will eventually drop.</p>
+
+<h2>What Most Indians Get Wrong About Fitness</h2>
+<p>Workouts alone won't fix your body — that's the harsh truth. Many people overeat "healthy" foods without tracking calories, ignore protein intake, and follow random workouts with no structure.</p>
+<p>On top of that, unrealistic expectations lead to quitting early. Results don't come from short bursts of effort — they come from consistent habits. If your diet and routine aren't aligned, progress will always stall.</p>
+
+<h2>Progression Strategy (This Is Where Results Happen)</h2>
+<p>Doing the same workout every week leads to zero progress — it's that simple. Your body adapts quickly, so you need to push it slightly further over time. Increase reps, add an extra round, or reduce rest periods each week.</p>
+<p>These small adjustments force your body to improve without overwhelming you. Real transformation doesn't come from drastic changes — it comes from steady progression done consistently.</p>
+
+<h2>Sample Daily Routine Structure</h2>
+<table>
+  <thead><tr><th>Time</th><th>What to Do</th></tr></thead>
+  <tbody>
+    <tr><td>Morning</td><td>30–40 min workout</td></tr>
+    <tr><td>Afternoon</td><td>Normal routine</td></tr>
+    <tr><td>Evening</td><td>20 min walk</td></tr>
+    <tr><td>Night</td><td>Light stretching</td></tr>
+  </tbody>
+</table>
+<p>The goal: stay active across the day, not just during workouts.</p>
+
+<h2>Calorie Targets for Indians</h2>
+<p>This is where most people fail — not in workouts, but in understanding how much they're actually eating. Indian diets are naturally carb-heavy, and even "healthy" foods can push you into a calorie surplus without you realizing it. If your intake isn't controlled, fat loss simply won't happen, no matter how hard you train.</p>
+<table>
+  <thead><tr><th>Lifestyle</th><th>Daily Calories</th></tr></thead>
+  <tbody>
+    <tr><td>Sedentary</td><td>1,400–1,600 kcal</td></tr>
+    <tr><td>Moderately Active</td><td>1,600–1,900 kcal</td></tr>
+    <tr><td>Active</td><td>1,900–2,200 kcal</td></tr>
+  </tbody>
+</table>
+<p>These ranges aren't strict limits — they're starting points. The real goal is to stay in a slight calorie deficit while keeping your energy levels stable.</p>
 <ul>
-  <li>Neck rolls — 10 each direction</li>
-  <li>Arm circles — 15 forward, 15 backward</li>
-  <li>Hip circles — 10 each direction</li>
-  <li>Jumping jacks — 30 reps</li>
-  <li>Leg swings — 10 each leg</li>
-  <li>High knees — 30 seconds</li>
+  <li><strong>Protein matters more than you think:</strong> Aim for 0.8–1g per kg body weight to support muscle and recovery</li>
+  <li><strong>Control, don't restrict:</strong> Eat slightly less than you burn, not drastically less</li>
+  <li><strong>Avoid extremes:</strong> Crash diets slow metabolism, reduce strength, and lead to rebound weight gain</li>
 </ul>
 
-<h2>The 4-Week Plan</h2>
-<p>The programme progresses over four weeks by adding sets and reducing rest time. Start at Week 1 even if you feel you can do more — proper form matters more than volume in the beginning.</p>
-
-<h3>Week 1 — Foundation (3 sets × 10 reps, 60 sec rest)</h3>
-<table>
-  <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Muscles Worked</th></tr></thead>
-  <tbody>
-    <tr><td>Wall push-ups or knee push-ups</td><td>3 × 10</td><td>Chest, shoulders, triceps</td></tr>
-    <tr><td>Bodyweight squats</td><td>3 × 12</td><td>Quads, glutes, core</td></tr>
-    <tr><td>Glute bridges</td><td>3 × 12</td><td>Glutes, hamstrings</td></tr>
-    <tr><td>Standing calf raises</td><td>3 × 15</td><td>Calves</td></tr>
-    <tr><td>Plank hold</td><td>3 × 20 sec</td><td>Core</td></tr>
-    <tr><td>Superman hold</td><td>3 × 10</td><td>Lower back</td></tr>
-  </tbody>
-</table>
-
-<h3>Week 2 — Build (3 sets × 12–15 reps, 45 sec rest)</h3>
-<table>
-  <thead><tr><th>Exercise</th><th>Sets × Reps</th></tr></thead>
-  <tbody>
-    <tr><td>Standard push-ups</td><td>3 × 12</td></tr>
-    <tr><td>Jump squats (soft landing)</td><td>3 × 12</td></tr>
-    <tr><td>Reverse lunges</td><td>3 × 10 each leg</td></tr>
-    <tr><td>Glute bridges with hold (2 sec)</td><td>3 × 12</td></tr>
-    <tr><td>Plank hold</td><td>3 × 30 sec</td></tr>
-    <tr><td>Mountain climbers</td><td>3 × 20 sec</td></tr>
-  </tbody>
-</table>
-
-<h3>Week 3 — Intensity (4 sets × 12 reps, 30 sec rest)</h3>
-<table>
-  <thead><tr><th>Exercise</th><th>Sets × Reps</th></tr></thead>
-  <tbody>
-    <tr><td>Wide + narrow push-ups (alternate)</td><td>4 × 10</td></tr>
-    <tr><td>Bulgarian split squats (using chair)</td><td>4 × 10 each leg</td></tr>
-    <tr><td>Walking lunges</td><td>4 × 12 each leg</td></tr>
-    <tr><td>Single-leg glute bridge</td><td>4 × 10 each</td></tr>
-    <tr><td>Side plank</td><td>4 × 25 sec each side</td></tr>
-    <tr><td>Burpees (no-jump modified)</td><td>4 × 8</td></tr>
-  </tbody>
-</table>
-
-<h3>Week 4 — Peak (4 sets × 15 reps, 20 sec rest)</h3>
-<table>
-  <thead><tr><th>Exercise</th><th>Sets × Reps</th></tr></thead>
-  <tbody>
-    <tr><td>Decline push-ups (feet on chair)</td><td>4 × 12</td></tr>
-    <tr><td>Jump squats</td><td>4 × 15</td></tr>
-    <tr><td>Reverse lunges with knee drive</td><td>4 × 12 each</td></tr>
-    <tr><td>Donkey kicks + fire hydrant combo</td><td>4 × 15 each</td></tr>
-    <tr><td>Hollow body hold</td><td>4 × 20 sec</td></tr>
-    <tr><td>Full burpees</td><td>4 × 10</td></tr>
-  </tbody>
-</table>
-
-<h2>Cardio on Off-Days</h2>
-<p>On the 2 rest days, do light walking — 20–30 minutes brisk walk in your colony or on a terrace. This helps recovery and adds to your weekly calorie burn without stressing your muscles.</p>
-
-<h2>Common Mistakes to Avoid</h2>
+<h2>The Real Secret: Sustainability Over Motivation</h2>
+<p>Motivation is unreliable — it comes and goes. If your entire routine depends on feeling motivated, you'll quit the moment it drops. What actually works is building a system you can follow even on low-energy days.</p>
+<p>What doesn't matter:</p>
 <ul>
-  <li><strong>Skipping warm-up:</strong> Jumping straight into squats on cold muscles is how injuries happen.</li>
-  <li><strong>Going too fast:</strong> Controlled, slow reps recruit more muscle than fast, sloppy ones.</li>
-  <li><strong>Not eating enough protein:</strong> Muscles need protein to repair and grow. Aim for at least 0.8 g per kg of bodyweight daily.</li>
-  <li><strong>Expecting overnight results:</strong> Visible changes take 4–6 weeks. The metabolic changes (better energy, sleep, mood) start in week 1.</li>
+  <li>Fancy workout plans</li>
+  <li>Expensive supplements</li>
+  <li>"Perfect" diets you can't maintain</li>
 </ul>
+<p>What actually matters:</p>
+<ul>
+  <li>A routine you can repeat without thinking</li>
+  <li>Basic discipline to show up daily</li>
+  <li>Realistic expectations about time and results</li>
+</ul>
+<p>Consistency isn't exciting — but it's the only thing that works.</p>
 
-<h2>What to Eat Around Your Workout</h2>
-<p><strong>Before (30–60 min):</strong> A banana, a cup of curd, or 2 dates. Avoid heavy meals.</p>
-<p><strong>After (within 30–60 min):</strong> A protein-rich meal — egg bhurji, paneer, dal, or a glass of milk with a banana. This is when your muscles absorb nutrients best.</p>
+<h2>Conclusion: Stop Waiting, Start Moving</h2>
+<p>The biggest excuse isn't lack of time — it's poor priority. You don't suddenly "find" time for fitness; you decide to use it better. Most people delay starting because they're waiting for the perfect moment, but that moment doesn't exist.</p>
+<p>This plan removes all the usual barriers — no gym, no equipment, no complex setup. What's left is simple: showing up and doing the work.</p>
+<p>You don't need more information. You need action. Start small, stay consistent, and let results build over time.</p>
 `,
 
   'bmi-indian-bodies': `
-<h2>The Problem With Applying Western BMI Cutoffs to Indians</h2>
-<p>Body Mass Index (BMI) was developed in Europe in the 19th century using data from European populations. The traditional cutoffs — under 18.5 (underweight), 18.5–24.9 (normal), 25–29.9 (overweight), 30+ (obese) — were never validated for South Asian bodies. Decades of research now show that Indians develop metabolic complications like diabetes, hypertension, and cardiovascular disease at significantly lower BMI values than their Western counterparts.</p>
+<h2>The BMI Problem No One Is Talking About</h2>
+<p>BMI is just your weight divided by your height squared. That's it.</p>
+<p>It doesn't tell you where fat is stored, how much is muscle vs fat, or anything about your metabolic health.</p>
+<p>For South Asians, it's even more misleading. Metabolic risks like insulin resistance and high triglycerides show up at lower BMI levels. An Indian adult with a BMI of 23 can have a similar risk profile as a European adult with a BMI of 27.</p>
+<p><em>"South Asians have a unique metabolic phenotype: we store fat centrally and viscerally at body weights that traditional BMI classifies as healthy. The threshold was set for the wrong population."</em></p>
+<p>The World Health Organization acknowledged this in 2004, recommending that Asian populations use lower cutoffs (23 for overweight, 27.5 for obesity). India's ICMR and national clinical guidelines now reflect this — yet the majority of fitness apps, insurance forms, and even clinic intake sheets still default to Western thresholds.</p>
 
-<h2>What Indian Health Guidelines Actually Say</h2>
-<p>The Indian Council of Medical Research (ICMR) and the World Health Organization's Asia-Pacific guidelines both recommend lower BMI cutoffs for South Asians:</p>
+<h2>BMI Thresholds: What the Numbers Actually Mean for Indians</h2>
+<p>Most people use global BMI cutoffs — but those numbers underestimate risk for Indians. Due to higher body fat percentage and earlier metabolic complications, Indian guidelines shift the thresholds lower.</p>
 <table>
-  <thead><tr><th>Category</th><th>Western BMI</th><th>South Asian BMI</th></tr></thead>
+  <thead><tr><th>Classification</th><th>WHO Global BMI</th><th>Indian / ICMR BMI</th><th>Risk Level</th></tr></thead>
   <tbody>
-    <tr><td>Underweight</td><td>&lt; 18.5</td><td>&lt; 18.5</td></tr>
-    <tr><td>Normal weight</td><td>18.5 – 24.9</td><td>18.5 – 22.9</td></tr>
-    <tr><td>Overweight</td><td>25 – 29.9</td><td>23 – 24.9</td></tr>
-    <tr><td>Obese</td><td>≥ 30</td><td>≥ 25</td></tr>
+    <tr><td>Underweight</td><td>&lt; 18.5</td><td>&lt; 18.5</td><td>Moderate</td></tr>
+    <tr><td>Normal weight</td><td>18.5 – 24.9</td><td>18.5 – 22.9</td><td>Low</td></tr>
+    <tr><td>Overweight</td><td>25.0 – 29.9</td><td>23.0 – 24.9</td><td>Elevated</td></tr>
+    <tr><td>Obesity Class I</td><td>30.0 – 34.9</td><td>25.0 – 29.9</td><td>High</td></tr>
+    <tr><td>Obesity Class II+</td><td>&gt; 35.0</td><td>&gt; 30.0</td><td>Very High</td></tr>
   </tbody>
 </table>
-<p>This means an Indian adult with a BMI of 24 — which would be labelled "normal" in Western tables — is already in the overweight category by Indian health standards.</p>
+<p>Key insight: A person with BMI 24 would be classified as healthy by global standards, but elevated-risk by Indian guidelines. Millions of Indians fall into this gap — undetected and unscreened.</p>
 
-<h2>Why Indians Store Fat Differently</h2>
-<p>South Asians tend to accumulate a higher proportion of visceral fat (fat around internal organs) compared to subcutaneous fat (fat under the skin) at any given BMI. Visceral fat is metabolically active — it drives insulin resistance, inflammation, and cardiovascular risk far more aggressively than fat stored on the hips or thighs.</p>
-<p>This phenomenon, sometimes called the "thin-fat" Indian phenotype, means an Indian person can look lean by Western standards while carrying dangerous levels of abdominal fat.</p>
-
-<h2>Better Markers to Track for Indians</h2>
-<p>BMI alone is an incomplete picture. These additional measurements paint a much clearer picture of your metabolic health:</p>
+<h2>5 Metrics That Tell the Truth About Indian Health</h2>
+<p>BMI gives you a rough number, but it misses the markers that actually predict risk in Indians. To get a real picture of health, you need to look at metrics that reflect fat distribution and metabolic function.</p>
 
 <h3>1. Waist Circumference</h3>
-<p>Measures abdominal fat directly. Indian health guidelines recommend action when waist circumference exceeds:</p>
-<ul>
-  <li><strong>Men:</strong> 90 cm (35.4 inches)</li>
-  <li><strong>Women:</strong> 80 cm (31.5 inches)</li>
-</ul>
+<p>This measures abdominal fat — the kind most linked to insulin resistance, liver disease, and heart risk. It takes seconds with a simple tape measure. For Indians, the risk cutoffs are lower than global standards.</p>
+<table>
+  <thead><tr><th>Gender</th><th>WHO Cutoff</th><th>Indian Cutoff</th><th>Why it differs</th></tr></thead>
+  <tbody>
+    <tr><td>Men</td><td>&lt; 94 cm</td><td>&lt; 90 cm</td><td>South Asians deposit visceral fat earlier</td></tr>
+    <tr><td>Women</td><td>&lt; 80 cm</td><td>&lt; 80 cm</td><td>Same cutoff; different absolute risk profile</td></tr>
+  </tbody>
+</table>
 
 <h3>2. Waist-to-Height Ratio (WHtR)</h3>
-<p>Divide your waist circumference by your height (both in the same unit). A ratio above <strong>0.5</strong> is a risk marker — meaning your waist should be less than half your height. This is a stronger predictor of cardiovascular risk than BMI in South Asian populations.</p>
+<p>Divide your waist circumference by your height, both in the same unit. A value above 0.5 indicates excess central adiposity regardless of BMI or body frame.</p>
+<p>A 2012 meta-analysis of 300,000 participants found WHtR superior to BMI in predicting hypertension, Type 2 diabetes, and dyslipidaemia in Asian populations.</p>
+<p><strong>How to measure:</strong> Stand relaxed, exhale normally, place the tape at the midpoint between your lowest rib and hip bone. Do not suck in. The measurement should be taken in the morning before eating.</p>
 
-<h3>3. Fasting Blood Sugar and HbA1c</h3>
-<p>Indians are at high genetic risk for Type 2 diabetes. Even at normal BMI, an annual fasting glucose check is advisable after age 35. Pre-diabetes (fasting glucose 100–125 mg/dL) is completely reversible with diet and exercise — but only if caught early.</p>
+<h3>3. Body Fat Percentage</h3>
+<p>BMI cannot distinguish between a muscular person and a person with high body fat at the same weight. Body fat percentage — measurable via DEXA scan, bioelectrical impedance, or hydrostatic weighing — gives a direct reading. Indian-specific healthy ranges are lower than global norms due to the lean-but-fat phenotype.</p>
+<table>
+  <thead><tr><th>Category</th><th>Men (Global %)</th><th>Men (Indian %)</th><th>Women (Global %)</th><th>Women (Indian %)</th></tr></thead>
+  <tbody>
+    <tr><td>Athletic</td><td>6–13%</td><td>6–12%</td><td>14–20%</td><td>14–19%</td></tr>
+    <tr><td>Fit</td><td>14–17%</td><td>13–16%</td><td>21–24%</td><td>20–23%</td></tr>
+    <tr><td>Acceptable</td><td>18–24%</td><td>17–22%</td><td>25–31%</td><td>24–29%</td></tr>
+    <tr><td>High Risk</td><td>&gt; 25%</td><td>&gt; 23%</td><td>&gt; 32%</td><td>&gt; 30%</td></tr>
+  </tbody>
+</table>
 
-<h3>4. Lipid Profile</h3>
-<p>Indians often show low HDL ("good") cholesterol and high triglycerides — a pattern called dyslipidaemia — even without being overweight. Annual blood work can catch this before it causes problems.</p>
+<h3>4. Visceral Fat Rating</h3>
+<p>Modern body composition tools (like BIA scales and DEXA scans) can measure visceral fat separately. This fat surrounds vital organs and is strongly linked to inflammation and insulin resistance. A visceral fat rating above 13 is a red flag, regardless of BMI.</p>
+<p>Indian context: Studies from AIIMS and the Madras Diabetes Research Foundation show South Asians accumulate harmful visceral fat at lower body weights — often before BMI even reaches the overweight range.</p>
 
-<h2>Does BMI Have Any Value Then?</h2>
-<p>Yes — at a population level and as a screening tool. If your BMI is over 25 by Indian standards (which equals ≥ 23), it is a signal to investigate further, not a diagnosis in itself. Think of BMI as the alarm that tells you to run more tests, not the verdict.</p>
+<h3>5. Fasting Blood Glucose and HbA1c</h3>
+<p>Pre-diabetes is largely asymptomatic — you will not feel it, your BMI will not show it, and standard health checks often miss it. India has the second largest diabetic population in the world, with an estimated 136 million people in the pre-diabetic range.</p>
+<p>A simple fasting glucose test (under Rs. 150 in most labs) tells you more about your metabolic health than a BMI calculation ever could.</p>
 
-<div class="highlight-box">
-  <strong>Practical action steps for Indians:</strong>
-  <ul>
-    <li>Target a BMI between 18.5 and 22.9 — not 24.9.</li>
-    <li>Measure your waist every 3 months; aim below 90 cm (men) or 80 cm (women).</li>
-    <li>Get a full metabolic panel (glucose, lipids, BP) annually after age 30.</li>
-    <li>Use our <a href="/bmi-calculator">BMI Calculator</a> to check your current BMI with Indian-specific interpretation.</li>
-  </ul>
-</div>
+<h2>Your Complete Indian Health Metric Checklist</h2>
+<table>
+  <thead><tr><th>Metric</th><th>How to Measure</th><th>Healthy Range (Indians)</th><th>Concern Threshold</th><th>Frequency</th></tr></thead>
+  <tbody>
+    <tr><td>BMI (Indian scale)</td><td>Weight / height²</td><td>18.5 – 22.9</td><td>&gt; 23.0</td><td>Annually</td></tr>
+    <tr><td>Waist circumference</td><td>Tape measure, mid-torso</td><td>&lt; 90 cm (M), &lt; 80 cm (F)</td><td>&gt; 90 cm / &gt; 80 cm</td><td>Every 6 months</td></tr>
+    <tr><td>Waist-to-height ratio</td><td>Waist cm / height cm</td><td>&lt; 0.50</td><td>&gt; 0.50</td><td>Every 6 months</td></tr>
+    <tr><td>Body fat %</td><td>BIA scale or DEXA</td><td>&lt; 22% (M), &lt; 29% (F)</td><td>&gt; 23% / &gt; 30%</td><td>Every 6 months</td></tr>
+    <tr><td>Visceral fat rating</td><td>BIA scale or DEXA</td><td>1 – 12</td><td>&gt; 13</td><td>Annually</td></tr>
+    <tr><td>Fasting glucose</td><td>Blood test, 8-hr fast</td><td>70 – 99 mg/dL</td><td>&gt; 100 mg/dL</td><td>Annually</td></tr>
+    <tr><td>HbA1c</td><td>Blood test</td><td>&lt; 5.7%</td><td>&gt; 5.7%</td><td>Annually</td></tr>
+  </tbody>
+</table>
 
-<h2>The Reassuring News</h2>
-<p>The higher metabolic risk in Indians is not destiny. Studies consistently show that Indians respond very well to lifestyle changes. Even a 5–7% reduction in body weight in overweight Indians produces dramatic improvements in blood sugar control, blood pressure, and lipid profiles — often better than the same weight loss in Western populations.</p>
+<h2>India's Health Targets: What the Guidelines Actually Say</h2>
+<p>The ICMR, WHO South-East Asia Regional Office, and the Consensus Statement on Metabolic Syndrome in India all now recognise ethnicity-specific thresholds. Here is where Indian health targets stand in 2026:</p>
+<table>
+  <thead><tr><th>Health Parameter</th><th>Indian Target</th><th>Global Standard</th><th>Source</th></tr></thead>
+  <tbody>
+    <tr><td>BMI (overweight start)</td><td>23.0</td><td>25.0</td><td>ICMR–NIN 2020</td></tr>
+    <tr><td>BMI (obesity start)</td><td>25.0</td><td>30.0</td><td>ICMR–NIN 2020</td></tr>
+    <tr><td>Waist: Men</td><td>&lt; 90 cm</td><td>&lt; 94 cm</td><td>RSSDI 2022</td></tr>
+    <tr><td>Waist: Women</td><td>&lt; 80 cm</td><td>&lt; 80 cm</td><td>RSSDI 2022</td></tr>
+    <tr><td>Fasting glucose (normal)</td><td>70–99 mg/dL</td><td>70–99 mg/dL</td><td>ADA / ICMR</td></tr>
+    <tr><td>Pre-diabetes (fasting)</td><td>100–125 mg/dL</td><td>100–125 mg/dL</td><td>ADA / ICMR</td></tr>
+    <tr><td>HbA1c (pre-diabetes)</td><td>5.7 – 6.4%</td><td>5.7 – 6.4%</td><td>ICMR 2023</td></tr>
+    <tr><td>Systolic BP target</td><td>&lt; 130 mmHg</td><td>&lt; 130 mmHg</td><td>ISH 2020</td></tr>
+  </tbody>
+</table>
+<p>Action point: If your doctor, gym app, or insurance portal is still using a BMI of 25 as your overweight threshold, request the Indian-specific assessment. You may be at elevated metabolic risk that the standard tool is completely missing.</p>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>My BMI is normal. Should I still worry?</strong> Yes. Many Indians with a "normal" BMI still have hidden risks like belly fat, high blood sugar, or poor cholesterol. Don't rely on BMI alone — check your waist size and fasting glucose too.</p>
+<p><strong>What is TOFI? Is it common?</strong> TOFI means Thin Outside, Fat Inside. You may look lean but still carry fat around your organs. This is quite common in Indians, even in people who seem fit.</p>
+<p><strong>Can I reduce visceral fat without losing weight?</strong> Yes. Exercise (strength + cardio) and better diet can reduce harmful internal fat even if your weight doesn't change much.</p>
+<p><strong>Which is better: BIA scale or DEXA scan?</strong> DEXA is more accurate and gives a detailed breakdown of fat and muscle. BIA scales (home machines) are less precise but good for tracking progress over time.</p>
+
+<h2>Conclusion</h2>
+<p>BMI isn't useless — but treating it as your health verdict is a mistake, especially for Indians. You can have a "normal" BMI and still carry high-risk markers like abdominal fat, elevated visceral fat, or borderline glucose — and not know it.</p>
+<p>A better approach is simple: combine a few key measurements to get a real picture of your metabolic health. It doesn't take much time, and it doesn't require expensive tools — just the right metrics and the right thresholds.</p>
+<p><strong>What to do next:</strong> Measure your waist. Check your waist-to-height ratio. Get a fasting glucose test if you haven't in the past year. These basic checks will tell you far more about your health risk than BMI alone.</p>
 `,
 
   'high-protein-indian-breakfasts': `
 <h2>Why Protein at Breakfast Matters</h2>
-<p>A high-protein breakfast does three things that directly help weight management: it reduces hunger hormones (specifically ghrelin) for the next 3–4 hours, it stabilises blood sugar so you avoid the mid-morning energy crash, and it kickstarts muscle protein synthesis for the day. Most traditional Indian breakfasts are carbohydrate-heavy — idli, poha, upma — which is why many Indians feel hungry again within 2 hours of eating.</p>
+<p>Most Indian breakfasts are heavily carb-based — poha, idli, toast, paratha — they're easy to prepare but don't keep you full for long. Hunger returns quickly, leading to snacking and energy dips.</p>
+<p>The missing piece is protein.</p>
+<p>A protein-rich breakfast helps you stay full, improves focus, and keeps your energy stable throughout the morning. And you don't need fancy ingredients to make it work. With a few simple changes, everyday Indian foods can become high-protein, low-calorie meals that actually support your goals.</p>
 
-<h2>10 High-Protein Indian Breakfasts Under 400 Calories</h2>
+<h2>Why Protein Matters in Breakfast</h2>
+<p>Starting your day with protein isn't just about fitness — it's about control.</p>
+<p>Protein slows digestion, which means you stay full longer. It also helps reduce unnecessary cravings and keeps your energy more stable compared to high-carb meals.</p>
+<p>When your breakfast lacks protein, you're more likely to feel hungry within a couple of hours. That often leads to extra snacking, which adds up over time. A balanced breakfast with enough protein helps you avoid that cycle.</p>
 
-<h3>1. Moong Dal Chilla (2 medium) — ~175 kcal, 12 g protein</h3>
-<p>Soak 1 cup split yellow moong dal overnight, blend with ginger, green chilli, salt, and a pinch of hing. Cook like a thin pancake on a non-stick pan with ½ tsp oil each. Serve with green chutney. Add grated paneer inside for an extra 5 g protein.</p>
+<h2>What Makes a Good High-Protein Breakfast</h2>
+<p>Not every "healthy" breakfast actually works. Most are too carb-heavy or don't keep you full long enough.</p>
+<p>A solid high-protein breakfast should keep you satisfied for 3–4 hours, stay within a reasonable calorie range, and be simple enough to repeat daily. It should also include a mix of protein, fiber, and some healthy fats to avoid energy crashes. This isn't about perfection — it's about consistency.</p>
 
-<h3>2. Egg Bhurji with 2 Rotis — ~350 kcal, 22 g protein</h3>
-<p>Scramble 2 whole eggs with 1 egg white, onion, tomato, and spices in 1 tsp oil. Serve with 2 small whole wheat rotis. This is fast (10 minutes), filling, and gives you a complete amino acid profile from the eggs.</p>
+<h2>10 High-Protein Indian Breakfast Options (Under 400 Calories)</h2>
+<ul>
+  <li>Besan Chilla + Curd</li>
+  <li>Paneer Bhurji + 1 Roti</li>
+  <li>Boiled Eggs + Fruit</li>
+  <li>Vegetable Omelette + Toast</li>
+  <li>Moong Dal Chilla</li>
+  <li>Greek Yogurt + Nuts + Seeds</li>
+  <li>Oats + Milk + Seeds</li>
+  <li>Sprouts Salad</li>
+  <li>Paneer Stuffed Paratha (low oil)</li>
+  <li>Protein Smoothie (Milk + Peanut Butter + Seeds)</li>
+</ul>
 
-<h3>3. Besan (Chickpea Flour) Omelette — ~200 kcal, 14 g protein</h3>
-<p>Mix 4 tbsp besan with water to a batter consistency. Add finely chopped onion, tomato, coriander, salt, and chilli powder. Cook like a thick pancake. Besan is 20% protein by weight — far more than maida.</p>
+<h2>5 Easy High-Protein Breakfast Recipes</h2>
+<p>Instead of just knowing what to eat, here's how to actually make it. These recipes are simple, quick, and realistic enough to follow on a busy morning — no complicated steps or hard-to-find ingredients.</p>
 
-<h3>4. Greek Curd Parfait with Fruits — ~250 kcal, 18 g protein</h3>
-<p>Layer 200 g of hung curd (chakka) or thick Greek-style curd with sliced banana, pomegranate, and a handful of roasted sunflower seeds. Add 1 tsp honey only if needed. The hung curd has 2–3× the protein of regular curd.</p>
+<h3>1. Besan Chilla + Curd</h3>
+<p>Mix half a cup of besan with water, salt, turmeric, and chopped onions or vegetables. Cook like a pancake using minimal oil. Pair with a bowl of curd. <strong>Protein boost: ~15–18g</strong></p>
 
-<h3>5. Paneer Bhurji with Toast — ~320 kcal, 20 g protein</h3>
-<p>Crumble 100 g low-fat paneer and stir-fry with onion, capsicum, tomato, and spices in 1 tsp oil. Serve with 2 slices of whole grain toast. Paneer has ~18 g protein per 100 g serving.</p>
+<h3>2. Paneer Bhurji + Roti</h3>
+<p>Sauté onions, tomatoes, and spices in a little oil. Add 100g crumbled paneer and cook for 3–4 minutes. Pair with one roti. <strong>Protein boost: ~20–25g</strong></p>
 
-<h3>6. Sprouted Moong Salad — ~200 kcal, 14 g protein</h3>
-<p>Sprout 1 cup moong beans overnight (rinse, soak 8 hours, drain, keep in a covered bowl for 12 more hours). Toss with chopped onion, tomato, cucumber, lemon juice, and chaat masala. Add a boiled egg on the side for 6 more grams of protein.</p>
+<h3>3. Moong Dal Chilla</h3>
+<p>Soak moong dal overnight, blend into a batter with spices, and cook like a dosa. Add vegetables for extra fiber. <strong>Protein boost: ~18–20g</strong></p>
 
-<h3>7. Sattu Drink with Boiled Eggs — ~280 kcal, 24 g protein</h3>
-<p>Mix 3 tbsp roasted chana sattu in a glass of water with a pinch of kala namak, jeera powder, and lemon juice. Drink it with 2 boiled eggs on the side. Sattu is a Bihar/UP staple — 25 g protein per 100 g — and one of the best plant proteins available in India.</p>
+<h3>4. Greek Yogurt Bowl</h3>
+<p>Take 1 cup thick yogurt (or Greek yogurt), add nuts, seeds, and a small portion of fruit. No cooking needed. <strong>Protein boost: ~15–20g</strong></p>
 
-<h3>8. Soya Poha — ~260 kcal, 16 g protein</h3>
-<p>Soak 30 g of soy granules in hot water for 5 minutes, squeeze out the water. Cook regular poha with 1 tsp oil, mustard seeds, curry leaves, onion, turmeric, and add the soya granules. Soy dramatically boosts the protein content of an otherwise carb-heavy breakfast.</p>
+<h3>5. High-Protein Smoothie</h3>
+<p>Blend 1 glass milk, 1 tbsp peanut butter, a few seeds (chia or flax), and half a banana. Quick and portable. <strong>Protein boost: ~15–18g</strong></p>
 
-<h3>9. Peanut Butter Banana Roti Roll — ~380 kcal, 15 g protein</h3>
-<p>Spread 2 tbsp natural peanut butter on 2 warm whole wheat rotis. Place half a banana inside each, roll up, and eat. Natural peanut butter (no added sugar or hydrogenated oil) gives healthy fats and protein. Quick, no cooking needed after rotis.</p>
+<h2>How to Choose the Right Breakfast for You</h2>
+<p>Don't overcomplicate this.</p>
+<ul>
+  <li>If you're short on time, go for smoothies or yogurt bowls.</li>
+  <li>If you need something filling, choose paneer or eggs.</li>
+  <li>If you prefer lighter meals, chilla or sprouts work better.</li>
+</ul>
+<p>The best breakfast is the one you can follow daily without skipping.</p>
 
-<h3>10. Dalia (Broken Wheat) with Milk and Nuts — ~300 kcal, 16 g protein</h3>
-<p>Cook ½ cup dalia in 1.5 cups full-fat milk until soft. Add 1 tsp honey, 5 crushed almonds, and 3 walnuts. Dalia is high in fibre and the milk brings it to a complete breakfast. This keeps most people full for 4–5 hours.</p>
+<h2>Common Mistakes to Avoid</h2>
+<p>Even healthy breakfasts can go wrong. Skipping protein, relying only on carbs, or adding too much oil can reduce effectiveness. Another common mistake is inconsistency — doing it right for a few days and then falling back into old habits. Small mistakes repeated daily make a big difference.</p>
+<ul>
+  <li><strong>Ignoring protein:</strong> Meals without protein won't keep you full for long.</li>
+  <li><strong>Overloading carbs:</strong> Too many refined carbs spike energy, then crash it.</li>
+  <li><strong>Hidden calories:</strong> Excess oil, butter, or sugar can quietly add up.</li>
+  <li><strong>Skipping fiber:</strong> Lack of fiber affects digestion and satiety.</li>
+  <li><strong>Not planning ahead:</strong> Leads to grabbing quick, unhealthy options.</li>
+  <li><strong>Inconsistency:</strong> Results come from what you do daily, not occasionally.</li>
+</ul>
 
-<h2>Quick Comparison Table</h2>
-<table>
-  <thead><tr><th>Breakfast</th><th>Calories</th><th>Protein (g)</th><th>Prep Time</th></tr></thead>
-  <tbody>
-    <tr><td>Moong dal chilla × 2</td><td>175</td><td>12</td><td>15 min</td></tr>
-    <tr><td>Egg bhurji + 2 rotis</td><td>350</td><td>22</td><td>10 min</td></tr>
-    <tr><td>Besan omelette</td><td>200</td><td>14</td><td>10 min</td></tr>
-    <tr><td>Hung curd parfait</td><td>250</td><td>18</td><td>5 min</td></tr>
-    <tr><td>Paneer bhurji + toast</td><td>320</td><td>20</td><td>15 min</td></tr>
-    <tr><td>Sprouted moong salad</td><td>200</td><td>14</td><td>5 min (+ overnight sprout)</td></tr>
-    <tr><td>Sattu drink + eggs</td><td>280</td><td>24</td><td>5 min</td></tr>
-    <tr><td>Soya poha</td><td>260</td><td>16</td><td>15 min</td></tr>
-    <tr><td>PB banana roti roll</td><td>380</td><td>15</td><td>5 min</td></tr>
-    <tr><td>Dalia with milk + nuts</td><td>300</td><td>16</td><td>15 min</td></tr>
-  </tbody>
-</table>
+<h2>How to Build a Balanced, Sustainable Breakfast</h2>
+<p>A good breakfast isn't about perfection — it's about balance and consistency. Focus on combining protein, healthy fats, and fiber to keep energy stable and cravings in check.</p>
+<ul>
+  <li><strong>Add a protein source:</strong> Eggs, paneer, yogurt, or lentils</li>
+  <li><strong>Include fiber-rich foods:</strong> Vegetables, fruits, or whole grains</li>
+  <li><strong>Use healthy fats in moderation:</strong> Nuts, seeds, or a small amount of ghee</li>
+  <li><strong>Keep it simple:</strong> Choose meals you can prepare regularly without effort</li>
+  <li><strong>Stay consistent:</strong> Repeating a few good meals is better than chasing variety without discipline</li>
+</ul>
+<p>A balanced breakfast sets the tone for the rest of the day. Get this right, and everything else becomes easier.</p>
 
-<h2>How Much Protein Do You Actually Need?</h2>
-<p>The Indian Council of Medical Research (ICMR) recommends <strong>0.8–1 g of protein per kg of bodyweight</strong> per day for sedentary adults. If you exercise regularly, this goes up to 1.2–1.6 g/kg. A 60 kg woman exercising 4 days a week needs 72–96 g protein daily — and breakfast should ideally contribute 20–25 g of that total.</p>
+<h2>Wrapping Up</h2>
+<p>A high-protein breakfast doesn't need to be complicated. Simple Indian foods, when structured properly, can keep you full, support weight management, and improve your overall energy levels.</p>
+<p>You don't need all 10 options. Pick a few that fit your routine and stay consistent. That's what actually delivers results.</p>
 `,
 
   'surya-namaskar-calories': `
-<h2>What Is Surya Namaskar?</h2>
-<p>Surya Namaskar (Sun Salutation) is a sequence of 12 yoga postures performed in a flowing, continuous cycle. It combines forward bends, backbends, and plank-like positions that engage virtually every major muscle group. Unlike many forms of yoga that are primarily meditative, a brisk Surya Namaskar session elevates heart rate meaningfully — making it a genuine cardiovascular and strength workout.</p>
-
-<h2>How Calorie Burn Is Calculated</h2>
-<p>Calorie burn during exercise depends on three main variables: body weight, exercise intensity (speed), and duration. Surya Namaskar can be performed slowly (meditative, ~3 rounds per minute) or fast (athletic, ~6–7 rounds per minute). The calorie burn difference between these speeds is substantial.</p>
-
-<h2>Calorie Burn Per Round — By Body Weight and Speed</h2>
-<table>
-  <thead><tr><th>Body Weight</th><th>Slow pace (~3/min)</th><th>Moderate (~5/min)</th><th>Fast (~7/min)</th></tr></thead>
-  <tbody>
-    <tr><td>50 kg</td><td>3.5 kcal/round</td><td>4.5 kcal/round</td><td>6 kcal/round</td></tr>
-    <tr><td>60 kg</td><td>4 kcal/round</td><td>5.5 kcal/round</td><td>7 kcal/round</td></tr>
-    <tr><td>70 kg</td><td>4.5 kcal/round</td><td>6 kcal/round</td><td>8.5 kcal/round</td></tr>
-    <tr><td>80 kg</td><td>5 kcal/round</td><td>7 kcal/round</td><td>10 kcal/round</td></tr>
-    <tr><td>90 kg</td><td>5.5 kcal/round</td><td>8 kcal/round</td><td>11 kcal/round</td></tr>
-  </tbody>
-</table>
-
-<h2>Total Calorie Burn for a Full Session</h2>
-<p>The classic recommendation is 108 rounds of Surya Namaskar — considered auspicious in yogic tradition. In practice, most beginners start with 12 rounds and work up. Here is what different session lengths burn for a 70 kg person at moderate pace:</p>
-<table>
-  <thead><tr><th>Rounds</th><th>Time (moderate pace)</th><th>Calories (70 kg)</th></tr></thead>
-  <tbody>
-    <tr><td>12 rounds</td><td>~12 min</td><td>~72 kcal</td></tr>
-    <tr><td>24 rounds</td><td>~24 min</td><td>~145 kcal</td></tr>
-    <tr><td>48 rounds</td><td>~48 min</td><td>~290 kcal</td></tr>
-    <tr><td>108 rounds</td><td>~108 min</td><td>~650 kcal</td></tr>
-  </tbody>
-</table>
-
-<h2>How Does It Compare to Other Exercises?</h2>
-<table>
-  <thead><tr><th>Exercise (30 min, 70 kg)</th><th>Calories Burned</th></tr></thead>
-  <tbody>
-    <tr><td>Surya Namaskar (fast)</td><td>~255 kcal</td></tr>
-    <tr><td>Brisk walking</td><td>~150 kcal</td></tr>
-    <tr><td>Jogging (8 km/h)</td><td>~280 kcal</td></tr>
-    <tr><td>Cycling (moderate)</td><td>~220 kcal</td></tr>
-    <tr><td>Swimming</td><td>~260 kcal</td></tr>
-    <tr><td>Strength training</td><td>~180 kcal</td></tr>
-  </tbody>
-</table>
-<p>Fast-paced Surya Namaskar is comparable to jogging — which makes it a genuinely effective cardio option that also builds flexibility and strength simultaneously.</p>
-
-<h2>Muscle Groups Worked in Surya Namaskar</h2>
-<p>Each 12-posture cycle works:</p>
+<h2>What Surya Namaskar Actually Does</h2>
+<p>Surya Namaskar isn't just a yoga routine — it's a full-body movement sequence that can contribute meaningfully to weight loss when done consistently and correctly. The actual calorie burn depends on your body weight, pace, and intensity, but when scaled properly, it can rival traditional cardio like jogging or cycling.</p>
+<p>Surya Namaskar works because it keeps your body moving continuously. Unlike static yoga, you're constantly transitioning between movements. That keeps your heart rate up while engaging multiple muscle groups at the same time.</p>
+<p>You're not just stretching — you're:</p>
 <ul>
-  <li><strong>Pranamasana (Mountain pose):</strong> Core activation</li>
-  <li><strong>Hastauttanasana (Raised arms):</strong> Shoulders, spine</li>
-  <li><strong>Uttanasana (Forward fold):</strong> Hamstrings, lower back</li>
-  <li><strong>Ashwa Sanchalanasana (Lunge):</strong> Quads, hip flexors, glutes</li>
-  <li><strong>Dandasana (Plank):</strong> Core, chest, triceps, shoulders</li>
-  <li><strong>Ashtanga Namaskara (Eight-limb pose):</strong> Chest, triceps</li>
-  <li><strong>Bhujangasana (Cobra):</strong> Lower back, glutes</li>
-  <li><strong>Adho Mukha Svanasana (Downward dog):</strong> Hamstrings, calves, shoulders</li>
+  <li>Engaging your core</li>
+  <li>Using upper body strength</li>
+  <li>Activating your legs</li>
+  <li>Controlling your breathing</li>
 </ul>
+<p>This combination creates both cardio and muscular effort, which is why it can contribute to calorie burn. But here's the key: it only works if you keep the flow going. Break the rhythm, and the intensity drops.</p>
 
-<h2>Is Surya Namaskar Enough for Weight Loss?</h2>
-<p>Alone, it creates a meaningful calorie deficit if done consistently. 30 rounds daily (about 30 minutes at moderate pace) burns 180–250 kcal for an average Indian adult — equivalent to a small meal. Combined with a moderate calorie deficit in diet, this would produce roughly 0.5 kg of fat loss per week.</p>
-<p>However, Surya Namaskar does not build significant muscle mass. For body composition changes (more muscle, less fat) you also need resistance training — even bodyweight squats and push-ups added after your Surya Namaskar practice will make a big difference.</p>
+<h2>Calories Burned: What Actually Matters</h2>
+<p>There's no fixed number for calories burned. It depends on how you perform it. Three things change everything:</p>
+<ul>
+  <li>Your body weight</li>
+  <li>Your pace</li>
+  <li>Your consistency</li>
+</ul>
+<p>For an average person (~70 kg), one round burns roughly:</p>
+<ul>
+  <li>Around 12 kcal at a slow pace</li>
+  <li>Around 15 kcal at a moderate pace</li>
+  <li>Up to 18–20 kcal at a faster pace</li>
+</ul>
+<p>So yes, it can burn a decent number of calories — but only if you increase the volume. Doing a few slow rounds won't make a difference. Scaling it properly will.</p>
 
-<div class="highlight-box">
-  <strong>Starting recommendation for beginners:</strong>
-  <ul>
-    <li>Week 1–2: 6 rounds daily, slow pace</li>
-    <li>Week 3–4: 12 rounds, moderate pace</li>
-    <li>Month 2: 24 rounds daily, moderate-fast pace</li>
-    <li>Long term: 30–50 rounds daily at a comfortable pace with proper breath control</li>
-  </ul>
-</div>
+<h2>How It Compares to Other Workouts</h2>
+<p>Surya Namaskar isn't the fastest way to burn calories. But it's one of the most balanced. It combines cardio, strength, and flexibility in a single flow. That's what makes it efficient without feeling extreme.</p>
+<p>Compared to jogging or cycling, it holds up well — especially when you increase the rounds and keep a steady pace.</p>
+<p>Where it works best:</p>
+<ul>
+  <li>Low impact on joints</li>
+  <li>Full-body engagement</li>
+  <li>Easier to stay consistent</li>
+</ul>
+<p>Where it falls short:</p>
+<ul>
+  <li>Not the highest calorie burn per minute</li>
+  <li>Slower results if intensity is low</li>
+</ul>
+<p>It's not about replacing other workouts. It's about having something you can do consistently — and that's where it wins.</p>
+
+<h2>Why Most People Don't See Results</h2>
+<p>Most people don't fail because Surya Namaskar doesn't work. They fail because they underestimate how much effort it actually requires.</p>
+<p>Doing a few slow rounds with long breaks might feel productive, but it doesn't create enough stimulus for fat loss. The body adapts quickly, and without enough volume or intensity, there's no reason for it to change.</p>
+<p>That's why results feel inconsistent. To see real progress, you need to treat it like a workout — not a routine. That means doing enough rounds, maintaining a steady pace, and showing up consistently over time. When those three come together, Surya Namaskar starts delivering results. Without them, it stays at the level of light activity.</p>
+
+<h2>How to Structure It for Weight Loss</h2>
+<p>You don't need a complicated plan. You just need progression.</p>
+<p>Start with a number of rounds you can manage comfortably while focusing on proper form. Once that feels easy, gradually increase the volume. As your endurance improves, begin to pick up the pace without losing control of the movements.</p>
+<p>Over time, this progression naturally increases the intensity. By the time you reach around 16–20 rounds at a steady pace, the calorie burn becomes significant enough to support fat loss.</p>
+<p>Timing isn't as important as consistency. Morning sessions may feel ideal, but what really matters is showing up regularly and maintaining the effort.</p>
+
+<h2>How Many Rounds Are Actually Enough?</h2>
+<p>This is where most people get stuck. They keep asking if Surya Namaskar works, but they don't think about how much they're actually doing. And that's the real problem.</p>
+<p>A few slow rounds here and there won't do much. The body adapts quickly, and without enough volume, there's no real push for change.</p>
+<p>The key isn't just finishing the rounds. It's maintaining a rhythm without long pauses. The moment you slow down too much or take breaks, the intensity drops — and so does the effectiveness.</p>
+
+<h2>Common Mistakes That Kill Results</h2>
+<p>A lot of people are consistent with Surya Namaskar but still don't see results. That usually comes down to how they're doing it, not whether they're doing it.</p>
+<p>One common issue is moving too slowly. When the pace is too relaxed, it stops being a workout and turns into light stretching. Another problem is taking frequent breaks, which breaks the flow and reduces the overall intensity.</p>
+<p>There's also the habit of doing the same number of rounds every day. It feels productive, but over time your body adapts, and progress stalls. And then there's inconsistency — skipping days or doing it randomly makes it hard to build any real momentum.</p>
+<p>To keep it effective, just focus on a few basics:</p>
+<ul>
+  <li>Keep your pace steady</li>
+  <li>Reduce unnecessary breaks</li>
+  <li>Gradually increase your rounds</li>
+</ul>
+<p>That's what turns it from a routine into something that actually delivers results.</p>
+
+<h2>Final Take</h2>
+<p>Surya Namaskar can support weight loss when treated as a proper workout, not just a routine. The results depend on volume, pace, and consistency. Do too little, and nothing changes. Scale it up, stay consistent, and it becomes effective. It may not be the fastest method, but it's one of the most sustainable.</p>
+<p>The real question isn't whether Surya Namaskar works — it's whether you're doing enough rounds, at the right intensity, consistently. Fix that first. Results will follow.</p>
 `,
 
   'south-vs-north-indian-diet': `
-<h2>A Tale of Two Kitchens</h2>
-<p>India's regional food diversity is extraordinary. South Indian cuisine — centred on rice, lentil preparations, and coconut — looks very different from the wheat, dairy, and heavy gravy-based North Indian tradition. People often debate which is "healthier." The honest answer: both have genuine nutritional strengths and specific weaknesses. The key is knowing what to maximise and what to moderate in each.</p>
+<h2>Understanding the Basics of Both Diets</h2>
+<p>The "South vs North Indian diet" debate usually gets reduced to rice vs roti or idli vs paratha — which is a shallow way to look at it. The real issue isn't which region eats healthier. It's about how the diet is structured and how it fits your body, routine, and goals.</p>
+<p>Both diets can be well-balanced and nutrient-dense — or heavy, calorie-dense, and poorly optimized. The outcome depends entirely on how they're followed, not where they come from.</p>
 
-<h2>The Core Carbohydrate Difference: Rice vs Roti</h2>
-<table>
-  <thead><tr><th>Parameter</th><th>White Rice (150 g cooked)</th><th>Whole Wheat Roti (2 medium)</th></tr></thead>
-  <tbody>
-    <tr><td>Calories</td><td>195 kcal</td><td>240 kcal</td></tr>
-    <tr><td>Protein</td><td>4 g</td><td>8 g</td></tr>
-    <tr><td>Fibre</td><td>0.6 g</td><td>5 g</td></tr>
-    <tr><td>Glycaemic Index</td><td>72–78 (high)</td><td>54–62 (medium)</td></tr>
-    <tr><td>Iron</td><td>0.4 mg</td><td>2.2 mg</td></tr>
-  </tbody>
-</table>
-<p>By this comparison, roti has the nutritional edge — more protein, more fibre, lower glycaemic index (meaning slower blood sugar rise), and more iron. However, the South Indian habit of pairing rice with sambar and rasam (both fibre-rich and low-GI) significantly lowers the effective glycaemic load of a South Indian meal.</p>
-
-<h2>Protein Sources: Dal vs Dairy</h2>
-<p>South Indian cuisine relies heavily on lentils: sambar uses toor dal, rasam adds digestive value, and curd rice at the end of a meal provides probiotics and protein. Idli and dosa fermentation also increases the bioavailability of nutrients.</p>
-<p>North Indian cuisine uses more dairy — paneer, curd, milk, ghee. Paneer is protein-rich (18 g/100 g) but also high in saturated fat. North Indian dals (dal makhani, dal tadka) are nutritious but are often cooked with cream and butter, adding substantial calories.</p>
-
-<h2>Fat Content Comparison</h2>
-<table>
-  <thead><tr><th>Cuisine Element</th><th>Primary Fat Source</th><th>Type of Fat</th></tr></thead>
-  <tbody>
-    <tr><td>South Indian cooking</td><td>Coconut oil, coconut</td><td>Saturated (MCT-rich)</td></tr>
-    <tr><td>North Indian cooking</td><td>Ghee, butter, cream</td><td>Saturated</td></tr>
-    <tr><td>South Indian tempering</td><td>Small amount of oil + mustard seeds</td><td>Generally moderate</td></tr>
-    <tr><td>North Indian gravies</td><td>Oil/ghee-heavy base</td><td>Higher total fat</td></tr>
-  </tbody>
-</table>
-<p>Coconut oil, once demonised, is now better understood. Its medium-chain triglycerides (MCTs) are metabolised differently from long-chain fats and may have modest metabolic benefits. However, it is still calorically dense — and the amount used matters more than the type.</p>
-
-<h2>Fibre and Micronutrients: Who Wins?</h2>
-<p>South Indian cuisine generally wins on fibre due to the variety of dals and vegetables used in dishes like kootu, avial, and thorans. The use of drumstick (murungakkai/sahjan), raw banana, and yam in South Indian cooking adds resistant starch and micronutrients rarely found in North Indian diets.</p>
-<p>North Indian diets, particularly in Punjab and Haryana, are higher in calcium (from large dairy intake) and folate (from mustard greens, sarson da saag). The heavy use of whole spices — cardamom, clove, cinnamon — also adds antioxidant value.</p>
-
-<h2>ICMR Guidelines and Regional Comparison</h2>
-<p>The ICMR's Nutrient Requirements for Indians (2020) doesn't prescribe a regional diet — it prescribes nutrients. Both regional cuisines, when eaten in traditional, unprocessed form, can fully meet ICMR recommendations. The problem in both regions is modern adulteration:</p>
+<h3>South Indian Diet (How It Really Looks Daily)</h3>
+<p>This diet is built around rice, but more importantly, around how the food is prepared. Typical plate includes:</p>
 <ul>
-  <li><strong>South:</strong> White rice replacing hand-pounded varieties; hotel food cooked in hydrogenated oils instead of traditional coconut oil.</li>
-  <li><strong>North:</strong> Refined maida parathas replacing atta; packaged ghee of dubious quality; excessive sugar in sweets and chai.</li>
+  <li>Rice as the base</li>
+  <li>Idli, dosa, or appam (often fermented)</li>
+  <li>Sambar and rasam (lentil-based, lighter consistency)</li>
+  <li>Coconut chutneys</li>
 </ul>
+<p>What actually defines it isn't just rice — it's the cooking approach: more steaming than frying, heavy use of fermentation (gut-friendly, easier digestion), and generally lighter, easier on the stomach.</p>
 
-<h2>The Verdict</h2>
-<div class="highlight-box">
-  <p>Neither cuisine is inherently superior. The South Indian diet edges ahead slightly on glycaemic control and probiotic content (fermented idli/dosa, curd rice). The North Indian diet has advantages in protein density (paneer, dairy) and in iron/folate if greens are consumed regularly.</p>
-  <p><strong>The single biggest factor is home cooking vs restaurant/packaged food.</strong> A home-cooked South Indian or North Indian meal will almost always beat restaurant versions of the same food on calorie count, oil quality, and sodium content.</p>
-</div>
+<h3>North Indian Diet (How It Actually Works Daily)</h3>
+<p>This one revolves around wheat and denser meals that are built to keep you full longer. Typical plate includes:</p>
+<ul>
+  <li>Roti or paratha as the base</li>
+  <li>Dal and sabzi</li>
+  <li>Paneer-based dishes</li>
+  <li>Dairy like curd and ghee</li>
+</ul>
+<p>The real difference shows up in preparation: more use of oil, butter, or ghee; heavier gravies and richer textures; and higher calorie density per meal.</p>
+
+<h2>Macronutrient Reality: Rice vs Roti Diets</h2>
+<p>Rice and wheat don't behave the same once you eat them:</p>
+<ul>
+  <li>Rice — digests faster, spikes blood sugar quicker, gives immediate energy</li>
+  <li>Roti (wheat) — digests slower, releases energy steadily, keeps you full longer</li>
+</ul>
+<p>But here's where people get it wrong: this doesn't automatically make one "better." Because your outcome depends on portion size, what you eat with it (protein, fiber, fat), and your activity level.</p>
+<p>A plate of white rice with no protein? Bad idea. A plate of roti drowned in butter and heavy gravy? Same problem. So the real comparison isn't rice vs roti — it's how intelligently the entire meal is built.</p>
+
+<h2>Macronutrient Breakdown</h2>
+<table>
+  <thead><tr><th>Component</th><th>South Indian Diet (Rice-Based)</th><th>North Indian Diet (Roti-Based)</th></tr></thead>
+  <tbody>
+    <tr><td>Carbohydrates</td><td>High</td><td>Moderate</td></tr>
+    <tr><td>Protein</td><td>Moderate (dal, sambar)</td><td>Moderate to High (dal, paneer)</td></tr>
+    <tr><td>Fats</td><td>Moderate (coconut-based)</td><td>Higher (ghee, oil)</td></tr>
+    <tr><td>Fiber</td><td>Moderate</td><td>Higher (whole wheat)</td></tr>
+    <tr><td>Glycemic Load</td><td>Higher</td><td>Lower</td></tr>
+  </tbody>
+</table>
+
+<h2>Where Most People Go Wrong</h2>
+<p>The biggest mistake is thinking the staple decides the outcome. It doesn't. Quantity does.</p>
+<p>Another issue is imbalance. Meals often lean too heavily on carbs, with not enough protein to support satiety or muscle health.</p>
+<p>On top of that, cooking habits quietly increase calories — extra oil, ghee, and rich gravies add up fast without being noticed. And finally, vegetables are treated as a side, not a core part of the meal, which reduces fiber and overall nutritional quality.</p>
+<p>Once you fix these basics, the diet itself stops being the problem.</p>
+
+<h2>Final Verdict</h2>
+<p>There's no clear winner here. Both South and North Indian diets can either support your health or work against it. What actually decides the outcome is how you manage portions, how you cook your food, and whether your meals are balanced. Not the region, not the staple.</p>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Is rice worse than roti for weight loss?</strong> No. Weight loss depends on calorie intake, not just the type of carbohydrate.</p>
+<p><strong>Which diet has more protein?</strong> North Indian diets may have slightly more due to paneer and dairy, but both can be low if not planned properly.</p>
+<p><strong>Is South Indian food healthier overall?</strong> It can be, due to lighter cooking and fermentation, but it still depends on portion size and oil usage.</p>
+<p><strong>Can I mix both diets?</strong> Yes. Combining elements from both diets often creates a more balanced and sustainable approach.</p>
 `,
 
   'intermittent-fasting-indians': `
-<h2>Why Intermittent Fasting Is Complicated for Indians</h2>
-<p>Intermittent Fasting (IF) became one of the most researched dietary strategies of the 2010s. The science is solid: restricting your eating window consistently reduces overall calorie intake, improves insulin sensitivity, and can drive meaningful fat loss. But the protocols were designed around Western eating habits — typically 3 meals starting with breakfast at 7 AM and ending with dinner at 7 PM.</p>
-<p>Indian families eat differently. Dinner at 9–10 PM is normal in most cities. Chai with biscuits at 6 AM is a daily ritual. Festival eating disrupts any pattern for weeks. Joint families mean meal times are communal, not individual. Despite this, IF can absolutely be adapted for Indian lifestyles — with the right protocol and some pragmatic flexibility.</p>
+<h2>What is Intermittent Fasting (IF)?</h2>
+<p>Before trying to follow it, understand this clearly — intermittent fasting is not a diet. It's a structure. Instead of focusing on what you eat, it focuses on when you eat. You cycle between eating and fasting periods, giving your body defined windows for food and rest.</p>
+<p>Common methods:</p>
+<ul>
+  <li><strong>16:8 Method:</strong> Fast for 16 hours, eat within 8 hours</li>
+  <li><strong>5:2 Method:</strong> Eat normally for 5 days, restrict calories on 2 days</li>
+  <li><strong>12:12 Method:</strong> Equal fasting and eating window (best for beginners)</li>
+</ul>
+<p>Unlike traditional diets that restrict foods, IF simplifies decisions by limiting eating time. That alone reduces unnecessary calorie intake for most people.</p>
 
-<h2>Understanding the Two Most Popular IF Protocols</h2>
+<h2>Why Standard IF Advice Fails for Indians</h2>
+<p>Most intermittent fasting advice is built around lifestyles that don't match how Indians actually live. And that mismatch is why people struggle.</p>
 
-<h3>16:8 (The Most Common)</h3>
-<p>Fast for 16 hours, eat within an 8-hour window. Example: eat from noon to 8 PM, fast from 8 PM to noon the next day. This means skipping breakfast — which is the main challenge for people accustomed to early morning chai and snacks.</p>
+<h3>1. Late Dinner Is Non-Negotiable</h3>
+<p>In many Indian households, dinner isn't just a meal — it's a routine. It often happens between 8:30 PM and 10:30 PM, families eat together, and skipping or shifting it earlier isn't always realistic. Most standard IF plans assume early dinners, which makes them hard to follow consistently.</p>
 
-<h3>5:2</h3>
-<p>Eat normally for 5 days, restrict calories to 500–600 kcal on 2 non-consecutive days. This does not require daily meal timing discipline — it requires calorie control on just 2 days per week. Often easier to sustain socially.</p>
+<h3>2. Hidden Calories from Tea &amp; Snacks</h3>
+<p>This is where most people think they're fasting, but aren't. Daily routine often includes morning chai, midday tea, and evening snacks. Even small additions like milk and sugar break your fast. So while you believe you're following IF, your body never actually enters a true fasting state.</p>
 
-<h2>Adapting 16:8 to Indian Meal Timing</h2>
-<p>The key insight: your eating window does not have to be noon–8 PM. You can shift the window to match your actual lifestyle.</p>
+<h3>3. Social Eating Is Part of Life</h3>
+<p>Food in India is deeply social — festivals, weddings, family gatherings. Strict fasting schedules don't survive these situations. And they shouldn't have to. A plan that forces you to avoid real life isn't sustainable.</p>
+
+<h2>How to Adapt Intermittent Fasting to Indian Lifestyles</h2>
+<p>Instead of forcing rigid rules, the smarter approach is adjusting the structure. Intermittent fasting should fit your routine, not disrupt it. That means keeping your main meals intact, allowing flexibility for social situations, and choosing a fasting window you can actually maintain.</p>
+
+<h2>Best IF Schedules for Indians</h2>
 <table>
-  <thead><tr><th>Lifestyle</th><th>Suggested Eating Window</th><th>Fast Period</th></tr></thead>
+  <thead><tr><th>Lifestyle Type</th><th>Suggested IF Method</th><th>Eating Window</th><th>Why It Works</th></tr></thead>
   <tbody>
-    <tr><td>Office worker (early riser)</td><td>8 AM – 4 PM</td><td>4 PM – 8 AM</td></tr>
-    <tr><td>Late-night family dinner household</td><td>2 PM – 10 PM</td><td>10 PM – 2 PM</td></tr>
-    <tr><td>Standard urban India</td><td>12 PM – 8 PM</td><td>8 PM – 12 PM</td></tr>
-    <tr><td>Early dinner family</td><td>10 AM – 6 PM</td><td>6 PM – 10 AM</td></tr>
+    <tr><td>Office Worker</td><td>16:8</td><td>12 PM – 8 PM</td><td>Skips breakfast, fits lunch/dinner</td></tr>
+    <tr><td>Late Dinner Routine</td><td>14:10</td><td>11 AM – 9 PM</td><td>Keeps dinner flexible</td></tr>
+    <tr><td>Homemaker</td><td>12:12</td><td>8 AM – 8 PM</td><td>Easy and sustainable</td></tr>
+    <tr><td>Shift Worker</td><td>Custom Window</td><td>Based on shift</td><td>Matches sleep cycle</td></tr>
+    <tr><td>Beginners</td><td>12:12 → 14:10</td><td>Gradual shift</td><td>Reduces drop-off</td></tr>
   </tbody>
 </table>
-<p>The most important rule: your eating window should overlap with your main meals — lunch and dinner (or breakfast and lunch). Choose whichever window lets you maintain this with your family's schedule.</p>
 
-<h2>The Morning Chai Problem</h2>
-<p>A cup of plain black tea or coffee (no sugar, no milk) does not break a fast meaningfully — it has near-zero calories and does not spike insulin. The problem is the Indian habit of chai with milk and sugar (~80 kcal per cup), which does technically break the fast.</p>
-<p>Practical solutions:</p>
+<h2>How to Start Intermittent Fasting (Indian Context)</h2>
+<p>Most people fail because they start too aggressively. That's unnecessary. You don't need extreme fasting — you need consistency.</p>
+<p><strong>Start with a Realistic Window.</strong> Begin with 12 hours of fasting. Once your body adapts, extend it gradually to 14 or 16 hours. This reduces hunger spikes, drop-off rate, and mental resistance.</p>
+<p><strong>Lock Your Eating Window Around Your Life.</strong> Your fasting schedule should work with your job, your family meals, and your daily routine. If your plan feels forced, you won't stick to it.</p>
+<p><strong>Fix What Breaks Your Fast.</strong> Most people fail here, not in the fasting window itself. During fasting: water, black coffee, and plain tea are allowed. Milk tea, sugar, and snacks break the fast. If you ignore this, your results will stall no matter what schedule you follow.</p>
+<p><strong>Control Your Eating Window.</strong> Fasting doesn't fix overeating. If your eating window turns into heavy meals, constant snacking, and high-calorie foods, you cancel the benefits.</p>
+
+<h2>What to Eat During IF (Indian Diet)</h2>
+<p>Timing helps — but food quality decides results. You don't need a complicated diet. You need better balance.</p>
+<p>Prioritize these foods:</p>
 <ul>
-  <li>Switch morning chai to black tea or green tea during the fasting window.</li>
-  <li>If you cannot face the morning without milky chai, use the 14:10 protocol instead — a shorter fast that gives you more flexibility.</li>
-  <li>Allow one small cup of chai with milk as your "soft start" — the evidence suggests this minimal caloric intake does not eliminate IF benefits entirely.</li>
+  <li>Protein: Dal, paneer, eggs, chicken</li>
+  <li>Fiber: Vegetables, fruits</li>
+  <li>Healthy fats: Nuts, seeds</li>
+</ul>
+<p>Limit these foods:</p>
+<ul>
+  <li>Fried snacks</li>
+  <li>Sugary items</li>
+  <li>Heavy late-night meals</li>
 </ul>
 
-<h2>Festivals, Weddings, and Social Eating</h2>
-<p>This is where rigid IF fails most Indians. The solution is not to be rigid.</p>
-<ul>
-  <li>During festival weeks (Diwali, Eid, Navratri, Christmas), relax the protocol and resume after.</li>
-  <li>On wedding days and family events, eat normally — trying to IF at a family wedding creates social conflict and is unnecessary.</li>
-  <li>The 5:2 protocol works better for people with frequent social events — you control 2 days per week and eat normally at social occasions.</li>
-</ul>
+<h2>Simple Indian Meal Structure</h2>
+<table>
+  <thead><tr><th>Meal</th><th>Example food</th></tr></thead>
+  <tbody>
+    <tr><td>First Meal</td><td>Rice/roti + dal + sabzi + curd</td></tr>
+    <tr><td>Snack</td><td>Fruit / peanuts / buttermilk</td></tr>
+    <tr><td>Dinner</td><td>Roti + paneer/chicken + veggies</td></tr>
+  </tbody>
+</table>
 
-<h2>What to Eat When You Break the Fast</h2>
-<p>Do not break a 16-hour fast with deep-fried food, high-sugar items, or a very large meal. Your digestive system benefits from a gentle re-entry:</p>
-<ul>
-  <li><strong>Good first meal:</strong> Dal and rice, idli-sambar, khichdi, eggs, or a fruit + curd combination.</li>
-  <li><strong>Avoid:</strong> Samosa, vada, biriyani, or sweets as your very first food after fasting.</li>
-  <li><strong>Hydration:</strong> Drink 500 ml of water before your first meal to rehydrate after the overnight fast.</li>
-</ul>
+<h2>Benefits of Intermittent Fasting for Indians</h2>
+<p>When intermittent fasting is applied in a way that fits Indian routines, it stops feeling like a "diet" and starts working like a system.</p>
+<p><strong>1. Fat Loss Without Constant Tracking.</strong> By limiting your eating window, you automatically reduce unnecessary snacking, late-night eating drops, and total calorie intake comes down without strict tracking. That said, IF isn't magic. If you overeat during your eating window, you cancel the deficit. The structure helps, but discipline still matters.</p>
+<p><strong>2. Better Control Over Eating Habits.</strong> Intermittent fasting puts clear boundaries around when you eat, which reduces random decisions. Instead of eating every 2–3 hours and constantly thinking about the next meal, you start eating with purpose. Over time, this improves meal consistency, portion control, and overall discipline.</p>
 
-<h2>Who Should Not Try IF</h2>
-<ul>
-  <li>Pregnant or breastfeeding women</li>
-  <li>People with Type 1 diabetes or on insulin (requires medical supervision)</li>
-  <li>Those with a history of eating disorders</li>
-  <li>Children and teenagers (still growing)</li>
-  <li>Underweight individuals (BMI below 18.5)</li>
-</ul>
+<h2>Common Mistakes Indians Make with IF</h2>
+<p><strong>1. Accidentally Breaking the Fast.</strong> Milk tea, coffee with sugar, and small snacks all break your fast. Stick to water, black coffee, or plain tea. Anything else means fasting is broken.</p>
+<p><strong>2. Overeating in the Eating Window.</strong> A very common mindset: "I didn't eat all day, so I can eat anything now." That logic destroys results. Fasting doesn't erase excess calories. If you overeat, progress stalls — simple as that.</p>
+<p><strong>3. Ignoring Protein Intake.</strong> Indian diets often fall short on protein. During IF, this becomes a bigger issue because fewer meals means fewer chances to hit protein targets. Low protein means muscle loss and more hunger. Prioritize dal, paneer, eggs, chicken, and curd.</p>
+<p><strong>4. Being Too Strict.</strong> Trying to follow IF perfectly is where people burn out. Skipping social events or stressing over one off-day is unnecessary. A single late dinner won't ruin progress. Quitting completely will.</p>
 
-<div class="highlight-box">
-  <strong>Realistic expectation:</strong> IF done consistently (5–6 days per week) with no change to what you eat — just when you eat — typically produces 0.5–0.8 kg of fat loss per month. Combining IF with a moderate calorie deficit and some exercise can double or triple this result.
-</div>
+<h2>Final Thoughts: Keep It Practical or It Won't Last</h2>
+<p>Intermittent fasting isn't powerful because it's extreme. It works because it simplifies your routine.</p>
+<p>You don't need: long fasting hours, perfect schedules, or zero flexibility. You need: a routine that fits your life, consistency over time, and basic control over what and when you eat.</p>
+<p>If your plan feels hard to maintain, it's already broken.</p>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Can I drink chai during intermittent fasting?</strong> Only without milk and sugar. Regular chai breaks your fast.</p>
+<p><strong>Is intermittent fasting effective for weight loss in India?</strong> Yes, if combined with proper calorie control and consistency.</p>
+<p><strong>What is the best fasting window for Indians?</strong> A flexible 14:10 or 16:8 window that fits your meal timings works best.</p>
+<p><strong>Can I follow IF every day?</strong> Yes, but consistency matters more than strict perfection.</p>
 `,
 
   'tdee-calculator-indians': `
-<h2>What Is TDEE and Why Does It Matter?</h2>
-<p>Total Daily Energy Expenditure (TDEE) is the total number of calories your body burns in a 24-hour period — including everything from breathing and digestion at rest, to your morning walk, to the energy used digesting your meals. It is the single most important number for weight management.</p>
-<p>Eat consistently above your TDEE → you gain weight. Eat consistently below it → you lose weight. Eat at TDEE → you maintain weight. The challenge is that TDEE varies dramatically between individuals — and standard calculators designed for Western populations can be off by 10–15% for Indians.</p>
-
-<h2>The Components of TDEE</h2>
-<table>
-  <thead><tr><th>Component</th><th>What It Means</th><th>% of Total</th></tr></thead>
-  <tbody>
-    <tr><td>BMR (Basal Metabolic Rate)</td><td>Calories burned at complete rest — keeping your heart, lungs, and organs running</td><td>60–70%</td></tr>
-    <tr><td>NEAT (Non-Exercise Activity Thermogenesis)</td><td>Calories from walking, standing, fidgeting — all movement that is not structured exercise</td><td>15–30%</td></tr>
-    <tr><td>EAT (Exercise Activity Thermogenesis)</td><td>Calories burned during deliberate exercise sessions</td><td>5–15%</td></tr>
-    <tr><td>TEF (Thermic Effect of Food)</td><td>Energy used to digest and process food — approximately 10% of calories consumed</td><td>~10%</td></tr>
-  </tbody>
-</table>
-
-<h2>Why NEAT Is Particularly Important for Indians</h2>
-<p>NEAT — the calories burned from everyday activity — varies enormously based on occupation. Indian society spans an unusually wide range of activity levels in this regard:</p>
-<table>
-  <thead><tr><th>Occupation / Lifestyle</th><th>Activity Level</th><th>TDEE Multiplier</th></tr></thead>
-  <tbody>
-    <tr><td>IT professional (desk, car commute, elevator)</td><td>Sedentary</td><td>BMR × 1.2</td></tr>
-    <tr><td>Homemaker (cooking, cleaning, child care)</td><td>Lightly active</td><td>BMR × 1.375</td></tr>
-    <tr><td>Teacher, shopkeeper, field salesperson</td><td>Moderately active</td><td>BMR × 1.55</td></tr>
-    <tr><td>Construction worker, farmer, manual labourer</td><td>Very active</td><td>BMR × 1.725</td></tr>
-    <tr><td>Professional athlete, military training</td><td>Extra active</td><td>BMR × 1.9</td></tr>
-  </tbody>
-</table>
-
-<h2>Estimating Your BMR</h2>
-<p>The most widely validated formula for Indians is the Mifflin-St Jeor equation, adjusted slightly for Asian body composition:</p>
-<p><strong>For Men:</strong> BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age) + 5</p>
-<p><strong>For Women:</strong> BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age) − 161</p>
-<p>Example: A 35-year-old Indian woman, 160 cm tall, 65 kg:</p>
-<p>BMR = (10 × 65) + (6.25 × 160) − (5 × 35) − 161 = 650 + 1000 − 175 − 161 = <strong>1,314 kcal/day</strong></p>
-<p>If she is a homemaker (lightly active): TDEE = 1,314 × 1.375 = <strong>~1,807 kcal/day</strong></p>
-<p>To lose 0.5 kg/week: eat at 1,807 − 500 = <strong>~1,300 kcal/day</strong></p>
-
-<h2>Why Many Indian Women Undereat and Still Don't Lose Weight</h2>
-<p>A common frustration: eating very little (1,000 kcal or below) and not losing weight. This often happens because:</p>
+<h2>What is TDEE and Why It Matters</h2>
+<p>TDEE (Total Daily Energy Expenditure) is the total calories your body burns in a day.</p>
+<p>It includes:</p>
 <ul>
-  <li>The body downregulates BMR after prolonged severe restriction (metabolic adaptation)</li>
-  <li>NEAT drops — the body unconsciously moves less when it has less energy</li>
-  <li>Muscle loss slows metabolism further</li>
-  <li>Calorie estimates are inaccurate (home-cooked food is hard to measure)</li>
+  <li><strong>BMR (Basal Metabolic Rate):</strong> Energy used at rest</li>
+  <li><strong>NEAT (Non-Exercise Activity):</strong> Daily movements (walking, chores)</li>
+  <li><strong>Exercise Activity:</strong> Workouts or physical labor</li>
+  <li><strong>Thermic Effect of Food:</strong> Energy used to digest food</li>
 </ul>
-<p>The solution is not to eat even less — it is to eat closer to your true TDEE, add resistance exercise to protect muscle, and create a moderate deficit (not a severe one).</p>
+<p>Your TDEE = BMR × Activity Level. If you get this number wrong, everything else — fat loss, muscle gain, maintenance — falls apart.</p>
 
-<h2>How to Accurately Track TDEE for Yourself</h2>
-<ol>
-  <li>Weigh yourself daily for 2 weeks, at the same time each morning (after bathroom, before eating).</li>
-  <li>Track everything you eat using a food diary for the same 2 weeks.</li>
-  <li>If your weight is stable over 2 weeks, your average daily calorie intake = your TDEE.</li>
-  <li>If you lost weight, your actual intake was below TDEE. If you gained, it was above.</li>
-</ol>
-<p>This self-calibration method is the most accurate way to find your personal TDEE — more accurate than any formula.</p>
+<h2>Why Generic TDEE Calculations Fail for Indians</h2>
+<p>Most calorie calculators assume a lifestyle you probably don't live. That mismatch is where things start going wrong.</p>
+<p><strong>1. Lower Muscle Mass (On Average).</strong> Indians typically have higher body fat percentage and lower lean muscle mass. This reduces overall calorie burn compared to Western averages.</p>
+<p><strong>2. Different Activity Patterns.</strong> Not everyone hits the gym. Instead, walking, commuting, and household work dominate — and some jobs are highly active (labor, delivery, farming).</p>
+<p><strong>3. Food Habits.</strong> Indian diets are often high in carbs (rice, roti) and lower in protein in many cases. This affects metabolism and energy usage.</p>
 
-<div class="highlight-box">
-  <strong>Use our <a href="/calculator">TDEE Calculator</a></strong> to get an instant estimate based on your weight, height, age, and activity level — then refine it over 2–4 weeks of real-world data.
-</div>
+<h2>Step-by-Step: How to Calculate Your TDEE</h2>
+
+<h3>Step 1: Calculate Your BMR</h3>
+<p>Everything starts here — this is your body's baseline energy requirement. Use the Mifflin-St Jeor Equation:</p>
+<ul>
+  <li><strong>Men:</strong> BMR = (10 × weight kg) + (6.25 × height cm) − (5 × age) + 5</li>
+  <li><strong>Women:</strong> BMR = (10 × weight kg) + (6.25 × height cm) − (5 × age) − 161</li>
+</ul>
+
+<h3>Step 2: Apply India-Specific Activity Multipliers</h3>
+<p>This is where accuracy is won or lost. Most people guess here — and that's the mistake. Use this as your reality check. Pick the category that matches your actual day, not what you wish it looked like.</p>
+<table>
+  <thead><tr><th>Lifestyle Type</th><th>Example Roles</th><th>Activity Level</th><th>Multiplier</th></tr></thead>
+  <tbody>
+    <tr><td>Sedentary</td><td>Office worker, student, IT job</td><td>Very Low</td><td>1.2</td></tr>
+    <tr><td>Lightly Active</td><td>Teacher, homemaker, light walking</td><td>Low</td><td>1.375</td></tr>
+    <tr><td>Moderately Active</td><td>Sales executive, delivery, retail</td><td>Medium</td><td>1.55</td></tr>
+    <tr><td>Very Active</td><td>Construction worker, farmer</td><td>High</td><td>1.725</td></tr>
+    <tr><td>Extremely Active</td><td>Manual labor + long hours</td><td>Very High</td><td>1.9</td></tr>
+  </tbody>
+</table>
+
+<h3>Step 3: Final TDEE Calculation</h3>
+<p>TDEE = BMR × Activity Multiplier</p>
+
+<h2>Example Calculations (Indian Context)</h2>
+<p><strong>Case 1: Office Worker (Sedentary)</strong> — Weight: 70 kg, Height: 170 cm, Age: 28. BMR ≈ 1,600 kcal. TDEE = 1,600 × 1.2 = 1,920 kcal</p>
+<p><strong>Case 2: Homemaker (Light Activity)</strong> — Moderate movement (cleaning, cooking). TDEE ≈ 2,000–2,200 kcal</p>
+<p><strong>Case 3: Construction Worker (High Activity)</strong> — Heavy physical labor. TDEE ≈ 2,800–3,500 kcal</p>
+
+<h2>Daily Calorie Needs by Lifestyle (Quick Reference)</h2>
+<table>
+  <thead><tr><th>Category</th><th>Average TDEE Range (India)</th></tr></thead>
+  <tbody>
+    <tr><td>Sedentary Adults</td><td>1,600 – 2,000 kcal</td></tr>
+    <tr><td>Light Activity</td><td>1,800 – 2,200 kcal</td></tr>
+    <tr><td>Moderate Activity</td><td>2,000 – 2,600 kcal</td></tr>
+    <tr><td>Heavy Labor</td><td>2,600 – 3,500 kcal</td></tr>
+  </tbody>
+</table>
+
+<h2>Big Mistakes Indians Make with TDEE</h2>
+<p><strong>1. Copy-Pasting Diet Plans.</strong> Following someone else's diet without matching activity level = disaster.</p>
+<p><strong>2. Ignoring Daily Movement.</strong> Walking, stairs, chores = real calorie burn.</p>
+<p><strong>3. Overestimating Gym Workouts.</strong> 1-hour gym ≠ active lifestyle.</p>
+<p><strong>4. Underestimating Sedentary Life.</strong> Sitting 8–10 hours kills calorie burn.</p>
+
+<h2>How to Adjust Your Calories Based on Goal</h2>
+<p>Your TDEE is just the starting point. What you do next depends on your goal.</p>
+<ul>
+  <li><strong>For Fat Loss:</strong> Eat 300–500 kcal below TDEE. Focus on protein + consistency.</li>
+  <li><strong>For Muscle Gain:</strong> Eat 200–400 kcal above TDEE. Combine with strength training.</li>
+  <li><strong>For Maintenance:</strong> Stay around TDEE.</li>
+</ul>
+
+<h2>Indian Diet Considerations</h2>
+<p>You don't need extreme diets — you need smarter choices within what you already eat. But you do need more protein (dal, paneer, eggs, chicken), controlled portion sizes, and less hidden calories (oil, sweets).</p>
+
+<h2>Simple Example Meal Split (Indian Diet)</h2>
+<table>
+  <thead><tr><th>Meal</th><th>Example Food</th></tr></thead>
+  <tbody>
+    <tr><td>Breakfast</td><td>Idli + sambar / eggs + toast</td></tr>
+    <tr><td>Lunch</td><td>Rice/roti + dal + sabzi</td></tr>
+    <tr><td>Snack</td><td>Fruit / buttermilk</td></tr>
+    <tr><td>Dinner</td><td>Roti + paneer/chicken + veggies</td></tr>
+  </tbody>
+</table>
+
+<h2>Final Thoughts: Your Lifestyle Is the Real Calculator</h2>
+<p>Stop relying on generic numbers. Your job, movement, and daily routine matter more than any online calculator. Two people with the same weight can have a 1,000+ calorie difference in daily needs — just based on lifestyle.</p>
+<p>If you don't fix this, you'll eat too much without realizing it — or eat too little and feel stuck.</p>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Is TDEE different for Indians compared to others?</strong> Yes. Due to differences in body composition and lifestyle, standard formulas often overestimate calorie needs for Indians.</p>
+<p><strong>Can I lose weight without calculating TDEE?</strong> You can, but it's inefficient. Knowing TDEE makes fat loss predictable and faster.</p>
+<p><strong>How often should I recalculate TDEE?</strong> Every 4–6 weeks or when your weight or activity level changes.</p>
+<p><strong>Is walking enough to increase TDEE?</strong> Yes. Daily steps significantly impact calorie burn, especially for sedentary individuals.</p>
 `,
 
   'vegetarian-protein-india': `
-<h2>The "But I'm Vegetarian" Protein Problem</h2>
-<p>India has one of the highest rates of vegetarianism in the world — estimates suggest 20–40% of Indians follow a vegetarian diet. This is a cultural and ethical choice that is entirely compatible with excellent health and fitness. But it does require deliberate planning to hit optimal protein targets, especially for active individuals.</p>
-<p>The goal of 100 g protein per day sounds daunting for a vegetarian Indian. It is achievable — without protein powder, without imported foods, without complicated recipes. Here is the complete guide.</p>
+<h2>Why 100g? Understanding India's Protein Gap</h2>
+<p>The ICMR–NIN recommends 0.8–1.0g of protein per kg of body weight for sedentary adults and 1.2–1.6g/kg for active individuals. For a 70kg moderately active person, that means 84–112g of protein daily. Yet national surveys consistently show average Indian protein intake hovering around 47g/day.</p>
+<p>The consequences are real: slower muscle recovery, higher injury risk, poor satiety, and — particularly for women — increased risk of sarcopenia after 40. The fix does not require a trip to a supplement store. It requires knowing which Indian foods are protein-dense and how to stack them.</p>
+<p><em>"The average Indian vegetarian diet gives you the spices of a five-star kitchen and the protein of a light snack. That gap is entirely fixable."</em></p>
 
-<h2>Best Vegetarian Protein Sources Available in India</h2>
+<h2>India's Top Vegetarian Protein Sources at a Glance</h2>
 <table>
-  <thead><tr><th>Food</th><th>Protein (per 100 g raw)</th><th>Cost</th><th>Availability</th></tr></thead>
+  <thead><tr><th>Food</th><th>Serving</th><th>Protein (g)</th><th>Calories (kcal)</th><th>Best Used In</th></tr></thead>
   <tbody>
-    <tr><td>Soya chunks (meal maker)</td><td>52 g</td><td>Very low</td><td>All of India</td></tr>
-    <tr><td>Sattu (roasted chana flour)</td><td>25 g</td><td>Very low</td><td>North/East India</td></tr>
-    <tr><td>Low-fat paneer</td><td>18–22 g</td><td>Moderate</td><td>All of India</td></tr>
-    <tr><td>Moong dal (raw)</td><td>24 g</td><td>Low</td><td>All of India</td></tr>
-    <tr><td>Toor dal (raw)</td><td>22 g</td><td>Low</td><td>All of India</td></tr>
-    <tr><td>Chana (whole, raw)</td><td>19 g</td><td>Low</td><td>All of India</td></tr>
-    <tr><td>Rajma (raw)</td><td>24 g</td><td>Low</td><td>All of India</td></tr>
-    <tr><td>Tofu (firm)</td><td>8–10 g</td><td>Moderate</td><td>Urban India</td></tr>
-    <tr><td>Greek curd / hung curd</td><td>10 g per 100 g</td><td>Moderate</td><td>Urban India</td></tr>
-    <tr><td>Regular curd (full fat)</td><td>3–4 g per 100 g</td><td>Low</td><td>All of India</td></tr>
-    <tr><td>Peanuts</td><td>26 g</td><td>Very low</td><td>All of India</td></tr>
-    <tr><td>Almonds</td><td>21 g</td><td>High</td><td>All of India</td></tr>
-    <tr><td>Quinoa</td><td>14 g</td><td>High</td><td>Urban India</td></tr>
+    <tr><td>Soy chunks (TVP)</td><td>100g dry</td><td>52</td><td>345</td><td>Curries, pulao</td></tr>
+    <tr><td>Sattu (roasted chana)</td><td>100g</td><td>25</td><td>413</td><td>Drinks, parathas</td></tr>
+    <tr><td>Paneer</td><td>100g</td><td>18</td><td>265</td><td>Sabzi, tikka, wraps</td></tr>
+    <tr><td>Low-fat paneer</td><td>100g</td><td>20</td><td>160</td><td>High-protein meals</td></tr>
+    <tr><td>Moong dal (cooked)</td><td>1 cup / 200g</td><td>14</td><td>212</td><td>Khichdi, soup, chilla</td></tr>
+    <tr><td>Chana dal (cooked)</td><td>1 cup / 200g</td><td>13</td><td>220</td><td>Dal tadka, sundal</td></tr>
+    <tr><td>Masoor dal (cooked)</td><td>1 cup / 200g</td><td>18</td><td>230</td><td>Dal makhani base</td></tr>
+    <tr><td>Rajma (cooked)</td><td>1 cup / 200g</td><td>15</td><td>225</td><td>Rajma chawal</td></tr>
+    <tr><td>Tofu (firm)</td><td>100g</td><td>17</td><td>144</td><td>Bhurji, stir-fry</td></tr>
+    <tr><td>Greek yoghurt / thick curd</td><td>200g</td><td>20</td><td>130</td><td>Breakfast, raita</td></tr>
+    <tr><td>Whole milk (toned)</td><td>250ml</td><td>8</td><td>130</td><td>Chai, smoothies</td></tr>
+    <tr><td>Peanuts</td><td>30g</td><td>7.5</td><td>170</td><td>Chaat, chutneys</td></tr>
+    <tr><td>Hemp seeds</td><td>30g</td><td>10</td><td>166</td><td>Sprinkled on meals</td></tr>
+    <tr><td>Quinoa (cooked)</td><td>1 cup / 185g</td><td>8</td><td>222</td><td>Khichdi substitute</td></tr>
   </tbody>
 </table>
 
-<h2>A Full Day Vegetarian Meal Plan — 100 g Protein</h2>
+<h2>A Full Day of 100g Protein: Sample Meal Plan</h2>
+<p>The key principle is distribution — spreading protein intake across 4–5 eating occasions rather than front-loading or back-loading. Here is a practical, entirely Indian meal plan that reaches 102g:</p>
+<table>
+  <thead><tr><th>Meal</th><th>Food</th><th>Protein (g)</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Breakfast</td><td>Moong chilla x3 + thick curd 150g</td><td>24</td><td>High satiety, fast to make</td></tr>
+    <tr><td>Mid-morning</td><td>Sattu drink (2 tbsp) + boiled chana 50g</td><td>16</td><td>Ideal pre-workout fuel</td></tr>
+    <tr><td>Lunch</td><td>Masoor dal 1 cup + paneer sabzi 80g + roti x2</td><td>28</td><td>Complete amino acid profile</td></tr>
+    <tr><td>Evening snack</td><td>Roasted soy nuts 30g + peanut chutney</td><td>14</td><td>Calorie-efficient protein hit</td></tr>
+    <tr><td>Dinner</td><td>Tofu bhurji 150g + rajma 100g + brown rice</td><td>20</td><td>Low-fat, high-protein</td></tr>
+    <tr><td><strong>TOTAL</strong></td><td></td><td><strong>102g</strong></td><td>No supplements used</td></tr>
+  </tbody>
+</table>
+<p>Pro tip: Swap regular paneer for low-fat paneer (same protein, 40% fewer calories) and gain 2 extra grams of protein per 100g without changing your recipe.</p>
 
-<h3>Breakfast — 25 g protein</h3>
-<ul>
-  <li>2 moong dal chillas (made from 60 g raw moong dal): 15 g protein</li>
-  <li>200 g hung curd on the side: 10 g protein</li>
-</ul>
+<h2>Deep Dive: Your Best Protein Allies</h2>
 
-<h3>Mid-Morning — 10 g protein</h3>
-<ul>
-  <li>30 g roasted peanuts: 8 g protein</li>
-  <li>1 glass buttermilk (200 ml): 2 g protein</li>
-</ul>
+<h3>1. Soy Chunks — The Unsung Hero</h3>
+<p>At 52g of protein per 100g dry weight, textured soy protein (soy chunks or nutrela) is the single most protein-dense plant food available in Indian kitchens — and it costs less than Rs. 80 per 200g. Soy is a complete protein, meaning it contains all nine essential amino acids. Soak for 15 minutes, squeeze dry, and add to any curry or pulao.</p>
+<p><strong>Myth buster:</strong> Soy does NOT raise estrogen levels in men at normal dietary amounts. Research published in nutritional journals confirms that 25–50g/day of soy protein is safe and beneficial for most adults.</p>
 
-<h3>Lunch — 30 g protein</h3>
-<ul>
-  <li>50 g soya chunks curry (cooked with tomato and spices): 18 g protein</li>
-  <li>1 katori toor dal (from 40 g raw): 8 g protein</li>
-  <li>2 whole wheat rotis: 4 g protein</li>
-</ul>
+<h3>2. Sattu — India's Original Protein Powder</h3>
+<p>Ground roasted Bengal gram (chana), sattu has been a protein staple of Bihar and eastern UP for centuries. Two tablespoons (30g) deliver 7.5g of protein, 5g of fibre, and a remarkably low glycemic index. Mix with water, lemon, and black salt for a sattu sharbat, or knead into paratha dough for a high-protein breakfast that costs Rs. 20 per serving.</p>
 
-<h3>Evening — 10 g protein</h3>
-<ul>
-  <li>30 g sattu mixed in water with lemon and kala namak: 7 g protein</li>
-  <li>5 almonds: 3 g protein</li>
-</ul>
+<h3>3. Moong — The Most Digestible Legume</h3>
+<p>Whole moong, sprouted moong, moong dal, and moong chilla are four distinct forms of the same bean — each with slightly different protein profiles and preparation times. Sprouting moong increases its bioavailable protein by 15–20% while also reducing anti-nutrient content. A bowl of sprouted moong chaat delivers 13g of protein with almost zero cooking required.</p>
 
-<h3>Dinner — 25 g protein</h3>
-<ul>
-  <li>100 g paneer (in sabzi or bhurji form): 18 g protein</li>
-  <li>1 katori rajma: 7 g protein</li>
-  <li>1 roti + vegetables</li>
-</ul>
+<h3>4. Paneer — Use It Strategically</h3>
+<p>Paneer's protein density (18–20g per 100g) is solid, but its calorie load (265 kcal per 100g for full-fat) means it should be a supporting actor, not the entire cast. Use it in combination with lentils or soy chunks rather than as the sole protein source. A 60g serving of paneer added to a dal-based meal adds 11g of protein for 160 kcal — an efficient addition.</p>
 
-<p><strong>Total: ~100 g protein, approximately 1,600–1,800 kcal</strong></p>
+<h2>Complementary Protein Combinations That Work</h2>
+<p>Plant proteins often lack one or more essential amino acids. Pairing them strategically creates a complete profile:</p>
+<table>
+  <thead><tr><th>Combination</th><th>What It Fixes</th><th>Classic Indian Dish</th><th>Combined Protein</th></tr></thead>
+  <tbody>
+    <tr><td>Rice + Dal</td><td>Rice lacks lysine; dal provides it</td><td>Dal chawal, khichdi</td><td>18g / serving</td></tr>
+    <tr><td>Roti + Rajma</td><td>Wheat low in lysine; rajma compensates</td><td>Rajma chawal</td><td>22g / serving</td></tr>
+    <tr><td>Curd + Moong</td><td>Curd boosts methionine in moong</td><td>Moong chilla + dahi</td><td>20g / serving</td></tr>
+    <tr><td>Soy + Sesame</td><td>Both high; sesame adds methionine</td><td>Til-soy stir-fry</td><td>28g / serving</td></tr>
+    <tr><td>Peanut + Whole wheat</td><td>Peanut adds lysine to wheat</td><td>Peanut chutney + roti</td><td>14g / serving</td></tr>
+  </tbody>
+</table>
 
-<h2>Combining Plant Proteins for Completeness</h2>
-<p>Unlike animal proteins, most plant proteins are "incomplete" — they are missing or low in one or more essential amino acids. Indians have naturally solved this for centuries: the combination of rice + dal provides a complete amino acid profile. Similarly:</p>
-<ul>
-  <li>Roti + dal = complete protein</li>
-  <li>Khichdi (rice + moong) = complete protein</li>
-  <li>Chilla + curd = complete protein</li>
-  <li>Peanut butter + whole wheat = complete protein</li>
-</ul>
-<p>You do not need to eat these combinations at the same meal — combining across the day is sufficient for adults.</p>
+<h2>India's Daily Protein Targets: Where Do You Stand?</h2>
+<table>
+  <thead><tr><th>Profile</th><th>Body Weight</th><th>Sedentary (g)</th><th>Moderately Active (g)</th><th>Athlete / Gym (g)</th></tr></thead>
+  <tbody>
+    <tr><td>Adult woman</td><td>55 kg</td><td>44</td><td>66</td><td>83–99</td></tr>
+    <tr><td>Adult man</td><td>65 kg</td><td>52</td><td>78</td><td>98–117</td></tr>
+    <tr><td>Adult man</td><td>75 kg</td><td>60</td><td>90</td><td>113–135</td></tr>
+    <tr><td>Pregnant woman</td><td>65 kg</td><td>82</td><td>82</td><td>Not specified</td></tr>
+    <tr><td>Senior (60+)</td><td>60 kg</td><td>58</td><td>70</td><td>75–85</td></tr>
+  </tbody>
+</table>
+<p>Most Indian vegetarians fall into the "sedentary" column by default — yet live increasingly active lives. If you exercise 3+ times a week, your protein needs sit firmly in the "moderately active" or "athlete" column. The vegetarian meal plan above comfortably serves that bracket.</p>
+<p>Key insight: The 100g target is appropriate for a 70–80kg individual with moderate physical activity (30–45 minutes, 4x per week). Adjust up or down by roughly 1.2–1.4g per kg of your body weight.</p>
 
-<h2>When to Consider a Protein Supplement</h2>
-<p>Whey protein (or plant-based protein powder for strict vegetarians) is not necessary, but it is convenient. Consider it if:</p>
-<ul>
-  <li>You are training hard (4+ days per week) and struggling to hit 1.2–1.6 g/kg from food alone</li>
-  <li>You are travelling frequently with limited food options</li>
-  <li>You find meal prep genuinely difficult to maintain</li>
-</ul>
-<p>A whey concentrate from a reputable Indian brand costs ₹800–1,200 per kg — roughly ₹30–40 per 25 g protein serving. Sattu costs ₹80–100 per kg and provides similar protein per rupee from a whole-food source.</p>
+<h2>Conclusion</h2>
+<p>Hitting 100g of protein as a vegetarian Indian is not a question of whether it is possible — it is purely a question of knowing which foods to prioritise and how to combine them. Soy chunks for density, sattu for convenience, dal for everyday reliability, paneer and tofu for versatility, and sprouted legumes for live nutrition.</p>
+<p>You do not need a supplement subscription. You need a smarter look at what is already in your dal kadhai.</p>
+
+<h2>Frequently Asked Questions</h2>
+<p><strong>Can I get enough protein without eating dairy?</strong> Yes. Soy chunks, tofu, tempeh, moong, chana, sattu, and seeds provide a fully dairy-free path to 100g. Replace paneer with tofu (near-identical protein profile) and curd with coconut-based thick curd or soy yoghurt.</p>
+<p><strong>Does cooking destroy protein in dal and legumes?</strong> Cooking actually improves protein bioavailability in legumes by breaking down anti-nutrients like tannins and phytic acid. Pressure cooking moong increases digestible protein by up to 20% compared to eating it raw or undercooked.</p>
+<p><strong>How do I increase protein without increasing calories significantly?</strong> Prioritise high protein-to-calorie ratio foods: low-fat paneer (20g protein / 160 kcal), tofu (17g / 144 kcal), and moong dal (14g / 212 kcal). Avoid fried snacks and replace them with roasted soy, boiled chana, or moong sprout chaats.</p>
+<p><strong>Is plant protein as effective as whey for muscle building?</strong> Studies comparing matched intakes (same grams, same distribution) show no statistically significant difference in muscle gain over 12 weeks between plant and whey protein. The key variable is total daily protein and leucine content — both achievable through the foods in this guide.</p>
 `,
 
   'healthy-indian-street-food-swaps': `
-<h2>You Don't Have to Give Up Street Food</h2>
-<p>Indian street food is a cultural institution. Giving it up entirely is neither realistic nor necessary. The goal is not elimination — it is smart substitution that preserves the flavour and occasion while reducing the calorie damage. Every swap below keeps the spirit of the original and gives you a full calorie comparison.</p>
+<h2>Why Street Food Swaps Actually Work</h2>
+<p>The instinct when dieting is to cut out beloved foods entirely. Research consistently shows this creates rebound cycles — the longer you avoid a food, the stronger the craving grows.</p>
+<p>The smarter strategy is ingredient-level redesign: keep the dish, rewrite the nutrition label.</p>
+<p>Indian street food is particularly well-suited to this approach. The real flavour comes from the spices — cumin, chaat masala, tamarind, ginger — not from the oil or the maida shell. Swap those neutral carriers for smarter alternatives and you lose almost nothing on the palate while gaining enormously on the macro profile.</p>
+<p><em>"The magic of Indian spices is that they do all the heavy lifting — the shell is just a delivery vehicle."</em></p>
 
-<h2>Swap 1: Fried Samosa → Baked Samosa</h2>
+<h2>The Big Calorie Comparison</h2>
 <table>
-  <thead><tr><th></th><th>Fried Samosa (1 piece)</th><th>Baked Samosa (1 piece)</th></tr></thead>
+  <thead><tr><th>Dish</th><th>Original (kcal)</th><th>Healthy Swap</th><th>Swapped (kcal)</th><th>Saving</th></tr></thead>
   <tbody>
-    <tr><td>Calories</td><td>260 kcal</td><td>130 kcal</td></tr>
-    <tr><td>Fat</td><td>14 g</td><td>5 g</td></tr>
-    <tr><td>Taste Difference</td><td>—</td><td>Crispier skin, same filling</td></tr>
+    <tr><td>Pani Puri (6 pcs)</td><td>320</td><td>Baked semolina puri + chia pani</td><td>165</td><td>155 kcal</td></tr>
+    <tr><td>Samosa (2 pcs)</td><td>280</td><td>Baked whole wheat, sweet potato filling</td><td>135</td><td>145 kcal</td></tr>
+    <tr><td>Vada Pav</td><td>370</td><td>Oats vada + multigrain pav</td><td>210</td><td>160 kcal</td></tr>
+    <tr><td>Bhel Puri (bowl)</td><td>290</td><td>Millet puffs + no fried sev</td><td>155</td><td>135 kcal</td></tr>
+    <tr><td>Upma (1 serving)</td><td>250</td><td>Oats upma + mixed vegetables</td><td>140</td><td>110 kcal</td></tr>
+    <tr><td>Aloo Tikki (2 pcs)</td><td>340</td><td>Air-fried with cauliflower blend</td><td>170</td><td>170 kcal</td></tr>
+    <tr><td>Masala Dosa</td><td>420</td><td>Ragi dosa + boiled potato filling</td><td>240</td><td>180 kcal</td></tr>
   </tbody>
 </table>
-<p><strong>How to make it:</strong> Use the same aloo-matar filling. Roll in whole wheat dough instead of maida. Brush with oil (don't dip in it). Bake at 200°C for 20–25 minutes, turning once. The result: half the calories, satisfying crunch.</p>
 
-<h2>Swap 2: Pani Puri → Chia Seed Pani Puri</h2>
-<p>The puri is the calorie-dense part. Standard pani puri (6 pieces) = ~180 kcal, mostly from fried puris. The pani (spiced water) itself is virtually zero calories and full of digestive benefits.</p>
-<p><strong>The swap:</strong> Make the puris at home using baked whole wheat instead of fried maida. The spiced chia pani adds omega-3s and fibre. Add sprouted moong or boiled kala chana as filling instead of sugary tamarind-heavy mixture.</p>
-<p>Calorie saving: ~80–90 kcal per 6-piece serving. The flavour impact is minimal if the pani seasoning is right.</p>
+<h2>Dish-by-Dish Breakdown</h2>
 
-<h2>Swap 3: Vada Pav → Paneer Tikka in Multigrain Pav</h2>
+<h3>1. Pani Puri with Chia</h3>
+<p><strong>SWAP: Deep-fried puri → baked + chia-infused water</strong></p>
+<p>The puri itself is mostly neutral flour and oil — its only job is crunch. Baking at 200°C in a convection oven (or air fryer at 180°C for 8 minutes) delivers the same shattering crispness at a fraction of the calories.</p>
+<p>The real innovation is the pani: add 1 tbsp soaked chia seeds to your traditional mint-tamarind water. Chia absorbs 10x its weight in liquid, slows gastric emptying, and adds omega-3 fatty acids. The texture is unique — slightly gel-like — many find it even more interesting than the original.</p>
+<p>Pro tip: Soak chia in the finished pani for 20 minutes before serving. The seeds swell just enough to stay suspended without becoming gloopy.</p>
+
+<h3>2. Baked Samosas</h3>
+<p><strong>SWAP: Maida shell + potato → whole wheat + sweet potato</strong></p>
+<p>Samosas absorb roughly 40% of their weight in oil during deep frying — a structural problem, not a flavour one. Switching to a whole wheat dough reduces the refined carbohydrate load while adding 3g of extra fibre per serving.</p>
+<p>The filling swap from plain aloo to a sweet potato and green pea blend adds beta-carotene, natural sweetness that reduces the need for added salt, and a lower glycaemic index. Brush with a thin coat of oil and bake at 200°C for 22 minutes, flipping halfway.</p>
+<p>Pro tip: A few drops of kasuri methi in the filling smell indistinguishable from the deep-fried original once baked. It's your aromatic cheat code.</p>
+
+<h3>3. Oats Upma</h3>
+<p><strong>SWAP: Rava (semolina) → rolled oats</strong></p>
+<p>Upma is one of the easiest and most nutritionally transformative swaps on this list. Replacing semolina with rolled oats adds beta-glucan — a soluble fibre clinically proven to reduce LDL cholesterol and stabilise blood sugar. The cooking technique is identical: temper mustard seeds, curry leaves, onion, green chilli; toast oats for 2 minutes; add water 1:2 and stir.</p>
+<p>The result is slightly creamier, more filling, and keeps you satiated for 3–4 hours versus 1.5 hours with the rava version.</p>
+<p>Pro tip: Add a handful of frozen peas and a squeeze of lemon at the end. Colour, protein, and a brightness that makes it feel restaurant-quality.</p>
+
+<h3>4. Millet Bhel Puri</h3>
+<p><strong>SWAP: Puffed rice + fried sev → millet puffs + roasted chickpea sev</strong></p>
+<p>Bhel's magic is entirely in its chutneys and textures — the base grain is nutritionally blank. Millet puffs (jowar or bajra) bring magnesium, iron, and a lower glycaemic index to the party.</p>
+<p>Replacing fried sev with roasted besan sev (baked at 160°C) eliminates the primary oil bomb in the bowl. The tamarind and green chutney do all the flavour work — you will not miss a thing.</p>
+
+<h2>India's Daily Calorie Target</h2>
+<p>According to ICMR–NIN 2020 guidelines for sedentary to moderately active adults, daily recommended intake varies as follows:</p>
+<ul>
+  <li>1,660 kcal/day — Sedentary woman</li>
+  <li>1,900 kcal/day — Moderately active woman</li>
+  <li>2,110 kcal/day — Moderately active man</li>
+</ul>
+<p>A traditional street food snack session of samosa + pani puri + chai can easily account for 600–750 kcal — roughly 35–45% of a sedentary woman's daily budget in under 20 minutes. With the swaps above, the same session sits at 310–380 kcal, freeing up over 350 calories for a proper dinner.</p>
 <table>
-  <thead><tr><th></th><th>Vada Pav</th><th>Paneer Pav</th></tr></thead>
+  <thead><tr><th>Snack Combo</th><th>Traditional (kcal)</th><th>Swapped (kcal)</th><th>% of Daily Budget Saved</th></tr></thead>
   <tbody>
-    <tr><td>Calories</td><td>290 kcal</td><td>200 kcal</td></tr>
-    <tr><td>Protein</td><td>6 g</td><td>14 g</td></tr>
-    <tr><td>Satiety</td><td>Drops fast</td><td>Lasts 3+ hours</td></tr>
+    <tr><td>Evening snack (samosa + chai)</td><td>380</td><td>195</td><td>−11%</td></tr>
+    <tr><td>Weekend chaat session</td><td>740</td><td>360</td><td>−23%</td></tr>
+    <tr><td>Street food dinner (full spread)</td><td>1,100</td><td>540</td><td>−34%</td></tr>
   </tbody>
 </table>
-<p>The deep-fried batata vada is calorie-dense and low-protein. Replacing it with grilled paneer tikka in a multigrain pav keeps the finger-food experience, doubles the protein, and saves ~90 kcal.</p>
 
-<h2>Swap 4: Pav Bhaji → Oats Pav Bhaji</h2>
-<p>Standard pav bhaji uses 2–3 tbsp of butter and white pav buns. The bhaji itself is full of vegetables — it is the butter and the pav that make it calorie-dense.</p>
-<p><strong>The swap:</strong> Use 1 tsp butter for taste (not 3 tbsp). Add 2 tbsp quick oats to the bhaji while cooking — it blends in invisibly, adds fibre, and thickens the bhaji so you naturally eat less. Use multigrain or whole wheat pav instead of white maida pav.</p>
-<p>Calorie saving per plate: ~180–200 kcal.</p>
-
-<h2>Swap 5: Chole Bhature → Chole Kulcha (Small)</h2>
-<p>Bhatura is made from maida, deep-fried in oil — one medium bhatura = ~300 kcal. The chole itself is nutritious (protein, fibre, iron). Switching to a smaller baked kulcha or a whole wheat roti cuts the meal's calorie load dramatically without sacrificing the chole experience.</p>
-
-<h2>Swap 6: Butter Corn (Street Style) → Boiled Corn with Lemon and Chaat Masala</h2>
-<table>
-  <thead><tr><th></th><th>Butter Corn (1 cob)</th><th>Boiled Corn + Chaat Masala</th></tr></thead>
-  <tbody>
-    <tr><td>Calories</td><td>~220 kcal</td><td>~90 kcal</td></tr>
-    <tr><td>Fat</td><td>10 g</td><td>0.5 g</td></tr>
-  </tbody>
-</table>
-<p>The corn is naturally sweet and satisfying. All the extra calories come from butter. A squeeze of lemon, chaat masala, and a pinch of rock salt makes boiled corn genuinely delicious — no butter needed.</p>
-
-<h2>Swap 7: Jalebi → Roasted Makhana with Jaggery Glaze</h2>
-<p>One medium jalebi = ~150 kcal, almost entirely from refined sugar and maida soaked in oil. Makhana (fox nuts) roasted with a light jaggery glaze gives you a sweet crunch at ~100 kcal per 30 g serving — with actual nutrients (magnesium, potassium, protein) that jalebi lacks entirely.</p>
-
-<h2>The 80/20 Rule for Street Food</h2>
-<div class="highlight-box">
-  <p>You do not need to swap every time. If you make healthier choices 80% of the time, enjoying your favourite street food 20% of the time — at festivals, on weekends, with friends — will not derail your progress. The problem is treating every day like a festival day.</p>
-  <p>Street food eaten mindfully (one serving, eaten slowly, enjoyed fully) does far less damage than anxiously overeating "healthy" food because you denied yourself the thing you actually wanted.</p>
-</div>
+<h2>Conclusion</h2>
+<p>Healthy eating in India does not have to mean abandoning pani puri for a sad salad. It means understanding that your favourite foods are already one smart ingredient swap away from being genuinely nutritious. The spices are already there. The technique is already there. All you are changing is the delivery vehicle.</p>
+<p>Start with one swap this week — bake your samosas instead of frying them. Notice that nobody at the table can tell the difference. Then keep going.</p>
 `,
 };
 
