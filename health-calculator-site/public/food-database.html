@@ -752,7 +752,10 @@ function getFiltered() {
   if (activeGrup) foods = foods.filter(f => f.grup === activeGrup);
   if (searchTerm.trim().length >= 2) {
     const q = searchTerm.trim().toLowerCase();
-    foods = foods.filter(f => f.name && f.name.toLowerCase().includes(q));
+    foods = foods.filter(f =>
+      (f.name && f.name.toLowerCase().includes(q)) ||
+      (f.lang && f.lang.toLowerCase().includes(q))
+    );
   }
   return foods;
 }
