@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import BlogGrid from '@/components/BlogGrid';
 import { getAllPosts } from '@/lib/blog';
 
 export const metadata: Metadata = {
@@ -61,32 +62,7 @@ export default function BlogPage() {
           </div>
         )}
 
-        <div className="blog-grid">
-          {rest.map((post) => (
-            <Link key={post.id} href={`/blog/${post.id}`} className="blog-card-link">
-              <div className="blog-card">
-                {post.image && (
-                  <div className="blog-card-thumb">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={post.image} alt={post.title} loading="lazy" />
-                  </div>
-                )}
-                <div className="blog-card-body">
-                  <div className="blog-tag" data-category={post.category}>
-                    {CATEGORY_LABELS[post.category] ?? post.category}
-                  </div>
-                  <div className="blog-title">{post.title}</div>
-                  <div className="blog-excerpt">{post.excerpt}</div>
-                  <div className="blog-meta">
-                    <span>{post.author}</span>
-                    <span>{post.date}</span>
-                    <span>📖 {post.readTime} min read</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <BlogGrid posts={rest} />
       </div>
 
       <Footer />

@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import BlogProgressBar from '@/components/BlogProgressBar';
+import BlogTOC from '@/components/BlogTOC';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
 
 interface Props {
@@ -17,6 +19,24 @@ const CATEGORY_LABELS: Record<string, string> = {
   recipe: 'Recipes',
   yoga: 'Yoga',
 };
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/<[^>]*>/g, '')
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function addHeadingIds(html: string): string {
+  return html.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/g, (_, attrs, inner) => {
+    if (attrs.includes('id=')) return `<h2${attrs}>${inner}</h2>`;
+    const id = slugify(inner.replace(/<[^>]*>/g, '').trim());
+    if (!id) return `<h2${attrs}>${inner}</h2>`;
+    return `<h2 id="${id}"${attrs}>${inner}</h2>`;
+  });
+}
 
 export async function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.id }));
@@ -43,47 +63,100 @@ export default function BlogPostPage({ params }: Props) {
   const post = getPostBySlug(params.slug);
   if (!post) notFound();
 
+  const allPosts = getAllPosts();
+  const idx = allPosts.findIndex((p) => p.id === params.slug);
+  const prevPost = idx > 0 ? allPosts[idx - 1] : null;
+  const nextPost = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
+
+  const processedContent = addHeadingIds(post.content ?? '');
+
   return (
     <>
       <Navbar />
+      <BlogProgressBar />
 
-      <article className="blog-post-wrap">
-        <div className="blog-post-breadcrumb">
-          <Link href="/">Home</Link> › <Link href="/blog">Blog</Link> › {post.title}
-        </div>
-
-        {post.image && (
-          <div className="blog-post-hero">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={post.image} alt={post.title} />
+      <div className="blog-post-layout">
+        <article className="blog-post-wrap">
+          <div className="blog-post-breadcrumb">
+            <Link href="/">Home</Link> › <Link href="/blog">Blog</Link> › {post.title}
           </div>
-        )}
 
-        <header className="blog-post-header">
-          <div className="blog-tag" data-category={post.category}>
-            {CATEGORY_LABELS[post.category] ?? post.category}
+          {post.image && (
+            <div className="blog-post-hero">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={post.image} alt={post.title} />
+            </div>
+          )}
+
+          <header className="blog-post-header">
+            <div className="blog-tag" data-category={post.category}>
+              {CATEGORY_LABELS[post.category] ?? post.category}
+            </div>
+            <h1>{post.title}</h1>
+            <div className="blog-post-meta">
+              <span className="blog-post-author">{post.author}</span>
+              <span className="blog-post-role">{post.authorRole}</span>
+              <span>{post.date}</span>
+              <span>📖 {post.readTime} min read</span>
+            </div>
+            <p className="blog-post-excerpt">{post.excerpt}</p>
+          </header>
+
+          <div
+            className="blog-post-body"
+            dangerouslySetInnerHTML={{ __html: processedContent }}
+          />
+
+          {(prevPost || nextPost) && (
+            <nav className="blog-prevnext" aria-label="Post navigation">
+              {prevPost ? (
+                <Link href={`/blog/${prevPost.id}`} className="blog-prevnext-card">
+                  {prevPost.image && (
+                    <div className="blog-prevnext-thumb">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={prevPost.image} alt={prevPost.title} loading="lazy" />
+                    </div>
+                  )}
+                  <div className="blog-prevnext-body">
+                    <div className="blog-prevnext-dir">← Previous</div>
+                    <div className="blog-prevnext-title">{prevPost.title}</div>
+                  </div>
+                </Link>
+              ) : (
+                <div />
+              )}
+
+              {nextPost ? (
+                <Link
+                  href={`/blog/${nextPost.id}`}
+                  className="blog-prevnext-card blog-prevnext-card--next"
+                >
+                  {nextPost.image && (
+                    <div className="blog-prevnext-thumb">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={nextPost.image} alt={nextPost.title} loading="lazy" />
+                    </div>
+                  )}
+                  <div className="blog-prevnext-body">
+                    <div className="blog-prevnext-dir">Next →</div>
+                    <div className="blog-prevnext-title">{nextPost.title}</div>
+                  </div>
+                </Link>
+              ) : (
+                <div />
+              )}
+            </nav>
+          )}
+
+          <div className="teal-cta-bar">
+            <h3>Try Our Free Calculators</h3>
+            <p>Calculate your TDEE, BMI, ideal weight, and more — built for Indian bodies.</p>
+            <Link href="/calculator">Open Calculators →</Link>
           </div>
-          <h1>{post.title}</h1>
-          <div className="blog-post-meta">
-            <span className="blog-post-author">{post.author}</span>
-            <span className="blog-post-role">{post.authorRole}</span>
-            <span>{post.date}</span>
-            <span>📖 {post.readTime} min read</span>
-          </div>
-          <p className="blog-post-excerpt">{post.excerpt}</p>
-        </header>
+        </article>
 
-        <div
-          className="blog-post-body"
-          dangerouslySetInnerHTML={{ __html: post.content ?? '' }}
-        />
-
-        <div className="teal-cta-bar">
-          <h3>Try Our Free Calculators</h3>
-          <p>Calculate your TDEE, BMI, ideal weight, and more — built for Indian bodies.</p>
-          <Link href="/calculator">Open Calculators →</Link>
-        </div>
-      </article>
+        <BlogTOC content={processedContent} />
+      </div>
 
       <Footer />
     </>
