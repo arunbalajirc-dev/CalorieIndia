@@ -186,18 +186,18 @@ footer{background:var(--bg2);border-top:1px solid var(--border);
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge"><span>🍽️</span> Nutrition Tracker Food Database</div>
+  <div class="hero-badge"><span>🇮🇳</span> Indian Recipe Database</div>
   <h1>Recipe &amp; Food <em>Database</em></h1>
-  <p>Search 16,000+ foods across Indian, Japanese &amp; Continental cuisines. Complete nutrition data per 100g.</p>
+  <p>Search 1,014 Indian recipes with complete nutrition data — calories, protein, fat, carbs and micronutrients per 100g.</p>
   <div class="hero-stats">
     <div class="stat-pill"><span>🇮🇳</span> 1,014 Indian Recipes</div>
-    <div class="stat-pill"><span>🇯🇵</span> 2,191 Japanese Foods</div>
-    <div class="stat-pill"><span>🌍</span> 13,225 Continental Items</div>
     <div class="stat-pill"><span>📊</span> Per 100g Values</div>
+    <div class="stat-pill"><span>🥗</span> 7 Categories</div>
+    <div class="stat-pill"><span>🌿</span> Veg &amp; Non-Veg</div>
   </div>
   <div class="search-wrap">
     <div class="search-icon">🔍</div>
-    <input id="searchInput" type="text" placeholder="Search food… e.g. Chicken Biryani, Sushi, Pasta" autocomplete="off"/>
+    <input id="searchInput" type="text" placeholder="Search Indian food… e.g. Chicken Biryani, Dal Makhani, Paneer Tikka" autocomplete="off"/>
     <button id="clearBtn" class="search-clear">✕</button>
   </div>
   <p class="search-hint">URL updates with your search — bookmark or share any result</p>
@@ -205,13 +205,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);
 
 <!-- FILTERS -->
 <div class="filters-section">
-  <div class="filter-row">
-    <span class="filter-label">Cuisine</span>
-    <button class="chip active" data-filter="cuisine" data-value="all">All Cuisines</button>
-    <button class="chip" data-filter="cuisine" data-value="Indian">🇮🇳 Indian</button>
-    <button class="chip" data-filter="cuisine" data-value="Japanese">🇯🇵 Japanese</button>
-    <button class="chip" data-filter="cuisine" data-value="Continental">🌍 Continental</button>
-  </div>
   <div id="catRow" class="filter-row">
     <span class="filter-label">Category</span>
     <button class="chip active" data-filter="category" data-value="all">All</button>
@@ -275,26 +268,19 @@ const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsI
 const TABLE    = 'recipes';
 const PER_PAGE = 48;
 
-// ── CATEGORIES per cuisine ────────────────────────────────────────────────
-const CATS = {
-  Indian:['Accompaniments','Beverages','Breads','Dairy-Based','Lentils and Curries',
-    'Main Course','Non-Vegetarian','Rice Dishes','Snacks and Chaat',
-    'South Indian','Sweets and Desserts'],
-  Japanese:['Beverages','Cereals and Grains','Condiments and Seasonings','Confectionery',
-    'Dairy Products','Eggs','Fats and Oils','Fish and Shellfish','Fruits','Meat',
-    'Mushrooms','Nuts and Seeds','Potatoes and Starches','Prepared Dishes',
-    'Pulses and Legumes','Seaweeds','Sugars and Sweeteners','Vegetables'],
-  Continental:['Baby Foods','Baked Products','Beef Products','Beverages',
-    'Breakfast Cereals','Dairy and Egg Products','Fast Foods',
-    'Finfish and Shellfish Products','Fruits and Fruit Juices','General',
-    'Lamb, Veal, and Game Products','Legumes and Legume Products',
-    'Nut and Seed Products','Pork Products','Poultry Products','Snacks',
-    'Soups, Sauces, and Gravies','Spices and Herbs','Sweets',
-    'Vegetables and Vegetable Products'],
-};
+// ── CATEGORIES (Indian-only, actual DB values) ────────────────────────────
+const INDIAN_CATS = [
+  { label: 'Main Course & Curries', value: 'other'    },
+  { label: 'Protein & Non-Veg',     value: 'protein'  },
+  { label: 'Sweets & Desserts',     value: 'sweet'    },
+  { label: 'Grains & Breads',       value: 'grain'    },
+  { label: 'Dairy',                 value: 'dairy'    },
+  { label: 'Beverages',             value: 'beverage' },
+  { label: 'Snacks & Chaat',        value: 'snack'    },
+];
 
 // ── STATE ─────────────────────────────────────────────────────────────────
-const S = { q:'', cuisine:'all', category:'all', offset:0, total:0, busy:false };
+const S = { q:'', cuisine:'indian', category:'all', offset:0, total:0, busy:false };
 
 // ── HELPERS ───────────────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
@@ -402,8 +388,7 @@ function esc(s) {
 function pushURL() {
   const p = new URLSearchParams();
   if (S.q) p.set('q', S.q);
-  if (S.cuisine!=='all') p.set('cuisine', S.cuisine);
-  if (S.category!=='all') p.set('category', S.category);
+  if (S.category !== 'all') p.set('category', S.category);
   const s = p.toString();
   history.replaceState({}, '', s ? `?${s}` : location.pathname);
 }
@@ -411,12 +396,11 @@ function pushURL() {
 function readURL() {
   const p = new URLSearchParams(location.search);
   S.q       = p.get('q') || '';
-  S.cuisine = p.get('cuisine') || 'all';
   S.category= p.get('category') || 'all';
+  S.cuisine = 'indian'; // always indian — ignore URL param
   $('searchInput').value = S.q;
   $('clearBtn').style.display = S.q ? 'block' : 'none';
-  setActiveChip('cuisine', S.cuisine);
-  buildCatChips(S.cuisine);
+  buildCatChips();
   setActiveChip('category', S.category);
 }
 
@@ -427,33 +411,25 @@ function setActiveChip(filter, value) {
   });
 }
 
-function buildCatChips(cuisine) {
+function buildCatChips() {
   const row = $('catRow');
-  const cats = CATS[cuisine] || [];
   row.innerHTML = `<span class="filter-label">Category</span>
     <button class="chip active" data-filter="category" data-value="all">All</button>`;
-  cats.forEach(cat => {
+  INDIAN_CATS.forEach(cat => {
     const b = document.createElement('button');
     b.className = 'chip';
     b.dataset.filter = 'category';
-    b.dataset.value = cat;
-    b.textContent = cat;
-    b.onclick = () => onFilter('category', cat, b);
+    b.dataset.value = cat.value;
+    b.textContent = cat.label;
+    b.onclick = () => onCategoryFilter(cat.value, b);
     row.appendChild(b);
   });
 }
 
-function onFilter(type, value, el) {
-  document.querySelectorAll(`[data-filter="${type}"]`).forEach(c => c.classList.remove('active'));
+function onCategoryFilter(value, el) {
+  document.querySelectorAll('[data-filter="category"]').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-  if (type === 'cuisine') {
-    S.cuisine = value;
-    S.category = 'all';
-    buildCatChips(value);
-    setActiveChip('category','all');
-  } else {
-    S.category = value;
-  }
+  S.category = value;
   pushURL();
   fetchFoods();
 }
@@ -471,8 +447,6 @@ $('clearBtn').addEventListener('click', () => {
   $('clearBtn').style.display = 'none';
   pushURL(); fetchFoods();
 });
-document.querySelectorAll('[data-filter="cuisine"]').forEach(b =>
-  b.addEventListener('click', () => onFilter('cuisine', b.dataset.value, b)));
 $('loadMore').addEventListener('click', () => fetchFoods(true));
 
 // ── MODAL ─────────────────────────────────────────────────────────────────
