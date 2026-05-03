@@ -31,15 +31,17 @@
       color: var(--text);
       font-size: 15px;
       line-height: 1.75;
+      overflow-x: hidden;
     }
 
     /* ── HERO ── */
     .page-hero {
       background: var(--bg2);
       border-bottom: 1px solid var(--border);
-      padding: 60px 24px 48px;
+      padding: 100px 24px 56px;  /* top increased from 60px to 100px to clear fixed nav */
       position: relative;
-      overflow: hidden;
+      overflow: visible;          /* was: hidden — was clipping the background gradient */
+      min-height: 200px;          /* prevents collapse on small viewports */
     }
     .page-hero::before {
       content: '';
