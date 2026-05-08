@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meal Plan Book Flip</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: system-ui, sans-serif;
+    overflow: hidden;
+  }
+
+  .scene {
+    perspective: 1200px;
+    perspective-origin: 50% 40%;
+    margin-bottom: 28px;
+  }
+
+  .book-wrapper {
+    transform: rotateX(12deg) rotateY(-18deg);
+    transform-style: preserve-3d;
+    position: relative;
+    width: 260px;
+    height: 360px;
+  }
+
+  /* Elliptical shadow */
+  .book-shadow {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 30px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.38) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  /* Book spine */
+  .book-spine {
+    position: absolute;
+    left: -12px;
+    top: 0;
+    width: 12px;
+    height: 360px;
+    background: linear-gradient(to right, #1a1a1a, #2a2a2a, #1a1a1a);
+    transform: rotateY(-90deg);
+    transform-origin: right center;
+    z-index: 0;
+  }
+
+  /* Book base (back cover) */
+  .book-base {
+    position: absolute;
+    width: 260px;
+    height: 360px;
+    background: #111;
+    border-radius: 2px 4px 4px 2px;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.6), inset -2px 0 6px rgba(0,0,0,0.4);
+  }
+
+  /* Page container */
+  .pages-stack {
+    position: absolute;
+    width: 260px;
+    height: 360px;
+    transform-style: preserve-3d;
+  }
+
+  /* Individual page */
+  .page {
+    position: absolute;
+    width: 260px;
+    height: 360px;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    overflow: hidden;
+  }
+
+  .page.flipped {
+    transform: rotateY(-180deg);
+  }
+
+  /* Page edge strip */
+  .page::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, #e0d8cc, #c8bfaf, #e0d8cc);
+    z-index: 10;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .page-front, .page-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .page-back {
+    transform: rotateY(180deg);
+    background: #0d1a11;
+  }
+
+  /* ===================== COVER PAGE ===================== */
+  .cover-page {
+    background: #111;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-top {
+    padding: 14px 12px 10px;
+    position: relative;
+    z-index: 2;
+    height: 55%;
+  }
+
+  .cover-logo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .cover-logo img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+  }
+
+  .cover-logo-text {
+    font-size: 5px;
+    font-weight: 900;
+    color: #2d7a4f;
+    letter-spacing: 0.05em;
+    text-align: center;
+    line-height: 1.1;
+    font-family: Arial Black, Arial, sans-serif;
+  }
+
+  .cover-title {
+    font-family: Arial Black, Impact, sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: #FFD700;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin-top: 10px;
+    max-width: 170px;
+  }
+
+  .cover-subtitle {
+    font-size: 7.5px;
+    color: #888;
+    margin-top: 6px;
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  .cover-user {
+    font-size: 8px;
+    color: #ccc;
+    margin-top: 10px;
+    letter-spacing: 0.03em;
+  }
+
+  /* Diagonal photo area */
+  .cover-photo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(135deg, #1a2a1a 0%, #0d1a0d 40%, #1a1a2a 100%);
+    clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: 1;
+  }
+
+  /* Simulated dumbell/fitness silhouette */
+  .cover-photo::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    width: 60px;
+    height: 40px;
+    background: linear-gradient(45deg, rgba(255,215,0,0.05), rgba(255,255,255,0.08));
+    border-radius: 50%;
+    filter: blur(8px);
+  }
+
+  .cover-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(13,26,17,0.85) 0%, rgba(26,26,42,0.6) 100%);
+  }
+
+  /* Yellow triangle corner */
+  .cover-corner {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 50px 50px;
+    border-color: transparent transparent #FFD700 transparent;
+    z-index: 3;
+  }
+
+  .cover-month {
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+    font-size: 8px;
+    color: rgba(255,255,255,0.55);
+    z-index: 4;
+    letter-spacing: 0.04em;
+  }
+
+  /* ===================== INNER PAGES ===================== */
+  .inner-page {
+    background: #0d1a11;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Yellow header banner */
+  .page-header {
+    background: #FFD700;
+    padding: 8px 10px 6px;
+    flex-shrink: 0;
+  }
+
+  .page-header-title {
+    font-family: Arial Black, Impact, sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+
+  .page-header-sub {
+    font-size: 6px;
+    color: #555;
+    margin-top: 1px;
+    letter-spacing: 0.03em;
+  }
+
+  /* Wavy divider */
+  .wavy-divider {
+    height: 14px;
+    flex-shrink: 0;
+    background: #0d1a11;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wavy-divider::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -10px;
+    right: -10px;
+    height: 20px;
+    background: #FFD700;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    transform: scaleX(1.1);
+  }
+
+  .wavy-divider::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(to bottom, rgba(74,222,128,0.15), transparent);
+  }
+
+  .page-content {
+    flex: 1;
+    padding: 6px 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  /* Card component */
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 6px 7px;
+  }
+
+  .card-label {
+    font-size: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #666;
+    margin-bottom: 3px;
+  }
+
+  .stat-big {
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFD700;
+    line-height: 1;
+  }
+
+  .stat-unit {
+    font-size: 7px;
+    color: #666;
+    margin-left: 2px;
+  }
+
+  /* ===================== PAGE 2: HEALTH SNAPSHOT ===================== */
+  .grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .metric-card {
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 5px 6px;
+  }
+
+  .metric-val {
+    font-size: 15px;
+    font-weight: 700;
+    color: #FFD700;
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-size: 6px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+  }
+
+  .bmi-card {
+    background: rgba(248,113,113,0.08);
+    border: 0.5px solid rgba(248,113,113,0.2);
+    border-radius: 4px;
+    padding: 5px 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .bmi-score {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFD700;
+  }
+
+  .bmi-badge {
+    font-size: 6px;
+    background: #f87171;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  .tdee-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  }
+
+  .tdee-row:last-child { border-bottom: none; }
+
+  .tdee-label { font-size: 6.5px; color: #888; }
+  .tdee-val { font-size: 8px; font-weight: 700; }
+
+  .highlight-card {
+    background: rgba(74,222,128,0.08);
+    border: 0.5px solid rgba(74,222,128,0.2);
+    border-radius: 4px;
+    padding: 5px 7px;
+  }
+
+  .highlight-text {
+    font-size: 7.5px;
+    color: #4ade80;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  /* ===================== PAGE 3: TRANSFORMATION ===================== */
+  .macro-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+
+  .macro-bar-label {
+    font-size: 6.5px;
+    color: #aaa;
+    width: 38px;
+    flex-shrink: 0;
+  }
+
+  .macro-bar-track {
+    flex: 1;
+    height: 5px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .macro-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+  }
+
+  .macro-bar-pct {
+    font-size: 6px;
+    color: #888;
+    width: 20px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+
+  /* Phase roadmap */
+  .phase-track {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 4px 2px;
+    position: relative;
+  }
+
+  .phase-line {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    right: 20px;
+    height: 1.5px;
+    background: linear-gradient(to right, #f59e0b, #818cf8, #4ade80);
+    transform: translateY(-4px);
+    z-index: 0;
+  }
+
+  .phase-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: 900;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  .phase-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    z-index: 1;
+  }
+
+  .phase-name {
+    font-size: 6px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .phase-weeks {
+    font-size: 5.5px;
+    color: #666;
+  }
+
+  /* ===================== PAGE 4: CALORIE BURN ===================== */
+  .stat-row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3px;
+  }
+
+  .stat-mini {
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 4px 5px;
+    text-align: center;
+  }
+
+  .stat-mini-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: #FFD700;
+    line-height: 1;
+  }
+
+  .stat-mini-label {
+    font-size: 5.5px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+
+  .activity-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.05);
+  }
+
+  .activity-row:last-child { border-bottom: none; }
+
+  .activity-name {
+    font-size: 6px;
+    color: #aaa;
+    width: 48px;
+    flex-shrink: 0;
+  }
+
+  .activity-bar-track {
+    flex: 1;
+    height: 5px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .activity-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+  }
+
+  .activity-kcal {
+    font-size: 6.5px;
+    font-weight: 700;
+    color: #FFD700;
+    width: 26px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ===================== PAGE 5: 80/20 ===================== */
+  .split-bar {
+    height: 22px;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .split-80 {
+    width: 80%;
+    background: #4ade80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: 700;
+    color: #0d1a11;
+  }
+
+  .split-20 {
+    width: 20%;
+    background: #f59e0b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: 700;
+    color: #111;
+  }
+
+  .meal-slots {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 3px;
+  }
+
+  .meal-slot {
+    border-radius: 4px;
+    padding: 5px 4px;
+    text-align: center;
+    border: 0.5px solid rgba(255,255,255,0.1);
+  }
+
+  .meal-slot-icon { font-size: 10px; margin-bottom: 2px; }
+  .meal-slot-name { font-size: 5.5px; color: #aaa; text-transform: uppercase; letter-spacing: 0.04em; }
+  .meal-slot-kcal { font-size: 10px; font-weight: 700; line-height: 1.2; }
+
+  .swap-row {
+    display: flex;
+    gap: 6px;
+    padding: 3px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.05);
+    align-items: center;
+  }
+
+  .swap-row:last-child { border-bottom: none; }
+
+  .swap-bad { font-size: 6px; color: #f87171; flex: 1; }
+  .swap-good { font-size: 6px; color: #4ade80; flex: 1; }
+
+  /* ===================== PAGE 6: FOOD LIBRARY ===================== */
+  .food-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .food-quadrant {
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .food-quadrant-header {
+    padding: 3px 6px;
+    font-size: 6px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  }
+
+  .food-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 6px;
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  }
+
+  .food-item:last-child { border-bottom: none; }
+
+  .food-name { font-size: 6px; color: #ccc; }
+  .food-kcal { font-size: 6px; font-weight: 700; color: #FFD700; }
+
+  /* ===================== BOTTOM UI ===================== */
+  .bottom-ui {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .page-label {
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 0.04em;
+    height: 18px;
+    transition: opacity 0.3s;
+  }
+
+  .dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #333;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .dot.active {
+    background: #1B6B45;
+    transform: scale(1.3);
+  }
+</style>
+</head>
+<body>
+
+<div class="scene">
+  <div class="book-wrapper" id="book" onclick="advancePage()">
+    <div class="book-shadow"></div>
+    <div class="book-spine"></div>
+    <div class="book-base"></div>
+    <div class="pages-stack" id="pagesStack">
+
+      <!-- PAGE 6 (bottom of stack — Food Library) -->
+      <div class="page" id="page5" style="z-index:1;">
+        <div class="page-front inner-page">
+          <div class="page-header">
+            <div class="page-header-title">Your Food Library</div>
+            <div class="page-header-sub">Calorie-controlled options · Each food scaled to your daily target</div>
+          </div>
+          <div class="wavy-divider"></div>
+          <div class="page-content">
+            <div class="food-grid">
+              <!-- Breakfast -->
+              <div class="food-quadrant">
+                <div class="food-quadrant-header" style="color:#f59e0b; background:rgba(245,158,11,0.08);">🌅 Breakfast</div>
+                <div class="food-item"><span class="food-name">Upma w/ Chutney</span><span class="food-kcal">550</span></div>
+                <div class="food-item"><span class="food-name">Banana Oats Porridge</span><span class="food-kcal">550</span></div>
+                <div class="food-item"><span class="food-name">Masala Dosa</span><span class="food-kcal">550</span></div>
+                <div class="food-item"><span class="food-name">Daliya with Milk</span><span class="food-kcal">550</span></div>
+                <div class="food-item"><span class="food-name">Plain Paratha & Curd</span><span class="food-kcal">550</span></div>
+              </div>
+              <!-- Lunch -->
+              <div class="food-quadrant">
+                <div class="food-quadrant-header" style="color:#4ade80; background:rgba(74,222,128,0.08);">☀️ Lunch</div>
+                <div class="food-item"><span class="food-name">Aloo Matar with Roti</span><span class="food-kcal">770</span></div>
+                <div class="food-item"><span class="food-name">Palak Paneer + Roti</span><span class="food-kcal">770</span></div>
+                <div class="food-item"><span class="food-name">Kadhi Chawal</span><span class="food-kcal">770</span></div>
+                <div class="food-item"><span class="food-name">Palak Dal with Rice</span><span class="food-kcal">770</span></div>
+                <div class="food-item"><span class="food-name">Gujarati Thali</span><span class="food-kcal">770</span></div>
+              </div>
+              <!-- Snacks -->
+              <div class="food-quadrant">
+                <div class="food-quadrant-header" style="color:#f87171; background:rgba(248,113,113,0.08);">🍎 Snacks</div>
+                <div class="food-item"><span class="food-name">Apple + Peanut Butter</span><span class="food-kcal">220</span></div>
+                <div class="food-item"><span class="food-name">Ragi Ladoo</span><span class="food-kcal">220</span></div>
+                <div class="food-item"><span class="food-name">Cucumber Raita</span><span class="food-kcal">220</span></div>
+                <div class="food-item"><span class="food-name">Oats Chivda</span><span class="food-kcal">220</span></div>
+                <div class="food-item"><span class="food-name">Peanuts (Roasted)</span><span class="food-kcal">220</span></div>
+              </div>
+              <!-- Dinner -->
+              <div class="food-quadrant">
+                <div class="food-quadrant-header" style="color:#818cf8; background:rgba(129,140,248,0.08);">🌙 Dinner</div>
+                <div class="food-item"><span class="food-name">Veg Khichdi</span><span class="food-kcal">660</span></div>
+                <div class="food-item"><span class="food-name">Aloo Palak + Roti</span><span class="food-kcal">660</span></div>
+                <div class="food-item"><span class="food-name">Palak Soup + Bread</span><span class="food-kcal">660</span></div>
+                <div class="food-item"><span class="food-name">Roti with Lauki Sabzi</span><span class="food-kcal">660</span></div>
+                <div class="food-item"><span class="food-name">Tomato Soup + Roti</span><span class="food-kcal">660</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-back"></div>
+      </div>
+
+      <!-- PAGE 5 (80/20) -->
+      <div class="page" id="page4" style="z-index:2;">
+        <div class="page-front inner-page">
+          <div class="page-header">
+            <div class="page-header-title">The 80/20 Calorie Approach</div>
+            <div class="page-header-sub">80% through food choices · 20% through movement</div>
+          </div>
+          <div class="wavy-divider"></div>
+          <div class="page-content">
+            <div class="split-bar">
+              <div class="split-80">80% Diet</div>
+              <div class="split-20">20%</div>
+            </div>
+            <div class="card" style="text-align:center; padding: 4px 7px;">
+              <div style="font-size:6px;color:#888;text-transform:uppercase;letter-spacing:.07em;">Your Daily Calorie Target</div>
+              <div style="font-size:24px;font-weight:700;color:#FFD700;line-height:1.1;">2200 <span style="font-size:10px;color:#666;">kcal/day</span></div>
+            </div>
+            <div class="meal-slots">
+              <div class="meal-slot" style="background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.2);">
+                <div class="meal-slot-icon">🌅</div>
+                <div class="meal-slot-name">Breakfast</div>
+                <div class="meal-slot-kcal" style="color:#f59e0b;">550</div>
+                <div style="font-size:5px;color:#666;">kcal</div>
+              </div>
+              <div class="meal-slot" style="background:rgba(74,222,128,0.08);border-color:rgba(74,222,128,0.2);">
+                <div class="meal-slot-icon">☀️</div>
+                <div class="meal-slot-name">Lunch</div>
+                <div class="meal-slot-kcal" style="color:#4ade80;">770</div>
+                <div style="font-size:5px;color:#666;">kcal</div>
+              </div>
+              <div class="meal-slot" style="background:rgba(248,113,113,0.08);border-color:rgba(248,113,113,0.2);">
+                <div class="meal-slot-icon">🍎</div>
+                <div class="meal-slot-name">Snacks</div>
+                <div class="meal-slot-kcal" style="color:#f87171;">220</div>
+                <div style="font-size:5px;color:#666;">kcal</div>
+              </div>
+              <div class="meal-slot" style="background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.2);">
+                <div class="meal-slot-icon">🌙</div>
+                <div class="meal-slot-name">Dinner</div>
+                <div class="meal-slot-kcal" style="color:#818cf8;">660</div>
+                <div style="font-size:5px;color:#666;">kcal</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-label">Smart Food Swaps</div>
+              <div class="swap-row">
+                <div class="swap-bad">✕ White rice (200g) — 280 kcal</div>
+                <div class="swap-good">✓ Brown rice (200g) — 218 kcal</div>
+              </div>
+              <div class="swap-row">
+                <div class="swap-bad">✕ Maida roti (2) — 180 kcal</div>
+                <div class="swap-good">✓ Wheat roti (2) — 140 kcal</div>
+              </div>
+              <div class="swap-row">
+                <div class="swap-bad">✕ Fried samosa (2) — 260 kcal</div>
+                <div class="swap-good">✓ Baked mathri (2) — 160 kcal</div>
+              </div>
+              <div class="swap-row">
+                <div class="swap-bad">✕ Full-fat milk 250ml — 150 kcal</div>
+                <div class="swap-good">✓ Toned milk 250ml — 90 kcal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="page-back"></div>
+      </div>
+
+      <!-- PAGE 4 (Calorie Burn Engine) -->
+      <div class="page" id="page3" style="z-index:3;">
+        <div class="page-front inner-page">
+          <div class="page-header">
+            <div class="page-header-title">Your Calorie Burn Engine</div>
+            <div class="page-header-sub">Energy expenditure at current body weight</div>
+          </div>
+          <div class="wavy-divider"></div>
+          <div class="page-content">
+            <div class="stat-row-3">
+              <div class="stat-mini"><div class="stat-mini-val">2100</div><div class="stat-mini-label">BMR Rest</div></div>
+              <div class="stat-mini"><div class="stat-mini-val">2888</div><div class="stat-mini-label">TDEE Daily</div></div>
+              <div class="stat-mini"><div class="stat-mini-val">241</div><div class="stat-mini-label">Walk 30 min</div></div>
+            </div>
+            <div class="card" style="flex:1;">
+              <div class="card-label">Calories Burned — Activities (30 min)</div>
+              <div class="activity-row">
+                <div class="activity-name">Brisk Walk</div>
+                <div class="activity-bar-track"><div class="activity-bar-fill" style="width:44%;background:#4ade80;"></div></div>
+                <div class="activity-kcal">241</div>
+              </div>
+              <div class="activity-row">
+                <div class="activity-name">Running</div>
+                <div class="activity-bar-track"><div class="activity-bar-fill" style="width:100%;background:#f59e0b;"></div></div>
+                <div class="activity-kcal">549</div>
+              </div>
+              <div class="activity-row">
+                <div class="activity-name">Swimming</div>
+                <div class="activity-bar-track"><div class="activity-bar-fill" style="width:71%;background:#60a5fa;"></div></div>
+                <div class="activity-kcal">392</div>
+              </div>
+              <div class="activity-row">
+                <div class="activity-name">Badminton</div>
+                <div class="activity-bar-track"><div class="activity-bar-fill" style="width:56%;background:#f87171;"></div></div>
+                <div class="activity-kcal">308</div>
+              </div>
+              <div class="activity-row">
+                <div class="activity-name">Cricket</div>
+                <div class="activity-bar-track"><div class="activity-bar-fill" style="width:49%;background:#818cf8;"></div></div>
+                <div class="activity-kcal">269</div>
+              </div>
+              <div class="activity-row">
+                <div class="activity-name">Weight Training</div>
+                <div class="activity-bar-track"><div class="activity-bar-fill" style="width:51%;background:#f59e0b;"></div></div>
+                <div class="activity-kcal">280</div>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-text">Run 30 min daily → burn ~549 kcal extra per session</div>
+            </div>
+          </div>
+        </div>
+        <div class="page-back"></div>
+      </div>
+
+      <!-- PAGE 3 (Transformation Approach) -->
+      <div class="page" id="page2" style="z-index:4;">
+        <div class="page-front inner-page">
+          <div class="page-header">
+            <div class="page-header-title">Our Approach to Your Transformation</div>
+            <div class="page-header-sub">Macro targets, energy model &amp; 3-phase roadmap</div>
+          </div>
+          <div class="wavy-divider"></div>
+          <div class="page-content">
+            <div class="card">
+              <div class="card-label">Daily Macro Targets — 2200 kcal/day</div>
+              <div class="macro-bar-row">
+                <div class="macro-bar-label" style="color:#4ade80;">Protein</div>
+                <div class="macro-bar-track"><div class="macro-bar-fill" style="width:33%;background:#4ade80;"></div></div>
+                <div class="macro-bar-pct" style="color:#4ade80;">33%</div>
+              </div>
+              <div class="macro-bar-row">
+                <div class="macro-bar-label" style="color:#f59e0b;">Carbs</div>
+                <div class="macro-bar-track"><div class="macro-bar-fill" style="width:41%;background:#f59e0b;"></div></div>
+                <div class="macro-bar-pct" style="color:#f59e0b;">41%</div>
+              </div>
+              <div class="macro-bar-row">
+                <div class="macro-bar-label" style="color:#818cf8;">Fats</div>
+                <div class="macro-bar-track"><div class="macro-bar-fill" style="width:27%;background:#818cf8;"></div></div>
+                <div class="macro-bar-pct" style="color:#818cf8;">27%</div>
+              </div>
+            </div>
+            <div class="two-col">
+              <div class="card">
+                <div class="card-label">TDEE</div>
+                <div class="stat-big">2888 <span class="stat-unit">kcal/day</span></div>
+              </div>
+              <div class="card">
+                <div class="card-label">BMR</div>
+                <div class="stat-big" style="color:#60a5fa;">2100 <span class="stat-unit" style="color:#666;">kcal/day</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-label">3-Phase Fitness Roadmap</div>
+              <div class="phase-track">
+                <div class="phase-line"></div>
+                <div class="phase-item">
+                  <div class="phase-dot" style="background:#f59e0b;color:#111;">01</div>
+                  <div class="phase-name" style="color:#f59e0b;">Ignition</div>
+                  <div class="phase-weeks">Wk 1–12</div>
+                </div>
+                <div class="phase-item">
+                  <div class="phase-dot" style="background:#818cf8;color:#fff;">02</div>
+                  <div class="phase-name" style="color:#818cf8;">Adaptation</div>
+                  <div class="phase-weeks">Wk 13–24</div>
+                </div>
+                <div class="phase-item">
+                  <div class="phase-dot" style="background:#4ade80;color:#111;">03</div>
+                  <div class="phase-name" style="color:#4ade80;">Consolidation</div>
+                  <div class="phase-weeks">Wk 25–35</div>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-text">At 688 kcal/day deficit → ~0.63 kg per week loss</div>
+            </div>
+          </div>
+        </div>
+        <div class="page-back"></div>
+      </div>
+
+      <!-- PAGE 2 (Health Snapshot) -->
+      <div class="page" id="page1" style="z-index:5;">
+        <div class="page-front inner-page">
+          <div class="page-header">
+            <div class="page-header-title">Your Health Snapshot</div>
+            <div class="page-header-sub">Personalized for Metabolic Standards</div>
+          </div>
+          <div class="wavy-divider"></div>
+          <div class="page-content">
+            <div class="grid-2x2">
+              <div class="metric-card">
+                <div class="metric-val">112 <span style="font-size:8px;color:#666;">kg</span></div>
+                <div class="metric-label">Current Weight</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-val">180 <span style="font-size:8px;color:#666;">cm</span></div>
+                <div class="metric-label">Height</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-val">30 <span style="font-size:8px;color:#666;">yrs</span></div>
+                <div class="metric-label">Age</div>
+              </div>
+              <div class="metric-card" style="border-color:rgba(255,215,0,0.2);">
+                <div class="metric-val">90 <span style="font-size:8px;color:#666;">kg</span></div>
+                <div class="metric-label">Target Weight</div>
+              </div>
+            </div>
+            <div class="bmi-card">
+              <div>
+                <div style="font-size:6px;color:#f87171;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;">BMI Score</div>
+                <div class="bmi-score">34.6</div>
+              </div>
+              <div class="bmi-badge">Obese II</div>
+            </div>
+            <div class="card">
+              <div class="tdee-row">
+                <div class="tdee-label">TDEE (Maintenance)</div>
+                <div class="tdee-val" style="color:#60a5fa;">2888 kcal</div>
+              </div>
+              <div class="tdee-row">
+                <div class="tdee-label">Target / Day</div>
+                <div class="tdee-val" style="color:#4ade80;">2200 kcal</div>
+              </div>
+              <div class="tdee-row">
+                <div class="tdee-label">Diet Deficit</div>
+                <div class="tdee-val" style="color:#f87171;">688 kcal</div>
+              </div>
+            </div>
+            <div class="highlight-card">
+              <div class="highlight-text">688 kcal deficit → lose <span style="color:#FFD700;">0.63 kg/week</span> — safe, sustainable progress</div>
+            </div>
+          </div>
+        </div>
+        <div class="page-back"></div>
+      </div>
+
+      <!-- PAGE 1 (Cover) — top of stack -->
+      <div class="page" id="page0" style="z-index:6;">
+        <div class="page-front cover-page" style="overflow:hidden;position:relative;">
+          <!-- Real photo background -->
+          <img src="https://raw.githubusercontent.com/arunbalajirc-dev/CalorieIndia/main/health-calculator-site/public/images/image%20bg%201.PNG"
+               alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.55;">
+          <!-- Dark overlay top half -->
+          <div style="position:absolute;top:0;left:0;right:0;height:55%;background:linear-gradient(180deg,#0d0d0d 60%,transparent 100%);z-index:1;"></div>
+          <!-- Dark overlay bottom strip -->
+          <div style="position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(0deg,#0d0d0d 50%,transparent 100%);z-index:1;"></div>
+          <!-- Diagonal black mask top-left -->
+          <div style="position:absolute;top:0;left:0;width:55%;height:70%;background:#0d0d0d;clip-path:polygon(0 0,100% 0,60% 100%,0 100%);z-index:2;"></div>
+
+          <!-- Logo top-right -->
+          <div style="position:absolute;top:10px;right:10px;z-index:5;display:flex;align-items:center;gap:5px;">
+            <img src="https://raw.githubusercontent.com/arunbalajirc-dev/CalorieIndia/main/health-calculator-site/public/images/Nt-logo.png"
+                 alt="Nutrition Tracker" style="height:28px;width:auto;object-fit:contain;"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div style="display:none;align-items:center;gap:3px;">
+              <div style="width:18px;height:18px;background:#1B6B45;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;">🥗</div>
+              <div style="font-size:6px;font-weight:700;color:#4ade80;line-height:1.1;text-transform:uppercase;">NUTRITION<br>TRACKER</div>
+            </div>
+          </div>
+
+          <!-- Title block top-left -->
+          <div style="position:absolute;top:10px;left:10px;z-index:5;max-width:155px;">
+            <div style="font-family:Arial Black,Impact,sans-serif;font-size:13px;font-weight:900;color:#FFD700;line-height:1.15;text-transform:uppercase;letter-spacing:0.01em;">YOUR<br>PERSONALISED<br>MEAL PLAN</div>
+            <div style="font-size:6.5px;color:#ccc;line-height:1.5;margin-top:6px;">Calorie-precise, macro-balanced meals built<br>for Indian bodies and Indian kitchens...</div>
+            <div style="font-size:6.5px;color:#aaa;margin-top:6px;letter-spacing:0.02em;">Praveen · 73 Kgs · 2000 Kcal/day</div>
+          </div>
+
+          <!-- Month bottom-right -->
+          <div style="position:absolute;bottom:14px;right:14px;z-index:5;font-size:8px;color:rgba(255,255,255,0.65);letter-spacing:0.04em;">May 2026</div>
+
+          <!-- Yellow triangle corner -->
+          <div style="position:absolute;bottom:0;right:0;z-index:5;width:0;height:0;border-style:solid;border-width:0 0 44px 44px;border-color:transparent transparent #FFD700 transparent;"></div>
+        </div>
+        <div class="page-back inner-page">
+          <!-- Back of cover is visible when cover flips -->
+          <div class="page-header">
+            <div class="page-header-title">Your Health Snapshot</div>
+            <div class="page-header-sub">Personalized for Metabolic Standards</div>
+          </div>
+          <div class="wavy-divider"></div>
+          <div style="padding:6px 8px;display:flex;flex-direction:column;gap:5px;">
+            <div class="grid-2x2">
+              <div class="metric-card"><div class="metric-val">112 <span style="font-size:8px;color:#666;">kg</span></div><div class="metric-label">Current Weight</div></div>
+              <div class="metric-card"><div class="metric-val">180 <span style="font-size:8px;color:#666;">cm</span></div><div class="metric-label">Height</div></div>
+              <div class="metric-card"><div class="metric-val">30 <span style="font-size:8px;color:#666;">yrs</span></div><div class="metric-label">Age</div></div>
+              <div class="metric-card"><div class="metric-val">90 <span style="font-size:8px;color:#666;">kg</span></div><div class="metric-label">Target Weight</div></div>
+            </div>
+            <div class="bmi-card"><div><div style="font-size:6px;color:#f87171;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;">BMI Score</div><div class="bmi-score">34.6</div></div><div class="bmi-badge">Obese II</div></div>
+            <div class="card">
+              <div class="tdee-row"><div class="tdee-label">TDEE</div><div class="tdee-val" style="color:#60a5fa;">2888 kcal</div></div>
+              <div class="tdee-row"><div class="tdee-label">Target</div><div class="tdee-val" style="color:#4ade80;">2200 kcal</div></div>
+              <div class="tdee-row"><div class="tdee-label">Deficit</div><div class="tdee-val" style="color:#f87171;">688 kcal</div></div>
+            </div>
+            <div class="highlight-card"><div class="highlight-text">688 kcal deficit → ~0.63 kg/week loss</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pages-stack -->
+  </div><!-- /book-wrapper -->
+</div><!-- /scene -->
+
+<div class="bottom-ui">
+  <div class="page-label" id="pageLabel">Cover</div>
+  <div class="dots" id="dots">
+    <div class="dot active" onclick="goToPage(0)"></div>
+    <div class="dot" onclick="goToPage(1)"></div>
+    <div class="dot" onclick="goToPage(2)"></div>
+    <div class="dot" onclick="goToPage(3)"></div>
+    <div class="dot" onclick="goToPage(4)"></div>
+    <div class="dot" onclick="goToPage(5)"></div>
+  </div>
+</div>
+
+<script>
+  const pageNames = [
+    'Cover',
+    'Health Snapshot',
+    'Transformation Approach',
+    'Calorie Burn Engine',
+    '80/20 Calorie Approach',
+    'Food Library'
+  ];
+
+  const pages = [
+    document.getElementById('page0'),
+    document.getElementById('page1'),
+    document.getElementById('page2'),
+    document.getElementById('page3'),
+    document.getElementById('page4'),
+    document.getElementById('page5'),
+  ];
+
+  const dots = document.querySelectorAll('.dot');
+  const pageLabel = document.getElementById('pageLabel');
+
+  let currentPage = 0;
+  let isAnimating = false;
+  let autoTimer = null;
+
+  function updateUI(pageIdx) {
+    pageLabel.textContent = pageNames[pageIdx];
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === pageIdx);
+    });
+  }
+
+  function goToPage(targetIdx) {
+    if (isAnimating) return;
+    if (targetIdx === currentPage) return;
+
+    clearInterval(autoTimer);
+    isAnimating = true;
+
+    if (targetIdx > currentPage) {
+      // Flip forward
+      for (let i = currentPage; i < targetIdx; i++) {
+        const delay = (i - currentPage) * 0;
+        setTimeout(() => {
+          pages[i].classList.add('flipped');
+        }, delay);
+      }
+    } else {
+      // Flip backward
+      for (let i = currentPage - 1; i >= targetIdx; i--) {
+        const delay = (currentPage - 1 - i) * 0;
+        setTimeout(() => {
+          pages[i].classList.remove('flipped');
+        }, delay);
+      }
+    }
+
+    currentPage = targetIdx;
+    updateUI(currentPage);
+
+    setTimeout(() => {
+      isAnimating = false;
+      startAutoFlip();
+    }, 600);
+  }
+
+  function advancePage() {
+    const next = (currentPage + 1) % pageNames.length;
+    goToPage(next);
+  }
+
+  function startAutoFlip() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => {
+      const next = (currentPage + 1) % pageNames.length;
+      if (isAnimating) return;
+      isAnimating = true;
+
+      if (next === 0) {
+        // Reset — unflip all
+        for (let i = pages.length - 1; i >= 0; i--) {
+          setTimeout(() => {
+            pages[i].classList.remove('flipped');
+          }, (pages.length - 1 - i) * 80);
+        }
+        currentPage = 0;
+      } else {
+        pages[currentPage].classList.add('flipped');
+        currentPage = next;
+      }
+
+      updateUI(currentPage);
+      setTimeout(() => { isAnimating = false; }, 650);
+    }, 2200);
+  }
+
+  // Init
+  updateUI(0);
+  startAutoFlip();
+</script>
+</body>
+</html>

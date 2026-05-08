@@ -366,7 +366,7 @@
       }
       .hero-text p { margin-left: auto; margin-right: auto; }
       .hero-image { order: -1; }
-      .hero-image img { width: 280px; }
+      .hero-image > div { height: 420px !important; }
       .included-image { order: -1; }
       .included-image img { width: 100%; max-width: 360px; }
       .features-left img { max-width: 360px; margin: 0 auto; display: block; }
@@ -405,7 +405,17 @@
         <a href="https://nutritiontracker.in/meal-plan.html" class="cta-btn">GET MY PLAN FOR ₹249</a>
       </div>
       <div class="hero-image">
-        <img src="images/Your personalised meal plan booklet.png" alt="Your Personalised Meal Plan booklet" />
+        <div style="position:relative;width:100%;max-width:420px;height:540px;margin:0 auto;">
+          <iframe
+            src="/book-flip-widget.html"
+            width="100%"
+            height="100%"
+            frameborder="0"
+            scrolling="no"
+            style="background:transparent;border:none;overflow:hidden;"
+            title="Meal Plan Preview"
+          ></iframe>
+        </div>
       </div>
     </div>
   </section>
