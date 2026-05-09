@@ -31,6 +31,11 @@
       font-size: 15px;
       line-height: 1.6;
     }
+    /* Ensure all sections sit above the fixed canvas/particle layers */
+    #site-nav, .hero, .included, .features, .pricing, section, footer {
+      position: relative;
+      z-index: 2;
+    }
 
     /* ── NAV WRAPPER ── */
     #site-nav { position: relative; z-index: 100; }
@@ -390,6 +395,107 @@
   </style>
 </head>
 <body>
+
+  <!-- ═══ ANIMATED BACKGROUND ═══ -->
+  <canvas id="anim-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;display:block;" aria-hidden="true"></canvas>
+  <div id="particle-layer" style="position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;" aria-hidden="true"></div>
+  <style>
+    @keyframes floatUp {
+      0%   { transform: translateY(110vh); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+  </style>
+  <script>
+    (function () {
+      /* ── Canvas animation ── */
+      const canvas = document.getElementById('anim-bg');
+      const ctx    = canvas.getContext('2d');
+      const BG     = '#0a0a08';
+      const ORBS   = [
+        { xP: 0.15, yP: 0.20, r: 320, c: 'rgba(245,197,24,0.055)', dx:  0.6, dy:  0.3 },
+        { xP: 0.82, yP: 0.60, r: 260, c: 'rgba(61,220,132,0.04)',  dx: -0.5, dy: -0.25 },
+        { xP: 0.50, yP: 0.85, r: 200, c: 'rgba(245,197,24,0.035)', dx:  0.4, dy: -0.35 },
+        { xP: 0.72, yP: 0.10, r: 180, c: 'rgba(61,220,132,0.03)',  dx: -0.35,dy:  0.45 },
+      ];
+      let W, H, t = 0, raf, rsz;
+
+      function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+      resize();
+
+      function draw() {
+        t += 0.004;
+        ctx.fillStyle = BG;
+        ctx.fillRect(0, 0, W, H);
+
+        /* Orbs */
+        for (const o of ORBS) {
+          const cx = o.xP * W + Math.sin(t * o.dx) * 60;
+          const cy = o.yP * H + Math.cos(t * o.dy) * 50;
+          const g  = ctx.createRadialGradient(cx, cy, 0, cx, cy, o.r);
+          g.addColorStop(0, o.c);
+          g.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(cx, cy, o.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        /* Grid */
+        const gx = W / 14, gy = H / 8;
+        const ox = (t * 18) % gx, oy = (t * 10) % gy;
+        ctx.strokeStyle = 'rgba(255,255,255,0.015)';
+        ctx.lineWidth   = 0.5;
+        ctx.beginPath();
+        for (let x = -gx + ox; x < W + gx; x += gx) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+        for (let y = -gy + oy; y < H + gy; y += gy) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+        ctx.stroke();
+
+        /* Scan line */
+        const sx = ((t * 80) % (W + 300)) - 150;
+        const sg = ctx.createLinearGradient(sx - 150, 0, sx + 150, 0);
+        sg.addColorStop(0,   'rgba(245,197,24,0)');
+        sg.addColorStop(0.5, 'rgba(245,197,24,0.018)');
+        sg.addColorStop(1,   'rgba(245,197,24,0)');
+        ctx.fillStyle = sg;
+        ctx.fillRect(sx - 150, 0, 300, H);
+
+        raf = requestAnimationFrame(draw);
+      }
+      draw();
+
+      window.addEventListener('resize', function () {
+        clearTimeout(rsz);
+        rsz = setTimeout(resize, 120);
+      });
+
+      /* ── Particles ── */
+      const layer  = document.getElementById('particle-layer');
+      const COLORS = [
+        [0.25, 0.70, 'rgba(245,197,24,'],
+        [0.20, 0.60, 'rgba(61,220,132,'],
+        [0.15, 0.50, 'rgba(255,255,255,'],
+      ];
+      for (let i = 0; i < 28; i++) {
+        const roll    = Math.random();
+        const [lo, hi, base] = roll < 0.45 ? COLORS[0] : roll < 0.75 ? COLORS[1] : COLORS[2];
+        const alpha   = (lo + Math.random() * (hi - lo)).toFixed(2);
+        const size    = (1.5 + Math.random() * 4).toFixed(1);
+        const dur     = (8   + Math.random() * 14).toFixed(1);
+        const delay   = (Math.random() * 12).toFixed(1);
+        const left    = (Math.random() * 100).toFixed(1);
+        const p       = document.createElement('div');
+        p.style.cssText = `position:absolute;bottom:0;left:${left}%;width:${size}px;height:${size}px;`
+          + `border-radius:50%;background:${base}${alpha});`
+          + `animation:floatUp ${dur}s ${delay}s infinite linear;will-change:transform,opacity;`;
+        layer.appendChild(p);
+      }
+    })();
+  </script>
 
   <!-- NAV -->
   <div id="site-nav"></div>
