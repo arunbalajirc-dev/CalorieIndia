@@ -14,17 +14,17 @@
     align-items: flex-start;
     padding: 50px 20px 10px;
     font-family: system-ui, sans-serif;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .scene {
     perspective: 1200px;
     perspective-origin: 50% 40%;
-    margin-left: 220px; /* 203px needed for flipped page + ~17px buffer */
+    margin-left: 240px; /* flipped page extends ~220px left; 240px gives 20px left buffer */
   }
 
   .book-wrapper {
-    transform: scale(0.78) rotateX(12deg) rotateY(-18deg);
+    transform: rotateX(12deg) rotateY(-18deg);
     transform-style: preserve-3d;
     position: relative;
     width: 260px;
