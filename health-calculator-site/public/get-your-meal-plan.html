@@ -31,11 +31,17 @@
       font-size: 15px;
       line-height: 1.6;
     }
-    /* Ensure all sections sit above the fixed canvas/particle layers */
+    /* Ensure all sections sit above the fixed canvas/particle layers
+       and let the canvas background show through (transparent sections) */
     #site-nav, .hero, .included, .features, .pricing, section, footer {
       position: relative;
       z-index: 2;
     }
+    body          { background: transparent !important; }
+    .hero         { background: transparent !important; }
+    .included     { background: transparent !important; }
+    .features     { background: transparent !important; }
+    .pricing      { background: transparent !important; }
 
     /* ── NAV WRAPPER ── */
     #site-nav { position: relative; z-index: 100; }
