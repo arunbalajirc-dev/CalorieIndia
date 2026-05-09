@@ -905,6 +905,7 @@ function page6(plan: MealPlan, intakeData: any): string {
   const slotNames:  Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', snacks: 'Snacks', dinner: 'Dinner' }
   const dietDisplay = (intakeData.diet_type ?? 'veg') === 'veg' ? 'Veg' : (intakeData.diet_type === 'non-veg' ? 'Non-Veg' : 'Both')
 
+  // Slot calorie targets (from the actual daily plan)
   const slotKcal = {
     breakfast: plan.days[0].breakfast.reduce((s, f) => s + f.calories, 0),
     lunch:     plan.days[0].lunch.reduce((s, f) => s + f.calories, 0),
@@ -912,23 +913,35 @@ function page6(plan: MealPlan, intakeData: any): string {
     dinner:    plan.days[0].dinner.reduce((s, f) => s + f.calories, 0),
   }
 
-  function getUniqueFoodsForSlot(slot: 'breakfast'|'lunch'|'snacks'|'dinner', max: number): MealFood[] {
-    const seen = new Set<string>()
-    const result: MealFood[] = []
-    for (const day of plan.days) {
-      for (const food of day[slot]) {
-        if (!seen.has(food.name) && result.length < max) {
-          seen.add(food.name)
-          result.push(food)
-        }
-      }
+  // Scale a single food from the raw pool to the slot calorie target
+  function scaleFoodToSlot(food: MealFood, targetCals: number): MealFood {
+    if (!food.calories || food.calories === 0) return food
+    const ratio = targetCals / food.calories
+    const scaledG = Math.round(food.serving_grams * ratio)
+    return {
+      ...food,
+      scaled_grams:    scaledG,
+      serving_display: `${scaledG}g`,
+      calories:        Math.round(food.calories  * ratio),
+      protein_g:       Math.round(food.protein_g * ratio * 10) / 10,
+      carbs_g:         Math.round(food.carbs_g   * ratio * 10) / 10,
+      fat_g:           Math.round(food.fat_g     * ratio * 10) / 10,
+      fibre_g:         Math.round(food.fibre_g   * ratio * 10) / 10,
     }
-    return result
+  }
+
+  // Use the full fetched pool (up to 10 unique items) instead of re-deriving
+  // from only 7 picked daily meals — this prevents sparse slots when the pool
+  // has few items (e.g. non-veg breakfast historically had only 2).
+  function getFoodsFromPool(slot: 'breakfast'|'lunch'|'snacks'|'dinner', max: number): MealFood[] {
+    const pool = plan.food_pools[slot] ?? []
+    const targetCals = slotKcal[slot]
+    return pool.slice(0, max).map(f => scaleFoodToSlot(f, targetCals))
   }
 
   function renderSlotTable(slot: 'breakfast'|'lunch'|'snacks'|'dinner'): string {
     const color = slotColors[slot]
-    const foods = getUniqueFoodsForSlot(slot, 10)
+    const foods = getFoodsFromPool(slot, 10)
     const kcal  = slotKcal[slot as keyof typeof slotKcal]
 
     return `
