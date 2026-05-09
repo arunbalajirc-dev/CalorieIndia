@@ -20,11 +20,11 @@
   .scene {
     perspective: 1200px;
     perspective-origin: 50% 40%;
-    margin-left: 240px; /* flipped page extends ~220px left; 240px gives 20px left buffer */
+    margin-left: 216px; /* flipped page extends ~213px left at scale 0.92 → 3px left buffer */
   }
 
   .book-wrapper {
-    transform: rotateX(12deg) rotateY(-18deg);
+    transform: scale(0.92) rotateX(12deg) rotateY(-18deg);
     transform-style: preserve-3d;
     position: relative;
     width: 260px;
