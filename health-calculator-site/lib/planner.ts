@@ -27,16 +27,8 @@ export interface DayMeal {
   total_fat:      number
 }
 
-export interface FoodPools {
-  breakfast: MealFood[]
-  lunch:     MealFood[]
-  dinner:    MealFood[]
-  snacks:    MealFood[]
-}
-
 export interface MealPlan {
   days: DayMeal[]
-  food_pools:      FoodPools
   user_name:       string
   goal:            string
   goal_label:      string
@@ -288,12 +280,6 @@ export async function buildMealPlan(intakeData: any, goal: string): Promise<Meal
 
   return {
     days,
-    food_pools: {
-      breakfast: bfPool,
-      lunch:     lunchPool,
-      dinner:    dinnerPool,
-      snacks:    snacksPool,
-    },
     user_name:       name,
     goal,
     goal_label:      goalLabel,
