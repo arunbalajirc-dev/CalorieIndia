@@ -430,70 +430,242 @@
     }
 
     /* ════════════════════════════════════════
-       SECTION 4 — PRICE COMPARISON
+       SECTION 4 — PRICING (redesigned)
     ════════════════════════════════════════ */
     .pricing {
-      background: var(--dark-2);
-      padding: 100px 5%;
-      text-align: center;
+      padding: 80px 5% 0;
+      position: relative;
+    }
+    .pricing-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── ROW 1: two-column ── */
+    .pricing-row1 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(255,215,0,0.15);
+    }
+
+    /* LEFT — headline */
+    .pricing-headline {
+      text-align: left;
+    }
+    .pricing-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,215,0,0.08);
+      border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 24px;
+    }
+    .pricing-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--yellow);
+      flex-shrink: 0;
+    }
+    .pricing-big-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 800;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+    .pricing-big-text .yellow { color: var(--yellow); }
+    .pricing-big-text .underline-yellow {
+      text-decoration: underline;
+      text-decoration-color: var(--yellow);
+      text-underline-offset: 6px;
+    }
+    .pricing-desc {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      max-width: 440px;
+    }
+    .pricing-desc strong { color: var(--white); font-weight: 600; }
+
+    /* RIGHT — circles */
+    .pricing-circles {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
     }
     .pricing-cards {
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      gap: 40px;
+      gap: 28px;
       flex-wrap: wrap;
-      margin-bottom: 32px;
     }
     .pricing-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
     }
     .pricing-circle {
-      width: 180px;
-      height: 180px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
       overflow: hidden;
-      border: 3px solid var(--glass-border);
+      border: 2px solid var(--glass-border);
       background: var(--glass-bg);
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .pricing-circle img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .pricing-circle img { width: 100%; height: 100%; object-fit: cover; }
     .pricing-circle.logo-circle {
       border-color: var(--yellow);
+      border-width: 3px;
       background: #111;
-      padding: 20px;
     }
-    .pricing-circle.logo-circle img {
-      object-fit: contain;
-      padding: 10px;
-    }
+    .pricing-circle.logo-circle img { object-fit: contain; padding: 18px; }
     .pricing-label {
-      font-size: 1rem;
+      font-size: 0.85rem;
       font-weight: 500;
-      color: var(--white);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
     }
     .pricing-price {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.65);
+      color: rgba(255,255,255,0.5);
     }
     .pricing-price.highlight {
       color: var(--yellow);
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     }
     .pricing-tagline {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.65);
-      margin-bottom: 36px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* ── ROW 2: CTA strip ── */
+    .pricing-row2 {
+      padding: 40px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .pricing-price-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .pricing-strike {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: rgba(255,255,255,0.3);
+      text-decoration: line-through;
+    }
+    .pricing-main {
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 800;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .pricing-sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em;
+      font-family: monospace;
+      text-align: center;
+    }
+    .pricing-sub strong { color: var(--green); font-style: normal; }
+    .pricing-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--yellow);
+      color: #000;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 56px;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 0 32px rgba(255,215,0,0.25);
+      width: 100%;
+      max-width: 520px;
+    }
+    .pricing-cta-btn:hover {
+      background: #ffe633;
+      box-shadow: 0 0 48px rgba(255,215,0,0.4);
+    }
+    .pricing-cta-btn:active { transform: scale(0.98); }
+    .pricing-trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+    }
+    .trust-item svg { flex-shrink: 0; }
+
+    /* stats bar */
+    .pricing-stats {
+      width: 100%;
+      margin-top: 12px;
+      background: rgba(0,0,0,0.45);
+      border-top: 1px solid rgba(255,215,0,0.1);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-col {
+      padding: 28px 16px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-col:last-child { border-right: none; }
+    .stat-num {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--yellow);
+      line-height: 1;
+      margin-bottom: 6px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .stat-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
     }
 
     /* ── RESPONSIVE ── */
@@ -510,23 +682,33 @@
       .hero-video { max-width: 100%; }
       .included-image { order: -1; }
       .included-image img { width: 100%; max-width: 360px; }
-      .features-left img { max-width: 360px; margin: 0 auto; display: block; }
       .checklist li { text-align: left; }
-      .pricing-cards { gap: 24px; }
-      .pricing-circle { width: 140px; height: 140px; }
+      .pricing-row1 {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .pricing-headline { text-align: center; }
+      .pricing-desc { margin: 0 auto; }
+      .pricing-big-text { font-size: clamp(2.4rem, 8vw, 3.5rem); }
+      .pricing-circle { width: 120px; height: 120px; }
+      .pricing-stats { grid-template-columns: repeat(2, 1fr); }
+      .stat-col:nth-child(2) { border-right: none; }
+      .stat-col:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.06); }
+      .stat-col:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.06); }
     }
-
     @media (max-width: 520px) {
       .hero { min-height: auto; }
       .hero-inner { padding: 60px 5%; }
       .included { padding: 70px 5%; }
       .features { padding: 70px 5%; }
-      .pricing { padding: 70px 5%; }
+      .pricing { padding: 60px 5% 0; }
       .included-card { padding: 30px 24px; }
       .features-card { padding: 24px 20px; }
-      .pricing-circle { width: 110px; height: 110px; }
+      .pricing-circle { width: 100px; height: 100px; }
       .pricing-cards { gap: 16px; }
-      .pricing-price.highlight { font-size: 1.2rem; }
+      .pricing-trust { gap: 14px; }
+      .pricing-stats { grid-template-columns: repeat(2, 1fr); }
+      .pricing-cta-btn { padding: 16px 32px; font-size: 0.95rem; }
     }
   </style>
 </head>
@@ -915,34 +1097,119 @@
   </script>
 
   <!-- ════════════════════════════════════════
-       SECTION 4 — PRICE COMPARISON
+       SECTION 4 — PRICING (redesigned)
   ════════════════════════════════════════ -->
   <section class="pricing">
-    <div class="pricing-cards">
-      <div class="pricing-item">
-        <div class="pricing-circle">
-          <img src="images/Diet planner master page section 4 image 2.png" alt="Mutton Biryani" />
+    <div class="pricing-inner">
+
+      <!-- ROW 1: Headline (left) + Circles (right) -->
+      <div class="pricing-row1">
+
+        <!-- LEFT: bold conviction headline -->
+        <div class="pricing-headline">
+          <div class="pricing-badge">LIMITED OFFER · ₹249 ONLY</div>
+          <div class="pricing-big-text">
+            LESS THAN<br>
+            <span class="yellow">1 MEAL.</span><br>
+            <span class="underline-yellow">90 DAYS</span> OF<br>
+            RESULTS.
+          </div>
+          <p class="pricing-desc">
+            A dietitian charges ₹1000+ for one session. Mutton biryani costs ₹350.
+            Your personalised Indian meal plan — calorie-precise, macro-balanced —
+            is just <strong>₹249</strong>. One-time. Forever yours.
+          </p>
         </div>
-        <div class="pricing-label">Mutton Biryani</div>
-        <div class="pricing-price">₹300 – 350</div>
+
+        <!-- RIGHT: 3-circle comparison -->
+        <div class="pricing-circles">
+          <div class="pricing-cards">
+            <div class="pricing-item">
+              <div class="pricing-circle">
+                <img src="images/Diet planner master page section 4 image 2.png" alt="Mutton Biryani" />
+              </div>
+              <div class="pricing-label">Mutton Biryani</div>
+              <div class="pricing-price">₹300 – 350</div>
+            </div>
+            <div class="pricing-item">
+              <div class="pricing-circle">
+                <img src="images/Diet planner master page section 4 image 1.png" alt="Dietitian consultation" />
+              </div>
+              <div class="pricing-label">Dietitian consultation</div>
+              <div class="pricing-price">₹1000+</div>
+            </div>
+            <div class="pricing-item">
+              <div class="pricing-circle logo-circle">
+                <img src="images/nutrition-tracker-logo.png" alt="Nutrition Tracker" />
+              </div>
+              <div class="pricing-label">Your Plan</div>
+              <div class="pricing-price highlight">₹249</div>
+            </div>
+          </div>
+          <p class="pricing-tagline">Less than 1 meal — but guides your next 90 days</p>
+        </div>
+
+      </div><!-- /pricing-row1 -->
+
+      <!-- ROW 2: CTA strip -->
+      <div class="pricing-row2">
+
+        <div class="pricing-price-line">
+          <span class="pricing-strike">₹999</span>
+          <span class="pricing-main">₹249</span>
+        </div>
+
+        <p class="pricing-sub">
+          One-time payment &nbsp;·&nbsp; <strong>Instant PDF download</strong> &nbsp;·&nbsp; No subscription
+        </p>
+
+        <a href="https://nutritiontracker.in/meal-plan.html" class="pricing-cta-btn">
+          GET MY MEAL PLAN &nbsp;→
+        </a>
+
+        <div class="pricing-trust">
+          <span class="trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC40" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Razorpay Secure
+          </span>
+          <span class="trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC40" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Instant Delivery
+          </span>
+          <span class="trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC40" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            Built for Indian Bodies
+          </span>
+          <span class="trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC40" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            IFCT 2017 Data
+          </span>
+        </div>
+
+      </div><!-- /pricing-row2 -->
+
+    </div><!-- /pricing-inner -->
+
+    <!-- Stats bar — full bleed -->
+    <div class="pricing-stats">
+      <div class="stat-col">
+        <div class="stat-num">150</div>
+        <div class="stat-label">Indian Meals</div>
       </div>
-      <div class="pricing-item">
-        <div class="pricing-circle">
-          <img src="images/Diet planner master page section 4 image 1.png" alt="Dietitian consultation" />
-        </div>
-        <div class="pricing-label">Dietitian consultation</div>
-        <div class="pricing-price">₹1000+</div>
+      <div class="stat-col">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Day Plan</div>
       </div>
-      <div class="pricing-item">
-        <div class="pricing-circle logo-circle">
-          <img src="images/nutrition-tracker-logo.png" alt="Nutrition Tracker" />
-        </div>
-        <div class="pricing-label">Your Plan</div>
-        <div class="pricing-price highlight">₹249</div>
+      <div class="stat-col">
+        <div class="stat-num">90</div>
+        <div class="stat-label">Day Roadmap</div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-num">₹249</div>
+        <div class="stat-label">One-Time Price</div>
       </div>
     </div>
-    <p class="pricing-tagline">Less than 1 meal — but guides your next 90 days</p>
-    <a href="https://nutritiontracker.in/meal-plan.html" class="cta-btn">BUY NOW</a>
+
   </section>
 
 
