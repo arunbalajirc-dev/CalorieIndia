@@ -840,11 +840,11 @@ a { text-decoration: none; color: inherit; }
 
 .blog-progress-bar {
   position: fixed;
-  top: 64px;
+  top: 0;
   left: 0;
   height: 3px;
-  background: #1B6B45;
-  z-index: 998;
+  background: #E07B39;
+  z-index: 1001;
   transition: width 0.05s linear;
   will-change: width;
   pointer-events: none;
