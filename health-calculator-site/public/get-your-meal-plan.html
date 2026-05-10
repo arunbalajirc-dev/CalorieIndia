@@ -195,12 +195,11 @@
     }
 
     /* ════════════════════════════════════════
-       SECTION 3 — FEATURES
+       SECTION 3 — FEATURES (redesigned)
     ════════════════════════════════════════ */
     .features {
       position: relative;
       overflow: hidden;
-      background: var(--dark);
       padding: 100px 5%;
     }
     .features-inner {
@@ -208,64 +207,218 @@
       z-index: 1;
       max-width: 1200px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 60px;
     }
-    .features-left h2 {
+    .features-heading {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
       font-weight: 700;
       color: var(--white);
-      margin-bottom: 28px;
+      text-align: center;
+      margin-bottom: 56px;
     }
-    .features-left img {
-      width: 100%;
-      max-width: 480px;
-      height: auto;
-      border-radius: 12px;
-      object-fit: cover;
-      border: 1px solid var(--glass-border);
+    .features-heading span { color: var(--yellow); }
+
+    /* two-column layout */
+    .features-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 32px;
+      align-items: start;
     }
-    .features-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 36px 32px;
+
+    /* ── LEFT: selector cards ── */
+    .feat-selectors {
       display: flex;
       flex-direction: column;
-      gap: 0;
+      gap: 12px;
     }
-    .feature-row {
+    .feat-tab {
+      position: relative;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-left: 3px solid transparent;
+      border-radius: 14px;
+      padding: 18px 20px 22px;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+      overflow: hidden;
+      user-select: none;
+    }
+    .feat-tab:hover {
+      background: rgba(255,255,255,0.07);
+      border-left-color: rgba(255,215,0,0.4);
+    }
+    .feat-tab.active {
+      background: rgba(255,215,0,0.07);
+      border-left-color: var(--yellow);
+      box-shadow: 0 0 24px rgba(255,215,0,0.12), inset 0 0 0 0 transparent;
+    }
+    .feat-tab-header {
       display: flex;
-      align-items: flex-start;
-      gap: 18px;
-      padding: 22px 0;
-      border-bottom: 1px solid var(--glass-border);
+      align-items: center;
+      gap: 12px;
     }
-    .feature-row:last-child { border-bottom: none; }
-    .feature-icon {
-      font-size: 1.5rem;
+    .feat-tab-icon {
+      font-size: 1.4rem;
+      line-height: 1;
       flex-shrink: 0;
-      width: 40px;
-      height: 40px;
+    }
+    .feat-tab-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .feat-tab-sub {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: 4px;
+      margin-left: 44px;
+      line-height: 1.4;
+    }
+    .feat-tab.active .feat-tab-title { color: var(--yellow); }
+    .feat-tab.active .feat-tab-sub   { color: rgba(255,215,0,0.6); }
+
+    /* progress bar */
+    .feat-progress {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--yellow);
+      border-radius: 0 2px 2px 0;
+      transition: none;
+    }
+    .feat-tab.active .feat-progress {
+      animation: featProgress 5s linear forwards;
+    }
+    @keyframes featProgress {
+      from { width: 0%; }
+      to   { width: 100%; }
+    }
+
+    /* ── RIGHT: content panel ── */
+    .feat-panel {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 520px;
+    }
+
+    /* image area */
+    .feat-img-wrap {
+      width: 100%;
+      height: 260px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--glass-border);
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      position: relative;
     }
-    .feature-text h3 {
-      font-size: 1rem;
-      font-weight: 600;
+    .feat-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .feat-img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.2);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .feat-img-placeholder svg { opacity: 0.2; }
+
+    /* text content */
+    .feat-content {
+      padding: 32px 36px 36px;
+      opacity: 1;
+      transition: opacity 0.2s;
+    }
+    .feat-content.fading { opacity: 0; }
+    .feat-content-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
+    .feat-content-icon { font-size: 1.8rem; line-height: 1; }
+    .feat-content-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
       color: var(--white);
-      margin-bottom: 3px;
     }
-    .feature-text p {
-      font-size: 0.83rem;
-      color: rgba(255, 255, 255, 0.55);
-      line-height: 1.5;
+    .feat-content-tagline {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 24px;
+      margin-left: 2px;
+    }
+    .feat-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .feat-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.8);
+    }
+    .feat-bullet-dot {
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
+      margin-top: 7px;
+    }
+    .feat-bullets li strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* responsive */
+    @media (max-width: 960px) {
+      .features-layout {
+        grid-template-columns: 1fr;
+      }
+      .feat-selectors {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 10px;
+        padding-bottom: 4px;
+      }
+      .feat-tab {
+        min-width: 200px;
+        border-left: 1px solid var(--glass-border);
+        border-top: 3px solid transparent;
+      }
+      .feat-tab.active {
+        border-left-color: var(--glass-border);
+        border-top-color: var(--yellow);
+      }
+      .feat-tab-sub { margin-left: 0; margin-top: 6px; }
+      .feat-img-wrap { height: 200px; }
+      .feat-content  { padding: 24px 24px 28px; }
+    }
+    @media (max-width: 520px) {
+      .feat-selectors { flex-direction: column; }
+      .feat-tab { min-width: unset; }
+      .feat-img-wrap { height: 160px; }
     }
 
     /* ════════════════════════════════════════
@@ -539,46 +692,212 @@
   </section>
 
   <!-- ════════════════════════════════════════
-       SECTION 3 — FEATURES
+       SECTION 3 — FEATURES (redesigned)
   ════════════════════════════════════════ -->
   <section class="features">
     <div class="features-inner">
-      <div class="features-left">
-        <h2>Features</h2>
-        <img src="images/Diet planner master page section 3 image 1.png" alt="Calorie Burn Engine calculator screenshot" />
-      </div>
-      <div class="features-card">
-        <div class="feature-row">
-          <div class="feature-icon">👤</div>
-          <div class="feature-text">
-            <h3>Your Body Analysis</h3>
-            <p>BMI, TDEE, BMR, Weight loss projection</p>
+      <h2 class="features-heading">Everything inside your <span>₹249 plan</span></h2>
+
+      <div class="features-layout">
+
+        <!-- LEFT: selector tabs -->
+        <div class="feat-selectors" id="feat-selectors">
+
+          <div class="feat-tab active" data-feat="0">
+            <div class="feat-tab-header">
+              <span class="feat-tab-icon">👤</span>
+              <span class="feat-tab-title">Your Body Analysis</span>
+            </div>
+            <div class="feat-tab-sub">Know your numbers before you change them</div>
+            <div class="feat-progress"></div>
           </div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-icon">⚙️</div>
-          <div class="feature-text">
-            <h3>Indian Meal Library</h3>
-            <p>Breakfast, Lunch, Snacks, Dinner, Mix &amp; match options</p>
+
+          <div class="feat-tab" data-feat="1">
+            <div class="feat-tab-header">
+              <span class="feat-tab-icon">⚙️</span>
+              <span class="feat-tab-title">Indian Meal Library</span>
+            </div>
+            <div class="feat-tab-sub">150+ real Indian meals. All calorie-verified.</div>
+            <div class="feat-progress"></div>
           </div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-icon">🛡️</div>
-          <div class="feature-text">
-            <h3>7-Day Plan</h3>
-            <p>Ready-to-follow daily schedule / Beginner → Strength → Maintenance</p>
+
+          <div class="feat-tab" data-feat="2">
+            <div class="feat-tab-header">
+              <span class="feat-tab-icon">🗓️</span>
+              <span class="feat-tab-title">7-Day Meal Plan</span>
+            </div>
+            <div class="feat-tab-sub">Every day planned. Every gram calculated.</div>
+            <div class="feat-progress"></div>
           </div>
-        </div>
-        <div class="feature-row">
-          <div class="feature-icon">🛡️</div>
-          <div class="feature-text">
-            <h3>Fat Loss Engine</h3>
-            <p>500 kcal deficit logic explained, Sustainable fat loss</p>
+
+          <div class="feat-tab" data-feat="3">
+            <div class="feat-tab-header">
+              <span class="feat-tab-icon">🔥</span>
+              <span class="feat-tab-title">Fat Loss Engine</span>
+            </div>
+            <div class="feat-tab-sub">The science behind why this actually works</div>
+            <div class="feat-progress"></div>
           </div>
-        </div>
-      </div>
-    </div>
+
+        </div><!-- /feat-selectors -->
+
+        <!-- RIGHT: content panel -->
+        <div class="feat-panel">
+          <div class="feat-img-wrap" id="feat-img-wrap">
+            <!-- placeholder shown until image is set -->
+            <div class="feat-img-placeholder" id="feat-img-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <rect x="3" y="3" width="18" height="18" rx="3"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              Image coming soon
+            </div>
+          </div>
+
+          <div class="feat-content" id="feat-content">
+            <!-- filled by JS -->
+          </div>
+        </div><!-- /feat-panel -->
+
+      </div><!-- /features-layout -->
+    </div><!-- /features-inner -->
   </section>
+
+  <script>
+  (function () {
+    var FEATURES = [
+      {
+        icon: '👤',
+        name: 'Your Body Analysis',
+        tagline: 'Know your numbers before you change them',
+        img: null,
+        bullets: [
+          { label: 'BMI (Asian Standard)', desc: 'Calibrated for Indian body types, not Western averages' },
+          { label: 'BMR &amp; TDEE', desc: 'Your resting burn vs. true daily burn. Your plan is built around the gap' },
+          { label: 'Weight Loss Projection', desc: 'Month-by-month timeline showing exactly when you hit your target' },
+          { label: 'Exercise Burn Target', desc: 'The exact kcal you need to move daily to hit 0.5 kg/week' },
+        ]
+      },
+      {
+        icon: '⚙️',
+        name: 'Indian Meal Library',
+        tagline: '150+ real Indian meals. All calorie-verified.',
+        img: null,
+        bullets: [
+          { label: '4 meal slots', desc: 'Breakfast, Lunch, Snacks, Dinner. Each slot budget pre-calculated for your target' },
+          { label: '7 options per slot', desc: 'Mutton Biryani, Fish Curry, Chicken Tikka, Egg Bhurji and more — rotate daily' },
+          { label: 'Mix &amp; match', desc: 'Every item is interchangeable within its slot. Same calories, different meal. No boredom' },
+          { label: 'Data source', desc: 'IFCT 2017 · NIN India. Not estimated — verified' },
+        ]
+      },
+      {
+        icon: '🗓️',
+        name: '7-Day Meal Plan',
+        tagline: 'Every day planned. Every gram calculated.',
+        img: null,
+        bullets: [
+          { label: 'Complete Mon–Sun schedule', desc: 'All four slots filled with meal name, gram weight, and calories' },
+          { label: 'Macro breakdown per day', desc: 'Protein, Carbs, Fat listed for every single day' },
+          { label: '3-Phase Fitness Roadmap', desc: 'Consistency → Strength training → Maintenance across 52 weeks' },
+          { label: 'Beginner-friendly', desc: 'Standard Indian home and restaurant food. No complex cooking' },
+        ]
+      },
+      {
+        icon: '🔥',
+        name: 'Fat Loss Engine',
+        tagline: 'The science behind why this actually works',
+        img: null,
+        bullets: [
+          { label: '500 kcal total deficit', desc: '323 from diet + 177 from exercise. Clinically recommended split' },
+          { label: 'BMR floor protection', desc: 'Your plan never drops below BMR. Muscle stays. Only fat burns' },
+          { label: '0.5 kg/week', desc: 'Safe rate. 1 kg of fat every 24 days. The math is inside your plan' },
+          { label: '80/20 rule', desc: '80% food, 20% movement. No crash diets, no extreme workouts' },
+        ]
+      },
+    ];
+
+    var current = 0;
+    var timer   = null;
+    var DELAY   = 5000;
+
+    var tabs      = document.querySelectorAll('.feat-tab');
+    var content   = document.getElementById('feat-content');
+    var imgWrap   = document.getElementById('feat-img-wrap');
+    var imgPH     = document.getElementById('feat-img-placeholder');
+
+    function renderContent(idx, animate) {
+      var f = FEATURES[idx];
+      if (animate) { content.classList.add('fading'); }
+
+      setTimeout(function () {
+        /* image */
+        if (f.img) {
+          imgPH.style.display = 'none';
+          var existing = imgWrap.querySelector('img');
+          if (!existing) {
+            var im = document.createElement('img');
+            im.alt = f.name;
+            imgWrap.appendChild(im);
+            existing = im;
+          }
+          existing.src = f.img;
+          existing.style.display = 'block';
+        } else {
+          imgPH.style.display = 'flex';
+          var existingImg = imgWrap.querySelector('img');
+          if (existingImg) existingImg.style.display = 'none';
+        }
+
+        /* text */
+        var html = '<div class="feat-content-title">'
+          + '<span class="feat-content-icon">' + f.icon + '</span>'
+          + '<span class="feat-content-name">' + f.name + '</span>'
+          + '</div>'
+          + '<p class="feat-content-tagline">' + f.tagline + '</p>'
+          + '<ul class="feat-bullets">';
+        f.bullets.forEach(function (b) {
+          html += '<li><span class="feat-bullet-dot"></span>'
+            + '<span><strong>' + b.label + '</strong> — ' + b.desc + '</span></li>';
+        });
+        html += '</ul>';
+        content.innerHTML = html;
+        content.classList.remove('fading');
+      }, animate ? 200 : 0);
+    }
+
+    function activateTab(idx, resetTimer) {
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+      tabs[idx].classList.add('active');
+      /* restart progress bar by cloning the node */
+      var bar = tabs[idx].querySelector('.feat-progress');
+      var clone = bar.cloneNode(true);
+      bar.parentNode.replaceChild(clone, bar);
+      current = idx;
+      renderContent(idx, true);
+      if (resetTimer) {
+        clearInterval(timer);
+        timer = setInterval(advance, DELAY);
+      }
+    }
+
+    function advance() {
+      activateTab((current + 1) % FEATURES.length, false);
+    }
+
+    /* init */
+    renderContent(0, false);
+    timer = setInterval(advance, DELAY);
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var idx = parseInt(tab.getAttribute('data-feat'), 10);
+        if (idx === current) return;
+        activateTab(idx, true);
+      });
+    });
+  })();
+  </script>
 
   <!-- ════════════════════════════════════════
        SECTION 4 — PRICE COMPARISON
