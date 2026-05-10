@@ -22,7 +22,6 @@
       --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
     }
     html { scroll-behavior: smooth; }
-    body { overflow-x: hidden; }
     img, video, table, pre, iframe { max-width: 100%; box-sizing: border-box; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; font-size: 16px; }
 
@@ -339,7 +338,7 @@
 <body>
 
 <!-- READING PROGRESS -->
-<div class="progress-bar" id="progressBar"></div>
+<div id="progressBar" style="position:fixed;top:0;left:0;height:3px;background:#E07B39;width:0%;z-index:9999;transition:width 0.1s linear;pointer-events:none;"></div>
 
 <div id="site-nav"></div>
 
