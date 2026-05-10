@@ -141,8 +141,6 @@ const FOOTER_HTML = `
       <div class="footer-col">
         <h4>Info</h4>
         <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
           <li><a href="privacy-policy.html">Privacy Policy</a></li>
           <li><a href="terms-of-use.html">Terms of Use</a></li>
           <li><a href="disclaimer.html">Disclaimer</a></li>
