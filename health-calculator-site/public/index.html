@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -23,7 +23,8 @@
       --dark: #111813;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    img, video, table, pre, iframe { max-width: 100%; box-sizing: border-box; }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
 
     /* ── HEADER handled by nav.html ── */
@@ -673,3 +674,4 @@ calcTDEE();
 
 </body>
 </html>
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -24,7 +24,8 @@
       --card-bg: rgba(27,107,69,0.08);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    img, video, table, pre, iframe { max-width: 100%; box-sizing: border-box; }
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
@@ -320,3 +321,4 @@ fetch("/footer.html").then(r=>r.text()).then(h=>{document.getElementById("site-f
 </script>
 </body>
 </html>
+

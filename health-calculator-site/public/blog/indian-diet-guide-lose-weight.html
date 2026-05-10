@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -21,7 +21,8 @@
       --shadow: 0 2px 16px rgba(0,0,0,0.08);
       --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    img, video, table, pre, iframe { max-width: 100%; box-sizing: border-box; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; font-size: 16px; }
 
     /* ── NAV ── */
@@ -900,3 +901,4 @@
 <script>fetch('/nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;document.querySelectorAll('#site-nav a[href]').forEach(a=>{var h=a.getAttribute('href');if(h&&!h.startsWith('http')&&!h.startsWith('#')&&!h.startsWith('/')&&!h.startsWith('../'))a.setAttribute('href','../'+h);});});</script>
 </body>
 </html>
+

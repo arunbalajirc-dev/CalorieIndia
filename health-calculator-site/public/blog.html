@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -14,7 +14,7 @@
       --ink: #1A1A2E; --muted: #6B7280; --border: #E5E5E0;
       --white: #FFFFFF; --radius: 14px; --shadow: 0 2px 12px rgba(0,0,0,0.07);
     }
-    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; overflow-x: hidden; max-width: 100vw; }
     .blog-hero { background: linear-gradient(135deg, var(--green) 0%, #1B4332 100%); color: var(--white); padding: 4rem 1.5rem 3rem; text-align: center; }
     .blog-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; margin-bottom: 0.75rem; }
     .blog-hero p { font-size: 1rem; opacity: 0.85; max-width: 520px; margin: 0 auto 1.5rem; }
@@ -283,3 +283,4 @@ loadBlogs();
 <script>fetch('/nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;});</script>
 </body>
 </html>
+

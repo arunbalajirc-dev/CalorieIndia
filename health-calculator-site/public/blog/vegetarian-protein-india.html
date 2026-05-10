@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -18,7 +18,8 @@
       --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
       --shadow: 0 2px 16px rgba(0,0,0,0.08);
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    img, video, table, pre, iframe { max-width: 100%; box-sizing: border-box; }
     body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; font-size: 16px; }
     nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 200; }
     .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 1.5rem; }

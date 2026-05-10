@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -23,7 +23,8 @@
       --glass-border: rgba(255, 255, 255, 0.1);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    img, video, table, pre, iframe { max-width: 100%; box-sizing: border-box; }
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--dark);
@@ -1215,3 +1216,4 @@
 
 </body>
 </html>
+
