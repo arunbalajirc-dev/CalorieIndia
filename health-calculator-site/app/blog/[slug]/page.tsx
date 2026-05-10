@@ -38,6 +38,14 @@ function addHeadingIds(html: string): string {
   });
 }
 
+/** Wrap every bare <table> in a scrollable div so columns aren't clipped on mobile */
+function wrapTables(html: string): string {
+  return html.replace(/<table([\s\S]*?)<\/table>/g, (match) => {
+    if (match.includes('class="table-wrap"')) return match;
+    return `<div class="table-wrap">${match}</div>`;
+  });
+}
+
 export async function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.id }));
 }
@@ -68,7 +76,7 @@ export default function BlogPostPage({ params }: Props) {
   const prevPost = idx > 0 ? allPosts[idx - 1] : null;
   const nextPost = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
 
-  const processedContent = addHeadingIds(post.content ?? '');
+  const processedContent = wrapTables(addHeadingIds(post.content ?? ''));
 
   return (
     <>

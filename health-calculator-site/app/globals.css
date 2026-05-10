@@ -734,15 +734,36 @@ a { text-decoration: none; color: inherit; }
 .blog-post-body a { color: var(--green-dark); text-decoration: underline; }
 .blog-post-body a:hover { color: var(--green); }
 
-/* Tables inside blog post */
+/* Tables inside blog post — scrollable wrapper prevents clipping on mobile */
 .blog-post-body table {
   width: 100%;
+  min-width: 480px;
   border-collapse: collapse;
-  margin: 24px 0;
   font-size: 0.9rem;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+/* Wrap every table in a scroll container so columns aren't cut on narrow screens */
+.blog-post-body table {
+  display: table;
+}
+.blog-post-body .table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 24px 0;
+  border-radius: 10px;
+}
+/* For tables NOT already wrapped, add scroll behaviour directly */
+.blog-post-body > table,
+.blog-post-body p + table,
+.blog-post-body h2 + table,
+.blog-post-body h3 + table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  margin: 24px 0;
 }
 .blog-post-body th {
   background: var(--green-dark);
@@ -751,11 +772,13 @@ a { text-decoration: none; color: inherit; }
   text-align: left;
   font-weight: 600;
   font-size: 0.85rem;
+  white-space: nowrap;
 }
 .blog-post-body td {
   padding: 10px 14px;
   border-bottom: 1px solid var(--border);
   vertical-align: top;
+  white-space: normal;
 }
 .blog-post-body tr:last-child td { border-bottom: none; }
 .blog-post-body tr:nth-child(even) td { background: #f8fdf8; }
