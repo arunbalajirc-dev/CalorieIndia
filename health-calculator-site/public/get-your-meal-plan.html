@@ -78,16 +78,6 @@
       overflow: hidden;
       background: var(--dark);
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      bottom: -120px;
-      left: -180px;
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, var(--green-glow) 0%, transparent 65%);
-      pointer-events: none;
-    }
     .hero-inner {
       position: relative;
       z-index: 1;
@@ -136,17 +126,6 @@
       overflow: hidden;
       background: var(--dark-2);
       padding: 100px 5%;
-    }
-    .included::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 900px;
-      height: 700px;
-      background: radial-gradient(ellipse, var(--amber-glow) 0%, transparent 60%);
-      pointer-events: none;
     }
     .included-inner {
       position: relative;
@@ -223,16 +202,6 @@
       overflow: hidden;
       background: var(--dark);
       padding: 100px 5%;
-    }
-    .features::before {
-      content: '';
-      position: absolute;
-      bottom: -100px;
-      left: -100px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, var(--green-glow) 0%, transparent 65%);
-      pointer-events: none;
     }
     .features-inner {
       position: relative;
@@ -404,7 +373,7 @@
 
   <!-- ═══ ANIMATED BACKGROUND ═══ -->
   <canvas id="anim-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;display:block;" aria-hidden="true"></canvas>
-  <div id="particle-layer" style="position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;" aria-hidden="true"></div>
+  <div id="particle-layer" style="position:fixed;inset:0;z-index:10;pointer-events:none;overflow:hidden;" aria-hidden="true"></div>
   <style>
     @keyframes floatUp {
       0%   { transform: translateY(110vh); opacity: 0; }
@@ -454,7 +423,7 @@
         /* Grid */
         const gx = W / 14, gy = H / 8;
         const ox = (t * 18) % gx, oy = (t * 10) % gy;
-        ctx.strokeStyle = 'rgba(255,255,255,0.015)';
+        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
         ctx.lineWidth   = 0.5;
         ctx.beginPath();
         for (let x = -gx + ox; x < W + gx; x += gx) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
@@ -502,9 +471,6 @@
       }
     })();
   </script>
-
-  <!-- NAV -->
-  <div id="site-nav"></div>
 
   <!-- ════════════════════════════════════════
        SECTION 1 — HERO
@@ -645,11 +611,6 @@
     <a href="https://nutritiontracker.in/meal-plan.html" class="cta-btn">BUY NOW</a>
   </section>
 
-  <script>
-    fetch('/nav.html')
-      .then(r => r.text())
-      .then(h => document.getElementById('site-nav').innerHTML = h);
-  </script>
 
 </body>
 </html>
