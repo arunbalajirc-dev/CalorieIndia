@@ -306,12 +306,12 @@
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="f-name">Name <span class="req">*</span></label>
-          <input class="form-input" type="text" id="f-name" placeholder="Arjun Sharma" autocomplete="name" />
+          <input class="form-input" type="text" id="f-name" autocomplete="name" />
           <div class="field-error" id="err-name">Please enter your name.</div>
         </div>
         <div class="form-group">
           <label class="form-label" for="f-email">Email <span class="req">*</span></label>
-          <input class="form-input" type="email" id="f-email" placeholder="arjun@email.com" autocomplete="email" />
+          <input class="form-input" type="email" id="f-email" autocomplete="email" />
           <div class="field-error" id="err-email">Please enter a valid email address.</div>
         </div>
       </div>
@@ -319,7 +319,7 @@
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="f-age">Age <span class="req">*</span></label>
-          <input class="form-input" type="number" id="f-age" placeholder="28" min="10" max="100" />
+          <input class="form-input" type="number" id="f-age" min="10" max="100" />
           <div class="field-error" id="err-age">Age must be between 10 and 100.</div>
         </div>
         <div class="form-group">
@@ -336,12 +336,12 @@
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="f-weight">Weight (kg) <span class="req">*</span></label>
-          <input class="form-input" type="number" id="f-weight" placeholder="72" min="20" max="300" step="0.1" />
+          <input class="form-input" type="number" id="f-weight" min="20" max="300" step="0.1" />
           <div class="field-error" id="err-weight">Weight must be between 20 and 300 kg.</div>
         </div>
         <div class="form-group">
           <label class="form-label" for="f-height">Height (cm) <span class="req">*</span></label>
-          <input class="form-input" type="number" id="f-height" placeholder="168" min="100" max="250" step="0.1" />
+          <input class="form-input" type="number" id="f-height" min="100" max="250" step="0.1" />
           <div class="field-error" id="err-height">Height must be between 100 and 250 cm.</div>
         </div>
       </div>
@@ -387,7 +387,7 @@
       <!-- Target weight — only shown when goal = lose -->
       <div class="form-group" id="target-weight-group" style="display:none;">
         <label class="form-label" for="f-target-weight">Target Weight (kg) <span class="req">*</span></label>
-        <input class="form-input" type="number" id="f-target-weight" placeholder="e.g. 65" min="20" max="300" step="0.1" disabled />
+        <input class="form-input" type="number" id="f-target-weight" min="20" max="300" step="0.1" disabled />
         <div class="field-error" id="err-target-weight"></div>
         <div id="target-weight-caution" style="display:none;margin-top:6px;padding:10px 14px;background:#fef9c3;border:1px solid #fde047;border-radius:8px;font-size:13px;color:#854d0e;">
           ⚠️ A difference of 1–3 kg is very small. Consider choosing <strong>Maintain Weight</strong> as your goal instead.
