@@ -117,6 +117,14 @@
       object-fit: contain;
       filter: drop-shadow(0 20px 60px rgba(46, 204, 64, 0.2));
     }
+    .hero-video {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      border-radius: 16px;
+      display: block;
+      filter: drop-shadow(0 20px 60px rgba(46, 204, 64, 0.18));
+    }
 
     /* ════════════════════════════════════════
        SECTION 2 — WHAT'S INCLUDED
@@ -499,7 +507,7 @@
       }
       .hero-text p { margin-left: auto; margin-right: auto; }
       .hero-image { order: -1; }
-      .hero-image > div { height: 420px !important; }
+      .hero-video { max-width: 100%; }
       .included-image { order: -1; }
       .included-image img { width: 100%; max-width: 360px; }
       .features-left img { max-width: 360px; margin: 0 auto; display: block; }
@@ -636,17 +644,15 @@
         <a href="https://nutritiontracker.in/meal-plan.html" class="cta-btn">GET MY PLAN FOR ₹249</a>
       </div>
       <div class="hero-image">
-        <div style="position:relative;width:100%;max-width:640px;height:540px;margin:0 auto;">
-          <iframe
-            src="/book-flip-widget.html"
-            width="100%"
-            height="100%"
-            frameborder="0"
-            scrolling="no"
-            style="background:transparent;border:none;overflow:hidden;"
-            title="Meal Plan Preview"
-          ></iframe>
-        </div>
+        <video
+          class="hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+        >
+          <source src="/videos/nutrition-tracker-planner.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </section>
