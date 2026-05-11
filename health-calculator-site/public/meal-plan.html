@@ -313,20 +313,47 @@
       --white:       #131510;
       --text:        #e8e8e4;
       --muted:       rgba(255,255,255,0.50);
-      --border:      rgba(255,255,255,0.12);
+      --border:      rgba(255,255,255,0.14);
       --green:       #3ddc84;
-      --green-light: rgba(61,220,132,0.18);
-      --green-dark:  #2d7a4f;
+      --green-light: rgba(61,220,132,0.15);
+      --green-dark:  #3ddc84;
       --error:       #f87171;
       --error-bg:    rgba(220,38,38,0.14);
     }
     html, body { background: #0a0a08; color-scheme: dark; }
     .page-hero { background: transparent; }
+
+    /* ── 1. Progress step line & dots ── */
+    .progress-steps::before {
+      background: rgba(255,255,255,0.15);
+    }
+    .progress-fill { background: #3ddc84; }
+    .step-dot {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.50);
+    }
+    .step-dot.active {
+      background: #3ddc84;
+      border-color: #3ddc84;
+      color: #0a0a08;
+    }
+    .step-dot.done {
+      background: rgba(61,220,132,0.20);
+      border-color: #3ddc84;
+      color: #3ddc84;
+    }
+    .step-label        { color: rgba(255,255,255,0.40); }
+    .step-label.active { color: #3ddc84; font-weight: 600; }
+
+    /* ── Card ── */
     .mp-card {
       background: rgba(255,255,255,0.05);
       border-color: rgba(255,255,255,0.12);
       box-shadow: 0 8px 40px rgba(0,0,0,0.50);
     }
+
+    /* ── Form fields ── */
     .form-input, .form-select {
       background: rgba(255,255,255,0.07);
       border-color: rgba(255,255,255,0.14);
@@ -334,18 +361,29 @@
     }
     .form-input::placeholder { color: rgba(255,255,255,0.28); }
     .form-select option       { background: #1a1f14; color: #e8e8e4; }
-    .progress-steps::before   { background: rgba(255,255,255,0.12); }
-    .step-dot {
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(255,255,255,0.18);
-      color: rgba(255,255,255,0.45);
+
+    /* ── Step 2 summary panels ── */
+    .summary-panel       { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+    .summary-panel-title { color: rgba(255,255,255,0.45); }
+    .summary-row         { border-bottom: 1px solid rgba(255,255,255,0.10); }
+    .summary-key         { color: rgba(255,255,255,0.50); }
+    .summary-val         { color: #e8e8e4; }
+    .macro-row           { border-bottom: 1px solid rgba(255,255,255,0.10); }
+    .macro-label         { color: rgba(255,255,255,0.50); }
+    .macro-value         { color: #e8e8e4; }
+    .plan-includes li    { color: #e8e8e4; }
+    .plan-includes-title { color: rgba(255,255,255,0.45); }
+
+    /* ── 3. Calorie targets box ── */
+    .calorie-box {
+      background: rgba(61,220,132,0.12);
+      border: 1px solid rgba(61,220,132,0.25);
     }
-    .summary-panel  { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
-    .summary-row    { border-bottom-color: rgba(255,255,255,0.08); }
-    .calorie-box    { background: rgba(61,220,132,0.14); }
-    .calorie-box-label { color: #3ddc84; }
-    .macro-row { border-bottom-color: rgba(255,255,255,0.08); }
-    .plan-includes li { color: #e8e8e4; }
+    .calorie-box-label { color: rgba(255,255,255,0.60); font-weight: 500; }
+    .calorie-box-value { color: #3ddc84; }
+    .calorie-box-unit  { color: rgba(255,255,255,0.45); }
+
+    /* ── Goal / cuisine cards ── */
     .goal-card-label {
       background: rgba(255,255,255,0.06);
       border-color: rgba(255,255,255,0.14);
@@ -359,8 +397,21 @@
       color: #e8e8e4;
     }
     .cuisine-card-label.selected { background: rgba(61,220,132,0.18); border-color: #3ddc84; color: #3ddc84; }
-    .payment-summary-box { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
-    .psrow { border-bottom-color: rgba(255,255,255,0.08); }
+
+    /* ── 2. Order summary (step 3) ── */
+    .payment-summary-box {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .payment-summary-box h4 { color: rgba(255,255,255,0.45); }
+    .psrow {
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .psrow:last-child { border-bottom: none; }
+    .psrow-key { color: rgba(255,255,255,0.50); }
+    .psrow-val { color: #e8e8e4; font-weight: 600; }
+
+    /* ── Misc ── */
     .btn-ghost {
       background: rgba(255,255,255,0.07);
       border-color: rgba(255,255,255,0.16);
@@ -378,9 +429,10 @@
     .bmi-overweight  { background: rgba(245,158,11,0.18); color: #fbbf24; }
     .bmi-obese       { background: rgba(239,68,68,0.18);  color: #f87171; }
     .step2-footer .back-link,
-    .back-link { color: rgba(255,255,255,0.40); }
+    .back-link       { color: rgba(255,255,255,0.40); }
     .step2-footer .sub-note { color: rgba(255,255,255,0.40); }
     .payment-trust p { color: rgba(255,255,255,0.45); }
+
     /* ── Lift content above canvas ── */
     .page-hero, .progress-wrap, .steps-container, footer {
       position: relative; z-index: 2;
