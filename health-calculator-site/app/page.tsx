@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { useState, useEffect } from 'react'
 import { Barlow_Condensed, DM_Sans } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -273,14 +274,37 @@ function FreeTools() {
 // ── Blog Section ──────────────────────────────────────────────────────────────
 
 function BlogSection({ posts }: { posts: ReturnType<typeof getLatest3> }) {
+  const [current, setCurrent] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const total = posts.length
+
+  useEffect(() => {
+    function check() { setIsMobile(window.innerWidth <= 900) }
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  const prev = () => setCurrent(i => (i - 1 + total) % total)
+  const next = () => setCurrent(i => (i + 1) % total)
+
+  const btnStyle: React.CSSProperties = {
+    width: 44, height: 44, borderRadius: '50%',
+    border: '2px solid rgba(255,255,255,0.15)',
+    background: 'rgba(255,255,255,0.07)',
+    color: '#fff', fontSize: 20, cursor: 'pointer',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    flexShrink: 0, transition: 'background 0.18s',
+  }
+
   return (
-    <section style={{ background: BG, padding: '96px 24px' }}>
+    <section style={{ background: BG, padding: isMobile ? '64px 16px 72px' : '96px 24px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 48, flexWrap: 'wrap', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: isMobile ? 32 : 48, flexWrap: 'wrap', gap: 16 }}>
           <div>
             <h2 style={{
-              fontFamily: 'var(--font-barlow, sans-serif)', fontSize: 'clamp(28px, 4vw, 44px)',
+              fontFamily: 'var(--font-barlow, sans-serif)', fontSize: 'clamp(26px, 4vw, 44px)',
               fontWeight: 900, color: ACCENT, margin: '0 0 8px', lineHeight: 1.1,
             }}>
               Weight loss guides for Indian bodies
@@ -298,24 +322,64 @@ function BlogSection({ posts }: { posts: ReturnType<typeof getLatest3> }) {
             }}
             onMouseEnter={e => {
               const el = e.currentTarget as HTMLAnchorElement
-              el.style.gap = '12px'
-              el.style.opacity = '0.85'
+              el.style.gap = '12px'; el.style.opacity = '0.85'
             }}
             onMouseLeave={e => {
               const el = e.currentTarget as HTMLAnchorElement
-              el.style.gap = '6px'
-              el.style.opacity = '1'
+              el.style.gap = '6px'; el.style.opacity = '1'
             }}
           >
             View all articles →
           </Link>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
-          {posts.map(post => (
-            <BlogCard key={post.id} post={post} />
-          ))}
-        </div>
+        {isMobile ? (
+          /* ── Mobile: single-card carousel ── */
+          <div>
+            <div style={{ overflow: 'hidden', borderRadius: 14 }}>
+              <div style={{
+                display: 'flex',
+                transform: `translateX(-${current * 100}%)`,
+                transition: 'transform 0.35s cubic-bezier(.4,0,.2,1)',
+              }}>
+                {posts.map(post => (
+                  <div key={post.id} style={{ minWidth: '100%', flexShrink: 0 }}>
+                    <BlogCard post={post} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* nav row */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 24 }}>
+              <button onClick={prev} style={btnStyle} aria-label="Previous">←</button>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                {posts.map((_, i) => (
+                  <div
+                    key={i}
+                    onClick={() => setCurrent(i)}
+                    style={{
+                      width: i === current ? 22 : 8,
+                      height: 8, borderRadius: 4,
+                      background: i === current ? ACCENT : 'rgba(255,255,255,0.2)',
+                      transition: 'width 0.25s, background 0.25s',
+                      cursor: 'pointer',
+                    }}
+                  />
+                ))}
+              </div>
+              <button onClick={next} style={btnStyle} aria-label="Next">→</button>
+            </div>
+          </div>
+        ) : (
+          /* ── Desktop: 3-column grid ── */
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+            {posts.map(post => (
+              <BlogCard key={post.id} post={post} />
+            ))}
+          </div>
+        )}
+
       </div>
     </section>
   )
