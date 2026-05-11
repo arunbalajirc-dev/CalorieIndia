@@ -494,7 +494,7 @@ function closeModal() { $('overlay').classList.remove('open'); }
 readURL();
 fetchFoods();
 </script>
-<script>fetch('/nav.html').then(r=>r.text()).then(h=>{document.getElementById('site-nav').innerHTML=h;});</script>
+<script>fetch('/nav.html').then(r=>r.text()).then(h=>{var sn=document.getElementById('site-nav');sn.innerHTML=h;sn.querySelectorAll('script').forEach(function(s){var ns=document.createElement('script');ns.textContent=s.textContent;document.head.appendChild(ns);});});</script>
 </body>
 </html>
 

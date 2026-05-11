@@ -992,7 +992,7 @@ fetchAllFoods();
 
 fetch('/nav.html')
   .then(r => r.text())
-  .then(h => document.getElementById('site-nav').innerHTML = h)
+  .then(h => { var sn=document.getElementById('site-nav');sn.innerHTML=h;sn.querySelectorAll('script').forEach(function(s){var ns=document.createElement('script');ns.textContent=s.textContent;document.head.appendChild(ns);}); })
   .catch(() => {});
 </script>
 </body>
