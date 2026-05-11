@@ -276,9 +276,11 @@ function FreeTools() {
 function BlogSection({ posts }: { posts: ReturnType<typeof getLatest3> }) {
   const [current, setCurrent] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const total = posts.length
 
   useEffect(() => {
+    setMounted(true)
     function check() { setIsMobile(window.innerWidth <= 900) }
     check()
     window.addEventListener('resize', check)
@@ -333,17 +335,20 @@ function BlogSection({ posts }: { posts: ReturnType<typeof getLatest3> }) {
           </Link>
         </div>
 
-        {isMobile ? (
+        {(mounted && isMobile) ? (
           /* ── Mobile: single-card carousel ── */
           <div>
-            <div style={{ overflow: 'hidden', borderRadius: 14 }}>
+            <div style={{ overflow: 'hidden', width: '100%' }}>
               <div style={{
                 display: 'flex',
+                flexWrap: 'nowrap',
+                gap: 0,
                 transform: `translateX(-${current * 100}%)`,
                 transition: 'transform 0.35s cubic-bezier(.4,0,.2,1)',
+                willChange: 'transform',
               }}>
                 {posts.map(post => (
-                  <div key={post.id} style={{ minWidth: '100%', flexShrink: 0 }}>
+                  <div key={post.id} style={{ flex: '0 0 100%', width: '100%', boxSizing: 'border-box' }}>
                     <BlogCard post={post} />
                   </div>
                 ))}
@@ -372,7 +377,7 @@ function BlogSection({ posts }: { posts: ReturnType<typeof getLatest3> }) {
             </div>
           </div>
         ) : (
-          /* ── Desktop: 3-column grid ── */
+          /* ── Desktop / SSR: 3-column grid ── */
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
             {posts.map(post => (
               <BlogCard key={post.id} post={post} />
