@@ -265,6 +265,47 @@
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Animation keyframes ── */
+    @keyframes floatUp {
+      0%   { transform: translateY(110vh) translateX(0);   opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-10vh) translateX(0);   opacity: 0; }
+    }
+    @keyframes floatSway {
+      0%   { transform: translateY(110vh) translateX(0px);   opacity: 0; }
+      10%  { opacity: 1; }
+      30%  { transform: translateY(75vh)  translateX(22px); }
+      55%  { transform: translateY(45vh)  translateX(-18px); }
+      75%  { transform: translateY(20vh)  translateX(14px); }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-10vh) translateX(-8px);  opacity: 0; }
+    }
+    @keyframes ctaGlowGreen {
+      0%,100% { box-shadow: 0 0 18px 4px rgba(45,122,79,0.30), 0 0 50px 14px rgba(45,122,79,0.10); }
+      50%     { box-shadow: 0 0 30px 8px rgba(45,122,79,0.50), 0 0 80px 28px rgba(45,122,79,0.18); }
+    }
+    /* ── CTA glow ── */
+    .btn-primary-full {
+      animation: ctaGlowGreen 2.4s ease-in-out infinite;
+    }
+    /* ── Hero ambient light pool ── */
+    .page-hero {
+      position: relative;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: -40px -60px;
+      background:
+        radial-gradient(ellipse at 20% 60%, rgba(245,197,24,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 40%, rgba(45,122,79,0.07) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(16px);
+    }
+    .page-hero > * { position: relative; z-index: 1; }
   </style>
 </head>
 <body>
@@ -1185,6 +1226,99 @@ function showPaymentError(msg) {
   el.style.display = 'block';
 }
 </script>
+
+  <!-- ═══ ANIMATED BACKGROUND ═══ -->
+  <canvas id="anim-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;display:block;" aria-hidden="true"></canvas>
+  <div id="particle-layer" style="position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;" aria-hidden="true"></div>
+  <script>
+  (function () {
+    /* ── Canvas ── */
+    var canvas = document.getElementById('anim-bg');
+    var ctx    = canvas.getContext('2d');
+    var ORBS   = [
+      { xP: 0.12, yP: 0.18, r: 280, c: 'rgba(245,197,24,0.06)',  dx:  0.5, dy:  0.25 },
+      { xP: 0.85, yP: 0.55, r: 240, c: 'rgba(45,122,79,0.05)',   dx: -0.4, dy: -0.20 },
+      { xP: 0.50, yP: 0.80, r: 180, c: 'rgba(245,197,24,0.04)',  dx:  0.35,dy: -0.30 },
+      { xP: 0.70, yP: 0.10, r: 160, c: 'rgba(45,122,79,0.04)',   dx: -0.30,dy:  0.40 },
+    ];
+    var W, H, t = 0, raf, rsz;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+
+    function draw() {
+      t += 0.004;
+      ctx.clearRect(0, 0, W, H);
+
+      /* Orbs */
+      for (var i = 0; i < ORBS.length; i++) {
+        var o  = ORBS[i];
+        var cx = o.xP * W + Math.sin(t * o.dx) * 55;
+        var cy = o.yP * H + Math.cos(t * o.dy) * 45;
+        var g  = ctx.createRadialGradient(cx, cy, 0, cx, cy, o.r);
+        g.addColorStop(0, o.c);
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(cx, cy, o.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      /* Grid */
+      var gx = W / 14, gy = H / 8;
+      var ox = (t * 45) % gx, oy = (t * 28) % gy;
+      ctx.strokeStyle = 'rgba(45,122,79,0.07)';
+      ctx.lineWidth   = 0.5;
+      ctx.beginPath();
+      for (var x = -gx + ox; x < W + gx; x += gx) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+      for (var y = -gy + oy; y < H + gy; y += gy) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+      ctx.stroke();
+
+      /* Scan line */
+      var sx = ((t * 80) % (W + 300)) - 150;
+      var sg = ctx.createLinearGradient(sx - 150, 0, sx + 150, 0);
+      sg.addColorStop(0,   'rgba(245,197,24,0)');
+      sg.addColorStop(0.5, 'rgba(245,197,24,0.012)');
+      sg.addColorStop(1,   'rgba(245,197,24,0)');
+      ctx.fillStyle = sg;
+      ctx.fillRect(sx - 150, 0, 300, H);
+
+      raf = requestAnimationFrame(draw);
+    }
+    draw();
+
+    window.addEventListener('resize', function () {
+      clearTimeout(rsz);
+      rsz = setTimeout(resize, 120);
+    });
+
+    /* ── Particles ── */
+    var layer  = document.getElementById('particle-layer');
+    var COLORS = [
+      [0.25, 0.45, 'rgba(245,197,24,'],
+      [0.20, 0.40, 'rgba(45,122,79,'],
+      [0.15, 0.35, 'rgba(61,220,132,'],
+    ];
+    for (var i = 0; i < 50; i++) {
+      var roll  = Math.random();
+      var col   = roll < 0.45 ? COLORS[0] : roll < 0.75 ? COLORS[1] : COLORS[2];
+      var alpha = (col[0] + Math.random() * (col[1] - col[0])).toFixed(2);
+      var size  = (1.5 + Math.random() * 4).toFixed(1);
+      var dur   = (3.5 + Math.random() * 6.5).toFixed(1);
+      var delay = (Math.random() * 10).toFixed(1);
+      var left  = (Math.random() * 100).toFixed(1);
+      var anim  = Math.random() < 0.55 ? 'floatSway' : 'floatUp';
+      var p     = document.createElement('div');
+      p.style.cssText = 'position:absolute;bottom:0;left:' + left + '%;width:' + size + 'px;height:' + size + 'px;'
+        + 'border-radius:50%;background:' + col[2] + alpha + ');'
+        + 'animation:' + anim + ' ' + dur + 's ' + delay + 's infinite linear;will-change:transform,opacity;';
+      layer.appendChild(p);
+    }
+  })();
+  </script>
 
 <footer style="background:#111813;color:rgba(255,255,255,.4);text-align:center;padding:20px 24px;font-size:12px;font-family:'DM Sans',sans-serif;border-top:1px solid rgba(255,255,255,.07);">
   <p>© 2026 Nutrition Tracker. All rights reserved. &nbsp;|&nbsp;
