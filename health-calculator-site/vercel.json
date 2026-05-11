@@ -30,6 +30,7 @@
     { "source": "/ideal-weight-calculator",    "destination": "/ideal-weight-calculator.html" },
     { "source": "/macro-calculator",           "destination": "/macro-calculator.html" },
     { "source": "/meal-plan",                  "destination": "/meal-plan.html" },
+    { "source": "/meal-plan/step-2",           "destination": "/meal-plan.html" },
     { "source": "/privacy-policy",             "destination": "/privacy-policy.html" },
     { "source": "/recipe-database",            "destination": "/recipe-database.html" },
     { "source": "/tdee-calculator",            "destination": "/tdee-calculator.html" },

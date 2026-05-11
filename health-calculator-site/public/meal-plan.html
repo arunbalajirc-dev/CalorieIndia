@@ -324,10 +324,20 @@
     .page-hero { background: transparent; }
 
     /* ── 1. Progress step line & dots ── */
+    .progress-steps {
+      align-items: flex-start;
+      padding-bottom: 12px;
+    }
     .progress-steps::before {
+      top: auto;
+      bottom: 0;
       background: rgba(255,255,255,0.15);
     }
-    .progress-fill { background: #3ddc84; }
+    .progress-fill {
+      top: auto;
+      bottom: 0;
+      background: #3ddc84;
+    }
     .step-dot {
       background: rgba(255,255,255,0.08);
       border-color: rgba(255,255,255,0.22);
@@ -453,12 +463,10 @@
     <div class="progress-fill" id="progress-fill" style="width:0%"></div>
     <div class="step-dot active" id="dot-1">1</div>
     <div class="step-dot" id="dot-2">2</div>
-    <div class="step-dot" id="dot-3">3</div>
   </div>
   <div class="step-labels">
     <div class="step-label active" id="label-1">Your Details</div>
-    <div class="step-label" id="label-2">Preview</div>
-    <div class="step-label" id="label-3">Payment</div>
+    <div class="step-label" id="label-2">Preview &amp; Pay</div>
   </div>
 </div>
 
@@ -469,7 +477,7 @@
   <div id="step-1">
     <div class="mp-card">
       <div class="step-title">Tell us about yourself</div>
-      <div class="step-subtitle">Step 1 of 3 — Your Details</div>
+      <div class="step-subtitle">Step 1 of 2 — Your Details</div>
 
       <div class="inline-error" id="form-error"></div>
 
@@ -601,7 +609,7 @@
   <div id="step-2" style="display:none;">
     <div class="mp-card">
       <div class="step-title">Your Plan Preview</div>
-      <div class="step-subtitle">Step 2 of 3 — Review your details before generating</div>
+      <div class="step-subtitle">Step 2 of 2 — Review &amp; Pay</div>
 
       <div class="summary-grid">
 
@@ -625,7 +633,7 @@
         <div class="summary-panel">
           <div class="summary-panel-title">Your Calorie Targets</div>
 
-          <div class="calorie-box" style="background:#f0f9f4;">
+          <div class="calorie-box">
             <div>
               <div class="calorie-box-label">Your TDEE</div>
               <div style="font-size:11px;color:var(--muted);">Maintenance calories</div>
@@ -659,59 +667,43 @@
       <div class="inline-error" id="step2-error"></div>
 
       <div class="step2-footer">
-        <button class="btn-primary btn-primary-full" id="btn-generate" onclick="submitStep2()">
-          Generate My Plan — ₹250
-        </button>
-        <div class="sub-note">One-time payment · Instant PDF download · No subscription</div>
+
+        <!-- Pay button (also triggers Supabase save on first click) -->
+        <div id="payment-action">
+          <button class="btn-primary btn-primary-full" id="rzp-pay-btn" onclick="submitStep2()">
+            Generate My Plan — ₹249
+          </button>
+          <div class="sub-note">One-time payment · Instant PDF download · No subscription</div>
+        </div>
+
+        <!-- Payment processing spinner -->
+        <div id="payment-loading" style="display:none;background:rgba(61,220,132,0.10);border:1px solid rgba(61,220,132,0.25);border-radius:12px;padding:28px 24px;text-align:center;margin-bottom:16px;">
+          <div style="width:32px;height:32px;margin:0 auto 12px;border:3px solid rgba(61,220,132,0.20);border-top-color:#3ddc84;border-radius:50%;animation:spin .7s linear infinite;"></div>
+          <div id="payment-loading-title" style="font-size:15px;font-weight:700;color:#3ddc84;margin-bottom:4px;">Confirming payment…</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.50);">Please wait — this usually takes a few seconds.</div>
+        </div>
+
+        <!-- Fallback (plan still being generated) -->
+        <div id="payment-fallback" style="display:none;background:rgba(245,197,24,0.10);border:1px solid rgba(245,197,24,0.30);border-radius:12px;padding:18px 20px;margin-bottom:16px;">
+          <div style="font-size:14px;font-weight:700;color:#fbbf24;margin-bottom:4px;">Your plan is being prepared.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.60);">You'll receive a download link at <strong id="pf-email"></strong> shortly.</div>
+        </div>
+
+        <!-- Payment error -->
+        <div id="payment-error" style="display:none;background:rgba(220,38,38,0.14);border:1px solid rgba(248,113,113,0.40);border-radius:12px;padding:14px 18px;margin-bottom:16px;font-size:13px;color:#f87171;"></div>
+
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-bottom:6px;margin-top:8px;">₹249 · Secure payment via Razorpay</div>
+        <div class="payment-trust">
+          <p>🔒 Your data is stored securely.</p>
+          <p>📄 PDF will download automatically after payment.</p>
+          <p>📧 A copy will be emailed to <strong id="p-email"></strong>.</p>
+        </div>
+
         <a class="back-link" onclick="goToStep1()">← Edit my details</a>
       </div>
     </div>
   </div>
 
-  <!-- ════════════ STEP 3: PAYMENT PLACEHOLDER ════════════ -->
-  <div id="step-3" style="display:none;">
-    <div class="mp-card" style="text-align:center;">
-      <div class="ready-badge">✅ Your plan is ready to generate!</div>
-
-      <div class="step-title" style="margin-bottom:4px;">Complete Your Payment</div>
-      <div class="step-subtitle">Step 3 of 3 — Payment</div>
-
-      <div class="payment-summary-box" style="text-align:left;">
-        <h4>Order Summary</h4>
-        <div class="psrow"><span class="psrow-key">Plan for</span><span class="psrow-val" id="p-name"></span></div>
-        <div class="psrow"><span class="psrow-key">Goal</span><span class="psrow-val" id="p-goal"></span></div>
-        <div class="psrow"><span class="psrow-key">Target calories</span><span class="psrow-val" id="p-calories"></span></div>
-        <div class="psrow"><span class="psrow-key">Plan ID</span><span class="psrow-val" id="p-plan-id" style="font-family:monospace;font-size:13px;"></span></div>
-      </div>
-
-      <div id="payment-action" style="margin-bottom:16px;">
-        <button id="rzp-pay-btn" class="btn-primary btn-primary-full" onclick="startPayment()">
-          Pay ₹249 · Get My Meal Plan
-        </button>
-      </div>
-
-      <div id="payment-loading" style="display:none;background:var(--green-light);border:1px solid rgba(45,122,79,.2);border-radius:12px;padding:32px 24px;text-align:center;margin-bottom:16px;">
-        <div style="width:36px;height:36px;margin:0 auto 14px;border:3px solid rgba(45,122,79,.2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;"></div>
-        <div id="payment-loading-title" style="font-size:16px;font-weight:700;color:var(--green);margin-bottom:4px;">Confirming payment…</div>
-        <div style="font-size:13px;color:var(--muted);">Please wait — this usually takes a few seconds.</div>
-      </div>
-
-      <div id="payment-fallback" style="display:none;background:#fef9c3;border:1px solid #fde047;border-radius:12px;padding:20px 24px;margin-bottom:16px;">
-        <div style="font-size:14px;font-weight:700;color:#92400e;margin-bottom:4px;">Your plan is being prepared.</div>
-        <div style="font-size:13px;color:#78350f;">You'll receive a download link at <strong id="pf-email"></strong> shortly.</div>
-      </div>
-
-      <div id="payment-error" style="display:none;background:#fef2f2;border:1px solid #fca5a5;border-radius:12px;padding:16px 20px;margin-bottom:16px;font-size:13px;color:#dc2626;"></div>
-
-      <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">₹249 · Secure payment via Razorpay</div>
-
-      <div class="payment-trust">
-        <p>🔒 Your data is stored securely.</p>
-        <p>📄 PDF will download automatically after payment.</p>
-        <p>📧 A copy will be emailed to <strong id="p-email"></strong>.</p>
-      </div>
-    </div>
-  </div>
 
 </div><!-- /steps-container -->
 
@@ -734,10 +726,10 @@ var planData = {};
 // ── Progress indicator ──
 function setProgress(step) {
   var fill = document.getElementById('progress-fill');
-  var fills = [0, 0, 50, 100];
+  var fills = [0, 0, 100];
   fill.style.width = fills[step] + '%';
 
-  for (var i = 1; i <= 3; i++) {
+  for (var i = 1; i <= 2; i++) {
     var dot   = document.getElementById('dot-' + i);
     var label = document.getElementById('label-' + i);
     dot.classList.remove('active', 'done');
@@ -749,12 +741,30 @@ function setProgress(step) {
 }
 
 // ── Show step ──
-function showStep(n) {
+function showStep(n, pushUrl) {
   document.getElementById('step-1').style.display = n === 1 ? 'block' : 'none';
   document.getElementById('step-2').style.display = n === 2 ? 'block' : 'none';
-  document.getElementById('step-3').style.display = n === 3 ? 'block' : 'none';
   setProgress(n);
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (pushUrl !== false) {
+    if (n === 1) history.pushState({ step: 1 }, '', '/meal-plan');
+    if (n === 2) history.pushState({ step: 2 }, '', '/meal-plan/step-2');
+  }
+}
+
+// ── Browser back/forward support ──
+window.addEventListener('popstate', function(e) {
+  var step = (e.state && e.state.step) ? e.state.step : 1;
+  if (step === 1) sessionStorage.removeItem('nutritiontracker_plan_id');
+  document.getElementById('step-1').style.display = step === 1 ? 'block' : 'none';
+  document.getElementById('step-2').style.display = step === 2 ? 'block' : 'none';
+  setProgress(step);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ── If landed on /step-2 without plan data, drop back to step 1 ──
+if (window.location.pathname.includes('step-2') && !sessionStorage.getItem('nutritiontracker_plan_id')) {
+  history.replaceState({ step: 1 }, '', '/meal-plan');
 }
 
 // ── Goal card visual toggle + target weight show/hide ──
@@ -1106,16 +1116,25 @@ function setText(id, val) {
 
 // ════════════ STEP 1 BACK ════════════
 function goToStep1() {
+  sessionStorage.removeItem('nutritiontracker_plan_id');
   showStep(1);
 }
 
-// ════════════ STEP 2 SUBMIT (Supabase insert) ════════════
+// ════════════ STEP 2 SUBMIT → SAVE → RAZORPAY ════════════
 async function submitStep2() {
-  var btn = document.getElementById('btn-generate');
+  var btn   = document.getElementById('rzp-pay-btn');
   var errEl = document.getElementById('step2-error');
   errEl.classList.remove('visible');
+
+  // If already saved (e.g. user dismissed Razorpay and clicked again), skip save
+  if (sessionStorage.getItem('nutritiontracker_plan_id')) {
+    setText('p-email', planData.email);
+    startPayment();
+    return;
+  }
+
   btn.disabled = true;
-  btn.textContent = 'Saving…';
+  btn.textContent = 'Saving your plan…';
 
   try {
     var payload = {
@@ -1164,36 +1183,23 @@ async function submitStep2() {
       throw new Error(errText || 'Failed to save your plan. Please try again.');
     }
 
-    var rows = await res.json();
+    var rows  = await res.json();
     var planId = rows[0] && rows[0].id ? rows[0].id : null;
-
-    if (planId) {
-      sessionStorage.setItem('nutritiontracker_plan_id', planId);
-    }
+    if (planId) sessionStorage.setItem('nutritiontracker_plan_id', planId);
     sessionStorage.setItem('nutritiontracker_email', planData.email);
+    setText('p-email', planData.email);
 
-    populateStep3(planId);
-    showStep(3);
+    btn.disabled = false;
+    btn.textContent = 'Generate My Plan — ₹249';
+    startPayment();
 
   } catch (e) {
     var msg = (e && e.message) ? e.message : 'Something went wrong. Please try again.';
     errEl.textContent = msg;
     errEl.classList.add('visible');
     btn.disabled = false;
-    btn.textContent = 'Generate My Plan — ₹250';
+    btn.textContent = 'Generate My Plan — ₹249';
   }
-}
-
-// ════════════ POPULATE STEP 3 ════════════
-function populateStep3(planId) {
-  var goalLabel = { lose: 'Lose Weight', maintain: 'Maintain Weight', gain: 'Gain Muscle' }[planData.goal];
-  var shortId = planId ? planId.substring(0, 8) : '—';
-
-  setText('p-name',     planData.name);
-  setText('p-goal',     goalLabel);
-  setText('p-calories', planData.target_calories.toLocaleString() + ' kcal/day');
-  setText('p-plan-id',  shortId + '…');
-  setText('p-email',    planData.email);
 }
 
 // ════════════ RAZORPAY CHECKOUT ════════════
@@ -1251,16 +1257,16 @@ async function startPayment() {
       modal: {
         ondismiss: function() {
           btn.disabled = false;
-          btn.textContent = 'Pay ₹249 · Get My Meal Plan';
+          btn.textContent = 'Generate My Plan — ₹249';
         }
       }
     });
     rzp.open();
     btn.disabled = false;
-    btn.textContent = 'Pay ₹249 · Get My Meal Plan';
+    btn.textContent = 'Generate My Plan — ₹249';
   } catch(e) {
     btn.disabled = false;
-    btn.textContent = 'Pay ₹249 · Get My Meal Plan';
+    btn.textContent = 'Generate My Plan — ₹249';
     showPaymentError(e.message || 'Something went wrong. Please try again.');
   }
 }
