@@ -1328,7 +1328,7 @@ async function triggerPdfDownload(planId) {
     var data = await res.json();
     if (res.ok && data.pdf_url) {
       var email = planData.email || sessionStorage.getItem('nutritiontracker_email') || '';
-      window.location.href = 'thank-you.html?pdf=' + encodeURIComponent(data.pdf_url)
+      window.location.href = '/thank-you?pdf=' + encodeURIComponent(data.pdf_url)
                            + '&email=' + encodeURIComponent(email);
     } else {
       showFallbackMessage();
