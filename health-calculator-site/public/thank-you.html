@@ -149,6 +149,35 @@
       border-radius: 50%;
       filter: blur(20px);
     }
+
+    /* ══ DARK THEME ══ */
+    :root {
+      --bg:          #0a0a08;
+      --white:       #0a0a08;
+      --text:        #e8e8e4;
+      --muted:       rgba(255,255,255,0.50);
+      --border:      rgba(255,255,255,0.12);
+      --green:       #2d7a4f;
+      --green-light: rgba(61,220,132,0.18);
+      --green-dark:  #1e5c3a;
+    }
+    html, body { background: #0a0a08; color-scheme: dark; }
+    .card {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+      box-shadow: 0 8px 50px rgba(0,0,0,0.50);
+    }
+    .icon-circle.success { background: rgba(61,220,132,0.18); }
+    .icon-circle.pending { background: rgba(245,197,24,0.15); }
+    .divider { border-top-color: rgba(255,255,255,0.10); }
+    .pending-box {
+      background: rgba(245,197,24,0.10);
+      border-color: rgba(245,197,24,0.30);
+      color: #fbbf24;
+    }
+    .what-next li   { color: #e8e8e4; }
+    .back-link      { color: rgba(255,255,255,0.40); }
+    .back-link:hover{ color: #3ddc84; }
   </style>
 </head>
 <body>
@@ -220,10 +249,10 @@
     var canvas = document.getElementById('anim-bg');
     var ctx    = canvas.getContext('2d');
     var ORBS   = [
-      { xP: 0.12, yP: 0.18, r: 260, c: 'rgba(245,197,24,0.06)',  dx:  0.5, dy:  0.25 },
-      { xP: 0.85, yP: 0.55, r: 220, c: 'rgba(45,122,79,0.06)',   dx: -0.4, dy: -0.20 },
-      { xP: 0.45, yP: 0.78, r: 170, c: 'rgba(245,197,24,0.04)',  dx:  0.35,dy: -0.30 },
-      { xP: 0.72, yP: 0.12, r: 150, c: 'rgba(45,122,79,0.04)',   dx: -0.30,dy:  0.40 },
+      { xP: 0.15, yP: 0.20, r: 320, c: 'rgba(245,197,24,0.055)', dx:  0.6, dy:  0.30 },
+      { xP: 0.82, yP: 0.60, r: 260, c: 'rgba(61,220,132,0.04)',  dx: -0.5, dy: -0.25 },
+      { xP: 0.50, yP: 0.85, r: 200, c: 'rgba(245,197,24,0.035)', dx:  0.4, dy: -0.35 },
+      { xP: 0.72, yP: 0.10, r: 180, c: 'rgba(61,220,132,0.03)',  dx: -0.35,dy:  0.45 },
     ];
     var W, H, t = 0, raf, rsz;
 
@@ -235,7 +264,8 @@
 
     function draw() {
       t += 0.004;
-      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#0a0a08';
+      ctx.fillRect(0, 0, W, H);
 
       for (var i = 0; i < ORBS.length; i++) {
         var o  = ORBS[i];
@@ -252,7 +282,7 @@
 
       var gx = W / 14, gy = H / 8;
       var ox = (t * 45) % gx, oy = (t * 28) % gy;
-      ctx.strokeStyle = 'rgba(45,122,79,0.07)';
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
       ctx.lineWidth   = 0.5;
       ctx.beginPath();
       for (var x = -gx + ox; x < W + gx; x += gx) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
@@ -262,7 +292,7 @@
       var sx = ((t * 80) % (W + 300)) - 150;
       var sg = ctx.createLinearGradient(sx - 150, 0, sx + 150, 0);
       sg.addColorStop(0,   'rgba(245,197,24,0)');
-      sg.addColorStop(0.5, 'rgba(245,197,24,0.012)');
+      sg.addColorStop(0.5, 'rgba(245,197,24,0.018)');
       sg.addColorStop(1,   'rgba(245,197,24,0)');
       ctx.fillStyle = sg;
       ctx.fillRect(sx - 150, 0, 300, H);
@@ -278,9 +308,9 @@
 
     var layer  = document.getElementById('particle-layer');
     var COLORS = [
-      [0.25, 0.45, 'rgba(245,197,24,'],
-      [0.20, 0.40, 'rgba(45,122,79,'],
-      [0.15, 0.35, 'rgba(61,220,132,'],
+      [0.25, 0.70, 'rgba(245,197,24,'],
+      [0.20, 0.60, 'rgba(61,220,132,'],
+      [0.15, 0.50, 'rgba(255,255,255,'],
     ];
     for (var i = 0; i < 50; i++) {
       var roll  = Math.random();
