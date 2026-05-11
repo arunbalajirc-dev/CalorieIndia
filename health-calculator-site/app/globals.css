@@ -1055,7 +1055,7 @@ a { text-decoration: none; color: inherit; }
 
 @media (max-width: 1023px) {
   .blog-post-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0;
     padding: 40px 24px 80px;
   }

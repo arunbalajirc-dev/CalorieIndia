@@ -151,8 +151,12 @@
     .footer-col a:hover { color: var(--green-light); }
     .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.25rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 0.5rem; }
     .footer-bottom a { color: var(--green-light); text-decoration: none; }
-    @media (max-width: 900px) { .page-wrap { grid-template-columns: 1fr; } .sidebar { position: static; } .toc-card { display: none; } .footer-inner { grid-template-columns: 1fr 1fr; } .post-nav { grid-template-columns: 1fr; } .meal-plan, .tips-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .page-wrap { grid-template-columns: minmax(0, 1fr); } .sidebar { position: static; } .toc-card { display: none; } .footer-inner { grid-template-columns: 1fr 1fr; } .post-nav { grid-template-columns: 1fr; } .meal-plan, .tips-grid { grid-template-columns: 1fr; } }
     @media (max-width: 600px) { .footer-inner { grid-template-columns: 1fr; } .nav-links { display: none; } }
+      /* table-scroll-fix */
+    /* Mobile: tables scroll horizontally */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
   </style>
 </head>
 <body>

@@ -322,7 +322,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .page-wrap { grid-template-columns: 1fr; }
+      .page-wrap { grid-template-columns: minmax(0, 1fr); }
       .sidebar { position: static; }
       .toc-card { display: none; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
@@ -333,6 +333,10 @@
       .footer-inner { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
+      /* table-scroll-fix */
+    /* Mobile: tables scroll horizontally */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
   </style>
 </head>
 <body>

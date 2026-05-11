@@ -179,7 +179,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);
   .ntable{grid-template-columns:1fr}
   .grid{grid-template-columns:1fr}
 }
-</style>
+
+    /* macros-mobile-fix */
+    @media (max-width: 600px) { .macros { grid-template-columns: repeat(2, 1fr); } }
+  </style>
 </head>
 <body>
 <div id="site-nav"></div>
