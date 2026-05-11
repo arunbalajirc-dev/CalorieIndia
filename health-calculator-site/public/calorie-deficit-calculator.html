@@ -35,6 +35,7 @@
     .results.show{display:block;}
     .result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px;}
     @media(max-width:500px){.result-grid{grid-template-columns:1fr;}}
+    @media(max-width:640px){.calc-section{padding:24px 16px;}.calc-card{padding:24px 20px;}}
     .r-box{border-radius:12px;padding:20px;text-align:center;}
     .r-box .r-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:8px;}
     .r-box .r-val{font-family:'Sora',sans-serif;font-size:2.2rem;font-weight:800;}
@@ -69,8 +70,22 @@
     .cta-bar{background:linear-gradient(135deg,var(--purple),#1a0038);border-radius:16px;padding:40px;text-align:center;margin:48px 0;color:white;}
     .cta-bar h3{font-family:'Sora',sans-serif;font-size:1.5rem;margin-bottom:10px;}
     .cta-bar a{background:white;color:var(--purple);padding:12px 28px;border-radius:8px;font-weight:700;font-family:'Sora',sans-serif;display:inline-block;margin-top:16px;}
-    footer{background:var(--dark);color:rgba(255,255,255,.6);text-align:center;padding:32px 5%;font-size:.85rem;}
-    footer a{color:var(--purple-light);}
+    /* ── RICH FOOTER ── */
+    footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.08);padding:48px 24px 24px;color:rgba(255,255,255,.6);}
+    .footer-inner{max-width:1200px;margin:0 auto;}
+    .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+    .footer-logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.1rem;color:#fff;text-decoration:none;margin-bottom:10px;}
+    .footer-logo-dot{width:28px;height:28px;background:linear-gradient(135deg,#2e7d32,#40c073);border-radius:6px;flex-shrink:0;}
+    .footer-brand p{font-size:13px;line-height:1.6;margin-bottom:16px;}
+    .footer-flags{font-size:20px;display:flex;gap:8px;}
+    .footer-col h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:14px;}
+    .footer-col ul{list-style:none;padding:0;margin:0;}
+    .footer-col ul li{margin-bottom:8px;}
+    .footer-col ul li a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s;}
+    .footer-col ul li a:hover{color:#fff;}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.3);}
+    @media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;}}
+    @media(max-width:480px){.footer-top{grid-template-columns:1fr;gap:28px;}footer{padding:36px 16px 20px;}.footer-bottom{flex-direction:column;gap:8px;text-align:center;}}
       /* table-scroll-fix */
     /* Mobile: tables scroll horizontally */
     .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -228,7 +243,51 @@
   </div>
 </div>
 <footer>
-  <p>© 2025 Nutrition Tracker | <a href="calculator.html">All Calculators</a> | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-use.html">Terms of Use</a> | <a href="disclaimer.html">Disclaimer</a></p>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+          <div class="footer-logo-dot"></div>
+          <span>Nutrition Tracker</span>
+        </a>
+        <p>India's most practical weight loss resource.</p>
+        <div class="footer-flags">🇮🇳 ❤️ 🥗</div>
+      </div>
+      <div class="footer-col">
+        <h4>Calculators</h4>
+        <ul>
+          <li><a href="/tdee-calculator">TDEE Calculator</a></li>
+          <li><a href="/calorie-deficit-calculator">Calorie Deficit Calculator</a></li>
+          <li><a href="/bmi-calculator">BMI Calculator</a></li>
+          <li><a href="/macro-calculator">Macro Calculator</a></li>
+          <li><a href="/ideal-weight-calculator">Ideal Weight Calculator</a></li>
+          <li><a href="/calorie-burn-calculator">Calorie Burn Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Articles</h4>
+        <ul>
+          <li><a href="/blog/indian-diet-guide-lose-weight">Indian Diet Guide</a></li>
+          <li><a href="/blog/calories-in-indian-meals">Calories in Indian Meals</a></li>
+          <li><a href="/blog/high-protein-indian-breakfasts">High Protein Breakfasts</a></li>
+          <li><a href="/blog">All Articles</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-use">Terms of Use</a></li>
+          <li><a href="/disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Nutrition Tracker. All rights reserved.</span>
+      <span>This website is for informational purposes only and does not constitute medical advice.</span>
+    </div>
+  </div>
 </footer>
 <script>
 function calcDeficit() {

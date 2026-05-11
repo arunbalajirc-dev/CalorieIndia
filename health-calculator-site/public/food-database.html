@@ -323,7 +323,7 @@
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,.45);
-      z-index: 1000;
+      z-index: 1002;
       align-items: flex-start;
       justify-content: flex-end;
       backdrop-filter: blur(3px);
@@ -360,20 +360,21 @@
     .panel-body { padding: 24px; flex: 1; }
 
     .panel-close {
-      position: absolute;
+      position: fixed;
       top: 16px;
       right: 16px;
-      background: rgba(0,0,0,.3);
+      background: rgba(0,0,0,.45);
       border: none;
       color: #fff;
-      width: 32px; height: 32px;
+      width: 36px; height: 36px;
       border-radius: 50%;
-      font-size: 16px;
+      font-size: 18px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      z-index: 10;
+      z-index: 1060;
+      box-shadow: 0 2px 8px rgba(0,0,0,.3);
     }
-    .panel-close:hover { background: rgba(0,0,0,.6); }
+    .panel-close:hover { background: rgba(0,0,0,.7); }
 
     .panel-name {
       font-family: 'Playfair Display', serif;
@@ -579,9 +580,9 @@
 
 <!-- DETAIL PANEL -->
 <div class="panel-overlay" id="panel-overlay">
+  <button class="panel-close" id="panel-close-btn" onclick="closePanel()" title="Close" style="display:none;">✕</button>
   <div class="detail-panel" id="detail-panel">
     <div id="panel-img-wrap" class="panel-header-img">
-      <button class="panel-close" onclick="closePanel()" title="Close">✕</button>
     </div>
     <div class="panel-body" id="panel-body"></div>
   </div>
@@ -875,9 +876,8 @@ function openPanel(id) {
   const body    = document.getElementById('panel-body');
 
   imgWrap.style.background = grupGradient(food.grup);
-  imgWrap.innerHTML = `
-    <span style="font-size:80px;">${foodEmoji(food.grup)}</span>
-    <button class="panel-close" onclick="closePanel()" title="Close">✕</button>`;
+  imgWrap.innerHTML = `<span style="font-size:80px;">${foodEmoji(food.grup)}</span>`;
+  document.getElementById('panel-close-btn').style.display = 'flex';
 
   const n = (v, d=1) => v != null ? (+v).toFixed(d) : '—';
 
@@ -949,6 +949,7 @@ function openPanel(id) {
 
 function closePanel() {
   document.getElementById('panel-overlay').classList.remove('open');
+  document.getElementById('panel-close-btn').style.display = 'none';
   document.body.style.overflow = '';
 }
 
