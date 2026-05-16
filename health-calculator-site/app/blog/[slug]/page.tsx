@@ -78,8 +78,40 @@ export default function BlogPostPage({ params }: Props) {
 
   const processedContent = wrapTables(addHeadingIds(post.content ?? ''));
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        headline: post.title,
+        url: `https://calorieindia.com/blog/${params.slug}`,
+        datePublished: post.date,
+        dateModified: post.date,
+        author: {
+          '@type': 'Organization',
+          name: 'CalorieIndia',
+          '@id': 'https://calorieindia.com/#organization',
+        },
+        publisher: { '@id': 'https://calorieindia.com/#organization' },
+        ...(post.image ? { image: `https://calorieindia.com${post.image}` } : {}),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://calorieindia.com' },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://calorieindia.com/blog' },
+          { '@type': 'ListItem', position: 3, name: post.title, item: `https://calorieindia.com/blog/${params.slug}` },
+        ],
+      },
+    ],
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <BlogProgressBar />
 

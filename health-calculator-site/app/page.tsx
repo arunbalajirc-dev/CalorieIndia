@@ -53,6 +53,37 @@ function getLatest3() {
     .slice(0, 3)
 }
 
+const homeJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://calorieindia.com/#organization',
+      name: 'CalorieIndia',
+      url: 'https://calorieindia.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://calorieindia.com/logo.png',
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://calorieindia.com/#website',
+      url: 'https://calorieindia.com',
+      name: 'CalorieIndia',
+      publisher: { '@id': 'https://calorieindia.com/#organization' },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: 'https://calorieindia.com/food-database?q={search_term_string}',
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    },
+  ],
+}
+
 export default function HomePage() {
   const posts = getLatest3()
 
@@ -61,6 +92,10 @@ export default function HomePage() {
       className={`${barlow.variable} ${dmSans.variable}`}
       style={{ background: BG, color: '#f1f5f2', fontFamily: 'var(--font-dm-sans, sans-serif)', minHeight: '100vh' }}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
       <Navbar />
       <Hero />
       <FreeTools />

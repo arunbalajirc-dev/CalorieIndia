@@ -16,6 +16,59 @@ interface FAQState {
   [key: number]: boolean;
 }
 
+const tdeeFaqs = [
+  {
+    q: 'What is the difference between BMR and TDEE?',
+    a: 'BMR (Basal Metabolic Rate) is the calories your body burns at complete rest — just keeping your organs running. TDEE is BMR multiplied by your activity level. TDEE is always higher than BMR and is the more practical number for planning your diet.',
+  },
+  {
+    q: 'How accurate is the TDEE calculator?',
+    a: 'The Mifflin-St Jeor formula used here has about ±10% accuracy for most people. Track your weight for 2–3 weeks while eating at your calculated TDEE, then adjust based on what actually happens.',
+  },
+  {
+    q: 'Should I eat my TDEE calories on rest days?',
+    a: "Your TDEE already accounts for your weekly average activity. You don't need to eat less on rest days unless you calculated using a very high activity multiplier.",
+  },
+  {
+    q: 'Why is my actual weight loss slower than my calorie deficit predicts?',
+    a: "Several reasons: water retention (especially early on), the body's metabolic adaptation to lower calorie intake, slight inaccuracies in food tracking. Be patient — consistent 4-week trends matter more than weekly fluctuations.",
+  },
+  {
+    q: 'Can I use TDEE for a vegetarian Indian diet?',
+    a: "Absolutely. TDEE is calorie-based, not diet-specific. The key difference is that vegetarians need to be more intentional about protein — combining dal, paneer, curd, tofu, and legumes to hit protein goals.",
+  },
+  {
+    q: 'How often should I recalculate my TDEE?',
+    a: 'Recalculate every 4–6 weeks during a weight loss phase, or whenever your weight changes by more than 3–4 kg. As you lose weight, your BMR decreases, so your calorie target must adjust downward.',
+  },
+  {
+    q: 'Is TDEE different for Indians compared to Western populations?',
+    a: "The formula is the same, but on average Indians tend to have a higher body fat percentage at the same BMI. Starting conservatively (one step lower on the activity scale) and adjusting empirically is a good approach.",
+  },
+]
+
+const tdeeJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'TDEE Calculator for Indians',
+      url: 'https://calorieindia.com/tdee-calculator',
+      applicationCategory: 'HealthApplication',
+      operatingSystem: 'All',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: tdeeFaqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+}
+
 export default function TDEECalculatorPage() {
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('male');
@@ -40,39 +93,14 @@ export default function TDEECalculatorPage() {
     setFaqOpen((prev) => ({ ...prev, [idx]: !prev[idx] }));
   }
 
-  const faqs = [
-    {
-      q: 'What is the difference between BMR and TDEE?',
-      a: 'BMR (Basal Metabolic Rate) is the calories your body burns at complete rest — just keeping your organs running. TDEE is BMR multiplied by your activity level. TDEE is always higher than BMR and is the more practical number for planning your diet.',
-    },
-    {
-      q: 'How accurate is the TDEE calculator?',
-      a: 'The Mifflin-St Jeor formula used here has about ±10% accuracy for most people. Track your weight for 2–3 weeks while eating at your calculated TDEE, then adjust based on what actually happens.',
-    },
-    {
-      q: 'Should I eat my TDEE calories on rest days?',
-      a: "Your TDEE already accounts for your weekly average activity. You don't need to eat less on rest days unless you calculated using a very high activity multiplier.",
-    },
-    {
-      q: 'Why is my actual weight loss slower than my calorie deficit predicts?',
-      a: "Several reasons: water retention (especially early on), the body's metabolic adaptation to lower calorie intake, slight inaccuracies in food tracking. Be patient — consistent 4-week trends matter more than weekly fluctuations.",
-    },
-    {
-      q: 'Can I use TDEE for a vegetarian Indian diet?',
-      a: "Absolutely. TDEE is calorie-based, not diet-specific. The key difference is that vegetarians need to be more intentional about protein — combining dal, paneer, curd, tofu, and legumes to hit protein goals.",
-    },
-    {
-      q: 'How often should I recalculate my TDEE?',
-      a: 'Recalculate every 4–6 weeks during a weight loss phase, or whenever your weight changes by more than 3–4 kg. As you lose weight, your BMR decreases, so your calorie target must adjust downward.',
-    },
-    {
-      q: 'Is TDEE different for Indians compared to Western populations?',
-      a: "The formula is the same, but on average Indians tend to have a higher body fat percentage at the same BMI. Starting conservatively (one step lower on the activity scale) and adjusting empirically is a good approach.",
-    },
-  ];
+  const faqs = tdeeFaqs;
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(tdeeJsonLd) }}
+      />
       <Navbar />
 
       <div className="tdee-hero">

@@ -19,6 +19,16 @@ const EMPTY: CalcResults = {
   tdee: null, bmi: null, deficit: null, macro: null, idealWeight: null, burn: null,
 };
 
+const calcJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Indian Health Calculators — TDEE, BMI, Macros & More',
+  url: 'https://calorieindia.com/calculator',
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'All',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+}
+
 export default function CalculatorPage() {
   const [r, setR] = useState<CalcResults>(EMPTY);
 
@@ -109,6 +119,10 @@ export default function CalculatorPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(calcJsonLd) }}
+      />
       <Navbar />
 
       <div className="page-hero">
