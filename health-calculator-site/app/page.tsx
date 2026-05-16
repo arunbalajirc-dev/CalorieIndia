@@ -1,29 +1,29 @@
-import HomeClient from '@/components/HomeClient'
+﻿import HomeClient from '@/components/HomeClient'
 
 const homeJsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'Organization',
-      '@id': 'https://calorieindia.com/#organization',
+      '@id': 'https://nutritiontracker.in/#organization',
       name: 'CalorieIndia',
-      url: 'https://calorieindia.com',
+      url: 'https://nutritiontracker.in',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://calorieindia.com/logo.png',
+        url: 'https://nutritiontracker.in/images/nutrition-tracker-logo.png',
       },
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://calorieindia.com/#website',
-      url: 'https://calorieindia.com',
+      '@id': 'https://nutritiontracker.in/#website',
+      url: 'https://nutritiontracker.in',
       name: 'CalorieIndia',
-      publisher: { '@id': 'https://calorieindia.com/#organization' },
+      publisher: { '@id': 'https://nutritiontracker.in/#organization' },
       potentialAction: {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://calorieindia.com/food-database?q={search_term_string}',
+          urlTemplate: 'https://nutritiontracker.in/food-database?q={search_term_string}',
         },
         'query-input': 'required name=search_term_string',
       },

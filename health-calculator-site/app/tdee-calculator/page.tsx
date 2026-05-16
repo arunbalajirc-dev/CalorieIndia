@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -19,11 +19,11 @@ interface FAQState {
 const tdeeFaqs = [
   {
     q: 'What is the difference between BMR and TDEE?',
-    a: 'BMR (Basal Metabolic Rate) is the calories your body burns at complete rest — just keeping your organs running. TDEE is BMR multiplied by your activity level. TDEE is always higher than BMR and is the more practical number for planning your diet.',
+    a: 'BMR (Basal Metabolic Rate) is the calories your body burns at complete rest â€” just keeping your organs running. TDEE is BMR multiplied by your activity level. TDEE is always higher than BMR and is the more practical number for planning your diet.',
   },
   {
     q: 'How accurate is the TDEE calculator?',
-    a: 'The Mifflin-St Jeor formula used here has about ±10% accuracy for most people. Track your weight for 2–3 weeks while eating at your calculated TDEE, then adjust based on what actually happens.',
+    a: 'The Mifflin-St Jeor formula used here has about Â±10% accuracy for most people. Track your weight for 2â€“3 weeks while eating at your calculated TDEE, then adjust based on what actually happens.',
   },
   {
     q: 'Should I eat my TDEE calories on rest days?',
@@ -31,15 +31,15 @@ const tdeeFaqs = [
   },
   {
     q: 'Why is my actual weight loss slower than my calorie deficit predicts?',
-    a: "Several reasons: water retention (especially early on), the body's metabolic adaptation to lower calorie intake, slight inaccuracies in food tracking. Be patient — consistent 4-week trends matter more than weekly fluctuations.",
+    a: "Several reasons: water retention (especially early on), the body's metabolic adaptation to lower calorie intake, slight inaccuracies in food tracking. Be patient â€” consistent 4-week trends matter more than weekly fluctuations.",
   },
   {
     q: 'Can I use TDEE for a vegetarian Indian diet?',
-    a: "Absolutely. TDEE is calorie-based, not diet-specific. The key difference is that vegetarians need to be more intentional about protein — combining dal, paneer, curd, tofu, and legumes to hit protein goals.",
+    a: "Absolutely. TDEE is calorie-based, not diet-specific. The key difference is that vegetarians need to be more intentional about protein â€” combining dal, paneer, curd, tofu, and legumes to hit protein goals.",
   },
   {
     q: 'How often should I recalculate my TDEE?',
-    a: 'Recalculate every 4–6 weeks during a weight loss phase, or whenever your weight changes by more than 3–4 kg. As you lose weight, your BMR decreases, so your calorie target must adjust downward.',
+    a: 'Recalculate every 4â€“6 weeks during a weight loss phase, or whenever your weight changes by more than 3â€“4 kg. As you lose weight, your BMR decreases, so your calorie target must adjust downward.',
   },
   {
     q: 'Is TDEE different for Indians compared to Western populations?',
@@ -53,7 +53,7 @@ const tdeeJsonLd = {
     {
       '@type': 'WebApplication',
       name: 'TDEE Calculator for Indians',
-      url: 'https://calorieindia.com/tdee-calculator',
+      url: 'https://nutritiontracker.in/tdee-calculator',
       applicationCategory: 'HealthApplication',
       operatingSystem: 'All',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
@@ -105,12 +105,12 @@ export default function TDEECalculatorPage() {
 
       <div className="tdee-hero">
         <div className="breadcrumb">
-          <Link href="/calculator" className="tdee-hero" style={{ color: 'rgba(255,255,255,0.7)', background: 'none', padding: 0 }}>Home</Link> › TDEE Calculator
+          <Link href="/calculator" className="tdee-hero" style={{ color: 'rgba(255,255,255,0.7)', background: 'none', padding: 0 }}>Home</Link> â€º TDEE Calculator
         </div>
-        <span className="hero-emoji">🔥</span>
+        <span className="hero-emoji">ðŸ”¥</span>
         <h1>TDEE Calculator <span>for Indians</span></h1>
         <p>
-          Find out exactly how many calories your body burns every day — and use that
+          Find out exactly how many calories your body burns every day â€” and use that
           number to lose weight, gain muscle, or simply eat right.
         </p>
       </div>
@@ -141,15 +141,15 @@ export default function TDEECalculatorPage() {
             <div className="tdee-form-group full" style={{ gridColumn: '1 / -1' }}>
               <label>Activity Level</label>
               <select value={activity} onChange={(e) => setActivity(e.target.value)}>
-                <option value="1.2">Sedentary – desk job, little or no exercise</option>
-                <option value="1.375">Lightly active – exercise 1–3 days/week</option>
-                <option value="1.55">Moderately active – exercise 3–5 days/week</option>
-                <option value="1.725">Very active – exercise 6–7 days/week</option>
-                <option value="1.9">Super active – physical job + daily exercise</option>
+                <option value="1.2">Sedentary â€“ desk job, little or no exercise</option>
+                <option value="1.375">Lightly active â€“ exercise 1â€“3 days/week</option>
+                <option value="1.55">Moderately active â€“ exercise 3â€“5 days/week</option>
+                <option value="1.725">Very active â€“ exercise 6â€“7 days/week</option>
+                <option value="1.9">Super active â€“ physical job + daily exercise</option>
               </select>
             </div>
           </div>
-          <button className="tdee-calc-btn" onClick={calcTDEE}>Calculate My TDEE →</button>
+          <button className="tdee-calc-btn" onClick={calcTDEE}>Calculate My TDEE â†’</button>
 
           {result && (
             <div style={{ marginTop: '32px' }}>
@@ -167,7 +167,7 @@ export default function TDEECalculatorPage() {
                 <div className="tdee-result-box green-box">
                   <div className="r-label">Lose 0.5 kg/week</div>
                   <div className="r-val">{result.lose}</div>
-                  <div className="r-sub">−500 cal/day deficit</div>
+                  <div className="r-sub">âˆ’500 cal/day deficit</div>
                 </div>
                 <div className="tdee-result-box">
                   <div className="r-label">Gain 0.5 kg/week</div>
@@ -192,7 +192,7 @@ export default function TDEECalculatorPage() {
             your body (matching your TDEE) or becomes a surplus (stored as fat) or a deficit (burned from stored fat).
           </p>
           <div className="fire-highlight-box">
-            <strong>The Simple Rule:</strong> Eat at TDEE → Maintain weight. Eat below TDEE → Lose weight. Eat above TDEE → Gain weight.
+            <strong>The Simple Rule:</strong> Eat at TDEE â†’ Maintain weight. Eat below TDEE â†’ Lose weight. Eat above TDEE â†’ Gain weight.
           </div>
         </div>
 
@@ -204,23 +204,23 @@ export default function TDEECalculatorPage() {
           <div className="formula-box">
             <div className="formula-title">Mifflin-St Jeor Equation</div>
             For Men:<br />
-            BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age) + 5<br /><br />
+            BMR = (10 Ã— weight in kg) + (6.25 Ã— height in cm) âˆ’ (5 Ã— age) + 5<br /><br />
             For Women:<br />
-            BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age) − 161
+            BMR = (10 Ã— weight in kg) + (6.25 Ã— height in cm) âˆ’ (5 Ã— age) âˆ’ 161
           </div>
           <h3>Step 2: Multiply by Activity Multiplier</h3>
           <table className="tdee-table">
             <thead><tr><th>Activity Level</th><th>Multiplier</th><th>Who This Fits</th></tr></thead>
             <tbody>
-              <tr><td>Sedentary</td><td>1.2×</td><td>Office jobs, minimal walking, no exercise</td></tr>
-              <tr><td>Lightly Active</td><td>1.375×</td><td>Light exercise 1–3 days/week, some daily walking</td></tr>
-              <tr><td>Moderately Active</td><td>1.55×</td><td>Gym 3–5 days/week, active lifestyle</td></tr>
-              <tr><td>Very Active</td><td>1.725×</td><td>Hard exercise 6–7 days/week, physically demanding job</td></tr>
-              <tr><td>Super Active</td><td>1.9×</td><td>Athlete-level training, physically intense occupation</td></tr>
+              <tr><td>Sedentary</td><td>1.2Ã—</td><td>Office jobs, minimal walking, no exercise</td></tr>
+              <tr><td>Lightly Active</td><td>1.375Ã—</td><td>Light exercise 1â€“3 days/week, some daily walking</td></tr>
+              <tr><td>Moderately Active</td><td>1.55Ã—</td><td>Gym 3â€“5 days/week, active lifestyle</td></tr>
+              <tr><td>Very Active</td><td>1.725Ã—</td><td>Hard exercise 6â€“7 days/week, physically demanding job</td></tr>
+              <tr><td>Super Active</td><td>1.9Ã—</td><td>Athlete-level training, physically intense occupation</td></tr>
             </tbody>
           </table>
           <p>
-            Most working Indians fall in the <strong>Sedentary to Lightly Active</strong> range — especially those in IT,
+            Most working Indians fall in the <strong>Sedentary to Lightly Active</strong> range â€” especially those in IT,
             education, or office-based roles. Don&apos;t overestimate your activity level; this is the most common mistake.
           </p>
         </div>
@@ -253,13 +253,13 @@ export default function TDEECalculatorPage() {
               <div className="step-num">2</div>
               <div className="step-body">
                 <h4>Choose your goal and set a deficit or surplus</h4>
-                <p>For weight loss: subtract 300–500 calories from TDEE. For muscle gain: add 200–300 calories.</p>
+                <p>For weight loss: subtract 300â€“500 calories from TDEE. For muscle gain: add 200â€“300 calories.</p>
               </div>
             </div>
             <div className="step">
               <div className="step-num">3</div>
               <div className="step-body">
-                <h4>Track your food for 2–3 weeks</h4>
+                <h4>Track your food for 2â€“3 weeks</h4>
                 <p>Use an app like HealthifyMe or Cronometer to log meals.</p>
               </div>
             </div>
@@ -267,7 +267,7 @@ export default function TDEECalculatorPage() {
               <div className="step-num">4</div>
               <div className="step-body">
                 <h4>Adjust based on real results</h4>
-                <p>If you&apos;re not losing weight after 2 weeks, reduce by another 100–150 calories.</p>
+                <p>If you&apos;re not losing weight after 2 weeks, reduce by another 100â€“150 calories.</p>
               </div>
             </div>
           </div>
@@ -290,17 +290,17 @@ export default function TDEECalculatorPage() {
         <div className="tdee-section">
           <h2>Why TDEE Varies Between Individuals</h2>
           <h3>Muscle Mass</h3>
-          <p>Muscle burns 3× more calories at rest than fat tissue. Resistance training raises your TDEE permanently.</p>
+          <p>Muscle burns 3Ã— more calories at rest than fat tissue. Resistance training raises your TDEE permanently.</p>
           <h3>Thyroid Function</h3>
           <p>
-            Hypothyroidism is very common in India, especially among women, and can reduce BMR by 15–20%. If you&apos;re
+            Hypothyroidism is very common in India, especially among women, and can reduce BMR by 15â€“20%. If you&apos;re
             eating well below your calculated TDEE and still not losing weight, a thyroid test is a good idea.
           </p>
           <h3>Age</h3>
-          <p>BMR drops roughly 1–2% per decade after age 20, largely due to gradual muscle loss (sarcopenia).</p>
+          <p>BMR drops roughly 1â€“2% per decade after age 20, largely due to gradual muscle loss (sarcopenia).</p>
           <h3>NEAT (Non-Exercise Activity Thermogenesis)</h3>
           <p>
-            NEAT is the energy burned from all non-exercise movement. It can vary by 600–800 kcal/day between individuals
+            NEAT is the energy burned from all non-exercise movement. It can vary by 600â€“800 kcal/day between individuals
             and is a huge hidden factor in TDEE.
           </p>
         </div>
@@ -310,11 +310,11 @@ export default function TDEECalculatorPage() {
           <table className="tdee-table">
             <thead><tr><th>Profile</th><th>Approx. TDEE</th><th>Notes</th></tr></thead>
             <tbody>
-              <tr><td>25-yr male, 70 kg, IT job, no gym</td><td>~1900–2000 kcal</td><td>Sedentary multiplier</td></tr>
-              <tr><td>25-yr female, 58 kg, IT job, no gym</td><td>~1550–1650 kcal</td><td>Sedentary multiplier</td></tr>
-              <tr><td>30-yr male, 75 kg, IT job + gym 4x/week</td><td>~2500–2650 kcal</td><td>Moderately active</td></tr>
-              <tr><td>30-yr female, 62 kg, teacher + walks daily</td><td>~1900–2050 kcal</td><td>Lightly to moderately active</td></tr>
-              <tr><td>35-yr male, 80 kg, field sales job</td><td>~2600–2800 kcal</td><td>Very active</td></tr>
+              <tr><td>25-yr male, 70 kg, IT job, no gym</td><td>~1900â€“2000 kcal</td><td>Sedentary multiplier</td></tr>
+              <tr><td>25-yr female, 58 kg, IT job, no gym</td><td>~1550â€“1650 kcal</td><td>Sedentary multiplier</td></tr>
+              <tr><td>30-yr male, 75 kg, IT job + gym 4x/week</td><td>~2500â€“2650 kcal</td><td>Moderately active</td></tr>
+              <tr><td>30-yr female, 62 kg, teacher + walks daily</td><td>~1900â€“2050 kcal</td><td>Lightly to moderately active</td></tr>
+              <tr><td>35-yr male, 80 kg, field sales job</td><td>~2600â€“2800 kcal</td><td>Very active</td></tr>
             </tbody>
           </table>
         </div>
@@ -322,7 +322,7 @@ export default function TDEECalculatorPage() {
         <div className="fire-cta-bar">
           <h3>Ready to Take Action?</h3>
           <p>Use our Calorie Deficit Calculator to get your exact weight loss target based on your TDEE.</p>
-          <Link href="/calorie-deficit-calculator">Try Deficit Calculator →</Link>
+          <Link href="/calorie-deficit-calculator">Try Deficit Calculator â†’</Link>
         </div>
 
         <div className="tdee-section">
