@@ -6,7 +6,7 @@ const homeJsonLd = {
     {
       '@type': 'Organization',
       '@id': 'https://nutritiontracker.in/#organization',
-      name: 'CalorieIndia',
+      name: 'NutritionTracker.in',
       url: 'https://nutritiontracker.in',
       logo: {
         '@type': 'ImageObject',
@@ -17,7 +17,7 @@ const homeJsonLd = {
       '@type': 'WebSite',
       '@id': 'https://nutritiontracker.in/#website',
       url: 'https://nutritiontracker.in',
-      name: 'CalorieIndia',
+      name: 'NutritionTracker.in',
       publisher: { '@id': 'https://nutritiontracker.in/#organization' },
       potentialAction: {
         '@type': 'SearchAction',
