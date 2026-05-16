@@ -1,4 +1,4 @@
-/* shared.js — header, footer + Supabase tracking */
+﻿/* shared.js — header, footer + Supabase tracking */
 
 const SUPABASE_URL = 'https://clutyaynlukgsumnopkf.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdXR5YXlubHVrZ3N1bW5vcGtmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NTAwMzcsImV4cCI6MjA5MDUyNjAzN30.rhWn8jZI0KegFiOrCG8aVDpNVnDhLxrSz-0R62jxja0';
@@ -90,18 +90,18 @@ window.submitMealPlan = async function() {
 const HEADER_HTML = `
 <header>
   <div class="header-inner">
-    <a href="index.html" class="logo">
+    <a href="/" class="logo">
       <div class="logo-dot"></div>
       <span>Nutrition Tracker</span>
     </a>
     <nav>
-      <a href="calculator.html">Calculators</a>
-      <a href="weight-loss.html">Weight Loss</a>
-      <a href="indian-diet.html">Indian Diet</a>
-      <a href="pcos.html">PCOS</a>
-      <a href="blog.html">Blog</a>
+      <a href="/calculator">Calculators</a>
+      <a href="/blog">Weight Loss</a>
+      <a href="/blog">Indian Diet</a>
+      <a href="/blog">PCOS</a>
+      <a href="/blog">Blog</a>
     </nav>
-    <a href="meal-plan.html" class="btn-cta">Get Free Meal Plan →</a>
+    <a href="/meal-plan" class="btn-cta">Get Free Meal Plan →</a>
   </div>
 </header>`;
 
@@ -110,7 +110,7 @@ const FOOTER_HTML = `
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="index.html" class="logo">
+        <a href="/" class="logo">
           <div class="logo-dot"></div>
           <span>Nutrition Tracker</span>
         </a>
@@ -120,31 +120,31 @@ const FOOTER_HTML = `
       <div class="footer-col">
         <h4>Calculators</h4>
         <ul>
-          <li><a href="calculator.html#tdee">TDEE Calculator</a></li>
-          <li><a href="calculator.html#deficit">Calorie Deficit Calculator</a></li>
-          <li><a href="calculator.html#bmi">BMI Calculator</a></li>
-          <li><a href="calculator.html#macro">Macro Calculator</a></li>
-          <li><a href="calculator.html#ideal">Ideal Weight Calculator</a></li>
-          <li><a href="calculator.html#burn">Calorie Burn Calculator</a></li>
+          <li><a href="/calculator#tdee">TDEE Calculator</a></li>
+          <li><a href="/calculator#deficit">Calorie Deficit Calculator</a></li>
+          <li><a href="/calculator#bmi">BMI Calculator</a></li>
+          <li><a href="/calculator#macro">Macro Calculator</a></li>
+          <li><a href="/calculator#ideal">Ideal Weight Calculator</a></li>
+          <li><a href="/calculator#burn">Calorie Burn Calculator</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Articles</h4>
         <ul>
-          <li><a href="weight-loss.html">Weight Loss Basics</a></li>
-          <li><a href="indian-diet.html">Indian Diet Guide</a></li>
-          <li><a href="pcos.html">PCOS &amp; Weight Loss</a></li>
-          <li><a href="blog.html">Calorie Counting Tips</a></li>
-          <li><a href="blog.html">Healthy Indian Recipes</a></li>
+          <li><a href="/blog">Weight Loss Basics</a></li>
+          <li><a href="/blog">Indian Diet Guide</a></li>
+          <li><a href="/blog">PCOS &amp; Weight Loss</a></li>
+          <li><a href="/blog">Calorie Counting Tips</a></li>
+          <li><a href="/blog">Healthy Indian Recipes</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Info</h4>
         <ul>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms-of-use.html">Terms of Use</a></li>
-          <li><a href="disclaimer.html">Disclaimer</a></li>
-          <li><a href="sitemap.html">Sitemap</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-use">Terms of Use</a></li>
+          <li><a href="/disclaimer">Disclaimer</a></li>
+          <li><a href="/sitemap">Sitemap</a></li>
         </ul>
       </div>
     </div>
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild(footerEl.firstElementChild);
 
   // Highlight active nav link
-  const path = window.location.pathname.split('/').pop() || 'index.html';
+  const path = window.location.pathname.split('/').pop() || '/';
   document.querySelectorAll('header nav a').forEach(a => {
     if (a.getAttribute('href') === path) a.style.color = 'var(--green)';
   });

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * load-partials.js — Nutrition Tracker
  * Fetches partials/nav.html and partials/footer.html and injects them
  * into #site-nav and #site-footer elements on any page.
@@ -29,7 +29,7 @@
 
   // Highlight the active nav link based on the current page filename
   function highlightActiveLink() {
-    var current = window.location.pathname.split('/').pop() || 'index.html';
+    var current = window.location.pathname.split('/').pop() || '/';
     document.querySelectorAll('#ci-nav a[href], .ci-mobile-menu a[href]').forEach(function (a) {
       var href = (a.getAttribute('href') || '').split('#')[0];
       if (href && href === current) {
