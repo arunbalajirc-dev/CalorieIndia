@@ -128,9 +128,7 @@ export default function Navbar() {
           <Link href="/blog" style={activeStyle('/blog')}>Blog</Link>
         </li>
         <li>
-          <Link href="/get-your-meal-plan" style={{ color: '#2d6a4f', fontWeight: 600, ...activeStyle('/get-your-meal-plan') }}>
-            🍱 Meal Plan
-          </Link>
+          <Link href="/about" style={activeStyle('/about')}>About Us</Link>
         </li>
       </ul>
 
@@ -168,7 +166,7 @@ export default function Navbar() {
         <Link href="/food-database" style={{ color: '#E07B39', fontWeight: 600 }} onClick={closeMobile}><span>🍽️</span> Food Database</Link>
         <Link href="/recipe-database" style={{ color: '#2d6a4f', fontWeight: 600 }} onClick={closeMobile}><span>📖</span> Recipe Database</Link>
         <Link href="/blog" onClick={closeMobile}><span>📝</span> Blog</Link>
-        <Link href="/get-your-meal-plan" style={{ color: '#2d6a4f', fontWeight: 600 }} onClick={closeMobile}><span>🍱</span> Meal Plan</Link>
+        <Link href="/about" onClick={closeMobile}><span>ℹ️</span> About Us</Link>
         <Link
           href="/get-your-meal-plan"
           style={{ marginTop: '12px', background: '#2d6a4f', color: '#fff', borderRadius: '8px', justifyContent: 'center', fontWeight: 600 }}

@@ -50,6 +50,7 @@ export default function Footer() {
             <div className="sf-col">
               <h4>Info</h4>
               <ul>
+                <li><Link href="/about">About Us</Link></li>
                 <li><Link href="/privacy-policy">Privacy Policy</Link></li>
                 <li><Link href="/terms-of-use">Terms of Use</Link></li>
                 <li><Link href="/disclaimer">Disclaimer</Link></li>
