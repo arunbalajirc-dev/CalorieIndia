@@ -1467,15 +1467,15 @@ a { text-decoration: none; color: inherit; }
 .gymp-pricing-desc { color: rgba(255,255,255,0.65); font-size: 1rem; line-height: 1.7; max-width: 420px; }
 .gymp-pricing-desc strong { color: #f5c518; }
 .gymp-pricing-circles { flex: 1; }
-.gymp-pricing-cards { display: flex; justify-content: center; gap: 40px; margin-bottom: 16px; }
+.gymp-pricing-cards { display: flex; justify-content: center; gap: 48px; margin-bottom: 16px; }
 .gymp-pricing-item { text-align: center; }
-.gymp-pricing-circle { width: 130px; height: 130px; border-radius: 50%; overflow: hidden; margin: 0 auto 12px; border: 2px solid rgba(255,255,255,0.15); }
+.gymp-pricing-circle { width: 160px; height: 160px; border-radius: 50%; overflow: hidden; margin: 0 auto 16px; border: 2px solid rgba(255,255,255,0.15); }
 .gymp-pricing-circle.logo-circle { border-color: #f5c518; box-shadow: 0 0 28px 8px rgba(245,197,24,0.3); }
 .gymp-pricing-circle img { width: 100%; height: 100%; object-fit: cover; }
-.gymp-pricing-label { font-size: 0.95rem; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
-.gymp-pricing-price { font-size: 1.25rem; font-weight: 700; color: #fff; }
-.gymp-pricing-price.highlight { color: #f5c518; font-size: 1.5rem; }
-.gymp-pricing-tagline { text-align: center; color: rgba(255,255,255,0.5); font-size: 1rem; margin-top: 16px; }
+.gymp-pricing-label { font-size: 1.05rem; color: rgba(255,255,255,0.6); margin-top: 16px; margin-bottom: 8px; }
+.gymp-pricing-price { font-size: 1.4rem; font-weight: 700; color: #fff; }
+.gymp-pricing-price.highlight { color: #f5c518; font-size: 1.75rem; }
+.gymp-pricing-tagline { text-align: center; color: rgba(255,255,255,0.5); font-size: 1.1rem; margin-top: 32px; }
 
 .gymp-pricing-row2 { text-align: center; padding: 48px 0 60px; }
 .gymp-pricing-price-line { display: flex; align-items: baseline; justify-content: center; gap: 16px; margin-bottom: 12px; }
@@ -1511,12 +1511,12 @@ a { text-decoration: none; color: inherit; }
   .gymp-pricing-row1 { flex-direction: column; gap: 36px; }
   .gymp-pricing-stats { flex-wrap: wrap; }
   .gymp-stat-col { flex: 0 0 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .gymp-pricing-cards { gap: 20px; }
-  .gymp-pricing-circle { width: 100px; height: 100px; }
-  .gymp-pricing-label { font-size: 0.82rem; }
+  .gymp-pricing-cards { gap: 24px; }
+  .gymp-pricing-circle { width: 110px; height: 110px; }
+  .gymp-pricing-label { font-size: 0.82rem; margin-top: 10px; margin-bottom: 6px; }
   .gymp-pricing-price { font-size: 1rem; }
   .gymp-pricing-price.highlight { font-size: 1.2rem; }
-  .gymp-pricing-tagline { font-size: 0.9rem; }
+  .gymp-pricing-tagline { font-size: 0.9rem; margin-top: 20px; }
 }
 
 /* ═══════════════════════════════════════
