@@ -1384,6 +1384,8 @@ a { text-decoration: none; color: inherit; }
   .gymp-hero { padding: 60px 24px 40px; min-height: auto; }
   .gymp-hero-inner { flex-direction: column; gap: 36px; }
   .gymp-hero-image { width: 100%; }
+  .gymp-hero-text { text-align: center; }
+  .gymp-hero-text p { margin-left: auto; margin-right: auto; }
 }
 
 .gymp-included { position: relative; z-index: 20; padding: 80px 40px; }
@@ -1510,9 +1512,11 @@ a { text-decoration: none; color: inherit; }
 @media(max-width:768px) {
   .gymp-pricing { padding: 48px 24px 0; }
   .gymp-pricing-row1 { flex-direction: column; gap: 36px; }
+  .gymp-pricing-headline { text-align: center; }
+  .gymp-pricing-desc { max-width: 100%; }
   .gymp-pricing-stats { flex-wrap: wrap; }
   .gymp-stat-col { flex: 0 0 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .gymp-pricing-cards { gap: 24px; }
+  .gymp-pricing-cards { gap: 24px; justify-content: center; }
   .gymp-pricing-circle { width: 110px; height: 110px; }
   .gymp-pricing-label { font-size: 0.82rem; margin-top: 10px; margin-bottom: 6px; }
   .gymp-pricing-price { font-size: 1rem; }

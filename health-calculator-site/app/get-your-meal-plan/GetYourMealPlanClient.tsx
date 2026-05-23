@@ -56,7 +56,7 @@ const PRICING_ITEMS = [
   { img: '/images/nutrition-tracker-logo.png', label: 'Your Plan', price: '₹249', highlight: true },
 ];
 
-const TRUST_ITEMS = ['🔒 Razorpay Secure', '⚡ Instant Delivery', '❤️ Built for Indian Bodies', '📄 IFCT 2017 Data'];
+const TRUST_ITEMS = ['🔒 Razorpay Secure', '⚡ Instant Delivery', '❤️ Built for Indian Bodies', '📄 IFCT 2026 Data'];
 
 const STATS = [
   { num: '150', label: 'Indian Meals' },
