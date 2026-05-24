@@ -3,11 +3,12 @@ import BmiCalculatorClient from './BmiCalculatorClient';
 import { bmiFaqs } from '@/lib/calculator-faqs';
 
 export const metadata: Metadata = {
-  title: 'BMI Calculator for Indians — Asian BMI Standards',
-  description: 'Check your BMI using Asian-specific cutoffs. Indian BMI standards are different from Western charts — find your healthy weight range.',
+  title: 'BMI Calculator for Indians (Asian BMI Ranges) | Nutrition Tracker',
+  description: 'Get your BMI using Asian-specific healthy weight ranges. Standard Western BMI charts don\'t apply to Indian bodies. Free, instant, no signup.',
+  alternates: { canonical: 'https://nutritiontracker.in/bmi-calculator' },
   openGraph: {
-    title: 'BMI Calculator for Indians — Asian BMI Standards',
-    description: 'Check your BMI using Asian-specific cutoffs. Indian BMI standards are different from Western charts — find your healthy weight range.',
+    title: 'BMI Calculator for Indians (Asian BMI Ranges) | Nutrition Tracker',
+    description: 'Get your BMI using Asian-specific healthy weight ranges. Standard Western BMI charts don\'t apply to Indian bodies. Free, instant, no signup.',
     url: 'https://nutritiontracker.in/bmi-calculator',
     siteName: 'NutritionTracker.in',
     images: [
@@ -23,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BMI Calculator for Indians — Asian BMI Standards',
-    description: 'Check your BMI using Asian-specific cutoffs. Indian BMI standards are different from Western charts — find your healthy weight range.',
+    title: 'BMI Calculator for Indians (Asian BMI Ranges) | Nutrition Tracker',
+    description: 'Get your BMI using Asian-specific healthy weight ranges. Standard Western BMI charts don\'t apply to Indian bodies. Free, instant, no signup.',
     images: ['https://nutritiontracker.in/images/Home%20page%20section%201.png'],
   },
 };

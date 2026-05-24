@@ -3,11 +3,12 @@ import CalorieBurnClient from './CalorieBurnClient';
 import { burnFaqs } from '@/lib/calculator-faqs';
 
 export const metadata: Metadata = {
-  title: 'Calorie Burn Calculator India – Calories Burned by Exercise & Activity',
-  description: 'Calculate how many calories you burn during exercise. Walking, running, cricket, Zumba, HIIT and more. Free calorie burn calculator for Indians with MET-based formula.',
+  title: 'Calorie Burn Calculator — Exercise & Activity | Nutrition Tracker',
+  description: 'Calculate calories burned by walking, running, gym workouts, and Indian household activities. Free calculator with India-relevant activity data.',
+  alternates: { canonical: 'https://nutritiontracker.in/calorie-burn-calculator' },
   openGraph: {
-    title: 'Calorie Burn Calculator India — Calories Burned by Exercise & Activity',
-    description: 'Calculate how many calories you burn during exercise. Walking, running, cricket, Zumba, HIIT and more. Free calorie burn calculator for Indians.',
+    title: 'Calorie Burn Calculator — Exercise & Activity | Nutrition Tracker',
+    description: 'Calculate calories burned by walking, running, gym workouts, and Indian household activities. Free calculator with India-relevant activity data.',
     url: 'https://nutritiontracker.in/calorie-burn-calculator',
     siteName: 'NutritionTracker.in',
     images: [
@@ -23,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Calorie Burn Calculator India — Calories Burned by Exercise & Activity',
-    description: 'Calculate how many calories you burn during exercise. Walking, running, cricket, Zumba, HIIT and more. Free calorie burn calculator for Indians.',
+    title: 'Calorie Burn Calculator — Exercise & Activity | Nutrition Tracker',
+    description: 'Calculate calories burned by walking, running, gym workouts, and Indian household activities. Free calculator with India-relevant activity data.',
     images: ['https://nutritiontracker.in/images/Home%20page%20section%201.png'],
   },
 };

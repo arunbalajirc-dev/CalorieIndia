@@ -3,11 +3,12 @@ import IdealWeightClient from './IdealWeightClient';
 import { idealWeightFaqs } from '@/lib/calculator-faqs';
 
 export const metadata: Metadata = {
-  title: 'Ideal Weight Calculator India – Healthy Weight Range for Indians',
-  description: 'Find your ideal body weight using Asian and Indian-specific height-weight standards. Free ideal weight calculator with healthy weight range for men and women in India.',
+  title: 'Ideal Weight Calculator for Indians (Asian Standards) | Nutrition Tracker',
+  description: 'Find your healthy weight range for your height using Asian-specific standards. Free calculator built for Indian body composition.',
+  alternates: { canonical: 'https://nutritiontracker.in/ideal-weight-calculator' },
   openGraph: {
-    title: 'Ideal Weight Calculator India — Healthy Weight Range for Indians',
-    description: 'Find your ideal body weight using Asian and Indian-specific height-weight standards. Free ideal weight calculator with healthy weight range for men and women.',
+    title: 'Ideal Weight Calculator for Indians (Asian Standards) | Nutrition Tracker',
+    description: 'Find your healthy weight range for your height using Asian-specific standards. Free calculator built for Indian body composition.',
     url: 'https://nutritiontracker.in/ideal-weight-calculator',
     siteName: 'NutritionTracker.in',
     images: [
@@ -23,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ideal Weight Calculator India — Healthy Weight Range for Indians',
-    description: 'Find your ideal body weight using Asian and Indian-specific height-weight standards. Free ideal weight calculator with healthy weight range for men and women.',
+    title: 'Ideal Weight Calculator for Indians (Asian Standards) | Nutrition Tracker',
+    description: 'Find your healthy weight range for your height using Asian-specific standards. Free calculator built for Indian body composition.',
     images: ['https://nutritiontracker.in/images/Home%20page%20section%201.png'],
   },
 };

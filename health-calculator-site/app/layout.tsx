@@ -3,23 +3,13 @@ import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 
+// Minimal root layout metadata — no title/description here so they cannot
+// leak to child routes. Each page (including the homepage) owns its own values.
 export const metadata: Metadata = {
+  metadataBase: new URL('https://nutritiontracker.in'),
   icons: {
     icon: '/images/Nutrition tracker logo (256 x 256 px).png',
     apple: '/images/Nutrition tracker logo (256 x 256 px).png',
-  },
-  title: 'Nutrition Tracker — Personalized Indian Diet Plans',
-  description: 'Get your personalized Indian meal plan based on your TDEE, BMI and health goals. Instant PDF download.',
-  metadataBase: new URL('https://nutritiontracker.in'),
-  openGraph: {
-    title: 'Nutrition Tracker — Personalized Indian Diet Plans',
-    description: 'Get your personalized Indian meal plan based on your TDEE, BMI and health goals. Instant PDF download.',
-    url: 'https://nutritiontracker.in',
-    siteName: 'NutritionTracker.in',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
   },
 };
 

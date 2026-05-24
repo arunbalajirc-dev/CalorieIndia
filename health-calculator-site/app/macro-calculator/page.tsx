@@ -3,11 +3,12 @@ import MacroCalculatorClient from './MacroCalculatorClient';
 import { macroFaqs } from '@/lib/calculator-faqs';
 
 export const metadata: Metadata = {
-  title: 'Macro Calculator India – Protein, Carbs & Fat for Indian Diet',
-  description: 'Calculate your macros (protein, carbs, fat) for weight loss, muscle gain, or maintenance. Tailored for Indian vegetarian and non-vegetarian diets. Free macro calculator.',
+  title: 'Macro Calculator for Indian Diets — Protein, Carbs, Fat | Nutrition Tracker',
+  description: 'Calculate your daily protein, carbs, and fat targets. Optimized for Indian vegetarian and non-vegetarian diets. Free, no signup.',
+  alternates: { canonical: 'https://nutritiontracker.in/macro-calculator' },
   openGraph: {
-    title: 'Macro Calculator India — Protein, Carbs & Fat for Indian Diet',
-    description: 'Calculate your macros (protein, carbs, fat) for weight loss, muscle gain, or maintenance. Tailored for Indian vegetarian and non-vegetarian diets.',
+    title: 'Macro Calculator for Indian Diets — Protein, Carbs, Fat | Nutrition Tracker',
+    description: 'Calculate your daily protein, carbs, and fat targets. Optimized for Indian vegetarian and non-vegetarian diets. Free, no signup.',
     url: 'https://nutritiontracker.in/macro-calculator',
     siteName: 'NutritionTracker.in',
     images: [
@@ -23,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Macro Calculator India — Protein, Carbs & Fat for Indian Diet',
-    description: 'Calculate your macros (protein, carbs, fat) for weight loss, muscle gain, or maintenance. Tailored for Indian vegetarian and non-vegetarian diets.',
+    title: 'Macro Calculator for Indian Diets — Protein, Carbs, Fat | Nutrition Tracker',
+    description: 'Calculate your daily protein, carbs, and fat targets. Optimized for Indian vegetarian and non-vegetarian diets. Free, no signup.',
     images: ['https://nutritiontracker.in/images/Home%20page%20section%201.png'],
   },
 };

@@ -3,11 +3,12 @@ import TdeeCalculatorClient from './TdeeCalculatorClient';
 import { tdeeFaqs } from '@/lib/calculator-faqs';
 
 export const metadata: Metadata = {
-  title: 'TDEE Calculator for Indians — Find Your Daily Calorie Needs',
-  description: 'Calculate your Total Daily Energy Expenditure using India-specific activity levels. Free TDEE calculator built for Indian bodies.',
+  title: 'TDEE Calculator for Indians — Free, No Signup | Nutrition Tracker',
+  description: 'Calculate your Total Daily Energy Expenditure using India-specific activity levels. Free TDEE calculator with the Mifflin-St Jeor formula. Built for Indian bodies.',
+  alternates: { canonical: 'https://nutritiontracker.in/tdee-calculator' },
   openGraph: {
-    title: 'TDEE Calculator for Indians — Find Your Daily Calorie Needs',
-    description: 'Calculate your Total Daily Energy Expenditure using India-specific activity levels. Free TDEE calculator built for Indian bodies.',
+    title: 'TDEE Calculator for Indians — Free, No Signup | Nutrition Tracker',
+    description: 'Calculate your Total Daily Energy Expenditure using India-specific activity levels. Free TDEE calculator with the Mifflin-St Jeor formula. Built for Indian bodies.',
     url: 'https://nutritiontracker.in/tdee-calculator',
     siteName: 'NutritionTracker.in',
     images: [
@@ -23,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TDEE Calculator for Indians — Find Your Daily Calorie Needs',
-    description: 'Calculate your Total Daily Energy Expenditure using India-specific activity levels. Free TDEE calculator built for Indian bodies.',
+    title: 'TDEE Calculator for Indians — Free, No Signup | Nutrition Tracker',
+    description: 'Calculate your Total Daily Energy Expenditure using India-specific activity levels. Free TDEE calculator with the Mifflin-St Jeor formula. Built for Indian bodies.',
     images: ['https://nutritiontracker.in/images/Home%20page%20section%201.png'],
   },
 };

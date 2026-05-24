@@ -3,11 +3,12 @@ import CalorieDeficitClient from './CalorieDeficitClient';
 import { deficitFaqs } from '@/lib/calculator-faqs';
 
 export const metadata: Metadata = {
-  title: 'Calorie Deficit Calculator India – How Many Calories to Eat for Weight Loss',
-  description: 'Calculate your exact calorie deficit for weight loss. Find how many calories you should eat per day to lose 0.5kg or 1kg per week safely. Free calorie deficit calculator for Indians.',
+  title: 'Calorie Deficit Calculator for Weight Loss | Nutrition Tracker',
+  description: 'Find your exact daily calorie target for sustainable weight loss. Built for Indian lifestyles. Free calculator with safe deficit ranges.',
+  alternates: { canonical: 'https://nutritiontracker.in/calorie-deficit-calculator' },
   openGraph: {
-    title: 'Calorie Deficit Calculator India — How Many Calories to Eat for Weight Loss',
-    description: 'Calculate your exact calorie deficit for weight loss. Find how many calories you should eat per day to lose 0.5kg or 1kg per week safely.',
+    title: 'Calorie Deficit Calculator for Weight Loss | Nutrition Tracker',
+    description: 'Find your exact daily calorie target for sustainable weight loss. Built for Indian lifestyles. Free calculator with safe deficit ranges.',
     url: 'https://nutritiontracker.in/calorie-deficit-calculator',
     siteName: 'NutritionTracker.in',
     images: [
@@ -23,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Calorie Deficit Calculator India — How Many Calories to Eat for Weight Loss',
-    description: 'Calculate your exact calorie deficit for weight loss. Find how many calories you should eat per day to lose 0.5kg or 1kg per week safely.',
+    title: 'Calorie Deficit Calculator for Weight Loss | Nutrition Tracker',
+    description: 'Find your exact daily calorie target for sustainable weight loss. Built for Indian lifestyles. Free calculator with safe deficit ranges.',
     images: ['https://nutritiontracker.in/images/Home%20page%20section%201.png'],
   },
 };
