@@ -14,7 +14,7 @@ export default function Footer() {
               </Link>
               <p>India&apos;s most practical weight loss resource. Science-backed nutrition for Indian bodies.</p>
               <div className="sf-brand-email">
-                📧 <a href="mailto:support@nutritiontracker.in">support@nutritiontracker.in</a>
+                📧 <a href="mailto:nutritiontracker.in@gmail.com">nutritiontracker.in@gmail.com</a>
               </div>
               <div className="sf-brand-email">
                 🌐 <a href="https://nutritiontracker.in">nutritiontracker.in</a>
