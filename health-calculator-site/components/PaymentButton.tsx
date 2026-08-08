@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Script from 'next/script';
 import { useRouter } from 'next/navigation';
+import { createBrowserClient } from '@/lib/supabase';
 
 declare global {
   interface Window {
@@ -36,24 +37,45 @@ interface RazorpayResponse {
 interface PaymentButtonProps {
   amount: number;
   planData: Record<string, unknown>;
-  userEmail?: string;
+  userEmail: string;
+  goal?: string;
   label?: string;
 }
 
-export default function PaymentButton({ amount, planData, userEmail, label = 'Get My Meal Plan — ₹249' }: PaymentButtonProps) {
+export default function PaymentButton({ amount, planData, userEmail, goal = 'lose', label = 'Get My Meal Plan — ₹249' }: PaymentButtonProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  async function ensurePlanId(): Promise<string> {
+    if (typeof planData.user_plan_id === 'string' && planData.user_plan_id) {
+      return planData.user_plan_id;
+    }
+    if (!userEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail)) {
+      throw new Error('A valid email is required to generate your meal plan.');
+    }
+    const supabase = createBrowserClient();
+    const { data, error: insertError } = await supabase
+      .from('user_plans')
+      .insert({ email: userEmail, goal, intake_data: planData, status: 'draft' })
+      .select('id')
+      .single();
+    if (insertError || !data) {
+      throw new Error('Failed to save your details. Please try again.');
+    }
+    return data.id as string;
+  }
 
   async function handleClick() {
     setLoading(true);
     setError(null);
 
     try {
+      const planId = await ensurePlanId();
       const orderRes = await fetch('/api/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount, receipt: `receipt_${Date.now()}`, user_plan_id: planData.user_plan_id }),
+        body: JSON.stringify({ amount, receipt: `receipt_${Date.now()}`, user_plan_id: planId }),
       });
 
       if (!orderRes.ok) {

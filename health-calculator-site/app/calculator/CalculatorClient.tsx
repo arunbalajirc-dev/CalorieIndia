@@ -28,6 +28,12 @@ export default function CalculatorClient() {
   const [tdeeWeight, setTdeeWeight] = useState('72');
   const [tdeeHeight, setTdeeHeight] = useState('168');
   const [tdeeActivity, setTdeeActivity] = useState('1.375');
+  const [tdeeEmail, setTdeeEmail] = useState('');
+
+  const ACTIVITY_KEY_BY_MULTIPLIER: Record<string, string> = {
+    '1.2': 'sedentary', '1.375': 'lightly_active', '1.55': 'moderately_active',
+    '1.725': 'very_active', '1.9': 'extra_active',
+  };
 
   function calcTDEE() {
     const age = +tdeeAge, g = tdeeGender, w = +tdeeWeight, h = +tdeeHeight, act = +tdeeActivity;
@@ -175,9 +181,34 @@ export default function CalculatorClient() {
                   <p style={{ fontSize: '13px', color: 'var(--muted)', marginBottom: '12px' }}>
                     Get your personalised 7-day Indian meal plan based on these numbers.
                   </p>
+                  <div className="form-group">
+                    <label className="form-label">Email (for your plan) *</label>
+                    <input
+                      className="form-input"
+                      type="email"
+                      value={tdeeEmail}
+                      onChange={(e) => setTdeeEmail(e.target.value)}
+                      placeholder="you@example.com"
+                    />
+                  </div>
                   <PaymentButton
                     amount={249}
-                    planData={{ tdee: r.tdee, age: tdeeAge, gender: tdeeGender, weight: tdeeWeight, height: tdeeHeight, activity: tdeeActivity }}
+                    userEmail={tdeeEmail}
+                    goal="lose"
+                    planData={{
+                      age: +tdeeAge,
+                      gender: tdeeGender === 'm' ? 'male' : 'female',
+                      weight_kg: +tdeeWeight,
+                      height_cm: +tdeeHeight,
+                      activity_level: ACTIVITY_KEY_BY_MULTIPLIER[tdeeActivity] ?? 'lightly_active',
+                      tdee: Number(r.tdee.val.split(' ')[0]),
+                      bmi: +(+tdeeWeight / ((+tdeeHeight / 100) ** 2)).toFixed(1),
+                      diet_type: 'veg',
+                      allergens: [],
+                      is_vegetarian: true,
+                      is_vegan: false,
+                      cuisine: ['indian'],
+                    }}
                     label={'Get My Meal Plan — ₹249 →'}
                   />
                 </div>
