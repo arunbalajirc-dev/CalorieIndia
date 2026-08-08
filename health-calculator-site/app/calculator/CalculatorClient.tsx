@@ -22,7 +22,7 @@ const EMPTY: CalcResults = {
 export default function CalculatorClient() {
   const [r, setR] = useState<CalcResults>(EMPTY);
 
-  // â"€â"€ TDEE â"€â"€
+  // ── TDEE ──
   const [tdeeAge, setTdeeAge] = useState('28');
   const [tdeeGender, setTdeeGender] = useState('m');
   const [tdeeWeight, setTdeeWeight] = useState('72');
@@ -44,7 +44,7 @@ export default function CalculatorClient() {
     trackCalc('tdee', { age, gender: g, weight: w, height: h, activity: act }, res.val, { bmr: res.bmr, lose: res.lose, gain: res.gain });
   }
 
-  // â"€â"€ BMI â"€â"€
+  // ── BMI ──
   const [bmiWeight, setBmiWeight] = useState('72');
   const [bmiHeight, setBmiHeight] = useState('168');
 
@@ -60,7 +60,7 @@ export default function CalculatorClient() {
     trackCalc('bmi', { weight: w, height: h * 100 }, 'BMI ' + bmi, { category: cat });
   }
 
-  // â"€â"€ Deficit â"€â"€
+  // ── Deficit ──
   const [defTdee, setDefTdee] = useState('2200');
   const [defGoal, setDefGoal] = useState('500');
 
@@ -75,7 +75,7 @@ export default function CalculatorClient() {
     trackCalc('deficit', {}, target + ' cal/day', { tdee, deficit: def, weeks });
   }
 
-  // â"€â"€ Macro â"€â"€
+  // ── Macro ──
   const [macCal, setMacCal] = useState('1700');
   const [macGoal, setMacGoal] = useState('loss');
 
@@ -89,7 +89,7 @@ export default function CalculatorClient() {
     trackCalc('macro', {}, `P:${p}g C:${c}g F:${f}g`, { calories: cal, goal, protein: p, carbs: c, fat: f });
   }
 
-  // â"€â"€ Ideal Weight â"€â"€
+  // ── Ideal Weight ──
   const [iwHeight, setIwHeight] = useState('168');
   const [iwGender, setIwGender] = useState('m');
 
@@ -97,11 +97,11 @@ export default function CalculatorClient() {
     const h = +iwHeight, g = iwGender;
     const hm = h / 100;
     const low = Math.round(18.5 * hm * hm), high = Math.round(22.9 * hm * hm);
-    setR((prev) => ({ ...prev, idealWeight: { val: `${low} â€" ${high} kg` } }));
-    trackCalc('ideal_weight', { height: h, gender: g }, `${low}â€"${high} kg`, { low, high });
+    setR((prev) => ({ ...prev, idealWeight: { val: `${low} — ${high} kg` } }));
+    trackCalc('ideal_weight', { height: h, gender: g }, `${low}—${high} kg`, { low, high });
   }
 
-  // â"€â"€ Calorie Burn â"€â"€
+  // ── Calorie Burn ──
   const [cbWeight, setCbWeight] = useState('72');
   const [cbActivity, setCbActivity] = useState('3.5');
   const [cbMins, setCbMins] = useState('45');
@@ -131,7 +131,7 @@ export default function CalculatorClient() {
           {/* TDEE */}
           <div className="calc-block" id="tdee">
             <div className="calc-block-header">
-              <div className="calc-block-icon">ðŸ"¥</div>
+              <div className="calc-block-icon">🔥</div>
               <div><h2>TDEE Calculator</h2><p>Total Daily Energy Expenditure</p></div>
             </div>
             <div className="form-row">
@@ -161,13 +161,13 @@ export default function CalculatorClient() {
               <label className="form-label">Activity Level</label>
               <select className="form-select" value={tdeeActivity} onChange={(e) => setTdeeActivity(e.target.value)}>
                 <option value="1.2">Sedentary (desk job, little exercise)</option>
-                <option value="1.375">Lightly active (1â€"3 days/week)</option>
-                <option value="1.55">Moderately active (3â€"5 days/week)</option>
-                <option value="1.725">Very active (6â€"7 days/week)</option>
+                <option value="1.375">Lightly active (1–3 days/week)</option>
+                <option value="1.55">Moderately active (3–5 days/week)</option>
+                <option value="1.725">Very active (6–7 days/week)</option>
                 <option value="1.9">Super active (physical job + exercise)</option>
               </select>
             </div>
-            <button className="btn-calc" onClick={calcTDEE}>Calculate TDEE â†'</button>
+            <button className="btn-calc" onClick={calcTDEE}>Calculate TDEE →</button>
             {r.tdee && (
               <div className="cb-result-box">
                 <div className="result-main">{r.tdee.val}</div>
@@ -219,7 +219,7 @@ export default function CalculatorClient() {
           {/* BMI */}
           <div className="calc-block" id="bmi">
             <div className="calc-block-header">
-              <div className="calc-block-icon">âš–ï¸</div>
+              <div className="calc-block-icon">⚖️</div>
               <div><h2>BMI Calculator</h2><p>Asian BMI ranges included</p></div>
             </div>
             <div className="form-row">
@@ -232,13 +232,13 @@ export default function CalculatorClient() {
                 <input className="form-input" type="number" value={bmiHeight} onChange={(e) => setBmiHeight(e.target.value)} />
               </div>
             </div>
-            <button className="btn-calc" onClick={calcBMI}>Calculate BMI â†'</button>
+            <button className="btn-calc" onClick={calcBMI}>Calculate BMI →</button>
             {r.bmi && (
               <div className="cb-result-box">
                 <div className="result-main">{r.bmi.val}</div>
                 <div className="result-label">{r.bmi.cat}</div>
                 <div style={{ marginTop: '12px', fontSize: '13px', color: 'var(--muted)' }}>
-                  Asian BMI ranges: Underweight &lt;18.5 Â· Normal 18.5â€"22.9 Â· Overweight 23â€"24.9 Â· Obese â‰¥25
+                  Asian BMI ranges: Underweight &lt;18.5 · Normal 18.5–22.9 · Overweight 23–24.9 · Obese ≥25
                 </div>
               </div>
             )}
@@ -247,7 +247,7 @@ export default function CalculatorClient() {
           {/* Calorie Deficit */}
           <div className="calc-block" id="deficit">
             <div className="calc-block-header">
-              <div className="calc-block-icon">ðŸ§®</div>
+              <div className="calc-block-icon">🧮</div>
               <div><h2>Calorie Deficit Calculator</h2><p>Find your weight loss target</p></div>
             </div>
             <div className="form-group">
@@ -257,13 +257,13 @@ export default function CalculatorClient() {
             <div className="form-group">
               <label className="form-label">Weight loss goal</label>
               <select className="form-select" value={defGoal} onChange={(e) => setDefGoal(e.target.value)}>
-                <option value="250">Slow (0.25 kg/week) â€" most sustainable</option>
-                <option value="500">Moderate (0.5 kg/week) â€" recommended</option>
+                <option value="250">Slow (0.25 kg/week) — most sustainable</option>
+                <option value="500">Moderate (0.5 kg/week) — recommended</option>
                 <option value="750">Fast (0.75 kg/week)</option>
-                <option value="1000">Aggressive (1 kg/week) â€" not recommended long-term</option>
+                <option value="1000">Aggressive (1 kg/week) — not recommended long-term</option>
               </select>
             </div>
-            <button className="btn-calc" onClick={calcDeficit}>Calculate â†'</button>
+            <button className="btn-calc" onClick={calcDeficit}>Calculate →</button>
             {r.deficit && (
               <div className="cb-result-box">
                 <div className="result-main">{r.deficit.val}</div>
@@ -276,7 +276,7 @@ export default function CalculatorClient() {
           {/* Macro Calculator */}
           <div className="calc-block" id="macro">
             <div className="calc-block-header">
-              <div className="calc-block-icon">ðŸ¥—</div>
+              <div className="calc-block-icon">🥗</div>
               <div><h2>Macro Calculator</h2><p>Protein, carbs &amp; fat split</p></div>
             </div>
             <div className="form-group">
@@ -291,7 +291,7 @@ export default function CalculatorClient() {
                 <option value="gain">Muscle Gain (high protein + carbs)</option>
               </select>
             </div>
-            <button className="btn-calc" onClick={calcMacro}>Calculate Macros â†'</button>
+            <button className="btn-calc" onClick={calcMacro}>Calculate Macros →</button>
             {r.macro && (
               <div className="cb-result-box">
                 <div className="result-row">
@@ -306,7 +306,7 @@ export default function CalculatorClient() {
           {/* Ideal Weight */}
           <div className="calc-block" id="ideal">
             <div className="calc-block-header">
-              <div className="calc-block-icon">ðŸ'›</div>
+              <div className="calc-block-icon">💛</div>
               <div><h2>Ideal Weight Calculator</h2><p>Your healthy weight range</p></div>
             </div>
             <div className="form-row">
@@ -322,7 +322,7 @@ export default function CalculatorClient() {
                 </select>
               </div>
             </div>
-            <button className="btn-calc" onClick={calcIdealWeight}>Calculate â†'</button>
+            <button className="btn-calc" onClick={calcIdealWeight}>Calculate →</button>
             {r.idealWeight && (
               <div className="cb-result-box">
                 <div className="result-main">{r.idealWeight.val}</div>
@@ -334,7 +334,7 @@ export default function CalculatorClient() {
           {/* Calorie Burn */}
           <div className="calc-block" id="burn">
             <div className="calc-block-header">
-              <div className="calc-block-icon">ðŸƒ</div>
+              <div className="calc-block-icon">🏃</div>
               <div><h2>Calorie Burn Calculator</h2><p>How much does exercise burn?</p></div>
             </div>
             <div className="form-group">
@@ -360,7 +360,7 @@ export default function CalculatorClient() {
               <label className="form-label">Duration (minutes)</label>
               <input className="form-input" type="number" value={cbMins} onChange={(e) => setCbMins(e.target.value)} />
             </div>
-            <button className="btn-calc" onClick={calcBurn}>Calculate â†'</button>
+            <button className="btn-calc" onClick={calcBurn}>Calculate →</button>
             {r.burn && (
               <div className="cb-result-box">
                 <div className="result-main">{r.burn.val}</div>
