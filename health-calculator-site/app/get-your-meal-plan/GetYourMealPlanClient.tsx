@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import type { TouchEvent as ReactTouchEvent } from 'react';
 import Link from 'next/link';
 
 const FEATURES = [
@@ -72,6 +73,33 @@ const CHECKLIST = [
   'Weight loss timeline',
   'Food swaps (eat smarter, not less)',
   'Activity & calorie burn guide',
+];
+
+const REVIEWS = [
+  {
+    quote: "I've tried so many diet apps but they never accounted for my actual Indian meals. This plan had Pongal, Rasam Rice, Dal Tadka — food I actually eat. The calorie numbers were spot on and I didn't feel like I was dieting at all.",
+    result: 'Lost 4.2 kg in 6 weeks',
+    initials: 'PR', avatarBg: '#E1F5EE', avatarColor: '#0F6E56',
+    name: 'Priya Ramachandran', flag: '🇮🇳', location: 'Chennai, Tamil Nadu', tag: 'Weight Loss',
+  },
+  {
+    quote: 'For ₹249 I honestly expected something generic. What I got was a full breakdown of my BMI, TDEE, a 7-day schedule, and even an exercise burn chart. The food swaps section alone saved me from daily mistakes. Completely worth it.',
+    result: 'Down 3.8 kg in 5 weeks',
+    initials: 'AK', avatarBg: '#FAEEDA', avatarColor: '#854F0B',
+    name: 'Arjun Khanna', flag: '🇮🇳', location: 'Delhi, NCR', tag: 'Weight Loss',
+  },
+  {
+    quote: "As an Indian-American it's hard to find nutrition plans that work with my home cooking. This was the first plan that actually included meals like Dal Baati and Rajma Chawal with accurate macros. My wife and I both use it now.",
+    result: 'Lost 5.1 kg in 7 weeks',
+    initials: 'NP', avatarBg: '#EEEDFE', avatarColor: '#3C3489',
+    name: 'Neil Patel', flag: '🇺🇸', location: 'Fremont, California', tag: 'Weight Loss',
+  },
+  {
+    quote: "I've been living in the US for 8 years and every calorie app I used was built for Western food. NutritionTracker finally gave me a plan around Indian groceries I can actually find here. The 3-phase roadmap kept me motivated for months.",
+    result: 'Lost 6.3 kg in 10 weeks',
+    initials: 'SM', avatarBg: '#FAECE7', avatarColor: '#712B13',
+    name: 'Sneha Murthy', flag: '🇺🇸', location: 'Edison, New Jersey', tag: 'Weight Loss',
+  },
 ];
 
 export default function GetYourMealPlanClient() {
@@ -197,6 +225,29 @@ export default function GetYourMealPlanClient() {
 
   const feat = FEATURES[currentTab];
 
+  const [reviewIndex, setReviewIndex] = useState(0);
+  const reviewTouchStartRef = useRef(0);
+
+  function goToReview(n: number) {
+    const total = REVIEWS.length;
+    setReviewIndex(((n % total) + total) % total);
+  }
+  function nextReview() {
+    const total = REVIEWS.length;
+    setReviewIndex(prev => (prev + 1) % total);
+  }
+  function prevReview() {
+    const total = REVIEWS.length;
+    setReviewIndex(prev => (prev - 1 + total) % total);
+  }
+  function handleReviewTouchStart(e: ReactTouchEvent<HTMLDivElement>) {
+    reviewTouchStartRef.current = e.touches[0].clientX;
+  }
+  function handleReviewTouchEnd(e: ReactTouchEvent<HTMLDivElement>) {
+    const diff = reviewTouchStartRef.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) { diff > 0 ? nextReview() : prevReview(); }
+  }
+
   return (
     <>
       <canvas ref={canvasRef} style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', display: 'block' }} aria-hidden="true" />
@@ -268,6 +319,61 @@ export default function GetYourMealPlanClient() {
                   ))}
                 </ul>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="gymp-reviews">
+        <div className="gymp-reviews-inner">
+          <div className="gymp-reviews-label">What our customers say</div>
+          <h2 className="gymp-reviews-heading">Real plans. Real results.</h2>
+          <p className="gymp-reviews-sub">Customers who started their journey with the ₹249 plan.</p>
+
+          <div className="gymp-reviews-slider">
+            <div
+              className="gymp-reviews-track"
+              style={{ transform: `translateX(-${reviewIndex * 100}%)` }}
+              onTouchStart={handleReviewTouchStart}
+              onTouchEnd={handleReviewTouchEnd}
+            >
+              {REVIEWS.map((r, i) => (
+                <div className="gymp-review-card" key={i}>
+                  <div className="gymp-review-card-inner">
+                    <div className="gymp-review-stars">
+                      {[0, 1, 2, 3, 4].map(s => (
+                        <span className="gymp-review-star" key={s}>★</span>
+                      ))}
+                    </div>
+                    <p className="gymp-review-quote">&ldquo;{r.quote}&rdquo;</p>
+                    <div className="gymp-review-badge">📉 {r.result}</div>
+                    <div className="gymp-review-row">
+                      <div className="gymp-review-avatar" style={{ background: r.avatarBg, color: r.avatarColor }}>{r.initials}</div>
+                      <div>
+                        <p className="gymp-review-name">{r.name}</p>
+                        <p className="gymp-review-meta">{r.flag} {r.location} · {r.tag}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="gymp-review-controls">
+            <div className="gymp-review-dots">
+              {REVIEWS.map((_, i) => (
+                <button
+                  key={i}
+                  className={`gymp-review-dot${i === reviewIndex ? ' active' : ''}`}
+                  onClick={() => goToReview(i)}
+                  aria-label={`Review ${i + 1}`}
+                />
+              ))}
+            </div>
+            <div className="gymp-review-navbtns">
+              <button className="gymp-review-navbtn" onClick={prevReview} aria-label="Previous review">‹</button>
+              <button className="gymp-review-navbtn" onClick={nextReview} aria-label="Next review">›</button>
             </div>
           </div>
         </div>

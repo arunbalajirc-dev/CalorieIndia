@@ -1458,6 +1458,49 @@ a { text-decoration: none; color: inherit; }
   .gymp-feat-selectors { flex: none; width: 100%; }
 }
 
+.gymp-reviews { position: relative; z-index: 20; padding: 80px 40px; }
+.gymp-reviews-inner { max-width: 720px; margin: 0 auto; }
+.gymp-reviews-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
+.gymp-reviews-heading { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: #fff; text-align: center; margin: 0 0 8px; }
+.gymp-reviews-sub { font-size: 1rem; color: rgba(255,255,255,0.6); text-align: center; margin: 0 0 40px; }
+.gymp-reviews-slider { position: relative; overflow: hidden; }
+.gymp-reviews-track { display: flex; transition: transform 0.45s cubic-bezier(0.4,0,0.2,1); }
+.gymp-review-card { min-width: 100%; box-sizing: border-box; padding: 0 4px; }
+.gymp-review-card-inner {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 32px 36px;
+}
+.gymp-review-stars { display: flex; gap: 3px; margin-bottom: 18px; }
+.gymp-review-star { color: #f5c518; font-size: 1rem; }
+.gymp-review-quote { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin: 0 0 20px; font-style: italic; }
+.gymp-review-badge {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 700;
+  padding: 5px 12px; border-radius: 20px; background: rgba(61,220,132,0.12);
+  border: 1px solid rgba(61,220,132,0.3); color: #3ddc84; margin-bottom: 20px;
+}
+.gymp-review-row { display: flex; align-items: center; gap: 12px; }
+.gymp-review-avatar {
+  width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
+}
+.gymp-review-name { font-size: 0.92rem; font-weight: 700; color: #fff; margin: 0 0 2px; }
+.gymp-review-meta { font-size: 0.8rem; color: rgba(255,255,255,0.55); margin: 0; }
+.gymp-review-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
+.gymp-review-dots { display: flex; gap: 7px; }
+.gymp-review-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; padding: 0; cursor: pointer; transition: background 0.2s; }
+.gymp-review-dot.active { background: #f5c518; }
+.gymp-review-navbtns { display: flex; gap: 10px; }
+.gymp-review-navbtn {
+  width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15);
+  background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 1.1rem; line-height: 1; transition: background 0.15s, border-color 0.15s;
+}
+.gymp-review-navbtn:hover { background: rgba(245,197,24,0.1); border-color: rgba(245,197,24,0.4); }
+@media(max-width:768px) {
+  .gymp-reviews { padding: 48px 24px; }
+  .gymp-review-card-inner { padding: 24px 24px; }
+}
+
 .gymp-pricing { position: relative; z-index: 20; padding: 80px 40px 0; }
 .gymp-pricing-inner { max-width: 1140px; margin: 0 auto; }
 .gymp-pricing-row1 { display: flex; gap: 60px; align-items: flex-start; margin-bottom: 60px; }
