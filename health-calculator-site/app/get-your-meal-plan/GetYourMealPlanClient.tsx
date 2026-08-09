@@ -52,9 +52,9 @@ const FEATURES = [
 ];
 
 const PRICING_ITEMS = [
-  { img: '/images/Diet planner master page section 4 image 2.png', label: 'Mutton Biryani', price: '₹300 – 350', highlight: false },
-  { img: '/images/Diet planner master page section 4 image 1.png', label: 'Dietitian consultation', price: '₹1000+', highlight: false },
-  { img: '/images/nutrition-tracker-logo.png', label: 'Your Plan', price: '₹249', highlight: true },
+  { img: '/images/Diet planner master page section 4 image 2.png', imgWidth: 1366, imgHeight: 768, label: 'Mutton Biryani', price: '₹300 – 350', highlight: false },
+  { img: '/images/Diet planner master page section 4 image 1.png', imgWidth: 1366, imgHeight: 768, label: 'Dietitian consultation', price: '₹1000+', highlight: false },
+  { img: '/images/nutrition-tracker-logo.png', imgWidth: 300, imgHeight: 65, label: 'Your Plan', price: '₹249', highlight: true },
 ];
 
 const TRUST_ITEMS = ['🔒 Razorpay Secure', '⚡ Instant Delivery', '❤️ Built for Indian Bodies', '📄 IFCT 2026 Data'];
@@ -279,7 +279,7 @@ export default function GetYourMealPlanClient() {
             </ul>
           </div>
           <div className="gymp-included-image">
-            <img src="/images/Diet planner master page section 2 image 1.png" alt="Diet plan on phone" />
+            <img src="/images/Diet planner master page section 2 image 1.png" alt="Diet plan on phone" width={1366} height={768} />
           </div>
         </div>
       </section>
@@ -302,7 +302,7 @@ export default function GetYourMealPlanClient() {
             </div>
             <div className="gymp-feat-panel">
               <div className="gymp-feat-img-wrap">
-                <img src={feat.img} alt={feat.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: feat.imgPos }} />
+                <img src={feat.img} alt={feat.name} width={1366} height={768} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: feat.imgPos }} />
               </div>
               <div className="gymp-feat-content">
                 <div className="gymp-feat-content-title">
@@ -401,7 +401,7 @@ export default function GetYourMealPlanClient() {
                 {PRICING_ITEMS.map(item => (
                   <div key={item.label} className="gymp-pricing-item">
                     <div className={`gymp-pricing-circle${item.highlight ? ' logo-circle' : ''}`}>
-                      <img src={item.img} alt={item.label} />
+                      <img src={item.img} alt={item.label} width={item.imgWidth} height={item.imgHeight} />
                     </div>
                     <div className="gymp-pricing-label">{item.label}</div>
                     <div className={`gymp-pricing-price${item.highlight ? ' highlight' : ''}`}>{item.price}</div>

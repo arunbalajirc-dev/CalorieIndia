@@ -4,6 +4,7 @@ import GetYourMealPlanClient from './GetYourMealPlanClient';
 export const metadata: Metadata = {
   title: 'Get Your Personalized Indian Diet Plan in 5 Minutes – Nutrition Tracker',
   description: 'Calorie-accurate, macro-balanced meal plans tailored to your weight, height, and lifestyle — no guesswork. Get your personalized Indian diet plan for ₹249.',
+  alternates: { canonical: 'https://nutritiontracker.in/get-your-meal-plan' },
   openGraph: {
     title: 'Get Your Personalised Indian Meal Plan — NutritionTracker.in',
     description: 'Calorie-accurate, macro-balanced meal plans tailored to your weight, height, and lifestyle — no guesswork. Personalised Indian diet plan for ₹249.',

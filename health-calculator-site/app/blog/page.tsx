@@ -6,8 +6,33 @@ import BlogGrid from '@/components/BlogGrid';
 import { getAllPosts } from '@/lib/blog';
 
 export const metadata: Metadata = {
-  title: 'Blog — CalorieIndia',
+  title: 'Indian Diet & Weight Loss Blog | Nutrition Tracker',
   description: 'Evidence-based weight loss and nutrition guides written for Indian bodies, diets, and lifestyles.',
+  alternates: { canonical: 'https://nutritiontracker.in/blog' },
+  openGraph: {
+    title: 'Indian Diet & Weight Loss Blog | Nutrition Tracker',
+    description: 'Evidence-based weight loss and nutrition guides written for Indian bodies, diets, and lifestyles.',
+    url: 'https://nutritiontracker.in/blog',
+    siteName: 'NutritionTracker.in',
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Indian Diet & Weight Loss Blog | Nutrition Tracker',
+    description: 'Evidence-based weight loss and nutrition guides written for Indian bodies, diets, and lifestyles.',
+  },
+};
+
+const blogJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': 'https://nutritiontracker.in/blog/#blog',
+  url: 'https://nutritiontracker.in/blog',
+  name: 'Indian Diet & Weight Loss Blog',
+  description: 'Evidence-based weight loss and nutrition guides written for Indian bodies, diets, and lifestyles.',
+  isPartOf: { '@id': 'https://nutritiontracker.in/#website' },
+  publisher: { '@id': 'https://nutritiontracker.in/#organization' },
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -26,6 +51,10 @@ export default function BlogPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+      />
       <Navbar />
 
       <div className="blog-hero">

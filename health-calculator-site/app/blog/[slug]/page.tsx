@@ -54,8 +54,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(params.slug);
   if (!post) return {};
   return {
-    title: `${post.title} — CalorieIndia`,
+    title: `${post.title} — Nutrition Tracker`,
     description: post.excerpt,
+    alternates: { canonical: `https://nutritiontracker.in/blog/${params.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -89,7 +90,7 @@ export default function BlogPostPage({ params }: Props) {
         dateModified: post.date,
         author: {
           '@type': 'Organization',
-          name: 'CalorieIndia',
+          name: 'Nutrition Tracker',
           '@id': 'https://nutritiontracker.in/#organization',
         },
         publisher: { '@id': 'https://nutritiontracker.in/#organization' },
