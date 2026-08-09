@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 export const metadata: Metadata = {
   title: 'About NutritionTracker.in — Built for Indian Bodies',
   description: 'Learn why we built NutritionTracker.in — India-specific calorie counts, Asian BMI standards, and health calculators designed for Indian bodies and lifestyles.',
+  alternates: { canonical: 'https://nutritiontracker.in/about' },
   openGraph: {
     title: 'About NutritionTracker.in — Built for Indian Bodies',
     description: 'Learn why we built NutritionTracker.in — India-specific calorie counts, Asian BMI standards, and health calculators designed for Indian bodies and lifestyles.',

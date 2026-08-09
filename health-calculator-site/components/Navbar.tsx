@@ -50,6 +50,7 @@ export default function Navbar() {
           alt="Nutrition Tracker"
           width={200}
           height={56}
+          priority
           style={{ objectFit: 'contain' }}
         />
       </Link>
