@@ -2,6 +2,12 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
+import { buildOrganizationSchema, buildWebsiteSchema, serializeJsonLd } from '@/lib/schema';
+
+const sitewideJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [buildOrganizationSchema(), buildWebsiteSchema()],
+};
 
 // Minimal root layout metadata — no title/description here so they cannot
 // leak to child routes. Each page (including the homepage) owns its own values.
@@ -17,6 +23,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(sitewideJsonLd) }}
+        />
         {/* Google Analytics GA4 */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-0HNX6C7YDC"

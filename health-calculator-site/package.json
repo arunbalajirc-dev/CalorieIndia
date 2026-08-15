@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run check-meta",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check-meta": "tsx scripts/check-meta-lengths.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
@@ -23,6 +25,7 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
+    "tsx": "^4.19.0",
     "typescript": "^5.6.0"
   }
 }
