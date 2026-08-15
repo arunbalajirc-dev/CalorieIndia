@@ -7,6 +7,14 @@ import BlogProgressBar from '@/components/BlogProgressBar';
 import BlogTOC from '@/components/BlogTOC';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import { BLOG_SEO_META, BLOG_IMAGE_DIMENSIONS } from '@/lib/blog-meta';
+import {
+  SITE_URL,
+  serializeJsonLd,
+  buildBlogPostingSchema,
+  buildBreadcrumbSchema,
+  extractFaqItems,
+  buildFaqSchema,
+} from '@/lib/schema';
 
 interface Props {
   params: { slug: string };
@@ -108,39 +116,44 @@ export default function BlogPostPage({ params }: Props) {
 
   const processedContent = wrapTables(addHeadingIds(post.content ?? ''));
 
+  const seo = BLOG_SEO_META[params.slug];
+  const imageUrl = post.image ? `${SITE_URL}${post.image}` : undefined;
+  const imageDims = BLOG_IMAGE_DIMENSIONS[params.slug];
+
+  const blogPosting = buildBlogPostingSchema({
+    slug: params.slug,
+    headline: post.title,
+    description: seo?.description ?? post.excerpt,
+    imageUrl,
+    imageWidth: imageDims?.width,
+    imageHeight: imageDims?.height,
+    datePublished: post.date,
+    articleSection: CATEGORY_LABELS[post.category] ?? post.category,
+    keywords: post.tags,
+    bodyHtml: processedContent,
+  });
+
+  const breadcrumb = buildBreadcrumbSchema([
+    { name: 'Home', url: SITE_URL },
+    { name: 'Blog', url: `${SITE_URL}/blog` },
+    { name: post.title, url: `${SITE_URL}/blog/${params.slug}` },
+  ]);
+
+  // Extracted from the rendered body, not hand-copied, so the markup can
+  // never drift from the visible FAQ text. Posts with no FAQ section
+  // (5 of 11) yield an empty array and emit no FAQPage node.
+  const faqItems = extractFaqItems(processedContent);
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'Article',
-        headline: post.title,
-        url: `https://nutritiontracker.in/blog/${params.slug}`,
-        datePublished: post.date,
-        dateModified: post.date,
-        author: {
-          '@type': 'Organization',
-          name: 'Nutrition Tracker',
-          '@id': 'https://nutritiontracker.in/#organization',
-        },
-        publisher: { '@id': 'https://nutritiontracker.in/#organization' },
-        ...(post.image ? { image: `https://nutritiontracker.in${post.image}` } : {}),
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://nutritiontracker.in' },
-          { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://nutritiontracker.in/blog' },
-          { '@type': 'ListItem', position: 3, name: post.title, item: `https://nutritiontracker.in/blog/${params.slug}` },
-        ],
-      },
-    ],
-  }
+    '@graph': [blogPosting, breadcrumb, ...(faqItems.length > 0 ? [buildFaqSchema(faqItems)] : [])],
+  };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <Navbar />
       <BlogProgressBar />

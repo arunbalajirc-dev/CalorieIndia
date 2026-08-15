@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import BlogGrid from '@/components/BlogGrid';
 import { getAllPosts } from '@/lib/blog';
 import { BLOG_IMAGE_DIMENSIONS } from '@/lib/blog-meta';
+import { SITE_URL, WEBSITE_ID, ORGANIZATION_ID, serializeJsonLd } from '@/lib/schema';
 
 const BLOG_TITLE = 'Indian Diet & Weight Loss Blog | Nutrition Tracker';
 const BLOG_DESCRIPTION = 'Evidence-based weight loss and nutrition guides written for Indian bodies, diets, and lifestyles.';
@@ -46,12 +47,12 @@ export const metadata: Metadata = {
 const blogJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
-  '@id': 'https://nutritiontracker.in/blog/#blog',
-  url: 'https://nutritiontracker.in/blog',
+  '@id': `${SITE_URL}/blog/#blog`,
+  url: `${SITE_URL}/blog`,
   name: 'Indian Diet & Weight Loss Blog',
-  description: 'Evidence-based weight loss and nutrition guides written for Indian bodies, diets, and lifestyles.',
-  isPartOf: { '@id': 'https://nutritiontracker.in/#website' },
-  publisher: { '@id': 'https://nutritiontracker.in/#organization' },
+  description: BLOG_DESCRIPTION,
+  isPartOf: { '@id': WEBSITE_ID },
+  publisher: { '@id': ORGANIZATION_ID },
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -72,7 +73,7 @@ export default function BlogPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogJsonLd) }}
       />
       <Navbar />
 
