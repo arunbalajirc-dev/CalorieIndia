@@ -532,8 +532,8 @@ export default function AboutPage() {
             margin: '0 0 32px',
           }}>
             Email us at{' '}
-            <a href="mailto:hello@nutritiontracker.in" style={{ color: GREEN, textDecoration: 'none' }}>
-              hello@nutritiontracker.in
+            <a href="mailto:nutritiontracker.in@gmail.com" style={{ color: GREEN, textDecoration: 'none' }}>
+              nutritiontracker.in@gmail.com
             </a>
           </p>
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
