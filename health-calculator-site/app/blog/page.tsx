@@ -4,23 +4,42 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BlogGrid from '@/components/BlogGrid';
 import { getAllPosts } from '@/lib/blog';
+import { BLOG_IMAGE_DIMENSIONS } from '@/lib/blog-meta';
+
+const BLOG_TITLE = 'Indian Diet & Weight Loss Blog | Nutrition Tracker';
+const BLOG_DESCRIPTION = 'Evidence-based weight loss and nutrition guides written for Indian bodies, diets, and lifestyles.';
+
+const featuredPost = getAllPosts().find((p) => p.featured);
+const featuredImageUrl = featuredPost?.image ? `https://nutritiontracker.in${featuredPost.image}` : undefined;
+const featuredImageDims = featuredPost ? BLOG_IMAGE_DIMENSIONS[featuredPost.id] : undefined;
 
 export const metadata: Metadata = {
-  title: 'Indian Diet & Weight Loss Blog | Nutrition Tracker',
-  description: 'Evidence-based weight loss and nutrition guides written for Indian bodies, diets, and lifestyles.',
+  title: BLOG_TITLE,
+  description: BLOG_DESCRIPTION,
   alternates: { canonical: 'https://nutritiontracker.in/blog' },
+  robots: { index: true, follow: true, 'max-image-preview': 'large' },
   openGraph: {
-    title: 'Indian Diet & Weight Loss Blog | Nutrition Tracker',
-    description: 'Evidence-based weight loss and nutrition guides written for Indian bodies, diets, and lifestyles.',
+    title: BLOG_TITLE,
+    description: BLOG_DESCRIPTION,
     url: 'https://nutritiontracker.in/blog',
     siteName: 'NutritionTracker.in',
     locale: 'en_IN',
     type: 'website',
+    ...(featuredImageUrl && {
+      images: [
+        {
+          url: featuredImageUrl,
+          ...(featuredImageDims && { width: featuredImageDims.width, height: featuredImageDims.height }),
+          alt: BLOG_TITLE,
+        },
+      ],
+    }),
   },
   twitter: {
-    card: 'summary',
-    title: 'Indian Diet & Weight Loss Blog | Nutrition Tracker',
-    description: 'Evidence-based weight loss and nutrition guides written for Indian bodies, diets, and lifestyles.',
+    card: featuredImageUrl ? 'summary_large_image' : 'summary',
+    title: BLOG_TITLE,
+    description: BLOG_DESCRIPTION,
+    ...(featuredImageUrl && { images: [featuredImageUrl] }),
   },
 };
 

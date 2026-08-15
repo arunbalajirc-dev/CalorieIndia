@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import BlogProgressBar from '@/components/BlogProgressBar';
 import BlogTOC from '@/components/BlogTOC';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
+import { BLOG_SEO_META, BLOG_IMAGE_DIMENSIONS } from '@/lib/blog-meta';
 
 interface Props {
   params: { slug: string };
@@ -53,17 +54,45 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(params.slug);
   if (!post) return {};
+
+  const seo = BLOG_SEO_META[params.slug];
+  const title = seo?.title ?? post.title;
+  const description = seo?.description ?? post.excerpt;
+  const url = `https://nutritiontracker.in/blog/${params.slug}`;
+  const imageUrl = post.image ? `https://nutritiontracker.in${post.image}` : undefined;
+  const imageDims = BLOG_IMAGE_DIMENSIONS[params.slug];
+
   return {
-    title: `${post.title} — Nutrition Tracker`,
-    description: post.excerpt,
-    alternates: { canonical: `https://nutritiontracker.in/blog/${params.slug}` },
+    title,
+    description,
+    alternates: { canonical: url },
+    robots: { index: true, follow: true, 'max-image-preview': 'large' },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title,
+      description,
       type: 'article',
+      url,
+      siteName: 'NutritionTracker.in',
+      locale: 'en_IN',
       publishedTime: post.date,
       authors: [post.author],
+      section: CATEGORY_LABELS[post.category] ?? post.category,
       tags: post.tags,
+      ...(imageUrl && {
+        images: [
+          {
+            url: imageUrl,
+            ...(imageDims && { width: imageDims.width, height: imageDims.height }),
+            alt: post.title,
+          },
+        ],
+      }),
+    },
+    twitter: {
+      card: imageUrl ? 'summary_large_image' : 'summary',
+      title,
+      description,
+      ...(imageUrl && { images: [imageUrl] }),
     },
   };
 }
