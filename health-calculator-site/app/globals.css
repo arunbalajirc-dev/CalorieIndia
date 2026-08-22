@@ -684,6 +684,7 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
 }
 .blog-post-author { font-weight: 600; color: var(--text); }
+.blog-post-updated { font-style: italic; }
 .blog-post-role {
   background: var(--green-light);
   color: var(--green-dark);
