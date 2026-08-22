@@ -103,7 +103,7 @@ export default function BlogPage() {
                 <p>{featured.excerpt}</p>
                 <div className="blog-meta">
                   <span>{featured.author}</span>
-                  <span>{featured.date}</span>
+                  <span>{featured.dateModified ? `Updated ${featured.dateModified}` : featured.date}</span>
                   <span>📖 {featured.readTime} min read</span>
                 </div>
               </div>

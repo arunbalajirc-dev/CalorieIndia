@@ -79,6 +79,7 @@
     "author": "Kavitha Nair",
     "authorRole": "Yoga Instructor & Wellness Coach",
     "date": "2025-06-11",
+    "dateModified": "2026-08-22",
     "readTime": 3,
     "featured": false,
     "published": true
@@ -107,6 +108,7 @@
     "author": "Dr. Ananya Rao",
     "authorRole": "General Physician",
     "date": "2025-06-15",
+    "dateModified": "2026-08-22",
     "readTime": 5,
     "featured": false,
     "published": true
@@ -135,6 +137,7 @@
     "author": "Rohan Mehta",
     "authorRole": "Certified Fitness Trainer",
     "date": "2025-06-19",
+    "dateModified": "2026-08-22",
     "readTime": 5,
     "featured": false,
     "published": true

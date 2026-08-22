@@ -11,6 +11,7 @@ interface Post {
   image?: string;
   author: string;
   date: string;
+  dateModified?: string;
   readTime: number;
 }
 
@@ -71,7 +72,7 @@ export default function BlogGrid({ posts }: Props) {
                 <div className="blog-excerpt">{post.excerpt}</div>
                 <div className="blog-meta">
                   <span>{post.author}</span>
-                  <span>{post.date}</span>
+                  <span>{post.dateModified ? `Updated ${post.dateModified}` : post.date}</span>
                   <span>📖 {post.readTime} min read</span>
                 </div>
               </div>

@@ -562,7 +562,7 @@ const blogContent: Record<string, string> = {
 </div>
 
 <h2>What Surya Namaskar Actually Does</h2>
-<p>Surya Namaskar isn't just a yoga routine — it's a full-body movement sequence that can contribute meaningfully to weight loss when done consistently and correctly. The actual calorie burn depends on your body weight, pace, and intensity, but when scaled properly, it can rival traditional cardio like jogging or cycling.</p>
+<p>Each round is a fixed sequence of 12 postures — from Pranamasana through the backward and forward bends to Hasta Uttanasana — performed as one continuous flow rather than as isolated stretches. That's the mechanical reason it burns more than a typical yoga session.</p>
 <p>Surya Namaskar works because it keeps your body moving continuously. Unlike static yoga, you're constantly transitioning between movements. That keeps your heart rate up while engaging multiple muscle groups at the same time.</p>
 <p>You're not just stretching — you're:</p>
 <ul>
@@ -715,6 +715,7 @@ const blogContent: Record<string, string> = {
 <p>Common methods:</p>
 <ul>
   <li><strong>16:8 Method:</strong> Fast for 16 hours, eat within 8 hours</li>
+  <li><strong>14:10 Method:</strong> Fast for 14 hours, eat within 10 hours — a middle step between 12:12 and 16:8</li>
   <li><strong>5:2 Method:</strong> Eat normally for 5 days, restrict calories on 2 days</li>
   <li><strong>12:12 Method:</strong> Equal fasting and eating window (best for beginners)</li>
 </ul>
@@ -924,7 +925,7 @@ const blogContent: Record<string, string> = {
 </div>
 
 <h2>Why 100g? Understanding India's Protein Gap</h2>
-<p>The ICMR–NIN recommends 0.8–1.0g of protein per kg of body weight for sedentary adults and 1.2–1.6g/kg for active individuals. For a 70kg moderately active person, that means 84–112g of protein daily. Yet national surveys consistently show average Indian protein intake hovering around 47g/day.</p>
+<p>The ICMR–NIN recommends 0.8–1.0g of protein per kg of body weight for sedentary adults and 1.2–1.8g/kg for active individuals and athletes. For a 70kg moderately active person, that means 84–112g of protein daily. Yet national surveys consistently show average Indian protein intake hovering around 47g/day.</p>
 <p>The consequences are real: slower muscle recovery, higher injury risk, poor satiety, and — particularly for women — increased risk of sarcopenia after 40. The fix does not require a trip to a supplement store. It requires knowing which Indian foods are protein-dense and how to stack them.</p>
 <p><em>"The average Indian vegetarian diet gives you the spices of a five-star kitchen and the protein of a light snack. That gap is entirely fixable."</em></p>
 

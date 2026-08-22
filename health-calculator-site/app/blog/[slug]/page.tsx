@@ -83,6 +83,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'NutritionTracker.in',
       locale: 'en_IN',
       publishedTime: post.date,
+      ...(post.dateModified && { modifiedTime: post.dateModified }),
       authors: [post.author],
       section: CATEGORY_LABELS[post.category] ?? post.category,
       tags: post.tags,
@@ -128,6 +129,7 @@ export default function BlogPostPage({ params }: Props) {
     imageWidth: imageDims?.width,
     imageHeight: imageDims?.height,
     datePublished: post.date,
+    dateModified: post.dateModified,
     articleSection: CATEGORY_LABELS[post.category] ?? post.category,
     keywords: post.tags,
     bodyHtml: processedContent,
@@ -180,6 +182,7 @@ export default function BlogPostPage({ params }: Props) {
               <span className="blog-post-author">{post.author}</span>
               <span className="blog-post-role">{post.authorRole}</span>
               <span>{post.date}</span>
+              {post.dateModified && <span className="blog-post-updated">Updated {post.dateModified}</span>}
               <span>📖 {post.readTime} min read</span>
             </div>
             <p className="blog-post-excerpt">{post.excerpt}</p>

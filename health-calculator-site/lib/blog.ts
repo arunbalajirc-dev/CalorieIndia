@@ -11,6 +11,8 @@ export interface BlogPost {
   author: string;
   authorRole: string;
   date: string;
+  /** Set only when a real content edit was made after publish — never a fabricated "freshness" date. */
+  dateModified?: string;
   readTime: number;
   featured: boolean;
   published: boolean;
